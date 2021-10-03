@@ -15,15 +15,17 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     chcp 65001>nul
     cd /d %~dp0
 
+    @REM Remove files/directories.
     for /f %%i in (rmdir_del.txt) do (
-
         call :my_rmdir_del "%%i"
     )
 
+    @REM Make directories.
     for /f %%i in (mkdir.txt) do (
         call :my_mkdir "%%i"
     )
 
+    @REM Make symbolik links.
     for /f "tokens=1-3 delims=," %%i in (mklink.txt) do (
         call :my_mklink "%%i" "%%j" "%%k"
     )
