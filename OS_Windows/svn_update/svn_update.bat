@@ -24,14 +24,14 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
 
     for /f %%i in (mylist.txt) do (
         cd /d %%i
-        call :my_svn_update %%i
+        call :my_svn_update
         cd /d %cur_dir%
     )
 
     pause
 exit /b
 
-@REM :my_svn_update %path%
+@REM :my_svn_update
 :my_svn_update
     echo ****************************************
     call svn info --show-item url

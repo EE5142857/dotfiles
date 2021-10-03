@@ -18,7 +18,7 @@ Easy setup Git, VS Code and Vim for Windows.
 ### Git
 
 * .gitignore
-    * User's global gitignore
+    * User's global .gitignore
 * init_cmd.txt
     * User's commands list for initializing
 
@@ -41,12 +41,12 @@ Easy setup Git, VS Code and Vim for Windows.
 
 1. Edit the following files.
     * rmdir_del.txt
-        * Paths (files/directories) for "rmdir/del"
+        * Paths (files/directories) for rmdir/del
     * mkdir.txt
-        * Directories for "mkdir"
+        * Directories for mkdir
     * mklink.txt
-        * Paths (files/directories) for "mklink"
-1. Run create_env.bat as administrator because of "mklink"'s request.
+        * Paths (files/directories) for mklink
+1. Run create_env.bat as administrator because of mklink's request.
 
 ### git_fetch2push
 

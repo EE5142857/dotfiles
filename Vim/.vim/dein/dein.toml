@@ -26,6 +26,12 @@ repo = 'plasticboy/vim-markdown'
 repo = 'dhruvasagar/vim-table-mode'
 
 # --------------------------------------
+# Markdown
+#
+[[plugins]]
+repo = 'goerz/jupytext.vim'
+
+# --------------------------------------
 # Syntax
 #
 [[plugins]]
@@ -42,3 +48,4 @@ repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
