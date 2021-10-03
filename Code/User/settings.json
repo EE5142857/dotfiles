@@ -3,9 +3,6 @@
     // "files.trimFinalNewlines": true,
     // "files.trimTrailingWhitespace": true,
     // "git.autofetch": true,
-    // "markdown.styles": [
-    //     ".\\.vscode\\markdown_style.css"
-    // ],
 
     "[asm-collection]": {
         "files.encoding": "shiftjis"
