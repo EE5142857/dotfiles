@@ -1,0 +1,10 @@
+;destination_path,source_path
+%HOME%\.gvimrc,%~dp0\..\..\Vim\.gvimrc
+%HOME%\.vimrc,%~dp0\..\..\Vim\.vimrc
+%HOME%\vimfiles,%~dp0\..\..\Vim\.vim
+%HOME%\.vim,%~dp0\..\..\Vim\.vim
+%HOME%\.gitignore,%~dp0\..\..\Git\.gitignore
+%HOME%\markdown_style.css,%~dp0\..\..\os_common\markdown_style.css
+%APPDATA%\Code\User\settings.json,%~dp0\..\..\Code\User\settings.json
+%APPDATA%\Code\User\keybindings.json,%~dp0\..\..\Code\User\keybindings.json
+%APPDATA%\Code\User\snippets,%~dp0\..\..\Code\User\snippets

@@ -1,0 +1,62 @@
+{
+    "[asm-collection]": {
+        "files.encoding": "shiftjis"
+    },
+    "[c]": {
+        "files.encoding": "shiftjis"
+    },
+    "[markdown]": {
+        "editor.quickSuggestions": true
+    },
+    "editor.bracketPairColorization.enabled": true,
+    "editor.fontFamily": "'Ricty Diminished Discord', monospace",
+    "editor.minimap.enabled": false,
+    "editor.mouseWheelZoom": true,
+    "editor.renderWhitespace": "all",
+    "files.associations": {
+        "*.h": "c"
+    },
+
+    "asm-code-lens.includeFiles": "**/*.{asm,inc,s,a80,800,850}",
+    "cSpell.diagnosticLevel": "Hint",
+    "cSpell.enableFiletypes": ["asm-collection"],
+    "markdown.extension.list.indentationSize": "inherit",
+    "markdown.extension.print.absoluteImgPath": false,
+    "markdown.extension.tableFormatter.enabled": false,
+    "markdown.extension.toc.levels": "2..3",
+    "plantuml.exportOutDir": ".",
+    "plantuml.exportSubFolder": false,
+    "todo-tree.general.tags": [
+        "[ ]",
+        "DEBUG:",
+        "FIXME:",
+        "NOTE:",
+        "TODO:",
+        "WARNING:"
+    ],
+    "todo-tree.highlights.customHighlight": {
+        "[ ]": {
+            "background": "#FF000040",
+            "icon": "check-circle"
+        },
+        "DEBUG:": {
+            "background": "#FFC0CBFF",
+            "icon": "bug"
+        },
+        "FIXME:": {
+            "background": "#FF0000FF",
+            "icon": "bug"
+        },
+        "NOTE:": {
+            "icon": "info"
+        },
+        "TODO:": {
+            "background": "#FFFF00FF",
+            "icon": "list-unordered"
+        },
+        "WARNING:": {
+            "icon": "alert"
+        }
+    },
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)"
+}

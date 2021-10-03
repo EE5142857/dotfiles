@@ -1,0 +1,5 @@
+*.log
+local.vim
+mylist.txt
+.netrwbook
+.netrwhist

@@ -1,0 +1,13 @@
+;path
+%HOME%\_gvimrc
+%HOME%\.gvimrc
+%HOME%\_vimrc
+%HOME%\.vimrc
+%HOME%\vimfiles
+%HOME%\.vim
+%HOME%\.gitignore
+%HOME%\markdown_style.css
+%APPDATA%\Code
+
+;Initialize VSCode. It may take a long time.
+;%HOME%\.vscode

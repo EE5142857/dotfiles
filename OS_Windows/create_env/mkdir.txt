@@ -1,0 +1,2 @@
+;path
+%APPDATA%\Code\User
