@@ -3,3 +3,4 @@ local.vim
 mylist.txt
 .netrwbook
 .netrwhist
+.ipynb_checkpoints/

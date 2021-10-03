@@ -5,6 +5,6 @@
 %HOME%\.vim,%~dp0\..\..\Vim\.vim
 %HOME%\.gitignore,%~dp0\..\..\Git\.gitignore
 %HOME%\markdown_style.css,%~dp0\..\..\os_common\markdown_style.css
-%APPDATA%\Code\User\settings.json,%~dp0\..\..\Code\User\settings.json
-%APPDATA%\Code\User\keybindings.json,%~dp0\..\..\Code\User\keybindings.json
-%APPDATA%\Code\User\snippets,%~dp0\..\..\Code\User\snippets
+%HOME%\AppData\Roaming\Code\User\settings.json,%~dp0\..\..\Code\User\settings.json
+%HOME%\AppData\Roaming\Code\User\keybindings.json,%~dp0\..\..\Code\User\keybindings.json
+%HOME%\AppData\Roaming\Code\User\snippets,%~dp0\..\..\Code\User\snippets

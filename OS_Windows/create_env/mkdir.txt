@@ -1,2 +1,2 @@
 ;path
-%APPDATA%\Code\User
+%HOME%\AppData\Roaming\Code\User

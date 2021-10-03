@@ -21,9 +21,11 @@ repo = 'scrooloose/nerdtree'
 #
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
+on_ft = 'markdown'
 
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
+on_ft = 'markdown'
 
 # --------------------------------------
 # Python
@@ -33,6 +35,14 @@ repo = 'goerz/jupytext.vim'
 
 #[[plugins]]
 #repo = 'cjrh/vim-conda'
+
+#[[plugins]]
+#repo = 'jpalardy/vim-slime'
+#on_ft = 'python'
+
+#[[plugins]]
+#repo = 'hanschen/vim-ipython-cell'
+#on_ft = 'python'
 
 # --------------------------------------
 # Syntax

@@ -204,6 +204,7 @@ let g:EasyMotion_smartcase = 1
 let g:indentLine_enabled = 1
 
 " see https://github.com/goerz/jupytext.vim
+let g:jupytext_enable = 1
 let g:jupytext_fmt = 'py:percent'
 let g:jupytext_filetype_map = {'py': 'python'}
 
