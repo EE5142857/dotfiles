@@ -7,40 +7,6 @@
     //     ".\\.vscode\\markdown_style.css"
     // ],
 
-    // "notebook.lineNumbers": "on",
-    // "python.analysis.typeCheckingMode": "basic",
-    // "python.condaPath": "${env:USERPROFILE}\\anaconda3\\envs\\my_env\\Scripts",
-    // "python.defaultInterpreterPath": "${env:USERPROFILE}\\anaconda3\\envs\\my_env\\python.exe",
-    // "terminal.integrated.defaultProfile.windows": "PowerShell",
-    // "terminal.integrated.profiles.windows": {
-    //     "PowerShell": {
-    //         "source": "PowerShell",
-    //         "icon": "terminal-powershell",
-    //         "args": [
-    //             "-ExecutionPolicy",
-    //             "ByPass",
-    //             "-NoExit",
-    //             "-Command",
-    //             "${env:USERPROFILE}\\anaconda3\\shell\\condabin\\conda-hook.ps1",
-    //             "; conda activate '${env:USERPROFILE}\\anaconda3\\envs\\my_env'"
-    //         ]
-    //     },
-    //     "Command Prompt": {
-    //         "path": [
-    //             "${env:windir}\\Sysnative\\cmd.exe",
-    //             "${env:windir}\\System32\\cmd.exe"
-    //         ],
-    //         "args": [],
-    //         "icon": "terminal-cmd"
-    //     },
-    //     "Git Bash": {
-    //         "source": "Git Bash"
-    //     }
-    // },
-    // "workbench.editorAssociations": {
-    //     "*.ipynb": "jupyter-notebook"
-    // }
-
     "[asm-collection]": {
         "files.encoding": "shiftjis"
     },
