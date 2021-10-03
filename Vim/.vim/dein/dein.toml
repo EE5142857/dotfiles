@@ -26,10 +26,13 @@ repo = 'plasticboy/vim-markdown'
 repo = 'dhruvasagar/vim-table-mode'
 
 # --------------------------------------
-# Markdown
+# Python
 #
 [[plugins]]
 repo = 'goerz/jupytext.vim'
+
+#[[plugins]]
+#repo = 'cjrh/vim-conda'
 
 # --------------------------------------
 # Syntax

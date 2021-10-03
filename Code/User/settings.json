@@ -1,11 +1,53 @@
 {
+    // "files.insertFinalNewline": true,
+    // "files.trimFinalNewlines": true,
+    // "files.trimTrailingWhitespace": true,
+    // "git.autofetch": true,
+    // "markdown.styles": [
+    //     ".\\.vscode\\markdown_style.css"
+    // ],
+
+    // "notebook.lineNumbers": "on",
+    // "python.analysis.typeCheckingMode": "basic",
+    // "python.condaPath": "${env:USERPROFILE}\\anaconda3\\envs\\my_env\\Scripts",
+    // "python.defaultInterpreterPath": "${env:USERPROFILE}\\anaconda3\\envs\\my_env\\python.exe",
+    // "terminal.integrated.defaultProfile.windows": "PowerShell",
+    // "terminal.integrated.profiles.windows": {
+    //     "PowerShell": {
+    //         "source": "PowerShell",
+    //         "icon": "terminal-powershell",
+    //         "args": [
+    //             "-ExecutionPolicy",
+    //             "ByPass",
+    //             "-NoExit",
+    //             "-Command",
+    //             "${env:USERPROFILE}\\anaconda3\\shell\\condabin\\conda-hook.ps1",
+    //             "; conda activate '${env:USERPROFILE}\\anaconda3\\envs\\my_env'"
+    //         ]
+    //     },
+    //     "Command Prompt": {
+    //         "path": [
+    //             "${env:windir}\\Sysnative\\cmd.exe",
+    //             "${env:windir}\\System32\\cmd.exe"
+    //         ],
+    //         "args": [],
+    //         "icon": "terminal-cmd"
+    //     },
+    //     "Git Bash": {
+    //         "source": "Git Bash"
+    //     }
+    // },
+    // "workbench.editorAssociations": {
+    //     "*.ipynb": "jupyter-notebook"
+    // }
+
     "[asm-collection]": {
         "files.encoding": "shiftjis"
     },
     "[c]": {
         "files.encoding": "shiftjis"
     },
-    "[markdown]": {
+    "[markdown]":  {
         "editor.quickSuggestions": true
     },
     "editor.bracketPairColorization.enabled": true,
@@ -17,46 +59,6 @@
         "*.h": "c"
     },
 
-    "asm-code-lens.includeFiles": "**/*.{asm,inc,s,a80,800,850}",
     "cSpell.diagnosticLevel": "Hint",
-    "cSpell.enableFiletypes": ["asm-collection"],
-    "markdown.extension.list.indentationSize": "inherit",
-    "markdown.extension.print.absoluteImgPath": false,
-    "markdown.extension.tableFormatter.enabled": false,
-    "markdown.extension.toc.levels": "2..3",
-    "plantuml.exportOutDir": ".",
-    "plantuml.exportSubFolder": false,
-    "todo-tree.general.tags": [
-        "[ ]",
-        "DEBUG:",
-        "FIXME:",
-        "NOTE:",
-        "TODO:",
-        "WARNING:"
-    ],
-    "todo-tree.highlights.customHighlight": {
-        "[ ]": {
-            "background": "#FF000040",
-            "icon": "check-circle"
-        },
-        "DEBUG:": {
-            "background": "#FFC0CBFF",
-            "icon": "bug"
-        },
-        "FIXME:": {
-            "background": "#FF0000FF",
-            "icon": "bug"
-        },
-        "NOTE:": {
-            "icon": "info"
-        },
-        "TODO:": {
-            "background": "#FFFF00FF",
-            "icon": "list-unordered"
-        },
-        "WARNING:": {
-            "icon": "alert"
-        }
-    },
-    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)"
+    "cSpell.enableFiletypes": ["asm-collection"]
 }

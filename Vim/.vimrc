@@ -44,6 +44,8 @@ nnoremap <Space>cf :let @a = expand('%:t')<CR>
 " Function
 nnoremap <Space>oe :call OpenWithExplorer()<CR>
 nnoremap <Space>ov :call OpenWithVim()<CR>
+nnoremap f[ :call ChangeFontSize(-1)<CR>
+nnoremap f] :call ChangeFontSize(1)<CR>
 
 " Plugin
 nmap s <Plug>(easymotion-overwin-f2)
@@ -106,7 +108,7 @@ colorscheme industry
 " ------------------------------------------------------------------------------
 " Highlight
 "
-highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+highlight CursorLine cterm=bold ctermfg=NONE ctermbg=NONE
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
 
 augroup OverrideHighlight
@@ -120,18 +122,14 @@ augroup END
 " ------------------------------------------------------------------------------
 " Function
 "
-function! HelloWorld() abort
-  return 'Hello, World!'
-endfunction
-
-" Open file/folder with Explorer.
+" Open file/folder with explorer
 function! OpenWithExplorer() abort
   call feedkeys('vi]y', 'nx')
   let l:path = @0
   execute "r!explorer " . l:path
 endfunction
 
-" Open file and go to particular line number.
+" Open file and go to particular line number
 " available [local_file_path:line_number]
 function! OpenWithVim() abort
   call feedkeys("vi]y", "nx")
@@ -141,6 +139,17 @@ function! OpenWithVim() abort
   execute "vi +" . l:line . " " . l:file_path
 endfunction
 
+" Change GVim font size
+function! ChangeFontSize(diff) abort
+  let l:gui_font = &guifont
+  let l:gui_font1 = matchstr(l:gui_font, '.*:h\ze')
+  let l:gui_font_size = matchstr(l:gui_font, '.*:h\zs.*\ze:.*')
+  let l:gui_font_size_new = l:gui_font_size + a:diff
+  let l:gui_font2 = matchstr(l:gui_font, '.*\zs:.*')
+  execute "set guifont=" . l:gui_font1 . l:gui_font_size_new . l:gui_font2
+endfunction
+
+" Convert PlantUML to svg and open svg
 command! -nargs=0 PuOpen call PuOpen()
 function! PuOpen() abort
   let l:path = expand('%:p')
@@ -150,19 +159,21 @@ function! PuOpen() abort
   execute "OpenBrowser " . l:svg_path
 endfunction
 
+" Update PlantUML svg
 command! -nargs=0 PuUpdate call PuUpdate()
 function! PuUpdate() abort
   let l:path = expand('%:p')
   execute "r!java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -tsvg " . l:path
 endfunction
 
+" Save PlantUML as designated format
 command! -nargs=1 PuSave call PuSave(<f-args>)
-function! PuSave(extension) abort
+function! PuSave(format) abort
   let l:path = expand('%:p')
   let l:path_wo_ex = matchstr(l:path, '.*\ze\.')
   let l:svg_path = l:path_wo_ex . '.svg'
   execute "r!del " . l:svg_path
-  execute "r!java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -t" . a:extension . " " . l:path
+  execute "r!java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -t" . a:format . " " . l:path
 endfunction
 
 " ------------------------------------------------------------------------------
@@ -191,6 +202,10 @@ let g:EasyMotion_smartcase = 1
 
 " see https://github.com/Yggdroot/indentLine
 let g:indentLine_enabled = 1
+
+" see https://github.com/goerz/jupytext.vim
+let g:jupytext_fmt = 'py:percent'
+let g:jupytext_filetype_map = {'py': 'python'}
 
 " ******************************************************************************
 " File-type-specific settings
@@ -228,6 +243,9 @@ augroup END
 "
 "   Load settings for each location.
 "   see https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
+"
+"   local.vim
+"     lcd <sfile>:h
 "
 augroup vimrc-local
   autocmd!

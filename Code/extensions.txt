@@ -1,15 +1,5 @@
 ;code --list-extensions
-chunsen.bracket-select
-Gruntfuggly.todo-tree
-jebbs.plantuml
 maziac.asm-code-lens
-ms-python.python
-ms-python.vscode-pylance
-ms-toolsai.jupyter
-ms-toolsai.jupyter-keymap
 ms-vscode.cpptools
 shardulm94.trailing-spaces
-shuworks.vscode-table-formatter
 streetsidesoftware.code-spell-checker
-XadillaX.viml
-yzhang.markdown-all-in-one
