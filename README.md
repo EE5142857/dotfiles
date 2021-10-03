@@ -20,7 +20,7 @@ Easy setup Git, VS Code and Vim for Windows.
 * .gitignore
     * User's global gitignore
 * init_cmd.txt
-    * User's command list for initializing
+    * User's commands list for initializing
 
 ### Vim
 
