@@ -36,7 +36,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     )
 
     @REM Install VSCode extensions.
-    for /f %%i in (..\..\Code\extension.txt) do (
+    for /f %%i in (..\..\Code\extensions.txt) do (
         call :install_vscode_extension %%i
     )
 
