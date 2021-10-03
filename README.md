@@ -44,7 +44,7 @@ Easy setup Git, VS Code and Vim for Windows.
         * rmdir_del.txt
             * Paths (files/directories) for "rmdir/del"
         * mkdir.txt
-            * Directories for "mkdir" command
+            * Directories for "mkdir"
         * mklink.txt
             * Paths (files/directories) for "mklink"
 1. Run create_env.bat as administrator because of "mklink"'s request.
