@@ -40,13 +40,12 @@ Easy setup Git, VS Code and Vim for Windows.
 Easy setup Git, VS Code and Vim for Windows.
 
 1. Edit the following files.
-    * create_env
-        * rmdir_del.txt
-            * Paths (files/directories) for "rmdir/del"
-        * mkdir.txt
-            * Directories for "mkdir"
-        * mklink.txt
-            * Paths (files/directories) for "mklink"
+    * rmdir_del.txt
+        * Paths (files/directories) for "rmdir/del"
+    * mkdir.txt
+        * Directories for "mkdir"
+    * mklink.txt
+        * Paths (files/directories) for "mklink"
 1. Run create_env.bat as administrator because of "mklink"'s request.
 
 ### git_fetch2push
