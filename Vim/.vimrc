@@ -53,8 +53,6 @@ nnoremap f] :call ChangeFontSize(1)<CR>
 " see https://github.com/tyru/open-browser.vim
 " see also http://hanagurotanuki.blogspot.com/2015/03/windowsopen-browservimchrome.html
 nmap gx <Plug>(openbrowser-open)
-nmap <Leader>bs <Plug>(openbrowser-smart-search)
-vmap <Leader>bs <Plug>(openbrowser-smart-search)
 nnoremap <Space>ob :execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?')<CR>
 if has('win32') || has('win64')
   let g:openbrowser_browser_commands = [
@@ -102,6 +100,7 @@ endfunction
 " ------------------------------------------------------------------------------
 " Edit
 "
+"set autochdir
 set autoread
 set clipboard=unnamed
 set hidden
