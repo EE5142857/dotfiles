@@ -7,20 +7,20 @@ Easy setup Git, VS Code and Vim for Windows.
 ### Code
 
 * extensions.txt
-    * User's extensions list
+    * User's extension list
 * User/settings.json
     * User's global settings
 * User/keybindings.json
-    * User's global keybindings
+    * User's keybindings
 * User/snippets/*.code-snippets
-    * User's Snippets
+    * User's snippets
 
 ### Git
 
 * .gitignore
     * User's global .gitignore
 * init_cmd.txt
-    * User's commands list for initializing
+    * User's command list for initializing
 
 ### Vim
 
