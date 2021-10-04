@@ -1,6 +1,6 @@
-@REM @echo off
+@echo off
 
-set EXECUTE_COMMIT_PUSH=1
+set EXECUTE_COMMIT_PUSH = 0
 
 @REM Create mylist.txt in the same directory.
 @REM mylist.txt
@@ -22,15 +22,15 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     chcp 65001>nul
     cd /d %~dp0
     set cur_dir=%cd%
-push
+
     for /f %%i in (mylist.txt) do (
         cd /d %%i
-pause
+
         echo ****************************************
         call git config --get remote.origin.url
         call :my_git_fetch
         call :my_git_command "merge"    "Your branch is behind"
-pause
+
         if %EXECUTE_COMMIT_PUSH% equ 1 (
             call git diff
             call :my_git_command "add -A"   "Untracked files"
@@ -38,7 +38,7 @@ pause
             call :my_git_command "commit"   "Changes to be committed"
             call :my_git_command "push"     "Your branch is ahead of"
         )
-pause
+
         cd /d %cur_dir%
     )
     pause

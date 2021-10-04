@@ -1,37 +1,3 @@
 // Place your key bindings in this file to overwrite the defaults
 [
-    // Bracket Select
-    {
-        "key": "ctrl+k ctrl+l",
-        "command": "bracket-select.select",
-        "when": "textInputFocus"
-    },
-    {
-        "key": "ctrl+k ctrl+l",
-        "command": "-editor.toggleFold",
-        "when": "editorTextFocus && foldingEnabled"
-    },
-    {
-        "key": "alt+z",
-        "command": "-bracket-select.undo-select",
-        "when": "editorTextFocus"
-    },
-
-    // Terminal
-    {
-        "key": "ctrl+oem_1", // ;
-        "command": "workbench.action.terminal.sendSequence",
-        "args": {
-            "text": "explorer '${selectedText}'\n"
-        },
-        "when": "textInputFocus"
-    },
-    {
-        "key": "ctrl+oem_7", // '
-        "command": "workbench.action.terminal.sendSequence",
-        "args": {
-            "text": "code -r -g '${selectedText}'\n"
-        },
-        "when": "textInputFocus"
-    }
 ]
