@@ -47,11 +47,57 @@ nnoremap <Space>ov :call OpenWithVim()<CR>
 nnoremap f[ :call ChangeFontSize(-1)<CR>
 nnoremap f] :call ChangeFontSize(1)<CR>
 
+" ------------------------------------------------------------------------------
 " Plugin
-nmap s <Plug>(easymotion-overwin-f2)
-nnoremap <Space>nt :NERDTreeToggle<CR>
+"
+" see https://github.com/tyru/open-browser.vim
+" see also http://hanagurotanuki.blogspot.com/2015/03/windowsopen-browservimchrome.html
+nmap gx <Plug>(openbrowser-open)
+nmap <Leader>bs <Plug>(openbrowser-smart-search)
+vmap <Leader>bs <Plug>(openbrowser-smart-search)
 nnoremap <Space>ob :execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?')<CR>
+if has('win32') || has('win64')
+  let g:openbrowser_browser_commands = [
+  \   {
+  \     'name': 'chrome',
+  \     'args': ['{browser}', '{uri}']
+  \   }
+  \ ]
+endif
+
+" see https://github.com/plasticboy/vim-markdown
+let g:vim_markdown_folding_disabled = 1
+
+" see https://github.com/preservim/nerdtree
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeShowHidden = 1
+nnoremap <Space>nt :NERDTreeToggle<CR>
+
+" see https://github.com/dhruvasagar/vim-table-mode
 nnoremap <Space>tm :TableModeToggle<CR>
+
+" see https://github.com/easymotion/vim-easymotion
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+nmap s <Plug>(easymotion-overwin-f2)
+
+" see https://github.com/Yggdroot/indentLine
+let g:indentLine_enabled = 1
+
+" see https://github.com/goerz/jupytext.vim
+let g:jupytext_enable = 1
+let g:jupytext_fmt = 'py:percent'
+let g:jupytext_filetype_map = {'py': 'python'}
+
+" see https://github.com/junegunn/fzf.vim
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
 
 " ------------------------------------------------------------------------------
 " Edit
@@ -85,6 +131,7 @@ set cursorline
 set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
 set number
 set ruler
+set laststatus=2
 set showmatch
 set wildmenu wildmode=list:longest
 
@@ -175,38 +222,6 @@ function! PuSave(format) abort
   execute "r!del " . l:svg_path
   execute "r!java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -t" . a:format . " " . l:path
 endfunction
-
-" ------------------------------------------------------------------------------
-" Plugin
-"
-" see https://github.com/tyru/open-browser.vim
-" see also http://hanagurotanuki.blogspot.com/2015/03/windowsopen-browservimchrome.html
-if has('win32') || has('win64')
-  let g:openbrowser_browser_commands = [
-  \   {
-  \     'name': 'chrome',
-  \     'args': ['{browser}', '{uri}']
-  \   }
-  \ ]
-endif
-
-" see https://github.com/plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled = 1
-
-" see https://github.com/preservim/nerdtree
-let g:NERDTreeShowBookmarks = 1
-
-" see https://github.com/easymotion/vim-easymotion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-
-" see https://github.com/Yggdroot/indentLine
-let g:indentLine_enabled = 1
-
-" see https://github.com/goerz/jupytext.vim
-let g:jupytext_enable = 1
-let g:jupytext_fmt = 'py:percent'
-let g:jupytext_filetype_map = {'py': 'python'}
 
 " ******************************************************************************
 " File-type-specific settings
