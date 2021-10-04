@@ -215,7 +215,7 @@ let g:jupytext_filetype_map = {'py': 'python'}
 " ------------------------------------------------------------------------------
 " Encoding
 "
-set ambwidth=double
+set ambiwidth=double
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp
 
