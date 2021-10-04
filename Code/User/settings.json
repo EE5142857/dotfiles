@@ -3,30 +3,14 @@
     // "files.trimFinalNewlines": true,
     // "files.trimTrailingWhitespace": true,
 
-    "[asm-collection]": {
-        "files.autoGuessEncoding": false,
-        "files.encoding": "shiftjis"
-    },
-    "[c]": {
-        "files.autoGuessEncoding": false,
-        "files.encoding": "shiftjis"
-    },
     "[markdown]": {
         "editor.quickSuggestions": true
     },
-    "[plaintext]": {
-        "files.autoGuessEncoding": false,
-        "files.encoding": "shiftjis"
-    },
-    "breadcrumbs.enabled": false,
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
     "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
     "editor.renderWhitespace": "all",
-    "files.associations": {
-        "*.h": "c"
-    },
     "files.autoGuessEncoding": true,
 
     "cSpell.diagnosticLevel": "Hint",
