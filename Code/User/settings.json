@@ -2,17 +2,23 @@
     // "files.insertFinalNewline": true,
     // "files.trimFinalNewlines": true,
     // "files.trimTrailingWhitespace": true,
-    // "git.autofetch": true,
 
     "[asm-collection]": {
+        "files.autoGuessEncoding": false,
         "files.encoding": "shiftjis"
     },
     "[c]": {
+        "files.autoGuessEncoding": false,
         "files.encoding": "shiftjis"
     },
-    "[markdown]":  {
+    "[markdown]": {
         "editor.quickSuggestions": true
     },
+    "[plaintext]": {
+        "files.autoGuessEncoding": false,
+        "files.encoding": "shiftjis"
+    },
+    "breadcrumbs.enabled": false,
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
     "editor.minimap.enabled": false,
@@ -21,6 +27,7 @@
     "files.associations": {
         "*.h": "c"
     },
+    "files.autoGuessEncoding": true,
 
     "cSpell.diagnosticLevel": "Hint",
     "cSpell.enableFiletypes": ["asm-collection"]
