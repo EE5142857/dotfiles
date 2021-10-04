@@ -1,6 +1,6 @@
 @echo off
 
-set EXECUTE_COMMIT_PUSH = 0
+set EXECUTE_COMMIT_PUSH=0
 
 @REM Create mylist.txt in the same directory.
 @REM mylist.txt

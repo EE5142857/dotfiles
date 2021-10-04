@@ -1,4 +1,4 @@
-@REM @echo off
+@echo off
 
 set EXECUTE_COMMIT_PUSH=1
 
