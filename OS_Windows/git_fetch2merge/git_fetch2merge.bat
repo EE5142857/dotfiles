@@ -57,6 +57,7 @@ exit /b
     set /p hash_remote=<%filename%.log
     del /q %filename%.log>nul 2>&1
 
+    @REM NOTE: Does it work?
     if %hash_local%==%hash_remote% (
         @REM Display the differences between %hash_local% and %hash_remote%.
         call git diff %hash_local%..%hash_remote%
