@@ -17,54 +17,44 @@ syntax enable
 " ------------------------------------------------------------------------------
 " Keymap
 "
+inoremap ( ()<LEFT>
+inoremap < <><LEFT>
+inoremap [ []<LEFT>
+inoremap { {}<LEFT>
+nnoremap <silent> <Space>wr :set wrap!<CR>
 nnoremap Q <Nop>
 nnoremap j gj
 nnoremap k gk
-nnoremap <Space>wr :set wrap!<CR>
 
 " Encoding
-nnoremap <Space>es :edit ++encoding=cp932<CR>
-nnoremap <Space>eu :edit ++encoding=utf-8<CR>
+nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
+nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 
 " .vimrc
-nnoremap <Space>ed :edit ~/.vim/dein/dein.toml<CR>
-nnoremap <Space>eg :edit ~/.gvimrc<CR>
-nnoremap <Space>ev :edit ~/.vimrc<CR>
-nnoremap <Space>sv :source ~/.vimrc<CR>
+nnoremap <silent> <Space>ed :edit ~/.vim/dein/dein.toml<CR>
+nnoremap <silent> <Space>eg :edit ~/.gvimrc<CR>
+nnoremap <silent> <Space>ev :edit ~/.vimrc<CR>
+nnoremap <silent> <Space>sv :source ~/.vimrc<CR>
 
-" Copy directory
-nnoremap <Space>cd :let @a = expand('%:h')<CR>
-
-" Copy path
-nnoremap <Space>cp :let @a = expand('%:p')<CR>
-
-" Copy file name
-nnoremap <Space>cf :let @a = expand('%:t')<CR>
+" Copy directory, path, file name
+nnoremap <silent> <Space>cd :let @* = expand('%:h')<CR>
+nnoremap <silent> <Space>cp :let @* = expand('%:p')<CR>
+nnoremap <silent> <Space>cf :let @* = expand('%:t')<CR>
 
 " Function
-nnoremap <Space>oe :call OpenWithExplorer()<CR>
-nnoremap <Space>ov :call OpenWithVim()<CR>
-nnoremap f[ :call ChangeFontSize(-1)<CR>
-nnoremap f] :call ChangeFontSize(1)<CR>
+nnoremap <silent> <Space>oe :call OpenWithExplorer()<CR>
+nnoremap <silent> <Space>ov :call OpenWithVim()<CR>
+nnoremap <silent> f[ :call ChangeFontSize(-1)<CR>
+nnoremap <silent> f] :call ChangeFontSize(1)<CR>
 
 " ------------------------------------------------------------------------------
 " Plugin
 "
-" see https://github.com/tyru/open-browser.vim
-" see also http://hanagurotanuki.blogspot.com/2015/03/windowsopen-browservimchrome.html
-nmap gx <Plug>(openbrowser-open)
-nnoremap <Space>ob :execute "OpenBrowser" "file:///" . expand('%:p:gs?\\?/?')<CR>
-if has('win32') || has('win64')
-  let g:openbrowser_browser_commands = [
-  \   {
-  \     'name': 'chrome',
-  \     'args': ['{browser}', '{uri}']
-  \   }
-  \ ]
-endif
-
 " see https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 " see https://github.com/preservim/nerdtree
 let g:NERDTreeShowBookmarks = 1
@@ -87,20 +77,9 @@ let g:jupytext_enable = 1
 let g:jupytext_fmt = 'py:percent'
 let g:jupytext_filetype_map = {'py': 'python'}
 
-" see https://github.com/junegunn/fzf.vim
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
 " ------------------------------------------------------------------------------
 " Edit
 "
-"set autochdir
 set autoread
 set clipboard=unnamed
 set hidden
@@ -114,6 +93,7 @@ set nowritebackup
 "
 set ignorecase
 set incsearch
+set gdefault
 set smartcase
 set wrapscan
 
@@ -126,6 +106,7 @@ set spell
 " ------------------------------------------------------------------------------
 " View
 "
+set ambiwidth=double
 set cursorline
 set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
 set number
@@ -161,28 +142,34 @@ augroup OverrideHighlight
   autocmd!
   autocmd Syntax * :silent! call matchadd('Todo', '\(TODO\|FIXME\|DEBUG\|NOTE\|WARNING\):')
   autocmd Syntax * :silent! highlight Todo
-  autocmd Syntax * :silent! call matchadd('Error', '　\|\s\+$')
+  autocmd Syntax * :silent! call matchadd('Error', '　\|\s\+$\|\[ \]')
   autocmd Syntax * :silent! highlight Error
 augroup END
 
 " ------------------------------------------------------------------------------
 " Function
 "
-" Open file/folder with explorer
+" Avoiding the "Hit ENTER to continue" prompts
+command! -nargs=1 Silent
+\   execute 'silent !' . <q-args>
+\ | execute 'redraw!'
+
+" Open a file/directory with explorer
+" when the cursor is on [path].
 function! OpenWithExplorer() abort
   call feedkeys('vi]y', 'nx')
   let l:path = @0
-  execute "r!explorer " . l:path
+  execute "Silent explorer " . l:path
 endfunction
 
-" Open file and go to particular line number
-" available [local_file_path:line_number]
+" Open a file with Vim and go to specific line number
+" when the cursor is on [path:line_number].
 function! OpenWithVim() abort
   call feedkeys("vi]y", "nx")
   let l:file_path_with_line = @0
   let l:file_path = matchstr(l:file_path_with_line, '.*\ze:')
   let l:line = matchstr(l:file_path_with_line, '.*:\zs.*')
-  execute "vi +" . l:line . " " . l:file_path
+  execute "silent vi +" . l:line . " " . l:file_path
 endfunction
 
 " Change GVim font size
@@ -192,24 +179,7 @@ function! ChangeFontSize(diff) abort
   let l:gui_font_size = matchstr(l:gui_font, '.*:h\zs.*\ze:.*')
   let l:gui_font_size_new = l:gui_font_size + a:diff
   let l:gui_font2 = matchstr(l:gui_font, '.*\zs:.*')
-  execute "set guifont=" . l:gui_font1 . l:gui_font_size_new . l:gui_font2
-endfunction
-
-" Convert PlantUML to svg and open svg
-command! -nargs=0 PuOpen call PuOpen()
-function! PuOpen() abort
-  let l:path = expand('%:p')
-  let l:path_wo_ex = matchstr(l:path, '.*\ze\.')
-  let l:svg_path = l:path_wo_ex . '.svg'
-  execute "r!java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -tsvg " . l:path
-  execute "OpenBrowser " . l:svg_path
-endfunction
-
-" Update PlantUML svg
-command! -nargs=0 PuUpdate call PuUpdate()
-function! PuUpdate() abort
-  let l:path = expand('%:p')
-  execute "r!java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -tsvg " . l:path
+  execute "silent set guifont=" . l:gui_font1 . l:gui_font_size_new . l:gui_font2
 endfunction
 
 " Save PlantUML as designated format
@@ -217,9 +187,7 @@ command! -nargs=1 PuSave call PuSave(<f-args>)
 function! PuSave(format) abort
   let l:path = expand('%:p')
   let l:path_wo_ex = matchstr(l:path, '.*\ze\.')
-  let l:svg_path = l:path_wo_ex . '.svg'
-  execute "r!del " . l:svg_path
-  execute "r!java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -t" . a:format . " " . l:path
+  execute "Silent java -jar " . expand('~/plantuml.jar') . " -charset UTF-8 -t" . a:format . " " . l:path
 endfunction
 
 " ******************************************************************************
@@ -229,7 +197,6 @@ endfunction
 " ------------------------------------------------------------------------------
 " Encoding
 "
-set ambiwidth=double
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp
 
@@ -242,11 +209,19 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
-augroup FileTypeIndent
+
+" ftdetect
+augroup FileTypeSpecific
   autocmd!
+  "autocmd FileType markdown
+  "  \ highlight link markdownError NONE
+  "autocmd FileType markdown
+  "  \ highlight! def link markdownItalic Normal
+  autocmd BufNewFile,BufRead *.pu,*.puml
+    \ setf plantuml
   autocmd BufNewFile,BufRead *.py
     \ setlocal shiftwidth=4 softtabstop=4 tabstop=4
-  autocmd BufNewFile,BufRead .vimrc,.gvimrc,*.vim
+  autocmd BufNewFile,BufRead *.vim,.vimrc,.gvimrc
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
 

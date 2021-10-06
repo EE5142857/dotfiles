@@ -1,5 +1,3 @@
 ;code --list-extensions
-maziac.asm-code-lens
 ms-vscode.cpptools
 shardulm94.trailing-spaces
-streetsidesoftware.code-spell-checker

@@ -2,17 +2,11 @@
     // "files.insertFinalNewline": true,
     // "files.trimFinalNewlines": true,
     // "files.trimTrailingWhitespace": true,
-
-    "[markdown]": {
-        "editor.quickSuggestions": true
-    },
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
     "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
     "editor.renderWhitespace": "all",
+    "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
-
-    "cSpell.diagnosticLevel": "Hint",
-    "cSpell.enableFiletypes": ["asm-collection"]
 }
