@@ -8,33 +8,13 @@ repo = 'Yggdroot/indentLine'
 repo = 'easymotion/vim-easymotion'
 
 [[plugins]]
-repo = 'tyru/open-browser.vim'
+repo = 'Lokaltog/vim-powerline'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
-repo = 'Lokaltog/vim-powerline'
-
-[[plugins]]
-repo = 'junegunn/fzf'
-build = './install --all'
-merged = '0'
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-
-[[plugins]]
 repo = 'simeji/winresizer'
-
-# --------------------------------------
-# Git
-#
-#[[plugins]]
-#repo = 'airblade/vim-gitgutter'
-
-#[[plugins]]
-#repo = 'tpope/vim-fugitive'
 
 # --------------------------------------
 # Syntax

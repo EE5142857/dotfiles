@@ -25,7 +25,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
         call :my_mkdir "%%i"
     )
 
-    @REM Make symbolik links.
+    @REM Make symbolic links.
     for /f "tokens=1-3 delims=," %%i in (mklink.txt) do (
         call :my_mklink "%%i" "%%j" "%%k"
     )
