@@ -8,4 +8,4 @@
 %HOME%\AppData\Roaming\Code
 
 ;Initialize VSCode. It may take a long time.
-;%HOME%\.vscode
+%HOME%\.vscode
