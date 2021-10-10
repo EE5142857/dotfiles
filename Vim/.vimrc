@@ -175,8 +175,6 @@ augroup OverrideHighlight
   autocmd Syntax * :silent! highlight Error
 augroup END
 
-
-
 " ******************************************************************************
 " File-type-specific settings
 " ******************************************************************************

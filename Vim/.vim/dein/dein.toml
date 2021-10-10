@@ -19,9 +19,6 @@ repo = 'simeji/winresizer'
 # --------------------------------------
 # Theme
 #
-#[[plugins]]
-#repo = 'Lokaltog/vim-powerline'
-
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
@@ -34,7 +31,7 @@ on_ft = 'markdown'
 
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
-on_ft = 'plantuml'
+#on_ft = 'plantuml'
 
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'

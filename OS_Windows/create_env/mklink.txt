@@ -1,7 +1,5 @@
 ;destination_path,source_path
-%HOME%\.gvimrc,%~dp0\..\..\Vim\.gvimrc
 %HOME%\.vimrc,%~dp0\..\..\Vim\.vimrc
-%HOME%\vimfiles,%~dp0\..\..\Vim\.vim
 %HOME%\.vim,%~dp0\..\..\Vim\.vim
 %HOME%\.gitignore,%~dp0\..\..\Git\.gitignore
 %HOME%\markdown_style.css,%~dp0\..\..\os_common\markdown_style.css

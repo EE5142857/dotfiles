@@ -1,6 +1,4 @@
 ;path
-%HOME%\_gvimrc
-%HOME%\.gvimrc
 %HOME%\_vimrc
 %HOME%\.vimrc
 %HOME%\vimfiles
