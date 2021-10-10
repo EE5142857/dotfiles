@@ -1,7 +1,4 @@
 {
-    // "files.insertFinalNewline": true,
-    // "files.trimFinalNewlines": true,
-    // "files.trimTrailingWhitespace": true,
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
     "editor.guides.bracketPairs": true,
