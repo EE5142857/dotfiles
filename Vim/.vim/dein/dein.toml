@@ -10,8 +10,8 @@ repo = 'easymotion/vim-easymotion'
 [[plugins]]
 repo = 'Lokaltog/vim-powerline'
 
-[[plugins]]
-repo = 'scrooloose/nerdtree'
+#[[plugins]]
+#repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'simeji/winresizer'

@@ -50,9 +50,9 @@ nnoremap <silent> <Space>ov :call OpenWithVim()<CR>
 " Plugin
 "
 " see (https://github.com/preservim/nerdtree)
-let g:NERDTreeShowBookmarks = 1
-let g:NERDTreeShowHidden = 1
-nnoremap <Space>nt :NERDTreeToggle<CR>
+"let g:NERDTreeShowBookmarks = 1
+"let g:NERDTreeShowHidden = 1
+"nnoremap <Space>nt :NERDTreeToggle<CR>
 
 " see (https://github.com/easymotion/vim-easymotion)
 let g:EasyMotion_do_mapping = 0
@@ -174,6 +174,8 @@ augroup OverrideHighlight
   autocmd Syntax * :silent! call matchadd('Error', '　\|\s\+$\|\[ \]')
   autocmd Syntax * :silent! highlight Error
 augroup END
+
+
 
 " ******************************************************************************
 " File-type-specific settings
