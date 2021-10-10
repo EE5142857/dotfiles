@@ -49,10 +49,11 @@ nnoremap <silent> <Space>ov :call OpenWithVim()<CR>
 " ------------------------------------------------------------------------------
 " Plugin
 "
-" see (https://github.com/preservim/nerdtree)
-"let g:NERDTreeShowBookmarks = 1
-"let g:NERDTreeShowHidden = 1
-"nnoremap <Space>nt :NERDTreeToggle<CR>
+" see (https://github.com/Shougo/neosnippet.vim)
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " see (https://github.com/easymotion/vim-easymotion)
 let g:EasyMotion_do_mapping = 0
@@ -161,11 +162,14 @@ colorscheme industry
 "colorscheme pablo
 "colorscheme torte
 
+" see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
+set t_Co=256
+
 " ------------------------------------------------------------------------------
 " Highlight
 "
-highlight CursorLine cterm=bold ctermfg=NONE ctermbg=NONE
-highlight CursorLine gui=underline guifg=NONE guibg=NONE
+highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+highlight SpellBad cterm=underline ctermfg=red ctermbg=NONE
 
 augroup OverrideHighlight
   autocmd!

@@ -1,0 +1,103 @@
+snippet codeblock
+abbr code block
+options word
+	\`\`\`${1:#:language}
+	${2:#:code }
+	\`\`\`
+
+snippet table
+abbr table
+options word
+	| ${1} | |
+	| - | - |
+	| | |
+
+snippet aligned
+abbr aligned
+options word
+	\\begin{aligned}
+		${1}
+	\\end{aligned}
+
+snippet block
+abbr block
+options head
+	$$${1}$$
+
+snippet frac
+abbr fraction
+options word
+	\\dfrac{${1}}{}
+
+snippet int
+abbr integral
+options word
+	\\int_{${1}}^{}{}
+
+snippet lim
+abbr limit
+options word
+	\\lim_{${1} \\to }{}
+
+snippet bmatrix
+abbr matrix with brackets
+options word
+	\\begin{bmatrix}
+		${1}
+	\\end{bmatrix}
+
+snippet pmatrix
+abbr matrix with parenthesis
+options word
+	\\begin{pmatrix}
+		${1}
+	\\end{pmatrix}
+
+snippet vmatrix
+abbr matrix with vertical bars
+options word
+	\\begin{vmatrix}
+		${1}
+	\\end{vmatrix}
+
+snippet prod
+abbr product
+options word
+	\\prod_{${1}}^{}{}
+
+snippet sub
+abbr subscript
+options word
+	{${1}}_{}
+
+snippet sum
+abbr summation
+options word
+	\\sum_{${1}}^{}{}
+
+snippet sup
+abbr superscript
+options word
+	{${1}}^{}
+
+
+
+snippet braces
+abbr braces
+options word
+	\\left{${1}\\right}
+
+snippet brackets
+abbr brackets
+options word
+	\\left[${1}\\right]
+
+snippet parenthesis
+abbr parenthesis
+options word
+	\\left(${1}\\right)
+
+snippet vbars
+abbr vertical bars
+options word
+	\\left|${1}\\right|
