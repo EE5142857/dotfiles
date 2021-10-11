@@ -66,7 +66,6 @@ let g:indentLine_enabled = 1
 " see (https://github.com/simeji/winresizer)
 let g:winresizer_start_key = '<Space>w'
 
-
 " see (https://github.com/goerz/jupytext.vim)
 let g:jupytext_enable = 1
 let g:jupytext_fmt = 'py:percent'
