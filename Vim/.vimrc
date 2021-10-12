@@ -88,7 +88,8 @@ endfunction
 function! OpenWithFiler() abort
   "call feedkeys('vi[y', 'nx')
   let l:path = @*
-  execute 'Silent start ' . l:path
+  execute 'Silent explorer ' . l:path
+  "execute 'Silent start ' . l:path
 endfunction
 
 " 'path:line_number' must be yanked
