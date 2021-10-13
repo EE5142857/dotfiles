@@ -1,6 +1,8 @@
 ;destination_path,source_path
-%HOME%\.vimrc,%~dp0\..\..\Vim\.vimrc
-%HOME%\.vim,%~dp0\..\..\Vim\.vim
-%HOME%\.gitignore,%~dp0\..\..\Git\.gitignore
-%HOME%\markdown_style.css,%~dp0\..\..\OS_Common\markdown_style.css
-%HOME%\AppData\Roaming\Code\User\settings.json,%~dp0\..\..\Code\User\settings.json
+%USERPROFILE%\.vimrc,%~dp0\..\..\Vim\.vimrc
+%USERPROFILE%\.vim,%~dp0\..\..\Vim\.vim
+%USERPROFILE%\.gitignore,%~dp0\..\..\Git\.gitignore
+%USERPROFILE%\markdown_style.css,%~dp0\..\..\OS_Common\markdown_style.css
+%USERPROFILE%\AppData\Roaming\Code\User\settings.json,%~dp0\..\..\Code\User\settings.json
+%USERPROFILE%\AppData\Roaming\Code\User\keybindings.json,%~dp0\..\..\Code\User\keybindings.json
+%USERPROFILE%\AppData\Roaming\Code\User\snippets,%~dp0\..\..\Code\User\snippets

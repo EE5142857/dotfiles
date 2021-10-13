@@ -1,11 +1,11 @@
 ;path
-%HOME%\_vimrc
-%HOME%\.vimrc
-%HOME%\vimfiles
-%HOME%\.vim
-%HOME%\.gitignore
-%HOME%\markdown_style.css
-%HOME%\AppData\Roaming\Code
+%USERPROFILE%\_vimrc
+%USERPROFILE%\.vimrc
+%USERPROFILE%\vimfiles
+%USERPROFILE%\.vim
+%USERPROFILE%\.gitignore
+%USERPROFILE%\markdown_style.css
+%APPDATA%\Code
 
 ;Initialize VSCode. It may take a long time.
-%HOME%\.vscode
+%USERPROFILE%\.vscode
