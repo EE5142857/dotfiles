@@ -21,7 +21,7 @@ inoremap ( ()<LEFT>
 inoremap < <><LEFT>
 inoremap [ []<LEFT>
 inoremap { {}<LEFT>
-nnoremap <silent> <Space>wr :set wrap!<CR>
+nnoremap <silent> <Space>tw :set wrap!<CR>
 nnoremap Q <Nop>
 nnoremap j gj
 nnoremap k gk
@@ -64,7 +64,16 @@ nmap s <Plug>(easymotion-overwin-f2)
 let g:indentLine_enabled = 1
 
 " see (https://github.com/simeji/winresizer)
-let g:winresizer_start_key = '<Space>w'
+let g:winresizer_start_key = '<Space>wr'
+
+" see (https://github.com/plasticboy/vim-markdown)
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+
+" see (https://github.com/dhruvasagar/vim-table-mode)
+let g:table_mode_disable_mappings = 1
 
 " see (https://github.com/goerz/jupytext.vim)
 let g:jupytext_enable = 1
