@@ -70,6 +70,8 @@ let g:winresizer_start_key = '<Space>wr'
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
 let g:vim_markdown_conceal = 0
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
 let g:vim_markdown_conceal_code_blocks = 0
 
 " see (https://github.com/dhruvasagar/vim-table-mode)
@@ -77,8 +79,9 @@ let g:table_mode_disable_mappings = 1
 
 " see (https://github.com/goerz/jupytext.vim)
 let g:jupytext_enable = 1
-let g:jupytext_fmt = 'py:percent'
-let g:jupytext_filetype_map = {'py': 'python'}
+" let g:jupytext_fmt = 'py:percent'
+" let g:jupytext_filetype_map = {'py': 'python'}
+let g:jupytext_fmt = 'md'
 
 " ------------------------------------------------------------------------------
 " Function
