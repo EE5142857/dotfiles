@@ -64,7 +64,7 @@ nmap s <Plug>(easymotion-overwin-f2)
 let g:indentLine_enabled = 1
 
 " see (https://github.com/simeji/winresizer)
-let g:winresizer_start_key = '<Space>wr'
+" let g:winresizer_start_key = '<Space>wr'
 
 " see (https://github.com/plasticboy/vim-markdown)
 let g:vim_markdown_folding_disabled = 1
