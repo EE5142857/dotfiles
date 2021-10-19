@@ -17,14 +17,28 @@ syntax enable
 " ------------------------------------------------------------------------------
 " Keymap
 "
-inoremap ( ()<LEFT>
-inoremap < <><LEFT>
-inoremap [ []<LEFT>
-inoremap { {}<LEFT>
+" let mapleader = ","
 nnoremap <silent> <Space>tw :set wrap!<CR>
 nnoremap Q <Nop>
 nnoremap j gj
 nnoremap k gk
+
+" Closing brackets
+inoremap "<Enter> ""<LEFT>
+inoremap '<Enter> ''<LEFT>
+inoremap (<Enter> ()<LEFT>
+inoremap <<Enter> <><LEFT>
+inoremap [<Enter> []<LEFT>
+inoremap {<Enter> {}<LEFT>
+
+" Increase/decrease indent in a row
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap <C-Down> "zdd"zp
+nnoremap <C-Up> "zdd<Up>"zP
+vnoremap <C-Down> "zx"zp`[V`]
+vnoremap <C-Up> "zx<Up>"zP`[V`]
 
 " Encoding
 nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
@@ -62,9 +76,6 @@ nmap s <Plug>(easymotion-overwin-f2)
 
 " see (https://github.com/Yggdroot/indentLine)
 let g:indentLine_enabled = 1
-
-" see (https://github.com/simeji/winresizer)
-" let g:winresizer_start_key = '<Space>wr'
 
 " see (https://github.com/plasticboy/vim-markdown)
 let g:vim_markdown_folding_disabled = 1

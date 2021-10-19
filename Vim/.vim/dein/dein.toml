@@ -13,8 +13,8 @@ repo = 'Yggdroot/indentLine'
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 
-#[[plugins]]
-#repo = 'simeji/winresizer'
+[[plugins]]
+repo = 'tyru/caw.vim'
 
 # --------------------------------------
 # Theme
