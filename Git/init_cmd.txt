@@ -4,4 +4,3 @@ git config --global user.email foo@bar.com
 git config --global core.editor vim
 git config --global core.excludesfile %HOME%\.gitignore
 git config --global diff.compactionHeuristic true
-

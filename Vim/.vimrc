@@ -144,9 +144,11 @@ set nowritebackup
 " ------------------------------------------------------------------------------
 " Search & Replacement
 "
+set gdefault
+set hlsearch
 set ignorecase
 set incsearch
-set gdefault
+set shortmess-=S
 set smartcase
 set wrapscan
 
