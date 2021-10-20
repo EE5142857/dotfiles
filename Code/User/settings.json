@@ -1,8 +1,6 @@
 {
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
-    "editor.guides.bracketPairs": true,
-    "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
     "editor.renderWhitespace": "all",
     "extensions.ignoreRecommendations": true,

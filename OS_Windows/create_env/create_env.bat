@@ -16,32 +16,37 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     cd /d %~dp0
 
     @REM Remove files/directories.
-    for /f %%i in (rmdir_del.txt) do (
-        call :my_rmdir_del "%%i"
-    )
+    call :my_rmdir_del "%USERPROFILE%\_vimrc"
+    call :my_rmdir_del "%USERPROFILE%\.vimrc"
+    call :my_rmdir_del "%USERPROFILE%\vimfiles"
+    call :my_rmdir_del "%USERPROFILE%\.vim"
+    call :my_rmdir_del "%USERPROFILE%\.gitignore"
+    call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
+    call :my_rmdir_del "%APPDATA%\Code"
+    call :my_rmdir_del "%USERPROFILE%\.vscode"
 
     @REM Make directories.
-    for /f %%i in (mkdir.txt) do (
-        call :my_mkdir "%%i"
-    )
+    call :my_mkdir "%APPDATA%\Code\User"
 
     @REM Make symbolic links.
-    for /f "tokens=1-3 delims=," %%i in (mklink.txt) do (
-        call :my_mklink "%%i" "%%j" "%%k"
-    )
+    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0\..\..\Vim\.vimrc"
+    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0\..\..\Vim\.vim"
+    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0\..\..\Git\.gitignore"
+    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0\..\..\OS_Common\markdown_style.css"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0\..\..\Code\User\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0\..\..\Code\User\keybindings.json"
+    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0\..\..\Code\User\snippets"
 
     @REM Git global settings
-    for /f "delims=" %%i in (..\..\Git\init_cmd.txt) do (
-        call %%i
-    )
+    call git config --global user.name foo
+    call git config --global user.email foo@bar.com
+    call git config --global core.editor vim
+    call git config --global core.excludesfile %HOME%\.gitignore
+    call git config --global diff.compactionHeuristic true
 
     @REM Install VSCode extensions.
-    for /f %%i in (..\..\Code\extensions.txt) do (
-        call :install_vscode_extension %%i
-    )
-
-    @REM Install Vim plugins with dein.vim.
-    vim
+    @REM code --list-extensions
+    call :install_vscode_extension shardulm94.trailing-spaces
 
     echo Done.
     pause
@@ -54,9 +59,9 @@ exit /b
     setlocal enabledelayedexpansion
         @REM Check if %path% exist.
         dir "%~1">%filename%.log
-        findstr /c:"File(s)" %filename%.log>nul
+        findstr /c:"File Not Found" %filename%.log>nul
 
-        if !ERRORLEVEL! equ 0 (
+        if not !ERRORLEVEL! equ 0 (
             @REM Check if it is a file or a directory.
             findstr /r /c:"\<DIR\>[ ]*\." %filename%.log>nul
             if !ERRORLEVEL! equ 0 (

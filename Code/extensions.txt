@@ -1,2 +1,0 @@
-;code --list-extensions
-shardulm94.trailing-spaces
