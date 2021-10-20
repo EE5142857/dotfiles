@@ -22,20 +22,20 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%USERPROFILE%\.vim"
     call :my_rmdir_del "%USERPROFILE%\.gitignore"
     call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
-    call :my_rmdir_del "%APPDATA%\Code"
     call :my_rmdir_del "%USERPROFILE%\.vscode"
+    call :my_rmdir_del "%APPDATA%\Code"
 
     @REM Make directories.
-    call :my_mkdir "%APPDATA%\Code\User"
+    mkdir "%APPDATA%\Code\User"
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0\..\..\Vim\.vimrc"
-    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0\..\..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0\..\..\Git\.gitignore"
-    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0\..\..\OS_Common\markdown_style.css"
-    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0\..\..\Code\User\settings.json"
-    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0\..\..\Code\User\keybindings.json"
-    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0\..\..\Code\User\snippets"
+    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vimrc"
+    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
+    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\Git\.gitignore"
+    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\OS_Common\markdown_style.css"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\..\Code\User\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\..\Code\User\keybindings.json"
+    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\..\Code\User\snippets"
 
     @REM Git global settings
     call git config --global user.name foo
@@ -46,7 +46,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
 
     @REM Install VSCode extensions.
     @REM code --list-extensions
-    call :install_vscode_extension shardulm94.trailing-spaces
+    call :install_vscode_extension "shardulm94.trailing-spaces"
 
     echo Done.
     pause
@@ -58,28 +58,26 @@ exit /b
 
     setlocal enabledelayedexpansion
         @REM Check if %path% exist.
-        dir "%~1">%filename%.log
-        findstr /c:"File Not Found" %filename%.log>nul
+        dir "%~1">%filename%.log 2>&1
+
+        findstr /c:"File Not Found" %filename%.log>nul 2>&1
 
         if not !ERRORLEVEL! equ 0 (
             @REM Check if it is a file or a directory.
-            findstr /r /c:"\<DIR\>[ ]*\." %filename%.log>nul
+            findstr /r /c:"\<DIR\>[ ]*\." %filename%.log>nul 2>&1
             if !ERRORLEVEL! equ 0 (
                 @REM It is a directory.
                 rmdir /q /s "%~1"
             ) else (
-                @REM It is a file.
+                @REM It is a file
                 del /q "%~1"
             )
+        ) else (
+            echo Not Found
         )
 
         del /q %filename%.log>nul 2>&1
     endlocal
-exit /b
-
-@REM :my_mkdir %path%
-:my_mkdir
-    mkdir "%~1"
 exit /b
 
 @REM :my_mklink %destination_path% %source_path%
