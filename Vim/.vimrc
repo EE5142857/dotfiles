@@ -23,14 +23,6 @@ nnoremap Q <Nop>
 nnoremap j gj
 nnoremap k gk
 
-" Closing brackets
-inoremap "<Enter> ""<LEFT>
-inoremap '<Enter> ''<LEFT>
-inoremap (<Enter> ()<LEFT>
-inoremap <<Enter> <><LEFT>
-inoremap [<Enter> []<LEFT>
-inoremap {<Enter> {}<LEFT>
-
 " Increase/decrease indent in a row
 vnoremap < <gv
 vnoremap > >gv
