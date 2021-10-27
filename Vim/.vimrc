@@ -18,7 +18,10 @@ syntax enable
 " Keymap
 "
 let mapleader = ","
+
 nnoremap Q <Nop>
+nnoremap q <Nop>
+
 nnoremap j gj
 nnoremap k gk
 
@@ -101,13 +104,13 @@ command! -nargs=1 Silent
   \ execute 'redraw!'
 
 function! OpenWithChrome() abort
-  "call feedkeys('vi(y', 'nx')
+  "call feedkeys('yi(', 'nx')
   let l:path = @*
   execute 'Silent chrome ' . l:path
 endfunction
 
 function! OpenWithFiler() abort
-  "call feedkeys('vi[y', 'nx')
+  "call feedkeys('yi[', 'nx')
   let l:path = @*
   execute 'Silent start ' . '"' . l:path . '"'
 endfunction
@@ -180,27 +183,30 @@ augroup END
 " Color
 "
 colorscheme industry
-"colorscheme koehler
-"colorscheme murphy
-"colorscheme pablo
-"colorscheme torte
+" colorscheme koehler
+" colorscheme murphy
+" colorscheme pablo
+" colorscheme torte
+
+" highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+" highlight SpellBad cterm=underline ctermfg=red ctermbg=NONE
 
 " see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
 set t_Co=256
 
-" ------------------------------------------------------------------------------
-" Highlight
-"
-highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-highlight SpellBad cterm=underline ctermfg=red ctermbg=NONE
-
 augroup OverrideHighlight
   autocmd!
-  autocmd Syntax * :silent! call matchadd('Todo', '\(TODO\|FIXME\|DEBUG\|NOTE\|WARNING\):')
-  autocmd Syntax * :silent! highlight Todo
-  autocmd Syntax * :silent! call matchadd('Error', '　\|\s\+$\|\[ \]')
-  autocmd Syntax * :silent! highlight Error
+  autocmd TabEnter,WinEnter,VimEnter,ColorScheme,Syntax * call MyHighlight()
 augroup END
+
+function! MyHighlight() abort
+  silent! call matchadd('Todo', '\(TODO\|FIXME\|DEBUG\|NOTE\|WARNING\):')
+  silent! highlight Todo
+  silent! call matchadd('Error', '　\|\s\+$\|\[ \]')
+  silent! highlight Error
+  silent! highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+  silent! highlight SpellBad cterm=underline ctermfg=red ctermbg=NONE
+endfunction
 
 " ******************************************************************************
 " File-type-specific settings
@@ -236,7 +242,8 @@ set tabstop=4
 "
 augroup vimrc-local
   autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+  autocmd TabEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
+  autocmd TabEnter * pwd
 augroup END
 
 function! s:vimrc_local(loc)
