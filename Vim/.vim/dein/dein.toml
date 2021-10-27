@@ -11,10 +11,10 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'Yggdroot/indentLine'
 
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
+repo = 'tyru/caw.vim'
 
 [[plugins]]
-repo = 'tyru/caw.vim'
+repo = 'easymotion/vim-easymotion'
 
 # --------------------------------------
 # Theme
@@ -25,10 +25,6 @@ repo = 'itchyny/lightline.vim'
 # --------------------------------------
 # Syntax
 #
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
-on_ft = 'markdown'
-
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
 on_ft = 'plantuml'
@@ -41,12 +37,16 @@ on_ft = 'csv'
 # Markdown
 #
 [[plugins]]
-repo = 'dhruvasagar/vim-table-mode'
+repo = 'plasticboy/vim-markdown'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'godlygeek/tabular'
 on_ft = 'markdown'
 
 # --------------------------------------
 # Python
 #
-[[plugins]]
-repo = 'goerz/jupytext.vim'
-on_ft = 'python'
+# [[plugins]]
+# repo = 'goerz/jupytext.vim'
+# on_ft = 'python'

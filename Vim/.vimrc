@@ -17,16 +17,19 @@ syntax enable
 " ------------------------------------------------------------------------------
 " Keymap
 "
-" let mapleader = ","
-nnoremap <silent> <Space>tw :set wrap!<CR>
+let mapleader = ","
 nnoremap Q <Nop>
 nnoremap j gj
 nnoremap k gk
+
+" Toggle wrap
+nnoremap <silent> <Space>tw :set wrap!<CR>
 
 " Increase/decrease indent in a row
 vnoremap < <gv
 vnoremap > >gv
 
+" Move lines
 nnoremap <C-Down> "zdd"zp
 nnoremap <C-Up> "zdd<Up>"zP
 vnoremap <C-Down> "zx"zp`[V`]
@@ -38,7 +41,6 @@ nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 
 " .vimrc
 nnoremap <silent> <Space>ed :edit ~/.vim/dein/dein.toml<CR>
-nnoremap <silent> <Space>eg :edit ~/.gvimrc<CR>
 nnoremap <silent> <Space>ev :edit ~/.vimrc<CR>
 nnoremap <silent> <Space>sv :source ~/.vimrc<CR>
 
@@ -52,39 +54,43 @@ nnoremap <silent> <Space>oc :call OpenWithChrome()<CR>
 nnoremap <silent> <Space>of :call OpenWithFiler()<CR>
 nnoremap <silent> <Space>ov :call OpenWithVim()<CR>
 
-" ------------------------------------------------------------------------------
-" Plugin
-"
 " see (https://github.com/Shougo/neosnippet.vim)
-let g:neosnippet#snippets_directory = '~/.vim/snippets'
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " see (https://github.com/easymotion/vim-easymotion)
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
 nmap s <Plug>(easymotion-overwin-f2)
+
+" see (https://github.com/plasticboy/vim-markdown)
+nnoremap <silent> <Space>tf :TableFormat<CR>
+
+" ------------------------------------------------------------------------------
+" Plugin
+"
+" see (https://github.com/Shougo/neosnippet.vim)
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
 
 " see (https://github.com/Yggdroot/indentLine)
 let g:indentLine_enabled = 1
 
-" see (https://github.com/plasticboy/vim-markdown)
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_no_default_key_mappings = 1
-let g:vim_markdown_conceal = 0
-let g:tex_conceal = ""
-let g:vim_markdown_math = 1
-let g:vim_markdown_conceal_code_blocks = 0
+" see (https://github.com/easymotion/vim-easymotion)
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
 
-" see (https://github.com/dhruvasagar/vim-table-mode)
-let g:table_mode_disable_mappings = 1
+" see (https://github.com/plasticboy/vim-markdown)
+let g:tex_conceal = ""
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_no_default_key_mappings = 1
 
 " see (https://github.com/goerz/jupytext.vim)
-let g:jupytext_enable = 1
+" let g:jupytext_enable = 1
+" let g:jupytext_fmt = 'md'
 " let g:jupytext_fmt = 'py:percent'
 " let g:jupytext_filetype_map = {'py': 'python'}
-let g:jupytext_fmt = 'md'
 
 " ------------------------------------------------------------------------------
 " Function
