@@ -52,6 +52,7 @@ exit /b
         echo Updated.
 
         @REM Display commit logs from %rev_local% to %revision_after%
+        set rev_local=%rev_local% + 1
         call svn log -v -r %rev_local%:%rev_remote%>%filename%.log
         type %filename%.log
         del /q %filename%.log>nul 2>&1

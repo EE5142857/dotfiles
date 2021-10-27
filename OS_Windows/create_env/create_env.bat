@@ -38,8 +38,8 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\..\Code\User\snippets"
 
     @REM Git global settings
-    call git config --global user.name foo
-    call git config --global user.email foo@bar.com
+    @REM call git config --global user.name foo
+    @REM call git config --global user.email foo@bar.com
     call git config --global core.editor vim
     call git config --global core.excludesfile %HOME%\.gitignore
     call git config --global diff.compactionHeuristic true
@@ -47,6 +47,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     @REM Install VSCode extensions.
     @REM code --list-extensions
     call :install_vscode_extension "shardulm94.trailing-spaces"
+    call :install_vscode_extension "yzhang.markdown-all-in-one"
 
     echo Done.
     pause

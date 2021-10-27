@@ -1,8 +1,12 @@
 {
+    "breadcrumbs.enabled": false,
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
     "editor.mouseWheelZoom": true,
+    "editor.minimap.enabled": false,
     "editor.renderWhitespace": "all",
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
+
+    "markdown.extension.toc.levels": "2..2",
 }
