@@ -1,8 +1,8 @@
-" ----------------------------------------
+" --------------------------------------
 " dein.vim
 "
-" see (https://github.com/Shougo/dein.vim/blob/master/README.md)
-" see (https://knowledge.sakura.ad.jp/23248/)
+"   see (https://github.com/Shougo/dein.vim/blob/master/README.md)
+"   see (https://knowledge.sakura.ad.jp/23248/)
 "
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'

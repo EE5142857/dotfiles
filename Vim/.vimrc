@@ -5,7 +5,11 @@ if &compatible
   set nocompatible
 endif
 
-" ------------------------------------------------------------------------------
+if 0
+  finish
+endif
+
+" --------------------------------------
 " dein.vim
 "
 source ~/.vim/dein/dein.vim
@@ -14,7 +18,7 @@ source ~/.vim/dein/dein.vim
 filetype plugin indent on
 syntax enable
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " Keymap
 "
 let mapleader = ","
@@ -68,7 +72,7 @@ nmap s <Plug>(easymotion-overwin-f2)
 " see (https://github.com/plasticboy/vim-markdown)
 nnoremap <silent> <Space>tf :TableFormat<CR>
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " Plugin
 "
 " see (https://github.com/Shougo/neosnippet.vim)
@@ -95,7 +99,7 @@ let g:vim_markdown_no_default_key_mappings = 1
 " let g:jupytext_fmt = 'py:percent'
 " let g:jupytext_filetype_map = {'py': 'python'}
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " Function
 "
 " Avoiding the 'Hit ENTER to continue' prompts
@@ -104,13 +108,13 @@ command! -nargs=1 Silent
   \ execute 'redraw!'
 
 function! OpenWithChrome() abort
-  "call feedkeys('yi(', 'nx')
+  " call feedkeys('yi(', 'nx')
   let l:path = @*
   execute 'Silent chrome ' . l:path
 endfunction
 
 function! OpenWithFiler() abort
-  "call feedkeys('yi[', 'nx')
+  " call feedkeys('yi[', 'nx')
   let l:path = @*
   execute 'Silent start ' . '"' . l:path . '"'
 endfunction
@@ -131,7 +135,7 @@ function! PuSave(format) abort
   execute 'Silent java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
 endfunction
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " Edit
 "
 set autoread
@@ -142,7 +146,7 @@ set noswapfile
 set noundofile
 set nowritebackup
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " Search & Replacement
 "
 set gdefault
@@ -153,22 +157,23 @@ set shortmess-=S
 set smartcase
 set wrapscan
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " Spell
 "
 set spelllang+=cjk
 set spell
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " View
 "
 set ambiwidth=double
 set cursorline
-set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
 set number
 set ruler
 set laststatus=2
 set showmatch
+set title
 set wildmenu wildmode=list:longest
 
 augroup RestoreCursor
@@ -179,11 +184,10 @@ augroup RestoreCursor
     \ | endif
 augroup END
 
-" ------------------------------------------------------------------------------
-" Color
+" --------------------------------------
+" Highlight
 "
-" see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
-set t_Co=256
+highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 
 augroup OverrideHighlight
   autocmd!
@@ -192,36 +196,41 @@ augroup OverrideHighlight
 augroup END
 
 function! ForceHighlight() abort
-  highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-  highlight SpellBad cterm=NONE ctermfg=Red ctermbg=Black
-  highlight Todo cterm=NONE ctermfg=NONE ctermbg=NONE
+  highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight clear SpellBad
+  highlight SpellBad cterm=underline ctermfg=Red ctermbg=Black
+  highlight clear Todo
   highlight myTodo cterm=NONE ctermfg=Black ctermbg=LightYellow
-  highlight myError cterm=NONE ctermfg=Black ctermbg=red
+  highlight myError cterm=NONE ctermfg=Black ctermbg=Red
 endfunction
 
 function! ForceSyntax() abort
-  " set iskeyword+=:
-  silent! call matchadd('myTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-  silent! call matchadd('myError', '　\|\s\+$\|\[ \]')
+  call matchadd('myTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  call matchadd('myError', '　\|\s\+$\|\[ \]')
 endfunction
 
+" --------------------------------------
+" Color
+"
 colorscheme industry
 " colorscheme koehler
 " colorscheme murphy
 " colorscheme pablo
 " colorscheme torte
 
-" ******************************************************************************
-" File-type-specific settings
-" ******************************************************************************
+" see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
+set t_Co=256
 
-" ------------------------------------------------------------------------------
+" **************************************
+" File-type-specific settings
+" **************************************
+" --------------------------------------
 " Encoding
 "
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp
 
-" ------------------------------------------------------------------------------
+" --------------------------------------
 " Indent
 "
 set autoindent
@@ -230,23 +239,22 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
-" ******************************************************************************
+" **************************************
 " Project-specific settings
-" ******************************************************************************
-
-" ------------------------------------------------------------------------------
+" **************************************
+" --------------------------------------
 " Local Settings
 "
 "   Load settings for each location.
 "   see (https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html)
 "
 "   local.vim
-"     lcd <sfile>:h
+"     lcd %:p:h
 "
 augroup vimrc-local
   autocmd!
-  autocmd TabEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
-  autocmd TabEnter * silent! pwd
+  autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * lcd %:p:h
+  autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
 augroup END
 
 function! s:vimrc_local(loc)
