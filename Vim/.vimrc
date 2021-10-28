@@ -182,31 +182,34 @@ augroup END
 " ------------------------------------------------------------------------------
 " Color
 "
-colorscheme industry
-" colorscheme koehler
-" colorscheme murphy
-" colorscheme pablo
-" colorscheme torte
-
-" highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-" highlight SpellBad cterm=underline ctermfg=red ctermbg=NONE
-
 " see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
 set t_Co=256
 
 augroup OverrideHighlight
   autocmd!
-  autocmd TabEnter,WinEnter,VimEnter,ColorScheme,Syntax * call MyHighlight()
+  autocmd ColorScheme * call ForceHighlight()
+  autocmd Syntax * call ForceSyntax()
 augroup END
 
-function! MyHighlight() abort
-  silent! call matchadd('Todo', '\(TODO\|FIXME\|DEBUG\|NOTE\|WARNING\):')
-  silent! highlight Todo
-  silent! call matchadd('Error', '　\|\s\+$\|\[ \]')
-  silent! highlight Error
-  silent! highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-  silent! highlight SpellBad cterm=underline ctermfg=red ctermbg=NONE
+function! ForceHighlight() abort
+  highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+  highlight SpellBad cterm=NONE ctermfg=Red ctermbg=Black
+  highlight Todo cterm=NONE ctermfg=NONE ctermbg=NONE
+  highlight myTodo cterm=NONE ctermfg=Black ctermbg=LightYellow
+  highlight myError cterm=NONE ctermfg=Black ctermbg=red
 endfunction
+
+function! ForceSyntax() abort
+  " set iskeyword+=:
+  silent! call matchadd('myTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  silent! call matchadd('myError', '　\|\s\+$\|\[ \]')
+endfunction
+
+colorscheme industry
+" colorscheme koehler
+" colorscheme murphy
+" colorscheme pablo
+" colorscheme torte
 
 " ******************************************************************************
 " File-type-specific settings
@@ -243,7 +246,7 @@ set tabstop=4
 augroup vimrc-local
   autocmd!
   autocmd TabEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
-  autocmd TabEnter * pwd
+  autocmd TabEnter * silent! pwd
 augroup END
 
 function! s:vimrc_local(loc)
