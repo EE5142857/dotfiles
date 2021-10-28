@@ -135,6 +135,16 @@ function! PuSave(format) abort
   execute 'Silent java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
 endfunction
 
+command! -nargs=0 MyRebuild call MyRebuild()
+function! MyRebuild() abort
+  execute 'bo terminal ++noclose ./my_rebuild.bat'
+endfunction
+
+command! -nargs=0 MyFlash call MyFlash()
+function! MyFlash() abort
+  execute 'bo terminal ++noclose ./my_flash.bat'
+endfunction
+
 " --------------------------------------
 " Edit
 "
