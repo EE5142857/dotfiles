@@ -47,8 +47,8 @@ nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
 nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 
 " .vimrc
-nnoremap <silent> <Space>ed :edit ~/.vim/dein/dein.toml<CR>
-nnoremap <silent> <Space>ev :edit ~/.vimrc<CR>
+nnoremap <silent> <Space>ed :tabedit ~/.vim/dein/dein.toml<CR>
+nnoremap <silent> <Space>ev :tabedit ~/.vimrc<CR>
 nnoremap <silent> <Space>sv :source ~/.vimrc<CR>
 
 " Copy directory, file name and path
@@ -69,6 +69,10 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 " see (https://github.com/easymotion/vim-easymotion)
 nmap s <Plug>(easymotion-overwin-f2)
 
+" see (https://github.com/junegunn/vim-easy-align)
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
 " see (https://github.com/plasticboy/vim-markdown)
 nnoremap <silent> <Space>tf :TableFormat<CR>
 
@@ -79,7 +83,12 @@ nnoremap <silent> <Space>tf :TableFormat<CR>
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 
 " see (https://github.com/Yggdroot/indentLine)
-let g:indentLine_enabled = 1
+" let g:indentLine_enabled = 1
+
+" see (https://github.com/nathanaelkane/vim-indent-guides)
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 
 " see (https://github.com/easymotion/vim-easymotion)
 let g:EasyMotion_do_mapping = 0
@@ -93,11 +102,114 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_no_default_key_mappings = 1
 
-" see (https://github.com/goerz/jupytext.vim)
-" let g:jupytext_enable = 1
-" let g:jupytext_fmt = 'md'
-" let g:jupytext_fmt = 'py:percent'
-" let g:jupytext_filetype_map = {'py': 'python'}
+" --------------------------------------
+" Edit
+"
+set autoread
+set clipboard=unnamed
+set hidden
+set nobackup
+set noswapfile
+set noundofile
+set nowritebackup
+
+augroup RestoreCursor
+  autocmd!
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+    \ |   exe "normal! g`\""
+    \ | endif
+augroup END
+
+" --------------------------------------
+" Search & Replacement
+"
+set gdefault
+set hlsearch
+set ignorecase
+set incsearch
+set shortmess-=S
+set smartcase
+set wrapscan
+
+" --------------------------------------
+" Spell
+"
+set spelllang+=cjk
+set spell
+
+" --------------------------------------
+" View
+"
+set ambiwidth=double
+set cursorline
+set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+set number
+set ruler
+set laststatus=2
+set showmatch
+set showtabline=2
+set title
+set wildmenu wildmode=list:longest
+
+" --------------------------------------
+" Highlight
+"
+highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+
+augroup OverrideHighlight
+  autocmd!
+  autocmd ColorScheme * call ForceHighlight()
+  autocmd Syntax * call ForceSyntax()
+augroup END
+
+function! ForceHighlight() abort
+  highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight clear SpellBad
+  highlight SpellBad cterm=underline ctermfg=DarkRed ctermbg=NONE
+  highlight clear Todo
+  highlight myTodo cterm=NONE ctermfg=Black ctermbg=DarkYellow
+  highlight myError cterm=NONE ctermfg=Black ctermbg=DarkRed
+endfunction
+
+function! ForceSyntax() abort
+  call matchadd('myTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  call matchadd('myError', '　\|\s\+$\|\[ \]')
+endfunction
+
+" --------------------------------------
+" Color
+"
+" see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
+set t_Co=256
+
+" see (https://github.com/w0ng/vim-hybrid)
+set background=dark
+colorscheme hybrid
+
+" default dark colorschemes
+" colorscheme blue
+" colorscheme delek
+" colorscheme desert
+" colorscheme elflord
+" colorscheme industry
+" colorscheme murphy
+" colorscheme pablo
+" colorscheme slate
+" colorscheme torte
+
+" default light colorschemes
+" colorscheme evening
+" colorscheme morning
+" colorscheme shine
+
+" default dark colorschemes I don't like
+" colorscheme darkblue
+" colorscheme default
+" colorscheme koehler
+" colorscheme peachpuff
+" colorscheme ron
+" colorscheme zellner
 
 " --------------------------------------
 " Function
@@ -145,92 +257,6 @@ function! MyFlash() abort
   execute 'bo terminal ++noclose ./my_flash.bat'
 endfunction
 
-" --------------------------------------
-" Edit
-"
-set autoread
-set clipboard=unnamed
-set hidden
-set nobackup
-set noswapfile
-set noundofile
-set nowritebackup
-
-" --------------------------------------
-" Search & Replacement
-"
-set gdefault
-set hlsearch
-set ignorecase
-set incsearch
-set shortmess-=S
-set smartcase
-set wrapscan
-
-" --------------------------------------
-" Spell
-"
-set spelllang+=cjk
-set spell
-
-" --------------------------------------
-" View
-"
-set ambiwidth=double
-set cursorline
-set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
-set number
-set ruler
-set laststatus=2
-set showmatch
-set title
-set wildmenu wildmode=list:longest
-
-augroup RestoreCursor
-  autocmd!
-  autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-    \ |   exe "normal! g`\""
-    \ | endif
-augroup END
-
-" --------------------------------------
-" Highlight
-"
-highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-
-augroup OverrideHighlight
-  autocmd!
-  autocmd ColorScheme * call ForceHighlight()
-  autocmd Syntax * call ForceSyntax()
-augroup END
-
-function! ForceHighlight() abort
-  highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight clear SpellBad
-  highlight SpellBad cterm=underline ctermfg=Red ctermbg=Black
-  highlight clear Todo
-  highlight myTodo cterm=NONE ctermfg=Black ctermbg=LightYellow
-  highlight myError cterm=NONE ctermfg=Black ctermbg=Red
-endfunction
-
-function! ForceSyntax() abort
-  call matchadd('myTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-  call matchadd('myError', '　\|\s\+$\|\[ \]')
-endfunction
-
-" --------------------------------------
-" Color
-"
-colorscheme industry
-" colorscheme koehler
-" colorscheme murphy
-" colorscheme pablo
-" colorscheme torte
-
-" see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
-set t_Co=256
-
 " **************************************
 " File-type-specific settings
 " **************************************
@@ -238,7 +264,7 @@ set t_Co=256
 " Encoding
 "
 set encoding=utf-8
-set fileencodings=utf-8,cp932,euc-jp
+set fileencodings=utf-8,cp932
 
 " --------------------------------------
 " Indent
@@ -259,7 +285,7 @@ set tabstop=4
 "   see (https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html)
 "
 "   local.vim
-"     lcd %:p:h
+"     lcd <sfile>:h
 "
 augroup vimrc-local
   autocmd!

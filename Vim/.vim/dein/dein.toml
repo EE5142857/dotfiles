@@ -1,3 +1,6 @@
+# --------------------------------------
+# Shougo
+#
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -7,18 +10,30 @@ repo = 'Shougo/neosnippet.vim'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
+# --------------------------------------
+# Edit
+#
 [[plugins]]
-repo = 'Yggdroot/indentLine'
+repo = 'nathanaelkane/vim-indent-guides'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
 
 [[plugins]]
 repo = 'tyru/caw.vim'
 
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
 
 # --------------------------------------
 # Theme
 #
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
@@ -26,12 +41,20 @@ repo = 'itchyny/lightline.vim'
 # Syntax
 #
 [[plugins]]
+repo = 'mechatroner/rainbow_csv'
+on_ft = 'csv'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+
+[[plugins]]
 repo = 'aklt/plantuml-syntax'
 on_ft = 'plantuml'
 
 [[plugins]]
-repo = 'mechatroner/rainbow_csv'
-on_ft = 'csv'
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
 
 # --------------------------------------
 # Markdown
@@ -43,10 +66,3 @@ on_ft = 'markdown'
 [[plugins]]
 repo = 'godlygeek/tabular'
 on_ft = 'markdown'
-
-# --------------------------------------
-# Python
-#
-# [[plugins]]
-# repo = 'goerz/jupytext.vim'
-# on_ft = 'python'
