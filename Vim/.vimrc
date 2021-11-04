@@ -66,9 +66,6 @@ imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
-" see (https://github.com/easymotion/vim-easymotion)
-nmap s <Plug>(easymotion-overwin-f2)
-
 " see (https://github.com/junegunn/vim-easy-align)
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
@@ -82,17 +79,10 @@ nnoremap <silent> <Space>tf :TableFormat<CR>
 " see (https://github.com/Shougo/neosnippet.vim)
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 
-" see (https://github.com/Yggdroot/indentLine)
-" let g:indentLine_enabled = 1
-
 " see (https://github.com/nathanaelkane/vim-indent-guides)
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
-
-" see (https://github.com/easymotion/vim-easymotion)
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
 
 " see (https://github.com/plasticboy/vim-markdown)
 let g:tex_conceal = ""

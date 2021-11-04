@@ -17,9 +17,6 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'nathanaelkane/vim-indent-guides'
 
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
-
-[[plugins]]
 repo = 'tyru/caw.vim'
 
 [[plugins]]
