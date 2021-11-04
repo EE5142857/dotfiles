@@ -34,8 +34,6 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\Git\.gitignore"
     call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\OS_Common\markdown_style.css"
     call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\..\Code\User\settings.json"
-    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\..\Code\User\keybindings.json"
-    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\..\Code\User\snippets"
 
     @REM Git global settings
     @REM call git config --global user.name foo
@@ -47,7 +45,6 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     @REM Install VSCode extensions.
     @REM code --list-extensions
     call :install_vscode_extension "shardulm94.trailing-spaces"
-    call :install_vscode_extension "yzhang.markdown-all-in-one"
 
     echo Done.
     pause

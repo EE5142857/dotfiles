@@ -6,7 +6,5 @@
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "all",
     "extensions.ignoreRecommendations": true,
-    "files.autoGuessEncoding": true,
-
-    "markdown.extension.toc.levels": "2..2",
+    "files.autoGuessEncoding": true
 }
