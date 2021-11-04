@@ -19,6 +19,13 @@ filetype plugin indent on
 syntax enable
 
 " --------------------------------------
+" Encoding
+"
+scriptencoding utf-8
+set encoding=utf-8
+set fileencodings=utf-8,cp932
+
+" --------------------------------------
 " Keymap
 "
 let mapleader = ","
@@ -110,6 +117,15 @@ augroup RestoreCursor
     \ |   exe "normal! g`\""
     \ | endif
 augroup END
+
+" --------------------------------------
+" Indent
+"
+set autoindent
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 
 " --------------------------------------
 " Search & Replacement
@@ -248,27 +264,6 @@ function! MyFlash() abort
   execute 'bo terminal ++noclose ./my_flash.bat'
 endfunction
 
-" **************************************
-" File-type-specific settings
-" **************************************
-" --------------------------------------
-" Encoding
-"
-set encoding=utf-8
-set fileencodings=utf-8,cp932
-
-" --------------------------------------
-" Indent
-"
-set autoindent
-set expandtab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-
-" **************************************
-" Project-specific settings
-" **************************************
 " --------------------------------------
 " Local Settings
 "
