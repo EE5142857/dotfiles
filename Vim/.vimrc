@@ -134,7 +134,7 @@ set spell
 set ambiwidth=double
 set cursorline
 " set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
-set list listchars=space:.,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
 set number
 set ruler
 set laststatus=2
