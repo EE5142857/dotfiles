@@ -105,6 +105,7 @@ let g:vim_markdown_no_default_key_mappings = 1
 set autoread
 set clipboard=unnamed
 set hidden
+set mouse=a
 set nobackup
 set noswapfile
 set noundofile
