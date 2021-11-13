@@ -110,6 +110,7 @@ set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
+set nrformats=
 
 augroup RestoreCursor
   autocmd!
