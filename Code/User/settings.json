@@ -6,5 +6,6 @@
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "all",
     "extensions.ignoreRecommendations": true,
-    "files.autoGuessEncoding": true
+    "files.autoGuessEncoding": true,
+    "security.workspace.trust.untrustedFiles": "open"
 }

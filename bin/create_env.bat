@@ -39,7 +39,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     @REM call git config --global user.name foo
     @REM call git config --global user.email foo@bar.com
     call git config --global core.editor vim
-    call git config --global core.excludesfile %HOME%\.gitignore
+    call git config --global core.excludesfile %USERPROFILE%\.gitignore
     call git config --global diff.compactionHeuristic true
 
     @REM Install VSCode extensions.
