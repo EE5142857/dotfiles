@@ -29,11 +29,11 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     mkdir "%APPDATA%\Code\User"
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vimrc"
-    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\Git\.gitignore"
-    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\OS_Common\markdown_style.css"
-    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\..\Code\User\settings.json"
+    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\Vim\.vimrc"
+    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\Vim\.vim"
+    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\.gitignore"
+    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\markdown_style.css"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\Code\User\settings.json"
 
     @REM Git global settings
     @REM call git config --global user.name foo
