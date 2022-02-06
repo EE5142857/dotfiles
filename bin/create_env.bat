@@ -45,6 +45,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     @REM Install VSCode extensions.
     @REM code --list-extensions
     call :install_vscode_extension "shardulm94.trailing-spaces"
+    call :install_vscode_extension "vscodevim.vim"
 
     echo Done.
     pause
