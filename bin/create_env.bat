@@ -45,11 +45,9 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     @REM Install VSCode extensions.
     @REM code --list-extensions
     call :install_vscode_extension "Gruntfuggly.todo-tree"
-    call :install_vscode_extension "jebbs.plantuml"
     call :install_vscode_extension "shardulm94.trailing-spaces"
     call :install_vscode_extension "streetsidesoftware.code-spell-checker"
     call :install_vscode_extension "vscodevim.vim"
-    call :install_vscode_extension "yzhang.markdown-all-in-one"
 
     echo Done.
     pause
