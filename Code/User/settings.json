@@ -13,6 +13,11 @@
     "files.autoGuessEncoding": true,
 
     "cSpell.diagnosticLevel": "Hint",
+    "markdown.extension.list.indentationSize": "inherit",
+    "markdown.extension.print.absoluteImgPath": false,
+    "markdown.extension.toc.levels": "2..3",
+    "plantuml.exportOutDir": ".",
+    "plantuml.exportSubFolder": false,
     "todo-tree.general.tags": [
         "[ ]",
         "DEBUG:",
@@ -50,11 +55,7 @@
         }
     },
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)",
-
-    "markdown.extension.list.indentationSize": "inherit",
-    "markdown.extension.print.absoluteImgPath": false,
-    "markdown.extension.tableFormatter.enabled": false,
-    "markdown.extension.toc.levels": "2..3",
-    "plantuml.exportOutDir": ".",
-    "plantuml.exportSubFolder": false,
+    "vim.easymotion": true,
+    "vim.leader": " ",
+    "vim.useSystemClipboard": true,
 }
