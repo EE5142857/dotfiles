@@ -63,10 +63,6 @@
         }
     },
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)",
-    "vim.handleKeys": {
-        "<C-n>": false,
-        "<C-w>": true,
-    },
     "vim.useSystemClipboard": true,
     "vim.vimrc.enable": true,
 }
