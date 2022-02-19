@@ -1,4 +1,7 @@
 {
+    // "files.insertFinalNewline": true,
+    // "files.trimFinalNewlines": true,
+    // "files.trimTrailingWhitespace": true,
     "[r]": {
         "files.autoGuessEncoding": false,
         "files.encoding": "shiftjis"
@@ -14,11 +17,6 @@
     "editor.wordWrap": "on",
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
-    "workbench.colorCustomizations": {
-        "statusBar.background": "#005f5f",
-        "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f"
-    },
     "workbench.editor.enablePreview": false,
     "workbench.startupEditor": "none",
 
@@ -71,7 +69,6 @@
         "<C-w>": true,
     },
     "vim.leader": " ",
-    "vim.statusBarColorControl": true,
     "vim.useSystemClipboard": true,
     "vim.vimrc.enable": true,
 }
