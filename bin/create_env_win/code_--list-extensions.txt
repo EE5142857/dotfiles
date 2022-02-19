@@ -6,8 +6,7 @@ ms-python.python
 ms-python.vscode-pylance
 ms-toolsai.jupyter
 ms-toolsai.jupyter-keymap
-ms-toolsai.jupyter-renderers
-shardulm94.trailing-spaces
 streetsidesoftware.code-spell-checker
 vscodevim.vim
+ybaumes.highlight-trailing-white-spaces
 yzhang.markdown-all-in-one

@@ -7,6 +7,7 @@
     "editor.acceptSuggestionOnEnter": "off",
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
+    "editor.fontSize": 18,
     "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
     "editor.renderWhitespace": "all",
@@ -19,6 +20,7 @@
         "statusBar.debuggingBackground": "#005f5f"
     },
     "workbench.editor.enablePreview": false,
+    "workbench.startupEditor": "none",
 
     "cSpell.diagnosticLevel": "Hint",
     "markdown.extension.list.indentationSize": "inherit",
