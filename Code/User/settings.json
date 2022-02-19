@@ -63,12 +63,10 @@
         }
     },
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)",
-    "vim.easymotion": true,
     "vim.handleKeys": {
         "<C-n>": false,
         "<C-w>": true,
     },
-    "vim.leader": " ",
     "vim.useSystemClipboard": true,
     "vim.vimrc.enable": true,
 }
