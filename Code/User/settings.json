@@ -10,6 +10,7 @@
     "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
     "editor.renderWhitespace": "all",
+    "editor.wordWrap": "on",
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
     "workbench.colorCustomizations": {
@@ -17,6 +18,7 @@
         "statusBar.noFolderBackground": "#005f5f",
         "statusBar.debuggingBackground": "#005f5f"
     },
+    "workbench.editor.enablePreview": false,
 
     "cSpell.diagnosticLevel": "Hint",
     "markdown.extension.list.indentationSize": "inherit",
@@ -62,7 +64,12 @@
     },
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)",
     "vim.easymotion": true,
+    "vim.handleKeys": {
+        "<C-n>": false,
+        "<C-w>": true,
+    },
     "vim.leader": " ",
-    "vim.useSystemClipboard": true,
     "vim.statusBarColorControl": true,
+    "vim.useSystemClipboard": true,
+    "vim.vimrc.enable": true,
 }

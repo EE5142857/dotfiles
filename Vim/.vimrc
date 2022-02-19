@@ -28,7 +28,7 @@ set fileencodings=utf-8,cp932
 " --------------------------------------
 " Keymap
 "
-let mapleader = ","
+let mapleader = " "
 
 nnoremap Q <Nop>
 nnoremap q <Nop>
@@ -40,14 +40,8 @@ nnoremap k gk
 nnoremap <silent> <Space>tw :set wrap!<CR>
 
 " Increase/decrease indent in a row
-vnoremap < <gv
-vnoremap > >gv
-
-" Move lines
-nnoremap <C-Down> "zdd"zp
-nnoremap <C-Up> "zdd<Up>"zP
-vnoremap <C-Down> "zx"zp`[V`]
-vnoremap <C-Up> "zx<Up>"zP`[V`]
+vnoremap << <gv
+vnoremap >> >gv
 
 " Encoding
 nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
@@ -63,19 +57,10 @@ nnoremap <silent> <Space>cd :let @* = expand('%:p:h')<CR>
 nnoremap <silent> <Space>cf :let @* = expand('%:t')<CR>
 nnoremap <silent> <Space>cp :let @* = expand('%:p')<CR>
 
-" Function
-nnoremap <silent> <Space>oc :call OpenWithChrome()<CR>
-nnoremap <silent> <Space>of :call OpenWithFiler()<CR>
-nnoremap <silent> <Space>ov :call OpenWithVim()<CR>
-
 " see (https://github.com/Shougo/neosnippet.vim)
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" see (https://github.com/junegunn/vim-easy-align)
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
 
 " see (https://github.com/plasticboy/vim-markdown)
 nnoremap <silent> <Space>tf :TableFormat<CR>
@@ -227,20 +212,11 @@ command! -nargs=1 Silent
   \ execute 'silent !' . <q-args> |
   \ execute 'redraw!'
 
-function! OpenWithChrome() abort
+" 'path:line_number' must be yanked
+command! -nargs=1 OpenWithVim call OpenWithVim()
+function! OpenWithVim() abort
   " call feedkeys('yi(', 'nx')
   let l:path = @*
-  execute 'Silent chrome ' . l:path
-endfunction
-
-function! OpenWithFiler() abort
-  " call feedkeys('yi[', 'nx')
-  let l:path = @*
-  execute 'Silent start ' . '"' . l:path . '"'
-endfunction
-
-" 'path:line_number' must be yanked
-function! OpenWithVim() abort
   let l:path = @*
   let l:file_path = matchstr(l:path, '.*\ze:')
   let l:line = matchstr(l:path, '.*:\zs.*')
@@ -258,11 +234,6 @@ endfunction
 command! -nargs=0 MyRebuild call MyRebuild()
 function! MyRebuild() abort
   execute 'bo terminal ++noclose ./my_rebuild.bat'
-endfunction
-
-command! -nargs=0 MyFlash call MyFlash()
-function! MyFlash() abort
-  execute 'bo terminal ++noclose ./my_flash.bat'
 endfunction
 
 " --------------------------------------
