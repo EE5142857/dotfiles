@@ -16,26 +16,26 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     cd /d %~dp0
 
     @REM Remove files/directories.
-    call :my_rmdir_del "%APPDATA%\Code"
-    call :my_rmdir_del "%USERPROFILE%\_vimrc"
-    call :my_rmdir_del "%USERPROFILE%\.gitignore"
     call :my_rmdir_del "%USERPROFILE%\.vim"
-    call :my_rmdir_del "%USERPROFILE%\.vimrc"
-    call :my_rmdir_del "%USERPROFILE%\.vscode"
-    call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
     call :my_rmdir_del "%USERPROFILE%\vimfiles"
+    call :my_rmdir_del "%USERPROFILE%\.vimrc"
+    call :my_rmdir_del "%USERPROFILE%\_vimrc"
+    call :my_rmdir_del "%APPDATA%\Code"
+    call :my_rmdir_del "%USERPROFILE%\.vscode"
+    call :my_rmdir_del "%USERPROFILE%\.gitignore"
+    call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
 
     @REM Make directories.
     mkdir "%APPDATA%\Code\User"
 
     @REM Make symbolic links.
-    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\Code\User\keybindings.json"
-    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\Code\User\settings.json"
-    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\Code\User\snippets"
-    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\.gitignore"
-    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\Vim\.vimrc"
-    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\markdown_style.css"
+    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
+    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vimrc"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\..\Code\User\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\..\Code\User\keybindings.json"
+    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\..\Code\User\snippets"
+    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\.gitignore"
+    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\markdown_style.css"
 
     @REM Git global settings
     @REM call git config --global user.name foo
@@ -46,19 +46,9 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
 
     @REM Install VSCode extensions.
     @REM code --list-extensions
-    call :install_vscode_extension "Gruntfuggly.todo-tree"
-    call :install_vscode_extension "Ikuyadeu.r"
-    call :install_vscode_extension "jebbs.plantuml"
-    call :install_vscode_extension "ms-ossdata.vscode-postgresql"
-    call :install_vscode_extension "ms-python.python"
-    call :install_vscode_extension "ms-python.vscode-pylance"
-    call :install_vscode_extension "ms-toolsai.jupyter"
-    call :install_vscode_extension "ms-toolsai.jupyter-keymap"
-    call :install_vscode_extension "ms-toolsai.jupyter-renderers"
-    call :install_vscode_extension "shardulm94.trailing-spaces"
-    call :install_vscode_extension "streetsidesoftware.code-spell-checker"
-    call :install_vscode_extension "vscodevim.vim"
-    call :install_vscode_extension "yzhang.markdown-all-in-one"
+    for /f "tokens=1,* delims=," %%i in (code_--list-extensions.txt) do (
+        call :install_vscode_extension "%%i"
+    )
 
     echo Done.
     pause
