@@ -4,13 +4,19 @@
         "files.encoding": "shiftjis"
     },
     "breadcrumbs.enabled": false,
+    "editor.acceptSuggestionOnEnter": "off",
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
-    "editor.mouseWheelZoom": true,
     "editor.minimap.enabled": false,
+    "editor.mouseWheelZoom": true,
     "editor.renderWhitespace": "all",
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
 
     "cSpell.diagnosticLevel": "Hint",
     "markdown.extension.list.indentationSize": "inherit",
@@ -58,4 +64,5 @@
     "vim.easymotion": true,
     "vim.leader": " ",
     "vim.useSystemClipboard": true,
+    "vim.statusBarColorControl": true,
 }
