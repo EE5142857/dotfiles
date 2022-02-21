@@ -2,9 +2,9 @@
     // "files.insertFinalNewline": true,
     // "files.trimFinalNewlines": true,
     // "files.trimTrailingWhitespace": true,
-    "[r]": {
+    "[c]": {
         "files.autoGuessEncoding": false,
-        "files.encoding": "shiftjis"
+        "files.encoding": "shiftjis",
     },
     "breadcrumbs.enabled": false,
     "editor.acceptSuggestionOnEnter": "off",
