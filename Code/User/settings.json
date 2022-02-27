@@ -24,6 +24,8 @@
     "markdown.extension.list.indentationSize": "inherit",
     "markdown.extension.print.absoluteImgPath": false,
     "markdown.extension.toc.levels": "2..3",
+    "mermaid-editor.generate.scale": 2.0,
+    "mermaid-editor.generate.type": "png",
     "plantuml.exportOutDir": ".",
     "plantuml.exportSubFolder": false,
     "todo-tree.general.tags": [
