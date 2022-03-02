@@ -12,7 +12,7 @@ set ff=%time00:~9,2%
 set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
 
 :main
-    @REM chcp 65001>nul
+    chcp 65001>nul
     cd /d %~dp0
 
     @REM Remove files/directories.
@@ -29,8 +29,9 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     mkdir "%APPDATA%\Code\User"
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
     call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vimrc"
+    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
+    call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\..\Vim\.vim"
     call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\..\Code\User\settings.json"
     call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\..\Code\User\keybindings.json"
     call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\..\Code\User\snippets"
@@ -101,4 +102,5 @@ exit /b
     cd /d "%USERPROFILE%\AppData\Local\Programs\Microsoft VS Code\bin"
     call code --install-extension %~1
     cd /d %cur_dir%
+    timeout /t 5
 exit /b

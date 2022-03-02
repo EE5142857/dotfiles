@@ -4,11 +4,11 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
+# [[plugins]]
+# repo = 'Shougo/neosnippet.vim'
 
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+# [[plugins]]
+# repo = 'Shougo/neosnippet-snippets'
 
 # --------------------------------------
 # Edit
@@ -19,9 +19,9 @@ repo = 'nathanaelkane/vim-indent-guides'
 [[plugins]]
 repo = 'tyru/caw.vim'
 
-[[plugins]]
-# FixWhitespace
-repo = 'bronson/vim-trailing-whitespace'
+# [[plugins]]
+# # FixWhitespace
+# repo = 'bronson/vim-trailing-whitespace'
 
 # --------------------------------------
 # Theme

@@ -69,7 +69,7 @@ nnoremap <silent> <Space>tf :TableFormat<CR>
 " Plugin
 "
 " see (https://github.com/Shougo/neosnippet.vim)
-let g:neosnippet#snippets_directory = '~/.vim/snippets'
+" let g:neosnippet#snippets_directory = '~/.vim/snippets'
 
 " see (https://github.com/nathanaelkane/vim-indent-guides)
 let g:indent_guides_enable_on_vim_startup = 1
