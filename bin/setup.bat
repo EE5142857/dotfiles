@@ -31,7 +31,7 @@
 
     call git config --global user.name foo
     call git config --global user.email foo@bar.com
-    call git config --global core.editor nvim
+    call git config --global core.editor vim
     call git config --global core.excludesfile %USERPROFILE%\.gitignore
     call git config --global credential.helper manager-core
     call git config --global diff.compactionHeuristic true
