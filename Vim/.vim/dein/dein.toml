@@ -22,8 +22,8 @@ repo = 'tyru/caw.vim'
 # --------------------------------------
 # Theme
 #
-# [[plugins]]
-# repo = 'w0ng/vim-hybrid'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
 
 # [[plugins]]
 # repo = 'itchyny/lightline.vim'
