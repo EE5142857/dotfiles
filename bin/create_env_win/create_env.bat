@@ -22,17 +22,24 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%USERPROFILE%\.vimrc"
     call :my_rmdir_del "%USERPROFILE%\_vimrc"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim"
+    call :my_rmdir_del "%LOCALAPPDATA%\nvim-data"
     call :my_rmdir_del "%USERPROFILE%\.gitignore"
     call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
 
     @REM Make directories.
-    @REM mkdir ""
+    mkdir "%LOCALAPPDATA%\nvim-data"
+
+    @REM Make files.
+    type nul>%~dp0..\..\Vim\.vim\.netrwbook
+    type nul>%~dp0..\..\Vim\.vim\.netrwhist
 
     @REM Make symbolic links.
     call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vim\init.vim"
     call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
     call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\..\Vim\.vim"
     call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\..\Vim\.vim"
+    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwbook"   "%~dp0..\..\Vim\.vim\.netrwbook"
+    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwhist"   "%~dp0..\..\Vim\.vim\.netrwhist"
     call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\.gitignore"
     call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\markdown_style.css"
 
