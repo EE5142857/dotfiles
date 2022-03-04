@@ -1,5 +1,4 @@
 @echo off
-@REM Run as administrator.
 
 set yyyy=%date:~0,4%
 set mm=%date:~5,2%
