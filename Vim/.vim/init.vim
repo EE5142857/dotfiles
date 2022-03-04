@@ -146,16 +146,16 @@ set wildmenu wildmode=list:longest
 " Status Line
 "
 set laststatus=2
-" set statusline=%f
-" set statusline+=%m
-" set statusline+=%r
-" set statusline+=%h
-" set statusline+=%w
-" set statusline+=%=
-" set statusline+=[%{&fileencoding}]
-" set statusline+=%y
-" set statusline+=[ROW=%l/%L]
-" set statusline+=[COL=%c]
+set statusline=%f
+set statusline+=%m
+set statusline+=%r
+set statusline+=%h
+set statusline+=%w
+set statusline+=%=
+set statusline+=[%{&fileencoding}]
+set statusline+=%y
+set statusline+=[ROW=%l/%L]
+set statusline+=[COL=%c]
 
 " --------------------------------------
 " Highlight
@@ -187,34 +187,32 @@ endfunction
 set t_Co=256
 
 " see (https://github.com/w0ng/vim-hybrid)
-if has#colorscheme('hybrid')
-  set background=dark
-  colorscheme hybrid
-else
-  " default dark colorschemes
-  " colorscheme desert
-  " colorscheme elflord
-  colorscheme industry
-  " colorscheme pablo
+" set background=dark
+" colorscheme hybrid
 
-  " default dark colorschemes I don't like
-  " colorscheme blue
-  " colorscheme darkblue
-  " colorscheme default
-  " colorscheme delek
-  " colorscheme koehler
-  " colorscheme murphy
-  " colorscheme peachpuff
-  " colorscheme ron
-  " colorscheme slate
-  " colorscheme torte
-  " colorscheme zellner
+" default dark colorschemes
+" colorscheme desert
+" colorscheme elflord
+colorscheme industry
+" colorscheme pablo
 
-  " default light colorschemes
-  " colorscheme evening
-  " colorscheme morning
-  " colorscheme shine
-endif
+" default dark colorschemes I don't like
+" colorscheme blue
+" colorscheme darkblue
+" colorscheme default
+" colorscheme delek
+" colorscheme koehler
+" colorscheme murphy
+" colorscheme peachpuff
+" colorscheme ron
+" colorscheme slate
+" colorscheme torte
+" colorscheme zellner
+
+" default light colorschemes
+" colorscheme evening
+" colorscheme morning
+" colorscheme shine
 
 " --------------------------------------
 " Function
