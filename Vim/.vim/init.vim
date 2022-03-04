@@ -175,6 +175,7 @@ function! ForceHighlight() abort
   highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
   highlight clear SpecialKey
   highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight clear SpellBad
   highlight SpellBad cterm=underline ctermfg=DarkRed ctermbg=NONE
   highlight Todo cterm=NONE ctermfg=Black ctermbg=DarkYellow
   highlight Error cterm=NONE ctermfg=Black ctermbg=DarkRed
