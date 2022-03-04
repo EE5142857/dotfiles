@@ -16,32 +16,22 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     cd /d %~dp0
 
     @REM Remove files/directories.
-    @REM call :my_rmdir_del "%USERPROFILE%\.cache"
-    call :my_rmdir_del "%USERPROFILE%\.vim"
-    call :my_rmdir_del "%USERPROFILE%\vimfiles"
-    call :my_rmdir_del "%USERPROFILE%\.vimrc"
-    call :my_rmdir_del "%USERPROFILE%\_vimrc"
-    call :my_rmdir_del "%USERPROFILE%\AppData\Local\nvim"
-    call :my_rmdir_del "%USERPROFILE%\.gitignore"
-    call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
+    call :my_rmdir_del "%APPDATA%\Code"
+    call :my_rmdir_del "%USERPROFILE%\.vscode"
 
     @REM Make directories.
-    @REM mkdir ""
+    mkdir "%APPDATA%\Code\User"
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vimrc"
-    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\AppData\Local\nvim"      "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\.gitignore"
-    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\markdown_style.css"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\..\Code\User\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\..\Code\User\keybindings.json"
+    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\..\Code\User\snippets"
 
-    @REM Git global settings
-    @REM call git config --global user.name foo
-    @REM call git config --global user.email foo@bar.com
-    call git config --global core.editor vim
-    call git config --global core.excludesfile %USERPROFILE%\.gitignore
-    call git config --global diff.compactionHeuristic true
+    @REM Install VSCode extensions.
+    @REM code --list-extensions
+    for /f "tokens=1,* delims=," %%i in (code_--list-extensions.txt) do (
+        call :install_vscode_extension "%%i"
+    )
 
     echo Done.
     pause
