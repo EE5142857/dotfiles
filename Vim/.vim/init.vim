@@ -146,7 +146,7 @@ set wildmenu wildmode=list:longest
 " Status Line
 "
 set laststatus=2
-set statusline=%f
+set statusline=[%{getcwd()}]
 set statusline+=%m
 set statusline+=%r
 set statusline+=%h
