@@ -80,9 +80,9 @@ exit /b
 
 @REM :install_vscode_extension %id%
 :install_vscode_extension
-    set cur_dir=%cd%
-    cd /d "%USERPROFILE%\AppData\Local\Programs\Microsoft VS Code\bin"
+    @REM set cur_dir=%cd%
+    @REM cd /d "%USERPROFILE%\AppData\Local\Programs\Microsoft VS Code\bin"
     call code --install-extension %~1
-    cd /d %cur_dir%
+    @REM cd /d %cur_dir%
     timeout /t 5
 exit /b

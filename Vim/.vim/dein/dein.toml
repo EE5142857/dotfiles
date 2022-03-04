@@ -13,15 +13,11 @@ repo = 'Shougo/dein.vim'
 # --------------------------------------
 # Edit
 #
-[[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
+# [[plugins]]
+# repo = 'nathanaelkane/vim-indent-guides'
 
 [[plugins]]
 repo = 'tyru/caw.vim'
-
-# [[plugins]]
-# # FixWhitespace
-# repo = 'bronson/vim-trailing-whitespace'
 
 # --------------------------------------
 # Theme

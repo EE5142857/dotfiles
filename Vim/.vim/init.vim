@@ -1,8 +1,5 @@
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-" Avoid side effects when it was already reset.
 if &compatible
-  set nocompatible
+  set nocompatible " Be iMproved
 endif
 
 if 0
@@ -10,20 +7,21 @@ if 0
 endif
 
 " --------------------------------------
+" Encoding
+"
+" $LANG = en_US/CP932
+set encoding=utf-8
+scriptencoding utf-8
+set fileencodings=utf-8,cp932
+
+" --------------------------------------
 " dein.vim
 "
 source ~/.vim/dein/dein.vim
 
-" Required
+" Required:
 filetype plugin indent on
 syntax enable
-
-" --------------------------------------
-" Encoding
-"
-scriptencoding utf-8
-set encoding=utf-8
-set fileencodings=utf-8,cp932
 
 " --------------------------------------
 " Keymap
@@ -49,8 +47,8 @@ nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 
 " .vimrc
 nnoremap <silent> <Space>ed :tabedit ~/.vim/dein/dein.toml<CR>
-nnoremap <silent> <Space>ev :tabedit ~/.vim/init.vim<CR>
-nnoremap <silent> <Space>sv :source ~/.vim/init.vim<CR>
+nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
+nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
 " Copy directory, file name and path
 nnoremap <silent> <Space>cd :let @* = expand('%:p:h')<CR>
@@ -139,35 +137,47 @@ set cursorline
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
 set number
 set ruler
-set laststatus=2
 set showmatch
 set showtabline=2
 set title
 set wildmenu wildmode=list:longest
 
 " --------------------------------------
+" Status Line
+"
+set laststatus=2
+" set statusline=%f
+" set statusline+=%m
+" set statusline+=%r
+" set statusline+=%h
+" set statusline+=%w
+" set statusline+=%=
+" set statusline+=[%{&fileencoding}]
+" set statusline+=%y
+" set statusline+=[ROW=%l/%L]
+" set statusline+=[COL=%c]
+
+" --------------------------------------
 " Highlight
 "
-highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-
 augroup OverrideHighlight
   autocmd!
+  autocmd Syntax * call AddSyntax()
   autocmd ColorScheme * call ForceHighlight()
-  autocmd Syntax * call ForceSyntax()
 augroup END
 
-function! ForceHighlight() abort
-  highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight clear SpellBad
-  highlight SpellBad cterm=underline ctermfg=DarkRed ctermbg=NONE
-  highlight clear Todo
-  highlight myTodo cterm=NONE ctermfg=Black ctermbg=DarkYellow
-  highlight myError cterm=NONE ctermfg=Black ctermbg=DarkRed
+function! AddSyntax() abort
+  call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  call matchadd('Error', '　\|\s\+$\|\[ \]')
 endfunction
 
-function! ForceSyntax() abort
-  call matchadd('myTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-  call matchadd('myError', '　\|\s\+$\|\[ \]')
+function! ForceHighlight() abort
+  highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+  " highlight clear SpecialKey
+  highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight SpellBad cterm=underline ctermfg=DarkRed ctermbg=NONE
+  highlight Todo cterm=NONE ctermfg=Black ctermbg=DarkYellow
+  highlight Error cterm=NONE ctermfg=Black ctermbg=DarkRed
 endfunction
 
 " --------------------------------------
@@ -212,6 +222,11 @@ command! -nargs=1 Silent
   \ execute 'silent !' . <q-args> |
   \ execute 'redraw!'
 
+command! -nargs=0 FixWhitespace call FixWhitespace()
+function! FixWhitespace() abort
+  execute '%s/\s\+$//e'
+endfunction
+
 " 'path:line_number' must be yanked
 command! -nargs=1 OpenWithVim call OpenWithVim()
 function! OpenWithVim() abort
@@ -248,6 +263,7 @@ endfunction
 augroup vimrc-local
   autocmd!
   autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * lcd %:p:h
+  autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent pwd
   autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
 augroup END
 

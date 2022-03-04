@@ -16,12 +16,12 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     cd /d %~dp0
 
     @REM Remove files/directories.
-    @REM call :my_rmdir_del "%USERPROFILE%\.cache"
+    call :my_rmdir_del "%USERPROFILE%\.cache"
     call :my_rmdir_del "%USERPROFILE%\.vim"
     call :my_rmdir_del "%USERPROFILE%\vimfiles"
     call :my_rmdir_del "%USERPROFILE%\.vimrc"
     call :my_rmdir_del "%USERPROFILE%\_vimrc"
-    call :my_rmdir_del "%USERPROFILE%\AppData\Local\nvim"
+    call :my_rmdir_del "%LOCALAPPDATA%\nvim"
     call :my_rmdir_del "%USERPROFILE%\.gitignore"
     call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
 
@@ -29,10 +29,10 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     @REM mkdir ""
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vimrc"
+    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vim\init.vim"
     call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
     call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\AppData\Local\nvim"      "%~dp0..\..\Vim\.vim"
+    call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\..\Vim\.vim"
     call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\.gitignore"
     call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\markdown_style.css"
 
