@@ -187,32 +187,34 @@ endfunction
 set t_Co=256
 
 " see (https://github.com/w0ng/vim-hybrid)
-set background=dark
-colorscheme hybrid
+if has#colorscheme('hybrid')
+  set background=dark
+  colorscheme hybrid
+else
+  " default dark colorschemes
+  " colorscheme desert
+  " colorscheme elflord
+  colorscheme industry
+  " colorscheme pablo
 
-" default dark colorschemes
-" colorscheme desert
-" colorscheme elflord
-" colorscheme industry
-" colorscheme pablo
+  " default dark colorschemes I don't like
+  " colorscheme blue
+  " colorscheme darkblue
+  " colorscheme default
+  " colorscheme delek
+  " colorscheme koehler
+  " colorscheme murphy
+  " colorscheme peachpuff
+  " colorscheme ron
+  " colorscheme slate
+  " colorscheme torte
+  " colorscheme zellner
 
-" default dark colorschemes I don't like
-" colorscheme blue
-" colorscheme darkblue
-" colorscheme default
-" colorscheme delek
-" colorscheme koehler
-" colorscheme murphy
-" colorscheme peachpuff
-" colorscheme ron
-" colorscheme slate
-" colorscheme torte
-" colorscheme zellner
-
-" default light colorschemes
-" colorscheme evening
-" colorscheme morning
-" colorscheme shine
+  " default light colorschemes
+  " colorscheme evening
+  " colorscheme morning
+  " colorscheme shine
+endif
 
 " --------------------------------------
 " Function
