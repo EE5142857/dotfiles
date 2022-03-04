@@ -263,7 +263,6 @@ endfunction
 augroup vimrc-local
   autocmd!
   autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * lcd %:p:h
-  autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent pwd
   autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
 augroup END
 
