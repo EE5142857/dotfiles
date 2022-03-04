@@ -4,7 +4,7 @@
 "   see (https://github.com/Shougo/dein.vim/blob/master/README.md)
 "   see (https://knowledge.sakura.ad.jp/23248/)
 "
-if has ('nvim')
+if has('nvim')
   let s:dein_dir = expand('~/.cache/nvim/dein')
 else
   let s:dein_dir = expand('~/.cache/vim/dein')
