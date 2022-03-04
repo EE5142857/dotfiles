@@ -23,7 +23,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%USERPROFILE%\_vimrc"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim-data"
-    call :my_rmdir_del "%USERPROFILE%\.vscode"
+    call :my_rmdir_del "%APPDATA%\Code"
     call :my_rmdir_del "%USERPROFILE%\.gitconfig"
     call :my_rmdir_del "%USERPROFILE%\.gitignore"
     call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
