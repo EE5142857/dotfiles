@@ -23,9 +23,9 @@
     call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\.vim"
     call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwbook"   "%~dp0..\.vim\.netrwbook"
     call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwhist"   "%~dp0..\.vim\.netrwhist"
-    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\Code\User\settings.json"
-    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\Code\User\keybindings.json"
-    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\Code\User\snippets"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\.vscode\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\.vscode\keybindings.json"
+    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\.vscode\snippets"
     call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\.gitignore"
     call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\markdown_style.css"
 

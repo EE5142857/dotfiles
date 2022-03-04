@@ -15,6 +15,6 @@ exit /b
 
 @REM :code_install_extension %id%
 :code_install_extension
-    code --install-extension %~1
+    call code --install-extension %~1
     timeout /t 5
 exit /b
