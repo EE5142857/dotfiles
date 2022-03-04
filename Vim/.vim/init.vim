@@ -190,16 +190,16 @@ endfunction
 " Color
 "
 " see (https://itchyny.hatenablog.com/entry/20130828/1377653592)
-" set t_Co=256
+set t_Co=256
 
 " see (https://github.com/w0ng/vim-hybrid)
-" set background=dark
-" colorscheme hybrid
+set background=dark
+colorscheme hybrid
 
 " default dark colorschemes
 " colorscheme desert
 " colorscheme elflord
-colorscheme industry
+" colorscheme industry
 " colorscheme pablo
 
 " default dark colorschemes I don't like
