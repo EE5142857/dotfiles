@@ -4,11 +4,11 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# [[plugins]]
-# repo = 'Shougo/neosnippet.vim'
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
 
-# [[plugins]]
-# repo = 'Shougo/neosnippet-snippets'
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
 
 # --------------------------------------
 # Edit
@@ -24,9 +24,6 @@ repo = 'tyru/caw.vim'
 #
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
-
-# [[plugins]]
-# repo = 'itchyny/lightline.vim'
 
 # --------------------------------------
 # Syntax
