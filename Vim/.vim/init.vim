@@ -172,11 +172,16 @@ function! AddSyntax() abort
 endfunction
 
 function! ForceHighlight() abort
-  highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+  highlight clear CursorLine
+  highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=NONE
   highlight clear SpecialKey
   highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  if has('nvim')
+    highlight clear Whitespace
+    highlight Whitespace cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  endif
   highlight clear SpellBad
-  highlight SpellBad cterm=underline ctermfg=DarkRed ctermbg=NONE
+  highlight SpellBad cterm=NONE ctermfg=DarkRed ctermbg=NONE
   highlight Todo cterm=NONE ctermfg=Black ctermbg=DarkYellow
   highlight Error cterm=NONE ctermfg=Black ctermbg=DarkRed
 endfunction
