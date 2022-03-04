@@ -23,30 +23,34 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%USERPROFILE%\_vimrc"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim-data"
+    call :my_rmdir_del "%USERPROFILE%\.vscode"
     call :my_rmdir_del "%USERPROFILE%\.gitconfig"
     call :my_rmdir_del "%USERPROFILE%\.gitignore"
     call :my_rmdir_del "%USERPROFILE%\markdown_style.css"
 
     @REM Make directories.
     mkdir "%LOCALAPPDATA%\nvim-data"
+    mkdir "%APPDATA%\Code\User"
 
     @REM Make files.
-    type nul>%~dp0..\..\Vim\.vim\.netrwbook
-    type nul>%~dp0..\..\Vim\.vim\.netrwhist
+    type nul>%~dp0..\.vim\.netrwbook
+    type nul>%~dp0..\.vim\.netrwhist
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\..\Vim\.vim\init.vim"
-    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\..\Vim\.vim"
-    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwbook"   "%~dp0..\..\Vim\.vim\.netrwbook"
-    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwhist"   "%~dp0..\..\Vim\.vim\.netrwhist"
-    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\..\.gitignore"
-    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\..\markdown_style.css"
+    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\.vim"
+    call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\.vim"
+    call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\.vim"
+    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwbook"   "%~dp0..\.vim\.netrwbook"
+    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwhist"   "%~dp0..\.vim\.netrwhist"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\Code\User\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\Code\User\keybindings.json"
+    call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\Code\User\snippets"
+    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\.gitignore"
+    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\markdown_style.css"
 
-    @REM Git global settings
-    @REM call git config --global user.name foo
-    @REM call git config --global user.email foo@bar.com
+    call git config --global user.name foo
+    call git config --global user.email foo@bar.com
     call git config --global core.editor nvim
     call git config --global core.excludesfile %USERPROFILE%\.gitignore
     call git config --global credential.helper manager-core
@@ -95,13 +99,4 @@ exit /b
         @REM It is a file.
         mklink "%~1" "%~2"
     )
-exit /b
-
-@REM :install_vscode_extension %id%
-:install_vscode_extension
-    set cur_dir=%cd%
-    cd /d "%USERPROFILE%\AppData\Local\Programs\Microsoft VS Code\bin"
-    call code --install-extension %~1
-    cd /d %cur_dir%
-    timeout /t 5
 exit /b
