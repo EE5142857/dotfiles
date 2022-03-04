@@ -39,8 +39,9 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     @REM Git global settings
     @REM call git config --global user.name foo
     @REM call git config --global user.email foo@bar.com
-    call git config --global core.editor vim
+    call git config --global core.editor nvim
     call git config --global core.excludesfile %USERPROFILE%\.gitignore
+    call git config --global credential.helper manager-core
     call git config --global diff.compactionHeuristic true
 
     echo Done.
