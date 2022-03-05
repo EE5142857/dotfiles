@@ -58,6 +58,10 @@ nnoremap <silent> <Space>cp :let @*=expand('%:p')<CR>
 " see (https://github.com/plasticboy/vim-markdown)
 nnoremap <silent> <Space>tf :TableFormat<CR>
 
+if has('nvim')
+  tnoremap <C-[> <C-\><C-n>
+endif
+
 " --------------------------------------
 " Edit
 "
@@ -129,8 +133,7 @@ augroup END
 " --------------------------------------
 " Color Scheme
 "
-set t_Co=256
-colorscheme codedark
+" colorscheme codedark
 
 " default dark color schemes
 " colorscheme desert
@@ -229,6 +232,8 @@ function! MyRebuild() abort
   execute 'bo terminal ++noclose ./my_rebuild.bat'
 endfunction
 
+command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
+
 " --------------------------------------
 " Local Settings
 "
@@ -247,6 +252,8 @@ endfunction
 
 augroup vimrc-local
   autocmd!
-  autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * lcd %:p:h
-  autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
+  " autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * lcd %:p:h
+  " autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
+  autocmd BufNewFile,BufReadPost * lcd %:p:h
+  autocmd BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
 augroup END

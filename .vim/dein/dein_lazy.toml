@@ -16,12 +16,6 @@ repo = 'Shougo/neosnippet-snippets'
 on_source = ['neosnippet.vim']
 
 # --------------------------------------
-# Color Scheme
-#
-[[plugins]]
-repo = 'tomasiser/vim-code-dark'
-
-# --------------------------------------
 # Syntax
 #
 [[plugins]]

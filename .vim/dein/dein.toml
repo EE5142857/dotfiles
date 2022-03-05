@@ -5,6 +5,12 @@
 repo = 'Shougo/dein.vim'
 
 # --------------------------------------
+# View
+#
+[[plugins]]
+repo = 'simeji/winresizer'
+
+# --------------------------------------
 # Edit
 #
 [[plugins]]
@@ -17,6 +23,17 @@ let g:indent_guides_start_level = 2
 
 [[plugins]]
 repo = 'tyru/caw.vim'
+
+# --------------------------------------
+# Color Scheme
+#
+[[plugins]]
+repo = 'tomasiser/vim-code-dark'
+hook_source = '''
+set t_Co=256
+set t_ut=
+colorscheme codedark
+'''
 
 # --------------------------------------
 # Status Line
