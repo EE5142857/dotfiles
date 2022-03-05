@@ -6,6 +6,10 @@ if 0
   finish
 endif
 
+if &filetype='gitcommit'
+  finish
+endif
+
 " --------------------------------------
 " Encoding
 "
@@ -133,7 +137,7 @@ augroup END
 " --------------------------------------
 " Color Scheme
 "
-" colorscheme codedark
+colorscheme codedark
 
 " default dark color schemes
 " colorscheme desert
@@ -232,7 +236,7 @@ function! MyRebuild() abort
   execute 'bo terminal ++noclose ./my_rebuild.bat'
 endfunction
 
-command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
+command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
 
 " --------------------------------------
 " Local Settings
