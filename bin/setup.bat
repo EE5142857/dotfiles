@@ -29,16 +29,6 @@
     call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\.vscode\snippets"
     call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\markdown_style.css"
 
-<<<<<<< HEAD
-=======
-    call git config --global user.name foo
-    call git config --global user.email foo@bar.com
-    call git config --global core.editor vim
-    call git config --global core.excludesfile %USERPROFILE%\.gitignore
-    call git config --global credential.helper manager-core
-    call git config --global diff.compactionHeuristic true
-
->>>>>>> refs/remotes/origin/main
     echo Done.
     pause
 exit /b
