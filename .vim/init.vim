@@ -6,10 +6,6 @@ if 0
   finish
 endif
 
-if &filetype='gitcommit'
-  finish
-endif
-
 " --------------------------------------
 " Encoding
 "

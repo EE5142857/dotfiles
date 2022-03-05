@@ -2,7 +2,7 @@
 	name = foo
 	email = foo@bar.com
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = ~/.gitignore
 [credential]
 	helper = manager-core
