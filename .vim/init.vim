@@ -14,10 +14,6 @@ set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=utf-8,cp932
 
-if !has('nvim')
-  finish
-endif
-
 " --------------------------------------
 " dein.vim
 "
