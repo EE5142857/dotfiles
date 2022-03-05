@@ -4,54 +4,53 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
 # --------------------------------------
 # Edit
 #
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
+hook_source = '''
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+'''
 
 [[plugins]]
 repo = 'tyru/caw.vim'
 
 # --------------------------------------
-# Theme
+# Status Line
 #
 [[plugins]]
-repo = 'w0ng/vim-hybrid'
-
-# --------------------------------------
-# Syntax
-#
-[[plugins]]
-repo = 'mechatroner/rainbow_csv'
-on_ft = 'csv'
-
-[[plugins]]
-repo = 'elzr/vim-json'
-on_ft = 'json'
-
-[[plugins]]
-repo = 'aklt/plantuml-syntax'
-on_ft = 'plantuml'
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
-
-# --------------------------------------
-# Markdown
-#
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
-on_ft = 'markdown'
-
-[[plugins]]
-# required by 'plasticboy/vim-markdown'
-repo = 'godlygeek/tabular'
-on_ft = 'markdown'
+repo = 'itchyny/lightline.vim'
+hook_source = '''
+let g:lightline = {
+\   'colorscheme': 'ayu_dark',
+\   'component': {
+\       'mylineinfo': '%3l/%L, %-2c',
+\       'dir': '%{getcwd()}'
+\   },
+\   'active': {
+\       'left': [
+\           ['mode', 'paste'],
+\           ['readonly', 'dir', 'filename', 'modified']
+\       ],
+\       'right': [
+\           ['mylineinfo'],
+\           ['fileformat', 'fileencoding', 'filetype']
+\       ]
+\   },
+\   'inactive': {
+\       'left': [
+\           ['dir', 'filename']
+\       ],
+\       'right': [
+\           ['mylineinfo']
+\       ]
+\   },
+\   'separator': {
+\       'left': '|',
+\       'right': '|'
+\   },
+\}
+'''

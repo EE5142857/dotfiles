@@ -26,7 +26,7 @@ syntax enable
 " --------------------------------------
 " Keymap
 "
-let mapleader = " "
+let g:mapleader = " "
 
 nnoremap Q <Nop>
 nnoremap q <Nop>
@@ -55,32 +55,8 @@ nnoremap <silent> <Space>cd :let @* = expand('%:p:h')<CR>
 nnoremap <silent> <Space>cf :let @* = expand('%:t')<CR>
 nnoremap <silent> <Space>cp :let @* = expand('%:p')<CR>
 
-" see (https://github.com/Shougo/neosnippet.vim)
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
 " see (https://github.com/plasticboy/vim-markdown)
 nnoremap <silent> <Space>tf :TableFormat<CR>
-
-" --------------------------------------
-" Plugin
-"
-" see (https://github.com/Shougo/neosnippet.vim)
-" let g:neosnippet#snippets_directory = '~/.vim/snippets'
-
-" see (https://github.com/nathanaelkane/vim-indent-guides)
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-
-" see (https://github.com/plasticboy/vim-markdown)
-let g:tex_conceal = ""
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_math = 1
-let g:vim_markdown_no_default_key_mappings = 1
 
 " --------------------------------------
 " Edit
@@ -88,7 +64,6 @@ let g:vim_markdown_no_default_key_mappings = 1
 set autoread
 set clipboard=unnamed
 set hidden
-set mouse=a
 set nobackup
 set noswapfile
 set noundofile
@@ -98,9 +73,9 @@ set nrformats=
 augroup RestoreCursor
   autocmd!
   autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-    \ |   exe "normal! g`\""
-    \ | endif
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
 augroup END
 
 " --------------------------------------
@@ -123,7 +98,6 @@ augroup END
 " --------------------------------------
 " Search & Replacement
 "
-set gdefault
 set hlsearch
 set ignorecase
 set incsearch
@@ -142,7 +116,9 @@ set spell
 "
 set ambiwidth=double
 set cursorline
+set laststatus=2
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+set noshowmode
 set number
 set ruler
 set showmatch
@@ -151,57 +127,10 @@ set title
 set wildmenu wildmode=list:longest
 
 " --------------------------------------
-" Status Line
-"
-set laststatus=2
-set statusline=[%{getcwd()}]
-set statusline+=%m
-set statusline+=%r
-set statusline+=%h
-set statusline+=%w
-set statusline+=%=
-set statusline+=[%{&fileencoding}]
-set statusline+=%y
-set statusline+=[ROW=%l/%L]
-set statusline+=[COL=%c]
-
-" --------------------------------------
-" Highlight
-"
-augroup OverrideHighlight
-  autocmd!
-  autocmd Syntax * call AddSyntax()
-  autocmd ColorScheme * call ForceHighlight()
-augroup END
-
-function! AddSyntax() abort
-  call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-  call matchadd('Error', '　\|\s\+$\|\[ \]')
-endfunction
-
-function! ForceHighlight() abort
-  highlight clear CursorLine
-  highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=NONE
-  highlight clear SpecialKey
-  highlight SpecialKey cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  if has('nvim')
-    highlight clear Whitespace
-    highlight Whitespace cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  endif
-  highlight clear SpellBad
-  highlight SpellBad cterm=NONE ctermfg=DarkRed ctermbg=NONE
-  highlight Todo cterm=NONE ctermfg=Black ctermbg=DarkYellow
-  highlight Error cterm=NONE ctermfg=Black ctermbg=DarkRed
-endfunction
-
-" --------------------------------------
-" Color
+" Color Scheme
 "
 set t_Co=256
-
-" see (https://github.com/w0ng/vim-hybrid)
-set background=dark
-colorscheme hybrid
+colorscheme codedark
 
 " default dark colorschemes
 " colorscheme desert
@@ -228,12 +157,44 @@ colorscheme hybrid
 " colorscheme shine
 
 " --------------------------------------
+" Highlight
+"
+function! MyMatchAdd() abort
+  call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  call matchadd('Error', '　\|\s\+$\|\[ \]')
+endfunction
+
+function! SetHighlight() abort
+  highlight clear CursorLine
+  highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
+  highlight clear Error
+  highlight Error       cterm=NONE ctermfg=Black ctermbg=DarkRed
+  highlight clear SpecialKey
+  highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight clear SpellBad
+  highlight SpellBad    cterm=NONE ctermfg=DarkRed ctermbg=NONE
+  highlight clear Todo
+  highlight Todo        cterm=NONE ctermfg=Black ctermbg=DarkYellow
+  if has('nvim')
+    highlight clear Whitespace
+    highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  endif
+endfunction
+
+call SetHighlight()
+augroup MyHighlight
+  autocmd!
+  autocmd Syntax * call MyMatchAdd()
+  " autocmd ColorScheme * call SetHighlight()
+augroup END
+
+" --------------------------------------
 " Function
 "
 " Avoiding the 'Hit ENTER to continue' prompts
 command! -nargs=1 Silent
-  \ execute 'silent !' . <q-args> |
-  \ execute 'redraw!'
+\ execute 'silent !' . <q-args> |
+\ execute 'redraw!'
 
 command! -nargs=0 FixWhitespace call FixWhitespace()
 function! FixWhitespace() abort
@@ -273,15 +234,15 @@ endfunction
 "   local.vim
 "     lcd <sfile>:h
 "
+function! s:vimrc_local(loc)
+  let l:files = findfile('local.vim', escape(a:loc, ' ') . ';', -1)
+  for l:i in reverse(filter(l:files, 'filereadable(v:val)'))
+    source `=l:i`
+  endfor
+endfunction
+
 augroup vimrc-local
   autocmd!
   autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * lcd %:p:h
   autocmd TabEnter,BufWinEnter,BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
 augroup END
-
-function! s:vimrc_local(loc)
-  let files = findfile('local.vim', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
-endfunction
