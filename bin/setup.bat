@@ -5,16 +5,17 @@
     chcp 65001>nul
     cd /d %~dp0
 
-    @REM Remove files/directories.
-    call clean.bat
-
     @REM Make directories.
     mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%APPDATA%\Code\User"
 
     @REM Make files.
-    type nul>%~dp0..\.vim\.netrwbook
-    type nul>%~dp0..\.vim\.netrwhist
+    type nul>"%~dp0..\.vim\.netrwbook"
+    type nul>"%~dp0..\.vim\.netrwhist"
+
+    @REM Copy files.
+    copy "..\sample.gitconfig"  "%USERPROFILE%\.gitconfig"
+    copy "..\sample.gitignore"  "%USERPROFILE%\.gitignore"
 
     @REM Make symbolic links.
     call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\.vim\init.vim"
@@ -26,15 +27,7 @@
     call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\.vscode\settings.json"
     call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\.vscode\keybindings.json"
     call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\.vscode\snippets"
-    call :my_mklink "%USERPROFILE%\.gitignore"              "%~dp0..\.gitignore"
     call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\markdown_style.css"
-
-    call git config --global user.name foo
-    call git config --global user.email foo@bar.com
-    call git config --global core.editor nvim
-    call git config --global core.excludesfile %USERPROFILE%\.gitignore
-    call git config --global credential.helper manager-core
-    call git config --global diff.compactionHeuristic true
 
     echo Done.
     pause

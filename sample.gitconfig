@@ -1,0 +1,12 @@
+[user]
+	name = foo
+	email = foo@bar.com
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[credential]
+	helper = manager-core
+[diff]
+	compactionHeuristic = true
+[credential "helperselector"]
+	selected = manager-core
