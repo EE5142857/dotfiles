@@ -9,10 +9,6 @@
     mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%APPDATA%\Code\User"
 
-    @REM Make files.
-    type nul>"%~dp0..\.vim\.netrwbook"
-    type nul>"%~dp0..\.vim\.netrwhist"
-
     @REM Copy files.
     copy "..\sample.gitconfig"  "%USERPROFILE%\.gitconfig"
     copy "..\sample.gitignore"  "%USERPROFILE%\.gitignore"
@@ -22,8 +18,6 @@
     call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\.vim"
     call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\.vim"
     call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\.vim"
-    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwbook"   "%~dp0..\.vim\.netrwbook"
-    call :my_mklink "%LOCALAPPDATA%\nvim-data\.netrwhist"   "%~dp0..\.vim\.netrwhist"
     call :my_mklink "%APPDATA%\Code\User\settings.json"     "%~dp0..\.vscode\settings.json"
     call :my_mklink "%APPDATA%\Code\User\keybindings.json"  "%~dp0..\.vscode\keybindings.json"
     call :my_mklink "%APPDATA%\Code\User\snippets"          "%~dp0..\.vscode\snippets"

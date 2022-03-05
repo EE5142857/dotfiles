@@ -20,6 +20,8 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%USERPROFILE%\vimfiles"
     call :my_rmdir_del "%USERPROFILE%\.vimrc"
     call :my_rmdir_del "%USERPROFILE%\_vimrc"
+    call :my_rmdir_del "%USERPROFILE%\.viminfo"
+    call :my_rmdir_del "%USERPROFILE%\_viminfo"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim-data"
     call :my_rmdir_del "%APPDATA%\Code"

@@ -51,9 +51,9 @@ nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
 " Copy directory, file name and path
-nnoremap <silent> <Space>cd :let @* = expand('%:p:h')<CR>
-nnoremap <silent> <Space>cf :let @* = expand('%:t')<CR>
-nnoremap <silent> <Space>cp :let @* = expand('%:p')<CR>
+nnoremap <silent> <Space>cd :let @*=expand('%:p:h')<CR>
+nnoremap <silent> <Space>cf :let @*=expand('%:t')<CR>
+nnoremap <silent> <Space>cp :let @*=expand('%:p')<CR>
 
 " see (https://github.com/plasticboy/vim-markdown)
 nnoremap <silent> <Space>tf :TableFormat<CR>
@@ -79,23 +79,6 @@ augroup RestoreCursor
 augroup END
 
 " --------------------------------------
-" Indent
-"
-set autoindent
-set expandtab
-set smartindent
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-
-augroup MyFileTypeIndent
-  autocmd!
-  autocmd BufNewFile,BufRead *.css        setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
-augroup END
-
-" --------------------------------------
 " Search & Replacement
 "
 set hlsearch
@@ -104,12 +87,6 @@ set incsearch
 set shortmess-=S
 set smartcase
 set wrapscan
-
-" --------------------------------------
-" Spell
-"
-set spelllang+=cjk
-set spell
 
 " --------------------------------------
 " View
@@ -127,18 +104,41 @@ set title
 set wildmenu wildmode=list:longest
 
 " --------------------------------------
+" Spell
+"
+set spelllang+=cjk
+set spell
+
+" --------------------------------------
+" Indent
+"
+set autoindent
+set expandtab
+set smartindent
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+augroup MyFileTypeIndent
+  autocmd!
+  autocmd BufNewFile,BufRead *.css        setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
+augroup END
+
+" --------------------------------------
 " Color Scheme
 "
 set t_Co=256
 colorscheme codedark
 
-" default dark colorschemes
+" default dark color schemes
 " colorscheme desert
 " colorscheme elflord
 " colorscheme industry
 " colorscheme pablo
 
-" default dark colorschemes I don't like
+" default dark color schemes I won't set
 " colorscheme blue
 " colorscheme darkblue
 " colorscheme default
@@ -151,42 +151,46 @@ colorscheme codedark
 " colorscheme torte
 " colorscheme zellner
 
-" default light colorschemes
+" default light color schemes
 " colorscheme evening
 " colorscheme morning
 " colorscheme shine
 
 " --------------------------------------
+" Syntax
+"
+augroup MyMatchAdd
+  autocmd!
+  autocmd Syntax * call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  autocmd Syntax * call matchadd('Error', '　\|\s\+$\|\[ \]')
+augroup END
+
+" --------------------------------------
 " Highlight
 "
-function! MyMatchAdd() abort
-  call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-  call matchadd('Error', '　\|\s\+$\|\[ \]')
-endfunction
+highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
+highlight Error       cterm=NONE ctermfg=Black ctermbg=DarkRed
+highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+highlight SpellBad    cterm=NONE ctermfg=DarkRed ctermbg=NONE
+highlight Todo        cterm=NONE ctermfg=Black ctermbg=DarkYellow
+if has('nvim')
+  highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+endif
 
-function! SetHighlight() abort
-  highlight clear CursorLine
-  highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
-  highlight clear Error
-  highlight Error       cterm=NONE ctermfg=Black ctermbg=DarkRed
-  highlight clear SpecialKey
-  highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight clear SpellBad
-  highlight SpellBad    cterm=NONE ctermfg=DarkRed ctermbg=NONE
-  highlight clear Todo
-  highlight Todo        cterm=NONE ctermfg=Black ctermbg=DarkYellow
-  if has('nvim')
-    highlight clear Whitespace
-    highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  endif
-endfunction
+" function! SetHighlight() abort
+" endfunction
 
-call SetHighlight()
-augroup MyHighlight
-  autocmd!
-  autocmd Syntax * call MyMatchAdd()
-  " autocmd ColorScheme * call SetHighlight()
-augroup END
+" call SetHighlight()
+" augroup MyHighlight
+"   autocmd!
+"   autocmd ColorScheme * call SetHighlight()
+" augroup END
+
+" --------------------------------------
+" Plugin
+"
+let g:netrw_home='~/.vim'
+let g:netrw_dirhistmax=1
 
 " --------------------------------------
 " Function
