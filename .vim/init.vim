@@ -58,9 +58,7 @@ nnoremap <silent> <Space>cp :let @*=expand('%:p')<CR>
 " see (https://github.com/plasticboy/vim-markdown)
 nnoremap <silent> <Space>tf :TableFormat<CR>
 
-if has('nvim')
-  tnoremap <C-[> <C-\><C-n>
-endif
+tnoremap <C-[> <C-\><C-n>
 
 " --------------------------------------
 " Edit
@@ -232,7 +230,9 @@ function! MyRebuild() abort
   execute 'bo terminal ++noclose ./my_rebuild.bat'
 endfunction
 
-command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
+if has('nvim')
+  command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
+endif
 
 " --------------------------------------
 " Local Settings
