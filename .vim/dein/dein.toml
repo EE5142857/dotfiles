@@ -44,7 +44,6 @@ set t_ut=
 repo='itchyny/lightline.vim'
 hook_source='''
 let g:lightline={
-\   'colorscheme': 'ayu_dark',
 \   'component': {
 \       'mylineinfo': '%3l/%L, %-2c',
 \       'dir': '%{getcwd()}'
