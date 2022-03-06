@@ -2,34 +2,37 @@
 # Shougo
 #
 [[plugins]]
-repo = 'Shougo/dein.vim'
+repo='Shougo/dein.vim'
 
 # --------------------------------------
 # View
 #
 [[plugins]]
-repo = 'simeji/winresizer'
+repo='simeji/winresizer'
+hook_add='''
+let g:winresizer_start_key='<C-w><C-w>'
+'''
 
 # --------------------------------------
 # Edit
 #
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_source = '''
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
+repo='nathanaelkane/vim-indent-guides'
+hook_source='''
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_guide_size=1
+let g:indent_guides_start_level=2
 '''
 
 [[plugins]]
-repo = 'tyru/caw.vim'
+repo='tyru/caw.vim'
 
 # --------------------------------------
 # Color Scheme
 #
 [[plugins]]
-repo = 'tomasiser/vim-code-dark'
-hook_source = '''
+repo='tomasiser/vim-code-dark'
+hook_source='''
 set t_Co=256
 set t_ut=
 '''
@@ -38,9 +41,9 @@ set t_ut=
 # Status Line
 #
 [[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_source = '''
-let g:lightline = {
+repo='itchyny/lightline.vim'
+hook_source='''
+let g:lightline={
 \   'colorscheme': 'ayu_dark',
 \   'component': {
 \       'mylineinfo': '%3l/%L, %-2c',

@@ -9,7 +9,7 @@ endif
 " --------------------------------------
 " Encoding
 "
-" $LANG = en_US/CP932
+" $LANG=en_US/CP932
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=utf-8,cp932
@@ -26,7 +26,7 @@ syntax enable
 " --------------------------------------
 " Keymap
 "
-let g:mapleader = " "
+let g:mapleader=" "
 
 nnoremap Q <Nop>
 nnoremap q <Nop>
@@ -210,18 +210,18 @@ endfunction
 command! -nargs=1 OpenWithVim call OpenWithVim()
 function! OpenWithVim() abort
   " call feedkeys('yi(', 'nx')
-  let l:path = @*
-  let l:path = @*
-  let l:file_path = matchstr(l:path, '.*\ze:')
-  let l:line = matchstr(l:path, '.*:\zs.*')
+  let l:path=@*
+  let l:path=@*
+  let l:file_path=matchstr(l:path, '.*\ze:')
+  let l:line=matchstr(l:path, '.*:\zs.*')
   execute 'silent vi +' . l:line . ' ' . l:file_path
 endfunction
 
 " Save PlantUML as designated format
 command! -nargs=1 PuSave call PuSave(<f-args>)
 function! PuSave(format) abort
-  let l:path = expand('%:p')
-  let l:path_wo_ex = matchstr(l:path, '.*\ze\.')
+  let l:path=expand('%:p')
+  let l:path_wo_ex=matchstr(l:path, '.*\ze\.')
   execute 'Silent java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
 endfunction
 
@@ -244,7 +244,7 @@ endif
 "     lcd <sfile>:h
 "
 function! s:vimrc_local(loc)
-  let l:files = findfile('local.vim', escape(a:loc, ' ') . ';', -1)
+  let l:files=findfile('local.vim', escape(a:loc, ' ') . ';', -1)
   for l:i in reverse(filter(l:files, 'filereadable(v:val)'))
     source `=l:i`
   endfor
