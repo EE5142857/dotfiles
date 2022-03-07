@@ -178,15 +178,6 @@ if has('nvim')
   highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
 endif
 
-" function! SetHighlight() abort
-" endfunction
-
-" call SetHighlight()
-" augroup MyHighlight
-"   autocmd!
-"   autocmd ColorScheme * call SetHighlight()
-" augroup END
-
 " --------------------------------------
 " Plugin
 "
@@ -233,7 +224,7 @@ endfunction
 if has('nvim')
   command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
 else
-  command! -nargs=* T split | wincmd j | resize 5 | terminal! ++curwin <args>
+  command! -nargs=* T split | wincmd j | resize 5 | terminal ++curwin <args>
 endif
 
 " --------------------------------------
