@@ -254,4 +254,5 @@ augroup vimrc-local
   autocmd!
   autocmd BufNewFile,BufReadPost * lcd %:p:h
   autocmd BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
+  autocmd TabEnter * pwd
 augroup END
