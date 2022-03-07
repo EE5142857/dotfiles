@@ -232,6 +232,8 @@ endfunction
 
 if has('nvim')
   command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
+else
+  command! -nargs=* T split | wincmd j | resize 5 | terminal! ++curwin <args>
 endif
 
 " --------------------------------------
