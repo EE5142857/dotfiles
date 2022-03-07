@@ -170,9 +170,9 @@ augroup END
 " Highlight
 "
 highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
-highlight Error       cterm=NONE ctermfg=Black ctermbg=DarkRed
+highlight Error       cterm=NONE ctermfg=Black ctermbg=Red
 highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-highlight SpellBad    cterm=NONE ctermfg=DarkRed ctermbg=NONE
+highlight SpellBad    cterm=underline ctermfg=Red ctermbg=NONE
 highlight Todo        cterm=NONE ctermfg=Black ctermbg=DarkYellow
 if has('nvim')
   highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
