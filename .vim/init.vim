@@ -170,7 +170,7 @@ augroup END
 " Highlight
 "
 highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
-highlight Error       cterm=NONE ctermfg=Black ctermbg=Red
+highlight Error       cterm=NONE ctermfg=Black ctermbg=DarkRed
 highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
 highlight SpellBad    cterm=underline ctermfg=Red ctermbg=NONE
 highlight Todo        cterm=NONE ctermfg=Black ctermbg=DarkYellow
