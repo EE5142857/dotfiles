@@ -227,8 +227,7 @@ endfunction
 
 command! -nargs=0 MyRebuild call MyRebuild()
 function! MyRebuild() abort
-"  execute 'bo terminal ++noclose ./my_rebuild.bat'
-  T ++noclose my_rebuild.bat
+  T my_rebuild.bat
 endfunction
 
 if has('nvim')
