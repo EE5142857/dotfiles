@@ -92,27 +92,6 @@ set smartcase
 set wrapscan
 
 " --------------------------------------
-" View
-"
-set ambiwidth=double
-set cursorline
-set laststatus=2
-set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
-set noshowmode
-set number
-set ruler
-set showmatch
-set showtabline=2
-set title
-set wildmenu wildmode=list:longest
-
-" --------------------------------------
-" Spell
-"
-set spelllang+=cjk
-set spell
-
-" --------------------------------------
 " Indent
 "
 set autoindent
@@ -128,6 +107,25 @@ augroup MyFileTypeIndent
   autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
+
+" --------------------------------------
+" View
+"
+set ambiwidth=double
+set cursorline
+set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+set number
+set showmatch
+set showtabline=2
+set title
+set wildmenu wildmode=list:longest
+
+" --------------------------------------
+" Status Line
+"
+set laststatus=2
+set noshowmode
+set ruler
 
 " --------------------------------------
 " Color Scheme
@@ -157,6 +155,12 @@ colorscheme codedark
 " colorscheme evening
 " colorscheme morning
 " colorscheme shine
+
+" --------------------------------------
+" Spell
+"
+set spelllang+=cjk
+set spell
 
 " --------------------------------------
 " Syntax
