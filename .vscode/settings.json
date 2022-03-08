@@ -1,10 +1,12 @@
 {
-    // "files.insertFinalNewline": true,
-    // "files.trimFinalNewlines": true,
-    // "files.trimTrailingWhitespace": true,
+    "$comment": [
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+    ],
     "[c]": {
         "files.autoGuessEncoding": false,
-        "files.encoding": "shiftjis",
+        "files.encoding": "shiftjis"
     },
     "breadcrumbs.enabled": false,
     "editor.acceptSuggestionOnEnter": "off",
@@ -68,5 +70,5 @@
     },
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)",
     "vim.useSystemClipboard": true,
-    "vim.vimrc.enable": true,
+    "vim.vimrc.enable": true
 }
