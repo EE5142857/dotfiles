@@ -75,7 +75,7 @@ set nrformats=
 augroup ClearMarks
   autocmd!
   autocmd BufReadPost * delmarks!
-  autocmd BufEnter * delmarks 0-9\"[]^.
+  autocmd BufEnter * delmarks 0-9\"[]^.<>
 augroup END
 
 augroup RestoreCursor
