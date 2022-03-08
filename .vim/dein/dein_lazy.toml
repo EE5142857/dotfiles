@@ -16,17 +16,6 @@ repo='Shougo/neosnippet-snippets'
 on_source=['neosnippet.vim']
 
 # --------------------------------------
-# Syntax
-#
-[[plugins]]
-repo='mechatroner/rainbow_csv'
-on_ft=['csv']
-
-[[plugins]]
-repo='elzr/vim-json'
-on_ft=['json']
-
-# --------------------------------------
 # Markdown
 #
 [[plugins]]
