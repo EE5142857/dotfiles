@@ -71,6 +71,7 @@ set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
+set viminfo+=r,n~/.viminfo
 
 augroup RestoreCursor
   autocmd!
@@ -187,11 +188,6 @@ let g:netrw_dirhistmax=1
 " --------------------------------------
 " Function
 "
-" Avoiding the 'Hit ENTER to continue' prompts
-command! -nargs=1 Silent
-\ execute 'silent !' . <q-args> |
-\ execute 'redraw!'
-
 command! -nargs=0 FixWhitespace call FixWhitespace()
 function! FixWhitespace() abort
   execute '%s/\s\+$//e'
@@ -213,7 +209,7 @@ command! -nargs=1 PuSave call PuSave(<f-args>)
 function! PuSave(format) abort
   let l:path=expand('%:p')
   let l:path_wo_ex=matchstr(l:path, '.*\ze\.')
-  execute 'Silent java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
+  execute 'silent !java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
 endfunction
 
 command! -nargs=0 MyRebuild call MyRebuild()
@@ -246,6 +242,6 @@ endfunction
 augroup vimrc-local
   autocmd!
   autocmd BufNewFile,BufReadPost * lcd %:p:h
-  autocmd BufNewFile,BufReadPost * silent! call s:vimrc_local(expand('<afile>:p:h'))
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
   autocmd TabEnter * pwd
 augroup END
