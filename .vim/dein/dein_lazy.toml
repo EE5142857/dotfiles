@@ -26,10 +26,6 @@ on_ft=['csv']
 repo='elzr/vim-json'
 on_ft=['json']
 
-[[plugins]]
-repo='aklt/plantuml-syntax'
-on_ft=['plantuml']
-
 # --------------------------------------
 # Markdown
 #
