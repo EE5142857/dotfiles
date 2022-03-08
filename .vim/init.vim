@@ -71,7 +71,7 @@ set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
-set viminfo+=r,n~/.viminfo
+"set viminfo+=r,n~/.viminfo
 
 augroup RestoreCursor
   autocmd!
