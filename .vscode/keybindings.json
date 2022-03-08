@@ -1,4 +1,3 @@
-// Place your key bindings in this file to override the defaults
 [
 { "key": "ctrl+w",                "command": "-workbench.action.closeActiveEditor" },
 { "key": "ctrl+w",                "command": "-workbench.action.closeGroup",
