@@ -71,7 +71,12 @@ set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
-"set viminfo+=r,n~/.viminfo
+
+augroup ClearMarks
+  autocmd!
+  autocmd BufReadPost * delmarks!
+  autocmd BufEnter * delmarks 0-9\"[]^.
+augroup END
 
 augroup RestoreCursor
   autocmd!
