@@ -117,7 +117,6 @@ set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
 set number
 set showmatch
 set showtabline=2
-set title
 set wildmenu wildmode=list:longest
 
 " --------------------------------------
