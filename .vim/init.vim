@@ -239,7 +239,7 @@ endif
 "
 "   local.vim
 "     lcd <sfile>:h
-"     
+"
 "     if !exists("g:dir_list")
 "       let g:dir_list = [s:cwd]
 "     else
@@ -248,11 +248,12 @@ endif
 "           finish
 "         endif
 "       endfor
-"     
+"
 "       call add(g:dir_list, s:cwd)
 "     endif
-"     
+"
 "     !ctags -R .
+"
 function! s:vimrc_local(loc)
   let l:files=findfile('local.vim', escape(a:loc, ' ') . ';', -1)
   for l:i in reverse(filter(l:files, 'filereadable(v:val)'))
