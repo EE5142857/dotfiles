@@ -240,6 +240,8 @@ endif
 "   local.vim
 "     lcd <sfile>:h
 "
+"     let s:cwd = getcwd()
+"
 "     if !exists("g:dir_list")
 "       let g:dir_list = [s:cwd]
 "     else
