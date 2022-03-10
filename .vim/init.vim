@@ -55,9 +55,7 @@ nnoremap <silent> <Space>cd :let @*=expand('%:p:h')<CR>
 nnoremap <silent> <Space>cf :let @*=expand('%:t')<CR>
 nnoremap <silent> <Space>cp :let @*=expand('%:p')<CR>
 
-" see (https://github.com/plasticboy/vim-markdown)
-nnoremap <silent> <Space>tf :TableFormat<CR>
-
+" Terminal
 tnoremap <C-[> <C-\><C-n>
 
 " --------------------------------------
