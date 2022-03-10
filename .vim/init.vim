@@ -134,7 +134,7 @@ set ruler
 " --------------------------------------
 " Color Scheme
 "
-colorscheme codedark
+" colorscheme codedark
 
 " default dark color schemes
 " colorscheme desert
