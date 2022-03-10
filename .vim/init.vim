@@ -132,8 +132,6 @@ set ruler
 " --------------------------------------
 " Color Scheme
 "
-" colorscheme codedark
-
 " default dark color schemes
 " colorscheme desert
 " colorscheme elflord
