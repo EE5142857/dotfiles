@@ -16,7 +16,6 @@
     @REM Make symbolic links.
     call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\.vim\init.vim"
     call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\.vim"
-    call :my_mklink "%USERPROFILE%\vimfiles"                "%~dp0..\.vim"
     call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\.vim"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"     "%~dp0..\.vscode\settings.json"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\keybindings.json"  "%~dp0..\.vscode\keybindings.json"
