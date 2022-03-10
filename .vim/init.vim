@@ -213,7 +213,6 @@ command! -nargs=1 OpenWithVim call OpenWithVim()
 function! OpenWithVim() abort
   " call feedkeys('yi(', 'nx')
   let l:path=@*
-  let l:path=@*
   let l:file_path=matchstr(l:path, '.*\ze:')
   let l:line=matchstr(l:path, '.*:\zs.*')
   execute 'silent vi +' . l:line . ' ' . l:file_path
