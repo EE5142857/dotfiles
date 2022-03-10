@@ -194,9 +194,9 @@ let g:netrw_dirhistmax=1
 " --------------------------------------
 " Function
 "
-command! -nargs=+ Silent
-\ execute 'silent <args>'
-\ | redraw!
+command! -nargs=1 Silent
+\ execute 'silent !' . <q-args>
+\ | execute 'redraw!'
 
 if has('nvim')
   command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
