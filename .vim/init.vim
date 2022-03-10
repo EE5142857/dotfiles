@@ -196,6 +196,16 @@ let g:netrw_dirhistmax=1
 " --------------------------------------
 " Function
 "
+command! -nargs=+ Silent
+\ execute 'silent <args>'
+\ | redraw!
+
+if has('nvim')
+  command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
+else
+  command! -nargs=* T split | wincmd j | resize 5 | terminal ++curwin <args>
+endif
+
 command! -nargs=0 FixWhitespace call FixWhitespace()
 function! FixWhitespace() abort
   execute '%s/\s\+$//e'
@@ -220,17 +230,6 @@ function! PuSave(format) abort
   execute 'silent !java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
 endfunction
 
-command! -nargs=0 MyRebuild call MyRebuild()
-function! MyRebuild() abort
-  T my_rebuild.bat
-endfunction
-
-if has('nvim')
-  command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
-else
-  command! -nargs=* T split | wincmd j | resize 5 | terminal ++curwin <args>
-endif
-
 " --------------------------------------
 " Local Settings
 "
@@ -254,7 +253,7 @@ endif
 "       call add(g:dir_list, s:cwd)
 "     endif
 "
-"     !ctags -R .
+"     Silent ctags -R .
 "
 function! s:vimrc_local(loc)
   let l:files=findfile('local.vim', escape(a:loc, ' ') . ';', -1)
