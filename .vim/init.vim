@@ -117,6 +117,7 @@ augroup END
 set ambiwidth=double
 set cursorline
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+set noequalalways
 set number
 set showmatch
 set showtabline=2
