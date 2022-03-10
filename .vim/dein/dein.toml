@@ -18,7 +18,7 @@ let g:winresizer_start_key='<C-w><C-w>'
 #
 [[plugins]]
 repo='nathanaelkane/vim-indent-guides'
-hook_source='''
+hook_add='''
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
 let g:indent_guides_start_level=2
@@ -32,9 +32,10 @@ repo='tyru/caw.vim'
 #
 [[plugins]]
 repo='tomasiser/vim-code-dark'
-hook_source='''
+hook_add='''
 set t_Co=256
 set t_ut=
+colorscheme codedark
 '''
 
 # --------------------------------------
@@ -42,7 +43,7 @@ set t_ut=
 #
 [[plugins]]
 repo='itchyny/lightline.vim'
-hook_source='''
+hook_add='''
 let g:lightline={
 \   'component': {
 \       'mylineinfo': '%3l/%L, %-2c',
