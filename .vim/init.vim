@@ -26,7 +26,7 @@ syntax enable
 " --------------------------------------
 " Keymap
 "
-let g:mapleader=" "
+let g:mapleader="\<Space>"
 
 nnoremap Q <Nop>
 nnoremap q <Nop>
@@ -223,7 +223,7 @@ command! -nargs=1 PuSave call PuSave(<f-args>)
 function! PuSave(format) abort
   let l:path=expand('%:p')
   let l:path_wo_ex=matchstr(l:path, '.*\ze\.')
-  execute 'silent !java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
+  execute 'Silent java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
 endfunction
 
 " --------------------------------------
