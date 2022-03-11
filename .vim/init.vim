@@ -215,13 +215,6 @@ function! FixWhitespace() abort
   execute '%s/\s\+$//e'
 endfunction
 
-" Save PlantUML as designated format
-command! -nargs=1 PuSave call PuSave(<f-args>)
-function! PuSave(format) abort
-  let l:path=expand('%:p')
-  execute 'Silent java -jar ' . expand('~/plantuml.jar') . ' -charset UTF-8 -t' . a:format . ' ' . l:path
-endfunction
-
 " --------------------------------------
 " Local Settings
 "
