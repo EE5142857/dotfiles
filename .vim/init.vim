@@ -34,6 +34,8 @@ nnoremap q <Nop>
 nnoremap j gj
 nnoremap k gk
 
+nnoremap gf gF
+
 " Toggle wrap
 nnoremap <silent> <Space>tw :set wrap!<CR>
 
@@ -64,12 +66,12 @@ tnoremap <C-[> <C-\><C-n>
 set autoread
 set clipboard=unnamed
 set hidden
+set isfname-=#
 set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
-set shellslash
 
 augroup ClearMarks
   autocmd!
@@ -200,6 +202,10 @@ command! -nargs=1 Silent
 
 if has('nvim')
   command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
+  augroup NvimTerminal
+    autocmd!
+    autocmd TermOpen * startinsert
+  augroup END
 else
   command! -nargs=* T split | wincmd j | resize 5 | terminal ++curwin <args>
 endif
@@ -207,16 +213,6 @@ endif
 command! -nargs=0 FixWhitespace call FixWhitespace()
 function! FixWhitespace() abort
   execute '%s/\s\+$//e'
-endfunction
-
-" 'path:line_number' must be yanked
-command! -nargs=1 OpenWithVim call OpenWithVim()
-function! OpenWithVim() abort
-  " call feedkeys('yi(', 'nx')
-  let l:path=@*
-  let l:file_path=matchstr(l:path, '.*\ze:')
-  let l:line=matchstr(l:path, '.*:\zs.*')
-  execute 'silent vi +' . l:line . ' ' . l:file_path
 endfunction
 
 " Save PlantUML as designated format
