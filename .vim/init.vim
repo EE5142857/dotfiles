@@ -196,6 +196,7 @@ let g:netrw_dirhistmax=1
 " --------------------------------------
 " Function
 "
+" TODO: is <args>?
 command! -nargs=1 Silent
 \ execute 'silent !' . <q-args>
 \ | execute 'redraw!'
@@ -213,6 +214,11 @@ endif
 command! -nargs=0 FixWhitespace call FixWhitespace()
 function! FixWhitespace() abort
   execute '%s/\s\+$//e'
+endfunction
+
+command! -nargs=1 F call F(<f-args>)
+function! F(word) abort
+  execute 'vimgrep /' . a:word .'/g **/* | cw'
 endfunction
 
 " --------------------------------------

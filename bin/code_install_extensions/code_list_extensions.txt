@@ -1,14 +1,5 @@
-Gruntfuggly.todo-tree
-Ikuyadeu.r
 jebbs.plantuml
-ms-ossdata.vscode-postgresql
-ms-python.python
-ms-python.vscode-pylance
-ms-toolsai.jupyter
-ms-toolsai.jupyter-keymap
-ms-vscode.cpptools
 streetsidesoftware.code-spell-checker
 tomoyukim.vscode-mermaid-editor
 vscodevim.vim
 ybaumes.highlight-trailing-white-spaces
-yzhang.markdown-all-in-one

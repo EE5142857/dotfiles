@@ -1,13 +1,11 @@
 {
     "$comment": [
+        "files.autoGuessEncoding": false,
+        "files.encoding": "shiftjis",
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true,
         "files.trimTrailingWhitespace": true
     ],
-    "[c]": {
-        "files.autoGuessEncoding": false,
-        "files.encoding": "shiftjis"
-    },
     "[markdown]":  {
         "editor.quickSuggestions": true
     },
@@ -27,51 +25,10 @@
     "workbench.startupEditor": "none",
 
     "cSpell.diagnosticLevel": "Hint",
-    "markdown.extension.list.indentationSize": "inherit",
-    "markdown.extension.orderedList.autoRenumber": false,
-    "markdown.extension.print.absoluteImgPath": false,
-    "markdown.extension.toc.levels": "2..3",
     "mermaid-editor.generate.scale": 2.0,
     "mermaid-editor.generate.type": "png",
     "plantuml.exportOutDir": ".",
     "plantuml.exportSubFolder": false,
-    "todo-tree.general.tags": [
-        "[ ]",
-        "DEBUG:",
-        "FIXME:",
-        "NOTE:",
-        "TODO:",
-        "WARNING:"
-    ],
-    "todo-tree.highlights.customHighlight": {
-        "[ ]": {
-            "background": "#FF000080",
-            "foreground": "#000000FF",
-            "icon": "check-circle"
-        },
-        "DEBUG:": {
-            "background": "#FFC0CBFF",
-            "foreground": "#000000FF",
-            "icon": "bug"
-        },
-        "FIXME:": {
-            "background": "#FF0000FF",
-            "foreground": "#000000FF",
-            "icon": "bug"
-        },
-        "NOTE:": {
-            "icon": "info"
-        },
-        "TODO:": {
-            "background": "#FFFF00FF",
-            "foreground": "#000000FF",
-            "icon": "list-unordered"
-        },
-        "WARNING:": {
-            "icon": "alert"
-        }
-    },
-    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(\\*|\\d+.))\\s*($TAGS)",
     "vim.useSystemClipboard": true,
     "vim.vimrc.enable": true
 }
