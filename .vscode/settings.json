@@ -8,6 +8,9 @@
         "files.autoGuessEncoding": false,
         "files.encoding": "shiftjis"
     },
+    "[markdown]":  {
+        "editor.quickSuggestions": true
+    },
     "breadcrumbs.enabled": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.bracketPairColorization.enabled": true,
