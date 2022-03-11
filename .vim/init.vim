@@ -69,6 +69,7 @@ set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
+set shellslash
 
 augroup ClearMarks
   autocmd!
