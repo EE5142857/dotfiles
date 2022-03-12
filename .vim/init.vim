@@ -17,12 +17,6 @@ set fileencodings=utf-8,cp932
 " --------------------------------------
 " dein.vim
 "
-if $HOME != $USERPROFILE && $GIT_EXEC_PATH != ''
-  filetype plugin indent on
-  syntax enable
-  finish
-end
-
 source ~/.vim/dein/dein.vim
 
 " Required:
