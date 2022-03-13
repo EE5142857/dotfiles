@@ -102,24 +102,6 @@ set smartcase
 set wrapscan
 
 " --------------------------------------
-" Indent
-"
-set autoindent
-set expandtab
-set smartindent
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-
-augroup MyFileTypeIndent
-  autocmd!
-  autocmd BufNewFile,BufRead *.css        setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.toml       setlocal shiftwidth=2 softtabstop=2 tabstop=2
-augroup END
-
-" --------------------------------------
 " View
 "
 set ambiwidth=double
@@ -191,6 +173,27 @@ highlight Todo        cterm=NONE ctermfg=Black ctermbg=Yellow
 if has('nvim')
   highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
 endif
+
+" --------------------------------------
+" Indent
+"
+set autoindent
+set expandtab
+set smartindent
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+" --------------------------------------
+" File Type
+"
+augroup MyFileTypeSetting
+  autocmd!
+  autocmd BufNewFile,BufRead *.css        setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.toml       setlocal shiftwidth=2 softtabstop=2 tabstop=2
+augroup END
 
 " --------------------------------------
 " Plugin
