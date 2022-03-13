@@ -28,14 +28,20 @@ let g:slime_cell_delimiter = "# %%"
 repo='hanschen/vim-ipython-cell'
 on_ft=['python']
 hook_source='''
-nnoremap <C-M> :IPythonCellExecuteCell<CR>
-nnoremap <C-N> call MyExecuteCell<CR>
+nnoremap <silent> <Space>ie :call ExecuteCell()<CR>
+nnoremap <silent> <Space>is :call StartIPython()<CR>
 
-command! -nargs=0 MyExecuteCell call MyExecuteCell()
-function! MyExecuteCell() abort
+function! ExecuteCell() abort
   execute 'IPythonCellExecuteCell'
   execute 'wincmd l'
-  execute 'startinsert'
-  call feedkeys("\<CR>")
+  call feedkeys("i" . "\<CR>\<Esc>")
+  call feedkeys("\<C-W>h")
+endfunction
+
+function! StartIPython() abort
+  execute 'vsplit | wincmd l | terminal'
+  call feedkeys("i" . "activate" . "\<CR>\<Esc>")
+  call feedkeys("i" . "ipython" . "\<CR>\<Esc>")
+  call feedkeys("\<C-W>h")
 endfunction
 '''

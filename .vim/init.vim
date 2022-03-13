@@ -52,10 +52,10 @@ nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
 nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 
 " .vimrc
-nnoremap <silent> <Space>ed0 :tabedit ~/.vim/dein/dein.toml<CR>
-nnoremap <silent> <Space>ed1 :tabedit ~/.vim/dein/dein_lazy.toml<CR>
-nnoremap <silent> <Space>ed2 :tabedit ~/.vim/dein/dein_nvim.toml<CR>
-nnoremap <silent> <Space>ed3 :tabedit ~/.vim/dein/dein_nvim_lazy.toml<CR>
+nnoremap <silent> <Space>ed1 :tabedit ~/.vim/dein/dein.toml<CR>
+nnoremap <silent> <Space>ed2 :tabedit ~/.vim/dein/dein_lazy.toml<CR>
+nnoremap <silent> <Space>ed3 :tabedit ~/.vim/dein/dein_nvim.toml<CR>
+nnoremap <silent> <Space>ed4 :tabedit ~/.vim/dein/dein_nvim_lazy.toml<CR>
 nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
@@ -215,10 +215,6 @@ command! -nargs=1 Silent
 if has('nvim')
   command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
   command! -nargs=* VT vsplit | wincmd l | terminal <args>
-  " augroup NvimTerminal
-  "   autocmd!
-  "   autocmd TermOpen * startinsert
-  " augroup END
 else
   command! -nargs=* T split | wincmd j | resize 5 | terminal ++curwin <args>
   command! -nargs=* VT vsplit | wincmd l | terminal ++curwin <args>
@@ -232,15 +228,6 @@ endfunction
 command! -nargs=1 F call F(<f-args>)
 function! F(word) abort
   execute 'vimgrep /' . a:word .'/g **/* | cw'
-endfunction
-
-command! -nargs=* StartIPython call StartIPython()
-function! StartIPython() abort
-  execute 'vsplit | wincmd l'
-  execute 'terminal'
-  call feedkeys("i" . "activate" . "\<CR>\<Esc>")
-  call feedkeys("i" . "ipython" . "\<CR>\<Esc>")
-  execute 'wincmd h'
 endfunction
 
 " --------------------------------------
