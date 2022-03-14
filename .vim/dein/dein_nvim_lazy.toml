@@ -13,35 +13,36 @@ nnoremap <silent> <Space>js :Silent jupytext --sync .\*.ipynb<CR>
 
 [[plugins]]
 repo='jpalardy/vim-slime'
-on_ft=['python']
+on_ft=['python', 'r']
 hook_source='''
-if has('nvim')
-  let g:slime_target = "neovim"
-else
-  let g:slime_target = "vimterminal"
-endif
-let g:slime_python_ipython = 1
-let g:slime_cell_delimiter = "# %%"
+let g:slime_target = "neovim"
+let g:slime_cell_delimiter = "#\ %%"
+
+command! -nargs=0 MyIPython call MyIPython()
+function! MyIPython() abort
+  execute 'vsplit | wincmd l | terminal'
+  call feedkeys("i" . "activate.bat" . "\<CR>\<Esc>")
+  call feedkeys("i" . "ipython" . "\<CR>\<Esc>")
+  call feedkeys("\<C-W>h")
+endfunction
+
+command! -nargs=0 MyR call MyR()
+function! MyR() abort
+  execute 'vsplit | wincmd l | terminal'
+  call feedkeys("i" . "r" . "\<CR>\<Esc>")
+  call feedkeys("\<C-W>h")
+endfunction
 '''
 
 [[plugins]]
 repo='hanschen/vim-ipython-cell'
 on_ft=['python']
 hook_source='''
-nnoremap <silent> <Space>ie :call ExecuteCell()<CR>
-nnoremap <silent> <Space>is :call StartIPython()<CR>
-
+nnoremap <C-M> :call ExecuteCell()<CR>
 function! ExecuteCell() abort
   execute 'IPythonCellExecuteCell'
   execute 'wincmd l'
   call feedkeys("i" . "\<CR>\<Esc>")
-  call feedkeys("\<C-W>h")
-endfunction
-
-function! StartIPython() abort
-  execute 'vsplit | wincmd l | terminal'
-  call feedkeys("i" . "activate" . "\<CR>\<Esc>")
-  call feedkeys("i" . "ipython" . "\<CR>\<Esc>")
   call feedkeys("\<C-W>h")
 endfunction
 '''

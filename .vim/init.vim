@@ -243,6 +243,8 @@ endfunction
 " endif
 "
 " let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
+" unlet g:slime_python_ipython
+" let g:slime_python_ipython = 0
 " ```
 "
 if !exists('g:cwd_list')
