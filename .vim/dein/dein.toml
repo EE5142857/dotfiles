@@ -47,12 +47,13 @@ hook_add='''
 let g:lightline={
 \   'component': {
 \       'mylineinfo': '%3l/%L, %-2c',
-\       'dir': '%{getcwd()}'
+\       'cwd': '%{getcwd()}'
 \   },
 \   'active': {
 \       'left': [
 \           ['mode', 'paste'],
-\           ['filename', 'readonly', 'modified']
+\           ['filename', 'readonly', 'modified'],
+\           ['cwd']
 \       ],
 \       'right': [
 \           ['mylineinfo'],

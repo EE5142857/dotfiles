@@ -21,7 +21,7 @@ set fileencodings=utf-8,cp932
 " --------------------------------------
 " dein.vim
 "
-source ~/.vim/dein/dein.vim
+execute 'source' fnamemodify('~/.vim/dein/dein.vim', ':p')
 
 " Required:
 filetype plugin indent on
@@ -43,10 +43,6 @@ nnoremap gf gF
 " Toggle wrap
 nnoremap <silent> <Space>tw :set wrap!<CR>
 
-" Increase/decrease indent in a row
-vnoremap << <gv
-vnoremap >> >gv
-
 " Encoding
 nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
 nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
@@ -67,6 +63,8 @@ nnoremap <silent> <Space>cp :let @*=expand('%:p')<CR>
 " Terminal
 tnoremap <C-[> <C-\><C-n>
 
+inoremap ,date <C-R>=strftime('%Y-%m-%d %a')<CR>
+
 " --------------------------------------
 " Edit
 "
@@ -80,18 +78,25 @@ set noundofile
 set nowritebackup
 set nrformats=
 
-augroup ClearMarks
-  autocmd!
-  autocmd BufReadPost * delmarks!
-  autocmd BufEnter * delmarks 0-9\"[]^.<>
-augroup END
-
 augroup RestoreCursor
   autocmd!
   autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
   \ |   exe "normal! g`\""
   \ | endif
+augroup END
+
+augroup ClearMarks
+  autocmd!
+  autocmd BufReadPost * delmarks!
+  autocmd BufEnter * delmarks 0-9\"[]^.<>
+augroup END
+
+augroup UpdateRegisters
+  autocmd!
+  autocmd BufEnter * let @x=expand('%:t')
+  autocmd BufEnter * let @y=expand('%:p:h')
+  autocmd BufEnter * let @z=expand('%:p')
 augroup END
 
 " --------------------------------------
@@ -227,44 +232,44 @@ endfunction
 
 command! -nargs=1 F call F(<f-args>)
 function! F(word) abort
-  execute 'vimgrep /' . a:word .'/g **/* | cw'
+  execute 'vimgrep /' . a:word . '/g **/* | cw'
 endfunction
 
 " --------------------------------------
 " Local Settings
 "
 "   Load settings for each location.
-"   see (https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html)
 "
+" TODO: 統合する
 "   local.vim
-"     lcd <sfile>:h
+"     lcd <sfile>:p:h
 "
-"     let s:cwd = getcwd()
-"
-"     if !exists("g:dir_list")
-"       let g:dir_list = [s:cwd]
-"     else
-"       for s:dir in g:dir_list
-"         if s:dir == s:cwd
-"           finish
-"         endif
-"       endfor
-"
-"       call add(g:dir_list, s:cwd)
+"     if index(g:cwd_list, fnamemodify(getcwd(), ':p:h')) < 0
+"       Silent ctags -R .
 "     endif
 "
-"     Silent ctags -R .
+"     let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
 "
-function! s:vimrc_local(loc)
-  let l:files=findfile('local.vim', escape(a:loc, ' ') . ';', -1)
-  for l:i in reverse(filter(l:files, 'filereadable(v:val)'))
-    source `=l:i`
+if !exists('g:cwd_list')
+  let g:cwd_list = []
+endif
+
+function! s:SourceLocalVimrc(path)
+  execute 'lcd' fnamemodify(a:path, ':p:h')
+  let l:rpath_list = findfile('local.vim', escape(a:path, ' ') . ';', -1)
+
+  for l:i in reverse(filter(l:rpath_list, 'filereadable(v:val)'))
+    let l:dir = fnamemodify(l:i, ':p:h')
+    let l:path = fnamemodify(l:i, ':p')
+    execute 'source' l:path
+
+    if index(g:cwd_list, l:dir) < 0
+      call add(g:cwd_list, l:dir)
+    endif
   endfor
 endfunction
 
-augroup vimrc-local
+augroup MyLocalVimrc
   autocmd!
-  autocmd BufNewFile,BufReadPost * lcd %:p:h
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-  autocmd BufEnter * pwd
+  autocmd BufNewFile,BufReadPost * call s:SourceLocalVimrc(expand('<afile>:p:h'))
 augroup END
