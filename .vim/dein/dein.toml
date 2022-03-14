@@ -45,39 +45,48 @@ colorscheme codedark
 repo='itchyny/lightline.vim'
 hook_add='''
 let g:lightline={
-\   'component': {
-\       'mylineinfo': '%3l/%L, %-2c',
-\       'cwd': '%{getcwd()}'
-\   },
-\   'active': {
-\       'left': [
-\           ['mode', 'paste'],
-\           ['filename', 'readonly', 'modified'],
-\           ['cwd']
-\       ],
-\       'right': [
-\           ['mylineinfo'],
-\           ['fileformat', 'fileencoding', 'filetype']
-\       ]
-\   },
-\   'inactive': {
-\       'left': [
-\           ['filename']
-\       ],
-\       'right': [
-\           ['mylineinfo']
-\       ]
-\   },
-\   'tabline': {
-\       'left': [
-\           ['tabs']
-\       ],
-\       'right': [
-\       ]
-\   },
-\   'separator': {
-\       'left': '|',
-\       'right': '|'
-\   },
+\ 'component': {
+\   'mylineinfo': '%3l/%L, %-2c'
+\ },
+\ 'active': {
+\   'left': [
+\     ['mode', 'paste'],
+\     ['filename', 'readonly', 'modified']
+\   ],
+\   'right': [
+\     ['mylineinfo'],
+\     ['fileformat', 'fileencoding', 'filetype']
+\   ]
+\ },
+\ 'inactive': {
+\   'left': [
+\     ['filename']
+\   ],
+\   'right': [
+\     []
+\   ]
+\ },
+\ 'tabline': {
+\   'left': [
+\     ['tabs']
+\   ],
+\   'right': [
+\     ['mydirname']
+\   ]
+\ },
+\ 'separator': {
+\   'left': '',
+\   'right': ''
+\ },
+\ 'component_function': {
+\   'mydir': 'LLGetDir',
+\   'mydirname': 'LLGetDirName'
+\ }
 \}
+function! LLGetDir()
+  return fnamemodify(getcwd(), ':p:h')
+endfunction
+function! LLGetDirName()
+  return fnamemodify(getcwd(), ':t')
+endfunction
 '''

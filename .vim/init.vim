@@ -6,14 +6,11 @@ if 0
   finish
 endif
 
-" if $HOME != $USERPROFILE && $GIT_EXEC_PATH != ''
-"   finish
-" end
-
 " --------------------------------------
 " Encoding
 "
 " $LANG=en_US/CP932
+" language message C
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=utf-8,cp932
@@ -55,11 +52,6 @@ nnoremap <silent> <Space>ed4 :tabedit ~/.vim/dein/dein_nvim_lazy.toml<CR>
 nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
-" Copy directory, file name and path
-nnoremap <silent> <Space>cd :let @*=expand('%:p:h')<CR>
-nnoremap <silent> <Space>cf :let @*=expand('%:t')<CR>
-nnoremap <silent> <Space>cp :let @*=expand('%:p')<CR>
-
 " Terminal
 tnoremap <C-[> <C-\><C-n>
 
@@ -94,9 +86,9 @@ augroup END
 
 augroup UpdateRegisters
   autocmd!
-  autocmd BufEnter * let @x=expand('%:t')
-  autocmd BufEnter * let @y=expand('%:p:h')
-  autocmd BufEnter * let @z=expand('%:p')
+  autocmd BufEnter * let @x=fnamemodify(expand('%'), ':t')
+  autocmd BufEnter * let @y=fnamemodify(expand('%'), ':p:h')
+  autocmd BufEnter * let @z=fnamemodify(expand('%'), ':p')
 augroup END
 
 " --------------------------------------
@@ -202,6 +194,7 @@ augroup MyFileTypeSetting
   autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd BufNewFile,BufRead *.toml       setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
+setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 " --------------------------------------
 " Plugin
@@ -212,7 +205,6 @@ let g:netrw_dirhistmax=1
 " --------------------------------------
 " Function
 "
-" TODO: is <args>?
 command! -nargs=1 Silent
 \ execute 'silent !' . <q-args>
 \ | execute 'redraw!'
@@ -225,30 +217,33 @@ else
   command! -nargs=* VT vsplit | wincmd l | terminal ++curwin <args>
 endif
 
+command! -nargs=1 F call F(<q-args>)
+function! F(word) abort
+  execute 'vimgrep /' . a:word . '/g **/* | cw'
+endfunction
+
+command! -nargs=1 P call P(<q-args>)
+function! P(reg) abort
+  execute 'let @* = @' . a:reg
+endfunction
+
 command! -nargs=0 FixWhitespace call FixWhitespace()
 function! FixWhitespace() abort
   execute '%s/\s\+$//e'
 endfunction
 
-command! -nargs=1 F call F(<f-args>)
-function! F(word) abort
-  execute 'vimgrep /' . a:word . '/g **/* | cw'
-endfunction
-
 " --------------------------------------
 " Local Settings
 "
-"   Load settings for each location.
+" ```vimscript:local.vim
+" execute 'lcd' fnamemodify('%', ':p:h')
 "
-" TODO: 統合する
-"   local.vim
-"     lcd <sfile>:p:h
+" if index(g:cwd_list, fnamemodify('%', ':p:h')) < 0
+"   Silent ctags -R .
+" endif
 "
-"     if index(g:cwd_list, fnamemodify(getcwd(), ':p:h')) < 0
-"       Silent ctags -R .
-"     endif
-"
-"     let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
+" let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
+" ```
 "
 if !exists('g:cwd_list')
   let g:cwd_list = []
@@ -259,12 +254,12 @@ function! s:SourceLocalVimrc(path)
   let l:rpath_list = findfile('local.vim', escape(a:path, ' ') . ';', -1)
 
   for l:i in reverse(filter(l:rpath_list, 'filereadable(v:val)'))
-    let l:dir = fnamemodify(l:i, ':p:h')
-    let l:path = fnamemodify(l:i, ':p')
-    execute 'source' l:path
+    let l:apath = fnamemodify(l:i, ':p')
+    let l:adir = fnamemodify(l:i, ':p:h')
+    execute 'source' fnamemodify(l:i, ':p')
 
-    if index(g:cwd_list, l:dir) < 0
-      call add(g:cwd_list, l:dir)
+    if index(g:cwd_list, fnamemodify(l:i, ':p:h')) < 0
+      call add(g:cwd_list, fnamemodify(l:i, ':p:h'))
     endif
   endfor
 endfunction
