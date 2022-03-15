@@ -95,15 +95,15 @@ let g:lightline = {
 \   'right': ''
 \ },
 \ 'component_function': {
-\   'mydir': 'LLGetDir',
+\   'mydirpath': 'LLGetDirPath',
 \   'mydirname': 'LLGetDirName'
 \ }
 \}
-function! LLGetDir()
-  return fnamemodify(getcwd(), ':p:h')
-endfunction
 function! LLGetDirName()
   return fnamemodify(getcwd(), ':t')
+endfunction
+function! LLGetDirPath()
+  return fnamemodify(getcwd(), ':p:h')
 endfunction
 '''
 

@@ -17,7 +17,9 @@ set fileencodings=utf-8,cp932
 " --------------------------------------
 " dein.vim
 "
-execute 'source' fnamemodify('~/.vim/dein/dein.vim', ':p')
+if filereadable(expand('~/.vim/dein/dein.vim'))
+  source ~/.vim/dein/dein.vim
+endif
 
 " Required:
 filetype plugin indent on
@@ -90,14 +92,11 @@ augroup UpdateRegisters
   \|endfor
   autocmd BufEnter *
   \ let @a = fnamemodify(expand('%'), ':t')
-  \|let @b = fnamemodify(expand('%'), ':p:h')
-  \|let @c = fnamemodify(expand('%'), ':p')
+  \|let @b = substitute(fnamemodify(expand('%'), ':p:h'), '\/', '\\', 'g')
+  \|let @c = substitute(fnamemodify(expand('%'), ':p'), '\/', '\\', 'g')
   \|let @d = fnamemodify(expand('%'), ':t:r')
   \|let @e = substitute(fnamemodify(expand('%'), ':p:h'), '\\', '\/', 'g')
   \|let @f = substitute(fnamemodify(expand('%'), ':p'), '\\', '\/', 'g')
-  \|let @g = fnamemodify(getcwd(), ':t')
-  \|let @h = fnamemodify(getcwd(), ':p:h')
-  \|let @i = substitute(fnamemodify(getcwd(), ':p:h'), '\\', '\/', 'g')
 augroup END
 
 " --------------------------------------
@@ -219,11 +218,15 @@ command! -nargs=1 Silent
 \|execute 'redraw!'
 
 if has('nvim')
-  command! -nargs=* T split | wincmd j | resize 5 | terminal <args>
-  command! -nargs=* VT vsplit | wincmd l | terminal <args>
+  command! -nargs=* T
+  \ split | wincmd j | resize 5 | terminal <args>
+  command! -nargs=* VT
+  \ vsplit | wincmd l | terminal <args>
 else
-  command! -nargs=* T split | wincmd j | resize 5 | terminal ++curwin <args>
-  command! -nargs=* VT vsplit | wincmd l | terminal ++curwin <args>
+  command! -nargs=* T
+  \ split | wincmd j | resize 5 | terminal ++curwin <args>
+  command! -nargs=* VT
+  \ vsplit | wincmd l | terminal ++curwin <args>
 endif
 
 command! -nargs=1 F call F(<q-args>)
@@ -245,29 +248,32 @@ endfunction
 " Local Settings
 "
 " ```vimscript:local.vim
-" execute 'lcd' fnamemodify('%', ':p:h')
+" lcd <sfile>:p:h
 "
-" if index(g:cwd_list, fnamemodify('%', ':p:h')) < 0
+" if index(g:cwd_list, fnamemodify(getcwd(), ':p:h')) < 0
 "   Silent ctags -R .
 " endif
 "
 " let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
 " unlet g:slime_python_ipython
-" let g:slime_python_ipython = 0
+" let g:slime_python_ipython = 1
 " ```
 "
+if !exists('g:cwd_list')
+  let g:cwd_list = []
+endif
+
 function! s:SourceLocalVimrc(path)
-  if !exists('g:cwd_list')
-    let g:cwd_list = []
-  endif
+  execute 'lcd' a:path
 
-  execute 'lcd' fnamemodify(a:path, ':p:h')
-  let l:rpath_list = findfile('local.vim', escape(a:path, ' ') . ';', -1)
+  let l:relative_vimrc_list = reverse(filter(findfile('local.vim', escape(a:path, ' ') . ';', -1), 'filereadable(v:val)'))
+  let l:absolute_vimrc_list = []
+  for l:i in l:relative_vimrc_list
+    call add(l:absolute_vimrc_list, fnamemodify(l:i, ':p'))
+  endfor
 
-  for l:i in reverse(filter(l:rpath_list, 'filereadable(v:val)'))
-    let l:apath = fnamemodify(l:i, ':p')
-    let l:adir = fnamemodify(l:i, ':p:h')
-    execute 'source' fnamemodify(l:i, ':p')
+  for l:i in l:absolute_vimrc_list
+    execute 'source' l:i
 
     if index(g:cwd_list, fnamemodify(l:i, ':p:h')) < 0
       call add(g:cwd_list, fnamemodify(l:i, ':p:h'))
@@ -277,5 +283,6 @@ endfunction
 
 augroup MyLocalVimrc
   autocmd!
-  autocmd BufNewFile,BufReadPost * call s:SourceLocalVimrc(expand('<afile>:p:h'))
+  " autocmd BufNewFile,BufReadPost * call s:SourceLocalVimrc(expand('<afile>:p:h'))
+  autocmd BufNewFile,BufReadPost,BufEnter * call s:SourceLocalVimrc(expand('<afile>:p:h'))
 augroup END
