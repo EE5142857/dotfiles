@@ -50,6 +50,9 @@ nnoremap <silent> <Space>ed :tabedit ~/.vim/dein/dein.toml<CR>
 nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
+" Command Line
+nnoremap <silent> <Space>ac @:
+
 " Terminal
 tnoremap <C-[> <C-\><C-n>
 
@@ -100,11 +103,10 @@ augroup UpdateRegisters
   \|let @e = fnamemodify(@%, ':t')
   \|let @f = fnamemodify(@%, ':t:r')
   \|let @g = fnamemodify(@%, ':p:h:t')
-  \|if exists('b:terminal_job_id')
-  \|  let @z = b:terminal_job_id
-  \|else
-  \|  let @z = -1
-  \|endif
+
+  " get jobid
+  autocmd BufLeave *
+  \ let @z = &channel
 augroup END
 
 " --------------------------------------
@@ -205,12 +207,13 @@ set tabstop=4
 "
 augroup MyFileTypeSetting
   autocmd!
-  autocmd FileType css,toml,vim           setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd BufNewFile,BufRead *.mmd        setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType css,toml,vim           setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType sql                    setlocal shiftwidth=4 softtabstop=4 tabstop=4
 augroup END
 
-" for init.vim
+" init.vim
 setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 " --------------------------------------
@@ -282,9 +285,16 @@ endfunction
 
 command! -nargs=0 ExecPSQL call ExecPSQL()
 function! ExecPSQL() abort
-  let l:filename = @e
+  let l:filename = fnamemodify(@%, ':t')
   execute 'wincmd l'
   call feedkeys("i" . "\\i " . l:filename . "\<CR>\<Esc>\<C-w>\h")
+endfunction
+
+command! -nargs=0 ExecR call ExecR()
+function! ExecR() abort
+  let l:filename = fnamemodify(@%, ':t')
+  execute 'wincmd l'
+  call feedkeys("i" . "rscript --encoding=utf-8 " . l:filename . "\<CR>\<Esc>\<C-w>\h")
 endfunction
 
 " TODO: 全ファイル開く
@@ -302,8 +312,10 @@ endfunction
 " endif
 "
 " let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
-" unlet g:slime_python_ipython
 " let g:slime_python_ipython = 1
+" if exists('g:slime_python_ipython')
+"   unlet g:slime_python_ipython
+" endif
 " ```
 "
 augroup MyLocalVimrc
