@@ -68,13 +68,6 @@ set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
-if has('nvim')
-  " delete uppercase marks
-  " https://neovim.io/doc/user/options.html#'shada'
-  " set shada='0,f0
-else
-  " TODO: viminfo
-endif
 
 augroup RestoreCursor
   autocmd!
@@ -86,13 +79,13 @@ augroup END
 
 augroup ClearMarks
   autocmd!
-  autocmd BufReadPost * delmarks a-z
+  autocmd VimLeavePre * delmarks!
   autocmd BufEnter * delmarks 0-9[]^.<>\"
 augroup END
 
 augroup UpdateRegisters
   autocmd!
-  autocmd VimEnter *
+  autocmd VimLeavePre *
   \ let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
   \|for r in regs
   \|  call setreg(r, [])
@@ -252,6 +245,17 @@ endfunction
 command! -nargs=0 FixWhitespace call FixWhitespace()
 function! FixWhitespace() abort
   execute '%s/\s\+$//e'
+endfunction
+
+command! -nargs=0 DeleteUppercaseMarks call DeleteUppercaseMarks()
+function! DeleteUppercaseMarks() abort
+  if has('nvim')
+    " https://neovim.io/doc/user/options.html#'shada'
+    set shada+=f0
+  else
+    " https://vimhelp.org/options.txt.html#%27viminfo%27
+    set viminfo+=f0
+  endif
 endfunction
 
 " --------------------------------------
