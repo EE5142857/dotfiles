@@ -17,7 +17,7 @@ set fileencodings=utf-8,cp932
 " --------------------------------------
 " dein.vim
 "
-if filereadable(expand('~/.vim/dein/dein.vim'))
+if filereadable(fnamemodify('~/.vim/dein/dein.vim', ':p'))
   source ~/.vim/dein/dein.vim
 endif
 
@@ -68,6 +68,13 @@ set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
+if has('nvim')
+  " delete uppercase marks
+  " https://neovim.io/doc/user/options.html#'shada'
+  " set shada='0,f0
+else
+  " TODO: viminfo
+endif
 
 augroup RestoreCursor
   autocmd!
@@ -79,8 +86,8 @@ augroup END
 
 augroup ClearMarks
   autocmd!
-  autocmd BufReadPost * delmarks!
-  autocmd BufEnter * delmarks 0-9\"[]^.<>
+  autocmd BufReadPost * delmarks a-z
+  autocmd BufEnter * delmarks 0-9[]^.<>\"
 augroup END
 
 augroup UpdateRegisters
@@ -91,12 +98,13 @@ augroup UpdateRegisters
   \|  call setreg(r, [])
   \|endfor
   autocmd BufEnter *
-  \ let @a = fnamemodify(expand('%'), ':t')
-  \|let @b = substitute(fnamemodify(expand('%'), ':p:h'), '\/', '\\', 'g')
-  \|let @c = substitute(fnamemodify(expand('%'), ':p'), '\/', '\\', 'g')
-  \|let @d = fnamemodify(expand('%'), ':t:r')
-  \|let @e = substitute(fnamemodify(expand('%'), ':p:h'), '\\', '\/', 'g')
-  \|let @f = substitute(fnamemodify(expand('%'), ':p'), '\\', '\/', 'g')
+  \ let @a = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
+  \|let @b = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
+  \|let @c = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
+  \|let @d = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+  \|let @e = fnamemodify(@%, ':t')
+  \|let @f = fnamemodify(@%, ':t:r')
+  \|let @g = fnamemodify(@%, ':p:h:t')
 augroup END
 
 " --------------------------------------
@@ -199,9 +207,11 @@ augroup MyFileTypeSetting
   autocmd!
   autocmd BufNewFile,BufRead *.css        setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd BufNewFile,BufRead *.toml       setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
+
+" for init.vim
 setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 " --------------------------------------
@@ -230,8 +240,8 @@ else
 endif
 
 command! -nargs=1 F call F(<q-args>)
-function! F(word) abort
-  execute 'vimgrep /' . a:word . '/g **/* | cw'
+function! F(str) abort
+  execute 'vimgrep /' . a:str . '/g **/* | cw'
 endfunction
 
 command! -nargs=1 P call P(<q-args>)
@@ -250,7 +260,7 @@ endfunction
 " ```vimscript:local.vim
 " lcd <sfile>:p:h
 "
-" if index(g:cwd_list, fnamemodify(getcwd(), ':p:h')) < 0
+" if index(g:sourced_list, fnamemodify(@%, ':p')) < 0
 "   Silent ctags -R .
 " endif
 "
@@ -259,14 +269,19 @@ endfunction
 " let g:slime_python_ipython = 1
 " ```
 "
-if !exists('g:cwd_list')
-  let g:cwd_list = []
+augroup MyLocalVimrc
+  autocmd!
+  autocmd BufEnter * call s:SourceLocalVimrc(fnamemodify(@%, ':p'))
+augroup END
+
+if !exists('g:sourced_list')
+  let g:sourced_list = []
 endif
 
 function! s:SourceLocalVimrc(path)
-  execute 'lcd' a:path
+  execute 'lcd' fnamemodify(a:path, ':p:h')
 
-  let l:relative_vimrc_list = reverse(filter(findfile('local.vim', escape(a:path, ' ') . ';', -1), 'filereadable(v:val)'))
+  let l:relative_vimrc_list = reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
   let l:absolute_vimrc_list = []
   for l:i in l:relative_vimrc_list
     call add(l:absolute_vimrc_list, fnamemodify(l:i, ':p'))
@@ -275,14 +290,8 @@ function! s:SourceLocalVimrc(path)
   for l:i in l:absolute_vimrc_list
     execute 'source' l:i
 
-    if index(g:cwd_list, fnamemodify(l:i, ':p:h')) < 0
-      call add(g:cwd_list, fnamemodify(l:i, ':p:h'))
+    if index(g:sourced_list, l:i) < 0
+      call add(g:sourced_list, l:i)
     endif
   endfor
 endfunction
-
-augroup MyLocalVimrc
-  autocmd!
-  " autocmd BufNewFile,BufReadPost * call s:SourceLocalVimrc(expand('<afile>:p:h'))
-  autocmd BufNewFile,BufReadPost,BufEnter * call s:SourceLocalVimrc(expand('<afile>:p:h'))
-augroup END
