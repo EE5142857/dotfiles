@@ -135,47 +135,32 @@ on_source = ['vim-markdown']
 #
 [[plugins]]
 repo = 'goerz/jupytext.vim'
-lazy = 1
 if = "has('nvim')"
-on_ft = ['python']
-hook_source = '''
+hook_add = '''
 let g:jupytext_enable = 1
 let g:jupytext_fmt = 'py:percent'
 let g:jupytext_filetype_map = {'py': 'python'}
-nnoremap <silent> <Space>js :Silent jupytext --sync .\*.ipynb<CR>
 '''
 
 [[plugins]]
+# b:terminal_job_id
 repo = 'jpalardy/vim-slime'
 lazy = 1
 if = "has('nvim')"
-on_ft = ['python', 'r', 'sql']
+on_ft = ['python', 'r']
 hook_source = '''
 let g:slime_target = "neovim"
 let g:slime_cell_delimiter = "# %%"
-command! -nargs=0 MyIPython call MyIPython()
-function! MyIPython() abort
-  execute 'vsplit | wincmd l'
-  if has('nvim')
-    execute 'terminal'
-  else
-    execute 'terminal ++curwin'
-    call feedkeys("\<Esc>")
-  endif
-  call feedkeys("i" . "activate.bat" . "\<CR>\<Esc>")
-  call feedkeys("i" . "ipython" . "\<CR>\<Esc>")
-  call feedkeys("\<C-W>h")
-endfunction
 '''
 
 [[plugins]]
 repo = 'hanschen/vim-ipython-cell'
 lazy = 1
 if = "has('nvim')"
-on_ft = ['python', 'sql']
+on_ft = ['python']
 hook_source = '''
-nnoremap <C-M> :call ExecuteCell()<CR>
-function! ExecuteCell() abort
+nnoremap <C-M> :call MyExecCell()<CR>
+function! MyExecCell() abort
   execute 'IPythonCellExecuteCell'
   execute 'wincmd l'
   call feedkeys("i" . "\<CR>\<Esc>")

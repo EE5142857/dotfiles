@@ -90,6 +90,8 @@ augroup UpdateRegisters
   \|for r in regs
   \|  call setreg(r, [])
   \|endfor
+
+  " filename-modifiers
   autocmd BufEnter *
   \ let @a = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
   \|let @b = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
@@ -98,6 +100,11 @@ augroup UpdateRegisters
   \|let @e = fnamemodify(@%, ':t')
   \|let @f = fnamemodify(@%, ':t:r')
   \|let @g = fnamemodify(@%, ':p:h:t')
+  \|if exists('b:terminal_job_id')
+  \|  let @z = b:terminal_job_id
+  \|else
+  \|  let @z = -1
+  \|endif
 augroup END
 
 " --------------------------------------
@@ -198,10 +205,9 @@ set tabstop=4
 "
 augroup MyFileTypeSetting
   autocmd!
-  autocmd BufNewFile,BufRead *.css        setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType css,toml,vim           setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.toml       setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.vim        setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufNewFile,BufRead *.mmd        setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
 
 " for init.vim
@@ -220,17 +226,33 @@ command! -nargs=1 Silent
 \ execute 'silent !' . <q-args>
 \|execute 'redraw!'
 
-if has('nvim')
-  command! -nargs=* T
-  \ split | wincmd j | resize 5 | terminal <args>
-  command! -nargs=* VT
-  \ vsplit | wincmd l | terminal <args>
-else
-  command! -nargs=* T
-  \ split | wincmd j | resize 5 | terminal ++curwin <args>
-  command! -nargs=* VT
-  \ vsplit | wincmd l | terminal ++curwin <args>
-endif
+command! -nargs=* T call T(<q-args>)
+function! T(cmd) abort
+  execute 'vsplit | wincmd j | resize 5'
+  if has('nvim')
+    execute 'terminal'
+    execute 'startinsert'
+  else
+    execute 'terminal ++curwin'
+  endif
+  if a:cmd != ''
+    call feedkeys(a:cmd . "\<CR>")
+  endif
+endfunction
+
+command! -nargs=* VT call VT(<q-args>)
+function! VT(cmd) abort
+  execute 'vsplit | wincmd l'
+  if has('nvim')
+    execute 'terminal'
+    execute 'startinsert'
+  else
+    execute 'terminal ++curwin'
+  endif
+  if a:cmd != ''
+    call feedkeys(a:cmd . "\<CR>")
+  endif
+endfunction
 
 command! -nargs=1 F call F(<q-args>)
 function! F(str) abort
@@ -258,6 +280,17 @@ function! DeleteUppercaseMarks() abort
   endif
 endfunction
 
+command! -nargs=0 ExecPSQL call ExecPSQL()
+function! ExecPSQL() abort
+  let l:filename = @e
+  execute 'wincmd l'
+  call feedkeys("i" . "\\i " . l:filename . "\<CR>\<Esc>\<C-w>\h")
+endfunction
+
+" TODO: 全ファイル開く
+" TODO: バッファ内検索
+" TODO: バッファ内置換
+
 " --------------------------------------
 " Local Settings
 "
@@ -275,6 +308,7 @@ endfunction
 "
 augroup MyLocalVimrc
   autocmd!
+  autocmd BufNewFile,BufReadPost * call s:SourceLocalVimrc(fnamemodify(@%, ':p'))
   autocmd BufEnter * call s:SourceLocalVimrc(fnamemodify(@%, ':p'))
 augroup END
 
@@ -282,10 +316,16 @@ if !exists('g:sourced_list')
   let g:sourced_list = []
 endif
 
-function! s:SourceLocalVimrc(path)
+function! s:SourceLocalVimrc(path) abort
+  " reject shell buffer
+  if stridx(a:path, 'cmd.exe') >= 0
+    return
+  endif
+
   execute 'lcd' fnamemodify(a:path, ':p:h')
 
-  let l:relative_vimrc_list = reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
+  let l:find_list = findfile('local.vim', escape(a:path, ' ') . ';', -1)
+  let l:relative_vimrc_list = reverse(l:find_list)
   let l:absolute_vimrc_list = []
   for l:i in l:relative_vimrc_list
     call add(l:absolute_vimrc_list, fnamemodify(l:i, ':p'))
