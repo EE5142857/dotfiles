@@ -10,7 +10,7 @@ endif
 " Encoding
 "
 " $LANG=en_US/CP932
-" language message C
+language message C
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=utf-8,cp932
@@ -52,6 +52,7 @@ nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 " Terminal
 tnoremap <C-[> <C-\><C-n>
 
+" Insert
 inoremap ,date <C-R>=strftime('%Y-%m-%d %a')<CR>
 
 " --------------------------------------
@@ -256,11 +257,11 @@ endfunction
 " let g:slime_python_ipython = 0
 " ```
 "
-if !exists('g:cwd_list')
-  let g:cwd_list = []
-endif
-
 function! s:SourceLocalVimrc(path)
+  if !exists('g:cwd_list')
+    let g:cwd_list = []
+  endif
+
   execute 'lcd' fnamemodify(a:path, ':p:h')
   let l:rpath_list = findfile('local.vim', escape(a:path, ' ') . ';', -1)
 

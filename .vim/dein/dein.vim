@@ -33,6 +33,10 @@ if dein#load_state(s:dein_dir)
   call dein#save_state()
 endif
 
+if ($HOME != $USERPROFILE) && ($GIT_EXEC_PATH != '')
+  finish
+endif
+
 if dein#check_install()
   call dein#install()
 endif
@@ -43,4 +47,4 @@ if len(s:removed_plugins) > 0
   call dein#recache_runtimepath()
 endif
 
-call dein#call_hook('source')
+" call dein#call_hook('source')

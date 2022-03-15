@@ -153,7 +153,7 @@ on_ft = ['python', 'r', 'sql']
 hook_source = '''
 let g:slime_target = "neovim"
 let g:slime_cell_delimiter = "# %%"
-command! -nargs = 0 MyIPython call MyIPython()
+command! -nargs=0 MyIPython call MyIPython()
 function! MyIPython() abort
   execute 'vsplit | wincmd l'
   if has('nvim')
