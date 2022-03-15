@@ -74,8 +74,8 @@ augroup RestoreCursor
   autocmd!
   autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | endif
+  \|  exe "normal! g`\""
+  \|endif
 augroup END
 
 augroup ClearMarks
@@ -86,9 +86,21 @@ augroup END
 
 augroup UpdateRegisters
   autocmd!
-  autocmd BufEnter * let @x=fnamemodify(expand('%'), ':t')
-  autocmd BufEnter * let @y=fnamemodify(expand('%'), ':p:h')
-  autocmd BufEnter * let @z=fnamemodify(expand('%'), ':p')
+  autocmd VimEnter *
+  \ let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+  \|for r in regs
+  \|  call setreg(r, [])
+  \|endfor
+  autocmd BufEnter *
+  \ let @a = fnamemodify(expand('%'), ':t')
+  \|let @b = fnamemodify(expand('%'), ':p:h')
+  \|let @c = fnamemodify(expand('%'), ':p')
+  \|let @d = fnamemodify(expand('%'), ':t:r')
+  \|let @e = substitute(fnamemodify(expand('%'), ':p:h'), '\\', '\/', 'g')
+  \|let @f = substitute(fnamemodify(expand('%'), ':p'), '\\', '\/', 'g')
+  \|let @g = fnamemodify(getcwd(), ':t')
+  \|let @h = fnamemodify(getcwd(), ':p:h')
+  \|let @i = substitute(fnamemodify(getcwd(), ':p:h'), '\\', '\/', 'g')
 augroup END
 
 " --------------------------------------
@@ -207,7 +219,7 @@ let g:netrw_dirhistmax=1
 "
 command! -nargs=1 Silent
 \ execute 'silent !' . <q-args>
-\ | execute 'redraw!'
+\|execute 'redraw!'
 
 if has('nvim')
   command! -nargs=* T split | wincmd j | resize 5 | terminal <args>

@@ -13,7 +13,7 @@ nnoremap <silent> <Space>js :Silent jupytext --sync .\*.ipynb<CR>
 
 [[plugins]]
 repo='jpalardy/vim-slime'
-on_ft=['python', 'r']
+on_ft=['python', 'r', 'sql']
 hook_source='''
 let g:slime_target = "neovim"
 let g:slime_cell_delimiter = "#\ %%"
@@ -25,18 +25,11 @@ function! MyIPython() abort
   call feedkeys("i" . "ipython" . "\<CR>\<Esc>")
   call feedkeys("\<C-W>h")
 endfunction
-
-command! -nargs=0 MyR call MyR()
-function! MyR() abort
-  execute 'vsplit | wincmd l | terminal'
-  call feedkeys("i" . "r" . "\<CR>\<Esc>")
-  call feedkeys("\<C-W>h")
-endfunction
 '''
 
 [[plugins]]
 repo='hanschen/vim-ipython-cell'
-on_ft=['python']
+on_ft=['python', 'sql']
 hook_source='''
 nnoremap <C-M> :call ExecuteCell()<CR>
 function! ExecuteCell() abort
