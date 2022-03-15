@@ -45,10 +45,7 @@ nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
 nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 
 " .vimrc
-nnoremap <silent> <Space>ed1 :tabedit ~/.vim/dein/dein.toml<CR>
-nnoremap <silent> <Space>ed2 :tabedit ~/.vim/dein/dein_lazy.toml<CR>
-nnoremap <silent> <Space>ed3 :tabedit ~/.vim/dein/dein_nvim.toml<CR>
-nnoremap <silent> <Space>ed4 :tabedit ~/.vim/dein/dein_nvim_lazy.toml<CR>
+nnoremap <silent> <Space>ed :tabedit ~/.vim/dein/dein.toml<CR>
 nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
@@ -211,8 +208,8 @@ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 " --------------------------------------
 " Plugin
 "
-let g:netrw_home='~/.vim'
-let g:netrw_dirhistmax=1
+let g:netrw_home = '~/.vim'
+let g:netrw_dirhistmax = 1
 
 " --------------------------------------
 " Function
