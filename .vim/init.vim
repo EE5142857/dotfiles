@@ -1,15 +1,14 @@
-if &compatible
-  set nocompatible " Be iMproved
+if 0
+  finish " Skip initialization for vim-tiny or vim-small.
 endif
 
-if 0
-  finish
+if &compatible
+  set nocompatible " Be iMproved
 endif
 
 " --------------------------------------
 " Encoding
 "
-" $LANG=en_US/CP932
 language message C
 set encoding=utf-8
 scriptencoding utf-8
