@@ -1,6 +1,7 @@
 " TODO: ddc.vim
 " TODO: ddu.vim
 " TODO: diff
+" TODO: git
 " [.vim directory layout]
 " ~/.vim/init.vim
 " ~/.vim/rc/dein.vim
