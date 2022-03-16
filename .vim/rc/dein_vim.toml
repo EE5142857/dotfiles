@@ -1,0 +1,119 @@
+# --------------------------------------
+# Shougo
+#
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# --------------------------------------
+# View
+#
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+'''
+
+[[plugins]]
+repo = 'simeji/winresizer'
+hook_add = '''
+let g:winresizer_start_key = '<C-w><C-w>'
+'''
+
+# --------------------------------------
+# Edit
+#
+[[plugins]]
+repo = 'tyru/caw.vim'
+
+[[plugins]]
+repo = 'vim-syntastic/syntastic'
+hook_add = '''
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 3
+let g:syntastic_mode_map = {'mode': 'passive'}
+let g:syntastic_python_checkers = ['flake8']
+'''
+
+# --------------------------------------
+# Color Scheme
+#
+[[plugins]]
+repo = 'tomasiser/vim-code-dark'
+hook_add = '''
+set t_Co=256
+set t_ut=
+colorscheme codedark
+'''
+
+# --------------------------------------
+# Status Line
+#
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+\ 'component': {
+\   'mylineinfo': '%3l/%L, %-2c'
+\ },
+\ 'active': {
+\   'left': [
+\     ['mode', 'paste'],
+\     ['filename', 'readonly', 'modified']
+\   ],
+\   'right': [
+\     ['syntastic', 'mylineinfo'],
+\     ['fileformat', 'fileencoding', 'filetype']
+\   ]
+\ },
+\ 'inactive': {
+\   'left': [
+\     ['filename']
+\   ],
+\   'right': [
+\     []
+\   ]
+\ },
+\ 'tabline': {
+\   'left': [
+\     ['tabs']
+\   ],
+\   'right': [
+\     ['mydirname']
+\   ]
+\ },
+\ 'separator': {
+\   'left': '',
+\   'right': ''
+\ },
+\ 'component_function': {
+\   'mydirpath': 'LLGetDirPath',
+\   'mydirname': 'LLGetDirName'
+\ },
+\ 'component_expand':{
+\   'syntastic': 'SyntasticStatuslineFlag'
+\ },
+\ 'component_type': {
+\   'syntastic': 'error'
+\ }
+\}
+function! LLGetDirName()
+  return fnamemodify(getcwd(), ':t')
+endfunction
+function! LLGetDirPath()
+  return fnamemodify(getcwd(), ':p:h')
+endfunction
+augroup AutoSyntastic
+  autocmd!
+  autocmd BufEnter,BufWritePost * call LLSyntastic()
+augroup END
+function! LLSyntastic()
+  SyntasticCheck
+  call lightline#update()
+endfunction
+'''

@@ -1,0 +1,33 @@
+# --------------------------------------
+# Shougo
+#
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+on_ft = ['markdown']
+hook_source = '''
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+'''
+
+# --------------------------------------
+# Markdown
+#
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+hook_source = '''
+let g:tex_conceal = ""
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_no_default_key_mappings = 1
+nnoremap <silent> <Space>ft :TableFormat<CR>
+'''
+
+[[plugins]]
+# required by 'plasticboy/vim-markdown'
+repo = 'godlygeek/tabular'
+on_source = ['vim-markdown']

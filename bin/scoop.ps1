@@ -7,3 +7,4 @@ scoop install vim
 
 scoop bucket add extras
 scoop install vscode
+scoop install deno
