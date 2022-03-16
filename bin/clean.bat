@@ -60,4 +60,3 @@ exit /b
         del /q %filename%.log>nul 2>&1
     endlocal
 exit /b
-

@@ -10,17 +10,17 @@
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
 
     @REM Copy files.
-    copy "..\sample.gitconfig"  "%USERPROFILE%\.gitconfig"
-    copy "..\sample.gitignore"  "%USERPROFILE%\.gitignore"
+    copy "..\sample.gitconfig"      "%USERPROFILE%\.gitconfig"
+    copy "..\sample.gitignore"      "%USERPROFILE%\.gitignore"
+    copy "..\markdown_style.css"    "%USERPROFILE%\markdown_style.css"
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vimrc"                  "%~dp0..\.vim\init.vim"
-    call :my_mklink "%USERPROFILE%\.vim"                    "%~dp0..\.vim"
-    call :my_mklink "%LOCALAPPDATA%\nvim"                   "%~dp0..\.vim"
-    call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"     "%~dp0..\.vscode\settings.json"
-    call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\keybindings.json"  "%~dp0..\.vscode\keybindings.json"
-    call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\snippets"          "%~dp0..\.vscode\snippets"
-    call :my_mklink "%USERPROFILE%\markdown_style.css"      "%~dp0..\markdown_style.css"
+    call :my_mklink "%USERPROFILE%\.vimrc"      "%~dp0..\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\_vimrc"      "%~dp0..\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\.vim"        "%~dp0..\.vim"
+    call :my_mklink "%USERPROFILE%\vimfiles"    "%~dp0..\.vim"
+    call :my_mklink "%LOCALAPPDATA%\nvim"       "%~dp0..\.vim"
+    call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json" "%~dp0..\.vscode\settings.json"
 
     echo Done.
     pause

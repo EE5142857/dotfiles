@@ -20,7 +20,6 @@
     "editor.wordWrap": "on",
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
-    "window.restoreWindows": "none",
     "workbench.editor.enablePreview": false,
     "workbench.startupEditor": "none",
 
