@@ -1,8 +1,8 @@
 " --------------------------------------
 " dein.vim
 "
-"   see (https://github.com/Shougo/dein.vim)
-"   see (https://knowledge.sakura.ad.jp/23248/)
+" https://github.com/Shougo/dein.vim
+" https://knowledge.sakura.ad.jp/23248/
 "
 if has('nvim')
   let s:dein_dir = expand('~/.cache/nvim/dein')
@@ -22,7 +22,7 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
   " .toml file
-  let s:rc_dir = expand('~/.vim/dein')
+  let s:rc_dir = expand('~/.vim/rc')
   let s:toml = s:rc_dir . '/dein.toml'
 
   " read toml and cache
@@ -34,6 +34,7 @@ if dein#load_state(s:dein_dir)
 endif
 
 if ($HOME != $USERPROFILE) && ($GIT_EXEC_PATH != '')
+  " gitcommit
   finish
 endif
 
