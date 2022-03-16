@@ -1,3 +1,9 @@
+" TODO: 全ファイル開く
+" TODO: バッファ内検索
+" TODO: バッファ内置換
+" TODO: easymotion
+" TODO: deno
+
 if 0
   finish " Skip initialization for vim-tiny or vim-small.
 endif
@@ -55,6 +61,7 @@ nnoremap <silent> <Space>ac @:
 
 " Terminal
 tnoremap <C-[> <C-\><C-n>
+nnoremap <C-m> :VTExecute<CR>
 
 " Insert
 inoremap ,date <C-R>=strftime('%Y-%m-%d %a')<CR>
@@ -105,8 +112,9 @@ augroup UpdateRegisters
   \|let @g = fnamemodify(@%, ':p:h:t')
 
   " get jobid
-  autocmd BufLeave *
-  \ let @z = &channel
+  if has('nvim')
+    autocmd BufLeave * let @z = &channel
+  endif
 augroup END
 
 " --------------------------------------
@@ -229,34 +237,6 @@ command! -nargs=1 Silent
 \ execute 'silent !' . <q-args>
 \|execute 'redraw!'
 
-command! -nargs=* T call T(<q-args>)
-function! T(cmd) abort
-  execute 'vsplit | wincmd j | resize 5'
-  if has('nvim')
-    execute 'terminal'
-    execute 'startinsert'
-  else
-    execute 'terminal ++curwin'
-  endif
-  if a:cmd != ''
-    call feedkeys(a:cmd . "\<CR>")
-  endif
-endfunction
-
-command! -nargs=* VT call VT(<q-args>)
-function! VT(cmd) abort
-  execute 'vsplit | wincmd l'
-  if has('nvim')
-    execute 'terminal'
-    execute 'startinsert'
-  else
-    execute 'terminal ++curwin'
-  endif
-  if a:cmd != ''
-    call feedkeys(a:cmd . "\<CR>")
-  endif
-endfunction
-
 command! -nargs=1 F call F(<q-args>)
 function! F(str) abort
   execute 'vimgrep /' . a:str . '/g **/* | cw'
@@ -283,23 +263,74 @@ function! DeleteUppercaseMarks() abort
   endif
 endfunction
 
-command! -nargs=0 ExecPSQL call ExecPSQL()
-function! ExecPSQL() abort
-  let l:filename = fnamemodify(@%, ':t')
-  execute 'wincmd l'
-  call feedkeys("i" . "\\i " . l:filename . "\<CR>\<Esc>\<C-w>\h")
+command! -nargs=* T call T(<q-args>)
+function! T(cmd) abort
+  execute 'split | wincmd j | resize 5'
+
+  if has('nvim')
+    execute 'terminal'
+    execute 'startinsert'
+  else
+    execute 'terminal ++curwin'
+  endif
+
+  if a:cmd != ''
+    call feedkeys(a:cmd . "\<CR>")
+  endif
+
+  if has('nvim')
+    call feedkeys("\<C-\>\<C-n>\<C-w>h")
+  endif
 endfunction
 
-command! -nargs=0 ExecR call ExecR()
-function! ExecR() abort
-  let l:filename = fnamemodify(@%, ':t')
-  execute 'wincmd l'
-  call feedkeys("i" . "rscript --encoding=utf-8 " . l:filename . "\<CR>\<Esc>\<C-w>\h")
+command! -nargs=* VT call VT(<q-args>)
+function! VT(cmd) abort
+  execute 'vsplit | wincmd l'
+
+  if has('nvim')
+    execute 'terminal'
+    execute 'startinsert'
+  else
+    execute 'terminal ++curwin'
+  endif
+
+  if a:cmd != ''
+    call feedkeys(a:cmd . "\<CR>")
+  endif
+
+  if has('nvim')
+    call feedkeys("\<C-\>\<C-n>\<C-w>h")
+  endif
 endfunction
 
-" TODO: 全ファイル開く
-" TODO: バッファ内検索
-" TODO: バッファ内置換
+command! -nargs=0 VTExecute call VTExecute()
+function! VTExecute() abort
+  let l:filetype  = &filetype
+  let l:filepath  = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+  let l:fileext   = fnamemodify(@%, ':e')
+
+  if has('nvim') && (l:fileext == 'ipynb')
+    execute 'IPythonCellExecuteCell'
+    execute 'wincmd l'
+    call feedkeys("i\<CR>")
+  elseif l:filetype == 'python'
+    execute 'wincmd l'
+    call feedkeys("i" . l:filepath . "\<CR>")
+  elseif l:filetype == 'sql'
+    execute 'wincmd l'
+    call feedkeys("i\\i " . l:filepath . "\<CR>")
+  elseif l:filetype == 'r'
+    execute 'wincmd l'
+    call feedkeys("irscript --encoding=utf-8 " . l:filepath . "\<CR>")
+  else
+    echo l:filetype 'unavailavle'
+    return
+  endif
+
+  if has('nvim')
+    call feedkeys("\<C-\>\<C-n>\<C-w>h")
+  endif
+endfunction
 
 " --------------------------------------
 " Local Settings
@@ -329,8 +360,7 @@ if !exists('g:sourced_list')
 endif
 
 function! s:SourceLocalVimrc(path) abort
-  " reject shell buffer
-  if stridx(a:path, 'cmd.exe') >= 0
+  if &buftype == 'terminal'
     return
   endif
 
