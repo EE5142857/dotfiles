@@ -3,7 +3,6 @@
 " TODO: バッファ内置換
 " TODO: easymotion
 " TODO: deno
-
 if 0
   finish " Skip initialization for vim-tiny or vim-small.
 endif
@@ -56,15 +55,15 @@ nnoremap <silent> <Space>ed :tabedit ~/.vim/dein/dein.toml<CR>
 nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
-" Command Line
-nnoremap <silent> <Space>ac @:
+" Command
+nnoremap <Space>vs :call VTStart()<CR>
+nnoremap <Space>ve :call VTExecute()<CR>
 
 " Terminal
 tnoremap <C-[> <C-\><C-n>
-nnoremap <C-m> :VTExecute<CR>
 
 " Insert
-inoremap ,date <C-R>=strftime('%Y-%m-%d %a')<CR>
+inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
 
 " --------------------------------------
 " Edit
@@ -78,40 +77,50 @@ set noswapfile
 set noundofile
 set nowritebackup
 set nrformats=
+if has('nvim')
+  " set shada=!,'100,<50,s10,h
+  " https://neovim.io/doc/user/options.html#'shada'
+  " set shada+=f0
+else
+  " https://vimhelp.org/options.txt.html#%27viminfo%27
+  set viminfo=
+endif
 
 augroup RestoreCursor
   autocmd!
   autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ if (line("'\"") >= 1) && (line("'\"") <= line("$")) && (&ft !~# 'commit')
   \|  exe "normal! g`\""
   \|endif
 augroup END
 
-augroup ClearMarks
+augroup DeleteMarks
   autocmd!
-  autocmd VimLeavePre * delmarks!
-  autocmd BufEnter * delmarks 0-9[]^.<>\"
+  " autocmd BufReadPost * delmarks a-z
+  " autocmd VimLeavePre * delmarks 0-9[]^.<>\" | wshada!
+  " autocmd VimLeavePre * delmarks A-Z | wshada!
 augroup END
 
 augroup UpdateRegisters
   autocmd!
-  autocmd VimLeavePre *
-  \ let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
-  \|for r in regs
-  \|  call setreg(r, [])
-  \|endfor
+  " autocmd VimLeavePre *
+  "\ let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+  "\|for r in regs
+  "\|  call setreg(r, [])
+  "\|endfor
+  "\|wshada!
 
   " filename-modifiers
   autocmd BufEnter *
-  \ let @a = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
-  \|let @b = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
-  \|let @c = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
+  \ let @a = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
+  \|let @b = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
+  \|let @c = substitute(fnamemodify(getcwd(), ':p:h'), '\/', '\\', 'g')
   \|let @d = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-  \|let @e = fnamemodify(@%, ':t')
-  \|let @f = fnamemodify(@%, ':t:r')
-  \|let @g = fnamemodify(@%, ':p:h:t')
+  \|let @e = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
+  \|let @f = substitute(fnamemodify(getcwd(), ':p:h'), '\\', '\/', 'g')
+  \|let @g = fnamemodify(@%, ':t')
 
-  " get jobid
+  " jobid (= b:terminal_job_id)
   if has('nvim')
     autocmd BufLeave * let @z = &channel
   endif
@@ -237,34 +246,17 @@ command! -nargs=1 Silent
 \ execute 'silent !' . <q-args>
 \|execute 'redraw!'
 
-command! -nargs=1 F call F(<q-args>)
-function! F(str) abort
-  execute 'vimgrep /' . a:str . '/g **/* | cw'
-endfunction
+command! -nargs=1 F
+\ execute 'vimgrep /' . <args> . '/g **/* | cw'
 
-command! -nargs=1 P call P(<q-args>)
-function! P(reg) abort
-  execute 'let @* = @' . a:reg
-endfunction
+command! -nargs=1 P
+\ execute 'let @* = @' . <args>
 
-command! -nargs=0 FixWhitespace call FixWhitespace()
-function! FixWhitespace() abort
-  execute '%s/\s\+$//e'
-endfunction
+command! -nargs=0 FixWhitespace
+\ execute '%s/\s\+$//e'
 
-command! -nargs=0 DeleteUppercaseMarks call DeleteUppercaseMarks()
-function! DeleteUppercaseMarks() abort
-  if has('nvim')
-    " https://neovim.io/doc/user/options.html#'shada'
-    set shada+=f0
-  else
-    " https://vimhelp.org/options.txt.html#%27viminfo%27
-    set viminfo+=f0
-  endif
-endfunction
-
-command! -nargs=* T call T(<q-args>)
-function! T(cmd) abort
+command! -nargs=? T call T(<f-args>)
+function! T(...) abort
   execute 'split | wincmd j | resize 5'
 
   if has('nvim')
@@ -274,8 +266,8 @@ function! T(cmd) abort
     execute 'terminal ++curwin'
   endif
 
-  if a:cmd != ''
-    call feedkeys(a:cmd . "\<CR>")
+  if a:0 > 0
+    call feedkeys(a:1 . "\<CR>")
   endif
 
   if has('nvim')
@@ -283,8 +275,8 @@ function! T(cmd) abort
   endif
 endfunction
 
-command! -nargs=* VT call VT(<q-args>)
-function! VT(cmd) abort
+command! -nargs=? VT call VT(<f-args>)
+function! VT(...) abort
   execute 'vsplit | wincmd l'
 
   if has('nvim')
@@ -294,8 +286,8 @@ function! VT(cmd) abort
     execute 'terminal ++curwin'
   endif
 
-  if a:cmd != ''
-    call feedkeys(a:cmd . "\<CR>")
+  if a:0 > 0
+    call feedkeys(a:1 . "\<CR>")
   endif
 
   if has('nvim')
@@ -303,7 +295,47 @@ function! VT(cmd) abort
   endif
 endfunction
 
-command! -nargs=0 VTExecute call VTExecute()
+function! VTStart() abort
+  let l:filetype  = &filetype
+  let l:fileext   = fnamemodify(@%, ':e')
+
+  if has('nvim') && (l:fileext == 'ipynb')
+    call StartJupyter()
+  elseif l:filetype == 'python'
+    call StartPython()
+  elseif l:filetype == 'sql'
+    call StartSQL()
+  else
+    echo l:filetype 'unavailavle'
+    return
+  endif
+endfunction
+
+function! StartJupyter() abort
+  execute 'wincmd l'
+  call feedkeys("i")
+  call feedkeys("activate\<CR>")
+  call feedkeys("ipython\<CR>")
+
+  if has('nvim')
+    call feedkeys("\<C-\>\<C-n>\<C-w>h")
+  endif
+endfunction
+
+function! StartPython() abort
+  execute 'wincmd l'
+  call feedkeys("i")
+  call feedkeys("activate\<CR>")
+
+  if has('nvim')
+    call feedkeys("\<C-\>\<C-n>\<C-w>h")
+  endif
+endfunction
+
+function! StartSQL() abort
+  " defined in local.vim
+endfunction
+
 function! VTExecute() abort
   let l:filetype  = &filetype
   let l:filepath  = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
@@ -336,17 +368,11 @@ endfunction
 " Local Settings
 "
 " ```vimscript:local.vim
-" lcd <sfile>:p:h
-"
 " if index(g:sourced_list, fnamemodify(@%, ':p')) < 0
 "   Silent ctags -R .
 " endif
 "
 " let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
-" let g:slime_python_ipython = 1
-" if exists('g:slime_python_ipython')
-"   unlet g:slime_python_ipython
-" endif
 " ```
 "
 augroup MyLocalVimrc
@@ -360,7 +386,7 @@ if !exists('g:sourced_list')
 endif
 
 function! s:SourceLocalVimrc(path) abort
-  if &buftype == 'terminal'
+  if (&buftype == 'terminal') || (&buftype == 'quickfix')
     return
   endif
 
