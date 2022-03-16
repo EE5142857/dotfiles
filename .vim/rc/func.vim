@@ -100,7 +100,7 @@ function! StartSQL() abort
 endfunction
 
 " --------------------------------------
-" [Neovim] Execute
+" [Neovim] Terminal Execution
 "
 function! VTExecute() abort
   if !has('nvim')
