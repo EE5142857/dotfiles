@@ -52,10 +52,10 @@ nnoremap gf gF " file?line
 nnoremap Y y$
 tnoremap <C-[> <C-\><C-n>
 
-" Toggle wrap
+" toggle wrap
 nnoremap <silent> <Space>tw :set wrap!<CR>
 
-" Encoding
+" encoding
 nnoremap <silent> <Space>ec :edit ++encoding=cp932<CR>
 nnoremap <silent> <Space>ee :edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
@@ -64,13 +64,13 @@ nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 nnoremap <silent> <Space>ei :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Space>si :source ~/.vim/init.vim<CR>
 
-" QuickFix
+" quickfix
 nnoremap <silent> <Space>k :cprevious<CR>
 nnoremap <silent> <Space>j :cnext<CR>
 nnoremap <silent> <Space>gg :<C-u>cfirst<CR>
 nnoremap <silent> <Space>G :<C-u>clast<CR>
 
-" Insert
+" insert
 inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
 
 " --------------------------------------
