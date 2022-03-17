@@ -5,7 +5,13 @@
 repo = 'Shougo/dein.vim'
 
 # --------------------------------------
-# View
+# Deno
+#
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+# --------------------------------------
+# view
 #
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
@@ -25,7 +31,7 @@ let g:winresizer_start_key = '<C-w><C-w>'
 '''
 
 # --------------------------------------
-# Edit
+# edit
 #
 [[plugins]]
 repo = 'tyru/caw.vim'
@@ -41,7 +47,7 @@ let g:syntastic_python_checkers = ['flake8']
 '''
 
 # --------------------------------------
-# Color Scheme
+# colorscheme
 #
 [[plugins]]
 repo = 'tomasiser/vim-code-dark'
@@ -52,7 +58,7 @@ colorscheme codedark
 '''
 
 # --------------------------------------
-# Status Line
+# statusline
 #
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -63,7 +69,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-\ 'colorscheme': 'simpleblack',
+\ 'colorscheme': 'default',
 \ 'component': {
 \   'mylineinfo': '%3l/%L, %-2c'
 \ },
@@ -122,4 +128,15 @@ function! LLSyntastic()
   SyntasticCheck
   call lightline#update()
 endfunction
+'''
+
+# --------------------------------------
+# Python
+#
+[[plugins]]
+repo = 'goerz/jupytext.vim'
+hook_add = '''
+let g:jupytext_enable = 1
+let g:jupytext_fmt = 'py:percent'
+let g:jupytext_filetype_map = {'py': 'python'}
 '''

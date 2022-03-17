@@ -1,99 +1,44 @@
-if !has('nvim')
-  finish
-endif
-
-" --------------------------------------
-" Keymap
-"
-nnoremap <silent> <Space>vs :call VTStart()<CR>
-nnoremap <silent> <Space>ve :call VTExecute()<CR>
-
+scriptencoding utf-8
 " --------------------------------------
 " Command
 "
-" command! -nargs=1 Silent
-"\ execute 'silent !' . <q-args>
-"\|execute 'redraw!'
-command! -nargs=1 Silent call Silent(<f-args>)
-function! Silent(cmd) abort
-  execute 'silent !' . a:cmd
-  execute 'redraw!'
-endfunction
+" :args **/*.*
+" :argdo %s/old/new/g | update
+" :argdo %s/old/new/gc | update
+" :argdelete *
+command! -nargs=1 Silent
+\ execute 'silent !' . <q-args>
+\|execute 'redraw!'
 
-command! -nargs=1 P call P(<f-args>)
-function! P(reg) abort
-  execute 'let @* = @' . a:reg
-endfunction
+command! -nargs=1 P
+\ execute 'let @* = @' . <q-args>
 
-command! -nargs=1 F call F(<f-args>)
-function! F(str) abort
-  execute 'vimgrep /' . a:str . '/g **/*.*'
-endfunction
+command! -nargs=1 F
+\ execute 'vimgrep /' . <q-args> . '/g **/*.*'
 
-command! -nargs=* ArgdoR call ArgdoR(<f-args>)
-function! ArgdoR(...) abort
-  " :args **/*.*
-  execute 'argdo %s/' . a:1 . '/' . a:2 . '/g | update'
-  " :argdelete *
-endfunction
+command! -nargs=0 Trim
+\ execute '%s/\s\+$//e'
 
-command! -nargs=* ArgdoRC call ArgdoRC(<f-args>)
-function! ArgdoRC(...) abort
-  " :args **/*.*
-  execute 'argdo %s/' . a:1 . '/' . a:2 . '/gc | update'
-  " :argdelete *
-endfunction
+command! -nargs=0 S
+\ execute 'split | resize 5 | terminal'
 
-command! -nargs=0 FixWhitespace call FixWhitespace()
-function! FixWhitespace() abort
-  execute '%s/\s\+$//e'
-endfunction
-
-" --------------------------------------
-" Terminal
-"
-command! -nargs=? T call T(<f-args>)
-function! T(...) abort
-  execute 'split | wincmd j | resize 5'
-  execute 'terminal'
-  execute 'startinsert'
-
-  if a:0 > 0
-    call feedkeys(a:1 . "\<CR>")
-  endif
-
-  call feedkeys("\<C-\>\<C-n>\<C-w>h")
-endfunction
-
-command! -nargs=? VT call VT(<f-args>)
-function! VT(...) abort
-  execute 'vsplit | wincmd l'
-  execute 'terminal'
-  execute 'startinsert'
-
-  if a:0 > 0
-    call feedkeys(a:1 . "\<CR>")
-  endif
-
-  call feedkeys("\<C-\>\<C-n>\<C-w>h")
-endfunction
+command! -nargs=0 V
+\ execute 'vsplit | terminal'
+\|execute 'wincmd h'
 
 " --------------------------------------
 " Terminal Setup
 "
-function! VTStart() abort
-  let l:filetype  = &filetype
-  let l:fileext   = fnamemodify(@%, ':e')
-
-  if l:fileext == 'ipynb'
+command! -nargs=0 TS call TS()
+function! TS() abort
+  if fnamemodify(@%, ':e') == 'ipynb'
     call StartJupyter()
-  elseif l:filetype == 'python'
+  elseif &filetype == 'python'
     call StartPython()
-  elseif l:filetype == 'sql'
+  elseif &filetype == 'sql'
     call StartSQL()
   else
     echo 'unavailavle'
-    return
   endif
 endfunction
 
@@ -106,47 +51,29 @@ function! StartJupyter() abort
 endfunction
 
 function! StartPython() abort
-  " execute 'wincmd l'
-  " call feedkeys("i")
-  " call feedkeys("activate\<CR>")
-  " call feedkeys("\<C-\>\<C-n>\<C-w>h")
 endfunction
 
 function! StartSQL() abort
-  " defined in local.vim
 endfunction
 
 " --------------------------------------
 " Terminal Execution
 "
-function! VTExecute() abort
-  let l:filetype  = &filetype
-  let l:fileext   = fnamemodify(@%, ':e')
-
-  if l:fileext == 'ipynb'
-    call ExecuteJupyter()
-  elseif l:filetype == 'python'
+command! -nargs=0 TE call TE()
+function! TE() abort
+  if &filetype == 'python'
     call ExecutePython()
-  elseif l:filetype == 'sql'
+  elseif &filetype == 'sql'
     call ExecuteSQL()
-  elseif l:filetype == 'r'
+  elseif &filetype == 'r'
     call ExecuteR()
   else
     echo 'unavailavle'
-    return
   endif
-endfunction
-
-function! ExecuteJupyter() abort
-  execute 'IPythonCellExecuteCell'
-  execute 'wincmd l'
-  call feedkeys("i\<CR>")
-  call feedkeys("\<C-\>\<C-n>\<C-w>h")
 endfunction
 
 function! ExecutePython() abort
   let l:filepath = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-
   execute 'wincmd l'
   call feedkeys("i" . l:filepath . "\<CR>")
   call feedkeys("\<C-\>\<C-n>\<C-w>h")
@@ -154,7 +81,6 @@ endfunction
 
 function! ExecuteSQL() abort
   let l:filepath = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-
   execute 'wincmd l'
   call feedkeys("i" . "\\i " . l:filepath . "\<CR>")
   call feedkeys("\<C-\>\<C-n>\<C-w>h")
@@ -162,7 +88,6 @@ endfunction
 
 function! ExecuteR() abort
   let l:filepath = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-
   execute 'wincmd l'
   call feedkeys("i" . "rscript --encoding=utf-8 " . l:filepath . "\<CR>")
   call feedkeys("\<C-\>\<C-n>\<C-w>h")
