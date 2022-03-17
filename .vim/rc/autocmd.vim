@@ -42,7 +42,7 @@ augroup MyFileType
 augroup END
 
 " --------------------------------------
-" other autocommands
+" others
 "
 augroup RestoreCursor
   autocmd!
