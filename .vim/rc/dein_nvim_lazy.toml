@@ -79,17 +79,29 @@ on_source = 'vim-vsnip'
 repo = 'jpalardy/vim-slime'
 on_ft = ['python']
 hook_source = '''
-let g:slime_cell_delimiter = "# %%"
+let g:slime_cell_delimiter = '# %%'
 let g:slime_target = "neovim"
+let g:slime_no_mappings = 1
+augroup UpdateJobid
+  autocmd!
+  autocmd BufLeave *
+  \ if &buftype == 'terminal'
+  \|  let g:slime_last_channel = &channel
+  \|endif
+augroup END
+nmap <leader>s <Plug>SlimeSendCell
 function! SlimeOverride_EscapeText_python(text) abort
-  let l:l_tmp = split(a:text, "\n")
-  let l:l_text = []
-  let l:i = 0
-  while l:i < len(l:l_tmp)
-    call add(l:l_text, l:l_tmp[l:i])
+  let g:slime_dispatch_ipython_pause = 0
+
+  let l:l_tmp = split(a:text, "\n", 1)
+  let l:l_text = [l:l_tmp[0]]
+  let l:i = 1
+  while l:i < len(l:l_tmp) - 1
     call add(l:l_text, "\r\n")
-    let i = i + 1
+    call add(l:l_text, l:l_tmp[l:i])
+    let l:i = l:i + 1
   endwhile
+
   let l:l_ret = ["%cpaste -q", "\r\n"] + l:l_text + ["--", "\r\n"]
   return l:l_ret
 endfunction

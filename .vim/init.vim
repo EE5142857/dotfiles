@@ -49,9 +49,9 @@ endif
 " --------------------------------------
 " loacl.vim
 "
-if filereadable(fnamemodify('~/.vim/rc/local.vim', ':p'))
-  source ~/.vim/rc/local.vim
-endif
+" if filereadable(fnamemodify('~/.vim/rc/local.vim', ':p'))
+"   source ~/.vim/rc/local.vim
+" endif
 
 " --------------------------------------
 " Keymap
