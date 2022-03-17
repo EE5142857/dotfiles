@@ -9,7 +9,8 @@
 " ~/.vim/rc/dein_nvim_lazy.toml
 " ~/.vim/rc/dein_vim.toml
 " ~/.vim/rc/dein_vim_lazy.toml
-" ~/.vim/rc/func.vim
+" ~/.vim/rc/func_nvim.vim
+" ~/.vim/rc/local.vim
 if 0
   finish " Skip initialization for vim-tiny or vim-small.
 endif
@@ -18,10 +19,11 @@ if &compatible
   set nocompatible " Be iMproved
 endif
 
+language message C
+
 " --------------------------------------
 " Encoding
 "
-language message C
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=utf-8,cp932
@@ -33,15 +35,22 @@ if filereadable(fnamemodify('~/.vim/rc/dein.vim', ':p'))
   source ~/.vim/rc/dein.vim
 endif
 
-" Required:
+" Required
 filetype plugin indent on
 syntax enable
 
 " --------------------------------------
-" func.vim
+" func_nvim.vim
 "
-if filereadable(fnamemodify('~/.vim/rc/func.vim', ':p'))
-  source ~/.vim/rc/func.vim
+if filereadable(fnamemodify('~/.vim/rc/func_nvim.vim', ':p'))
+  source ~/.vim/rc/func_nvim.vim
+endif
+
+" --------------------------------------
+" loacl.vim
+"
+if filereadable(fnamemodify('~/.vim/rc/local.vim', ':p'))
+  source ~/.vim/rc/local.vim
 endif
 
 " --------------------------------------
@@ -51,17 +60,18 @@ let g:mapleader="\<Space>"
 
 nnoremap Q <Nop>
 nnoremap q <Nop>
-
 nnoremap j gj
 nnoremap k gk
-
 nnoremap gf gF
+nnoremap Y y$
+tnoremap <C-[> <C-\><C-n>
 
 " Toggle wrap
 nnoremap <silent> <Space>tw :set wrap!<CR>
 
 " Encoding
-nnoremap <silent> <Space>es :edit ++encoding=cp932<CR>
+nnoremap <silent> <Space>ec :edit ++encoding=cp932<CR>
+nnoremap <silent> <Space>ee :edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Space>eu :edit ++encoding=utf-8<CR>
 
 " .vimrc
@@ -74,13 +84,6 @@ nnoremap <silent> <Space>j :cnext<CR>
 nnoremap <silent> <Space>gg :<C-u>cfirst<CR>
 nnoremap <silent> <Space>G :<C-u>clast<CR>
 
-" Command
-nnoremap <Space>vs :call VTStart()<CR>
-nnoremap <Space>ve :call VTExecute()<CR>
-
-" Terminal
-tnoremap <C-[> <C-\><C-n>
-
 " Insert
 inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
 
@@ -92,7 +95,7 @@ set autochdir
 set autoread
 set clipboard=unnamed
 set hidden
-set isfname-=? " file?line separator
+set isfname-=?
 set nobackup
 set noswapfile
 set noundofile
@@ -154,25 +157,24 @@ set wrapscan
 "
 set ambiwidth=double
 set cursorline
+set display=lastline
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 set noequalalways
 set number
-set showmatch
-set showtabline=2
+set pumheight=10
+set showmatch matchtime=1
 set wildmenu wildmode=list:longest
 
 " --------------------------------------
 " Status Line
 "
 set laststatus=2
-set noshowmode
-set ruler
+set showtabline=2
 
 " --------------------------------------
 " Spell
 "
-set spelllang+=cjk
-set spell
+set spelllang+=cjk spell
 
 " --------------------------------------
 " Syntax
@@ -219,10 +221,10 @@ augroup MyFileTypeSetting
 
   " Width 4
   autocmd FileType sql    setlocal shiftwidth=4 softtabstop=4 tabstop=4
-augroup END
 
-" init.vim
-setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  " File Type
+  autocmd BufNewFile,BufRead *.ipynb setfiletype python
+augroup END
 
 " --------------------------------------
 " Plugin
@@ -230,25 +232,4 @@ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 let g:netrw_home = '~/.vim'
 let g:netrw_dirhistmax = 1
 
-" --------------------------------------
-" Local Settings
-"
-" https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
-"
-" ```vimscript:local.vim
-" if index(g:sourced_list, fnamemodify(@%, ':p')) < 0
-"   lcd <sfile>:p:h
-"   Silent ctags -R .
-" endif
-"
-" let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
-" ```
-"
-augroup MyLocalVimrc
-  autocmd!
-  autocmd BufNewFile,BufReadPost,BufEnter * call SourceLocalVimrc(fnamemodify(@%, ':p'))
-augroup END
-
-if !exists('g:sourced_list')
-  let g:sourced_list = []
-endif
+" vim: shiftwidth=2 softtabstop=2 tabstop=2:

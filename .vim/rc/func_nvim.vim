@@ -1,3 +1,13 @@
+if !has('nvim')
+  finish
+endif
+
+" --------------------------------------
+" Keymap
+"
+nnoremap <silent> <Space>vs :call VTStart()<CR>
+nnoremap <silent> <Space>ve :call VTExecute()<CR>
+
 " --------------------------------------
 " Command
 "
@@ -45,51 +55,33 @@ endfunction
 command! -nargs=? T call T(<f-args>)
 function! T(...) abort
   execute 'split | wincmd j | resize 5'
-
-  if has('nvim')
-    execute 'terminal'
-    execute 'startinsert'
-  else
-    execute 'terminal ++curwin'
-  endif
+  execute 'terminal'
+  execute 'startinsert'
 
   if a:0 > 0
     call feedkeys(a:1 . "\<CR>")
   endif
 
-  if has('nvim')
-    call feedkeys("\<C-\>\<C-n>\<C-w>h")
-  endif
+  call feedkeys("\<C-\>\<C-n>\<C-w>h")
 endfunction
 
 command! -nargs=? VT call VT(<f-args>)
 function! VT(...) abort
   execute 'vsplit | wincmd l'
-
-  if has('nvim')
-    execute 'terminal'
-    execute 'startinsert'
-  else
-    execute 'terminal ++curwin'
-  endif
+  execute 'terminal'
+  execute 'startinsert'
 
   if a:0 > 0
     call feedkeys(a:1 . "\<CR>")
   endif
 
-  if has('nvim')
-    call feedkeys("\<C-\>\<C-n>\<C-w>h")
-  endif
+  call feedkeys("\<C-\>\<C-n>\<C-w>h")
 endfunction
 
 " --------------------------------------
-" [Neovim] Terminal Setup
+" Terminal Setup
 "
 function! VTStart() abort
-  if !has('nvim')
-    return
-  endif
-
   let l:filetype  = &filetype
   let l:fileext   = fnamemodify(@%, ':e')
 
@@ -106,18 +98,18 @@ function! VTStart() abort
 endfunction
 
 function! StartJupyter() abort
-  execute 'wincmd l'
-  call feedkeys("i")
-  call feedkeys("activate\<CR>")
-  call feedkeys("ipython\<CR>")
-  call feedkeys("\<C-\>\<C-n>\<C-w>h")
+  " execute 'wincmd l'
+  " call feedkeys("i")
+  " call feedkeys("activate\<CR>")
+  " call feedkeys("ipython\<CR>")
+  " call feedkeys("\<C-\>\<C-n>\<C-w>h")
 endfunction
 
 function! StartPython() abort
-  execute 'wincmd l'
-  call feedkeys("i")
-  call feedkeys("activate\<CR>")
-  call feedkeys("\<C-\>\<C-n>\<C-w>h")
+  " execute 'wincmd l'
+  " call feedkeys("i")
+  " call feedkeys("activate\<CR>")
+  " call feedkeys("\<C-\>\<C-n>\<C-w>h")
 endfunction
 
 function! StartSQL() abort
@@ -125,13 +117,9 @@ function! StartSQL() abort
 endfunction
 
 " --------------------------------------
-" [Neovim] Terminal Execution
+" Terminal Execution
 "
 function! VTExecute() abort
-  if !has('nvim')
-    return
-  endif
-
   let l:filetype  = &filetype
   let l:fileext   = fnamemodify(@%, ':e')
 
@@ -185,26 +173,38 @@ endfunction
 "
 " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
 "
+" ```vimscript:local.vim
+" if index(g:l_sourced_vimrc_path, fnamemodify(@%, ':p')) < 0
+"   lcd <sfile>:p:h
+"   Silent ctags -R .
+" endif
+"
+" let g:python3_host_prog = 'C:\Users\daiki\scoop\apps\python39\current\python3.exe'
+" let g:jupytext_command = 'C:\work\myenv\Scripts\jupytext.exe'
+" ```
+"
+augroup MyLocalVimrc
+  autocmd!
+  autocmd BufNewFile,BufReadPost,BufEnter * call SourceLocalVimrc(fnamemodify(@%, ':p'))
+augroup END
+
 function! SourceLocalVimrc(path) abort
   if (&buftype == 'terminal') || (&buftype == 'quickfix')
     return
   endif
 
-  " NOTE: substitute for 'set autochdir'
-  " execute 'lcd' fnamemodify(a:path, ':p:h')
+  if !exists('g:l_sourced_vimrc_path')
+    let g:l_sourced_vimrc_path = []
+  endif
 
-  let l:find_list = findfile('local.vim', escape(a:path, ' ') . ';', -1)
-  let l:relative_vimrc_list = reverse(l:find_list)
-  let l:absolute_vimrc_list = []
-  for l:i in l:relative_vimrc_list
-    call add(l:absolute_vimrc_list, fnamemodify(l:i, ':p'))
+  let l:l_vimrc_path = []
+  for l:i in reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
+    call add(l:l_vimrc_path, fnamemodify(l:i, ':p'))
   endfor
 
-  for l:i in l:absolute_vimrc_list
-    execute 'source' l:i
+  let g:l_sourced_vimrc_path = uniq(sort(g:l_sourced_vimrc_path + l:l_vimrc_path))
 
-    if index(g:sourced_list, l:i) < 0
-      call add(g:sourced_list, l:i)
-    endif
+  for l:i in l:l_vimrc_path
+    execute 'source' l:i
   endfor
 endfunction

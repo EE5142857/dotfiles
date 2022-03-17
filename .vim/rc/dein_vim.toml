@@ -57,7 +57,13 @@ colorscheme codedark
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
+set laststatus=2
+set noshowmode
+if !has('gui_running')
+  set t_Co=256
+endif
 let g:lightline = {
+\ 'colorscheme': 'simpleblack',
 \ 'component': {
 \   'mylineinfo': '%3l/%L, %-2c'
 \ },
