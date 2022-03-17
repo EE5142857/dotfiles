@@ -1,6 +1,6 @@
 scriptencoding utf-8
 " --------------------------------------
-" Command
+" command
 "
 " :args **/*.*
 " :argdo %s/old/new/g | update
@@ -27,7 +27,7 @@ command! -nargs=0 V
 \|execute 'wincmd h'
 
 " --------------------------------------
-" Terminal Setup
+" terminal setup
 "
 command! -nargs=0 TS call TS()
 function! TS() abort
@@ -57,7 +57,7 @@ function! StartSQL() abort
 endfunction
 
 " --------------------------------------
-" Terminal Execution
+" terminal execution
 "
 command! -nargs=0 TE call TE()
 function! TE() abort
@@ -94,7 +94,7 @@ function! ExecuteR() abort
 endfunction
 
 " --------------------------------------
-" Local Settings
+" local setting
 "
 " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
 "
