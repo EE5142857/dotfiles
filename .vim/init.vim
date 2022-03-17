@@ -20,21 +20,22 @@ endif
 
 filetype off
 filetype plugin indent off
+syntax off
 
 " --------------------------------------
 " source
 "
 if filereadable(fnamemodify('~/.vim/rc/autocmd.vim', ':p'))
-  source ~/.vim/rc/func.vim
+  source ~/.vim/rc/autocmd.vim
 endif
 
 if has('nvim')
-  if filereadable(fnamemodify('~/.vim/rc/func.vim', ':p'))
-    source ~/.vim/rc/func.vim
-  endif
-
   if filereadable(fnamemodify('~/.vim/rc/dein.vim', ':p'))
     source ~/.vim/rc/dein.vim
+  endif
+
+  if filereadable(fnamemodify('~/.vim/rc/func.vim', ':p'))
+    source ~/.vim/rc/func.vim
   endif
 endif
 
@@ -47,7 +48,7 @@ nnoremap Q <Nop>
 nnoremap q <Nop>
 nnoremap j gj
 nnoremap k gk
-nnoremap gf gF
+nnoremap gf gF " file?line
 nnoremap Y y$
 tnoremap <C-[> <C-\><C-n>
 
@@ -89,9 +90,7 @@ set autoread
 " set binary noeol
 set fileencodings=utf-8,cp932,euc-jp
 set hidden
-set isfname-=?
 set nrformats=
-set spelllang+=cjk spell
 
 " --------------------------------------
 " search
@@ -113,6 +112,7 @@ set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 set number
 set pumheight=10
 set showmatch matchtime=1
+set spelllang+=cjk spell
 set wildmenu wildmode=list:longest
 
 " --------------------------------------
