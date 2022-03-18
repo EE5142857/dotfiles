@@ -94,34 +94,48 @@ nnoremap <silent> <Plug>(my-edit)ec :edit ++encoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)ee :edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
 
-nnoremap <Plug>(my-terminal) <Nop>
-nmap <Leader>t <Plug>(my-terminal)
-nnoremap <silent> <Plug>(my-terminal)s :call <SID>setup()<CR>
-nnoremap <silent> <Plug>(my-terminal)e :call <SID>execute()<CR>
+if has('nvim')
+  nnoremap <Plug>(my-terminal) <Nop>
+  nmap <Leader>t <Plug>(my-terminal)
+  nnoremap <silent> <Plug>(my-terminal)s :call <SID>sp_terminal()<CR>
+  nnoremap <silent> <Plug>(my-terminal)v :call <SID>vs_terminal()<CR>
+  nnoremap <silent> <Plug>(my-terminal)i :call <SID>initialize()<CR>
+  nnoremap <silent> <Plug>(my-terminal)e :call <SID>execute()<CR>
 
-function! s:setup() abort
-  if fnamemodify(@%, ':e') == 'ipynb'
-    call StartJupyter()
-  elseif &filetype == 'python'
-    call StartPython()
-  elseif &filetype == 'sql'
-    call StartSQL()
-  else
-    echo 'unavailavle'
-  endif
-endfunction
+  function! s:vs_terminal() abort
+    execute 'vsplit | terminal'
+    execute 'wincmd h'
+  endfunction
 
-function! s:execute() abort
-  if &filetype == 'python'
-    call ExecutePython()
-  elseif &filetype == 'sql'
-    call ExecuteSQL()
-  elseif &filetype == 'r'
-    call ExecuteR()
-  else
-    echo 'unavailavle'
-  endif
-endfunction
+  function! s:sp_terminal() abort
+    execute 'split | resize 5 | terminal'
+    execute 'wincmd k'
+  endfunction
+
+  function! s:initialize() abort
+    if fnamemodify(@%, ':e') == 'ipynb'
+      call StartJupyter()
+    elseif &filetype == 'python'
+      call StartPython()
+    elseif &filetype == 'sql'
+      call StartSQL()
+    else
+      echo 'unavailavle'
+    endif
+  endfunction
+
+  function! s:execute() abort
+    if &filetype == 'python'
+      call ExecutePython()
+    elseif &filetype == 'sql'
+      call ExecuteSQL()
+    elseif &filetype == 'r'
+      call ExecuteR()
+    else
+      echo 'unavailavle'
+    endif
+  endfunction
+endif
 
 " --------------------------------------
 " simple command
@@ -133,10 +147,8 @@ endfunction
 "   :argdo %s/old/new/gc | update
 "   :argdelete *
 command! -nargs=1 P execute 'let @* = @' . <q-args>
-command! -nargs=0 S execute 'split | resize 5 | terminal'
-command! -nargs=0 V execute 'vsplit | terminal'
 command! -nargs=1 G execute 'grep -ri ' . <q-args> . ' .'
-command! -nargs=0 Trim execute '%s/\s\+$//e'
+command! -nargs=0 T execute '%s/\s\+$//e'
 command! -nargs=1 Silent
 \ execute 'silent !' . <q-args>
 \|execute 'redraw!'
