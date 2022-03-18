@@ -1,5 +1,5 @@
 # --------------------------------------
-# Shougo
+# Shougoware
 #
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
@@ -12,8 +12,13 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 '''
 
 [[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+on_source = ['neosnippet.vim']
+
+[[plugins]]
 repo = 'Shougo/ddc.vim'
-on_event = 'InsertEnter'
+if = 0
+on_event = ['InsertEnter']
 depends = ['denops.vim']
 hook_source = '''
 call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'vsnip'])
@@ -42,27 +47,28 @@ call ddc#enable()
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
-on_source = 'ddc.vim'
+on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
-on_source = 'ddc.vim'
+on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
-on_source = 'ddc.vim'
+on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-converter_remove_overlap'
-on_source = 'ddc.vim'
+on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-nvim-lsp'
-on_source = 'ddc.vim'
+on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
-on_event = 'InsertEnter'
+if = 0
+on_event = ['InsertEnter']
 depends = ['vim-vsnip-integ', 'friendly-snippets']
 hook_add = '''
 imap <expr> <C-j> vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>'
@@ -76,11 +82,11 @@ let g:vsnip_filetypes = {}
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
-on_source = 'vim-vsnip'
+on_source = ['vim-vsnip']
 
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'
-on_source = 'vim-vsnip'
+on_source = ['vim-vsnip']
 
 # --------------------------------------
 # Markdown
@@ -113,7 +119,7 @@ hook_source = '''
 let g:slime_cell_delimiter = '# %%'
 let g:slime_target = "neovim"
 let g:slime_no_mappings = 1
-nmap <leader>s <Plug>SlimeSendCell
+nmap <C-c><C-c> <Plug>SlimeSendCell
 
 augroup UpdateJobid
   autocmd!
@@ -124,18 +130,7 @@ augroup UpdateJobid
 augroup END
 
 function! SlimeOverride_EscapeText_python(text) abort
-  let g:slime_dispatch_ipython_pause = 0
-
-  let l:l_tmp = split(a:text, "\n", 1)
-  let l:l_text = [l:l_tmp[0]]
-  let l:i = 1
-  while l:i < len(l:l_tmp) - 1
-    call add(l:l_text, "\r\n")
-    call add(l:l_text, l:l_tmp[l:i])
-    let l:i = l:i + 1
-  endwhile
-
-  let l:l_ret = ["%cpaste -q", "\r\n"] + l:l_text + ["--", "\r\n"]
-  return l:l_ret
+  let l:l_out = split(join(split(a:text, "\n", 1), "\r\n;"), ";", 1)
+  return ["%cpaste -q", "\r\n"] + l:l_out + ["--", "\r\n"]
 endfunction
 '''
