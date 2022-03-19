@@ -86,17 +86,17 @@ if has('nvim')
   nnoremap <silent> <Plug>(my-terminal)su :call <SID>t_setup()<CR>
   nnoremap <silent> <Plug>(my-terminal)e :call <SID>t_execute()<CR>
 
-  function! s:t_vs() abort
-    vsplit
-    terminal
-    wincmd h
-  endfunction
-
   function! s:t_sp() abort
     split
     resize 5
     terminal
     wincmd k
+  endfunction
+
+  function! s:t_vs() abort
+    vsplit
+    terminal
+    wincmd h
   endfunction
 
   function! s:t_setup() abort
