@@ -142,11 +142,16 @@ command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 " --------------------------------------
 " system
 "
-set clipboard=unnamed
 set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
+
+if has('win32') || has('win64') || has('mac')
+  set clipboard=unnamed
+else
+  set clipboard=unnamedplus
+endif
 
 " --------------------------------------
 " edit
@@ -225,7 +230,7 @@ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 "
 function! AddPath(l_path) abort
-  if has('win32') || has ('win64')
+  " if has('win32') || has ('win64')
     let l:l_path = split($PATH, ";")
     for l:item in reverse(a:l_path)
       let l:index = index(l:l_path, l:item)
@@ -237,7 +242,7 @@ function! AddPath(l_path) abort
       endif
     endfor
     let $PATH = join(l:l_path, ";")
-  endif
+  " endif
 endfunction
 
 " --------------------------------------
