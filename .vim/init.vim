@@ -41,6 +41,7 @@ endif
 " keymap
 "
 let g:mapleader="\<Space>"
+
 nnoremap Q <Nop>
 nnoremap q <Nop>
 nnoremap Y y$
@@ -48,12 +49,6 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gf <C-w>gF
 tnoremap <C-[> <C-\><C-n>
-
-" resize window
-nnoremap <S-Up>    <C-w>+
-nnoremap <S-Down>  <C-w>-
-nnoremap <S-Left>  <C-w>>
-nnoremap <S-Right> <C-w><
 
 " quickfix
 nnoremap <silent> <Leader>k :cprevious<CR>
@@ -67,52 +62,44 @@ inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 nnoremap <Plug>(my-switch) <Nop>
 nmap <Leader>s <Plug>(my-switch)
-nnoremap <silent> <Plug>(my-switch)s :<C-u>setl spell! spell?<CR>
+nnoremap <silent> <Plug>(my-switch)b :<C-u>setl scrollbind! scrollbind?<CR>
 nnoremap <silent> <Plug>(my-switch)l :<C-u>setl list! list?<CR>
+nnoremap <silent> <Plug>(my-switch)p :<C-u>setl paste! paste?<CR>
+nnoremap <silent> <Plug>(my-switch)s :<C-u>setl spell! spell?<CR>
 nnoremap <silent> <Plug>(my-switch)t :<C-u>setl expandtab! expandtab?<CR>
 nnoremap <silent> <Plug>(my-switch)w :<C-u>setl wrap! wrap?<CR>
-nnoremap <silent> <Plug>(my-switch)p :<C-u>setl paste! paste?<CR>
-nnoremap <silent> <Plug>(my-switch)b :<C-u>setl scrollbind! scrollbind?<CR>
-nnoremap <silent> <Plug>(my-switch)y :call <SID>toggle_syntax()<CR>
-function! s:toggle_syntax() abort
-  if exists('g:syntax_on')
-    syntax off
-    redraw
-    echo 'syntax off'
-  else
-    syntax on
-    redraw
-    echo 'syntax on'
-  endif
-endfunction
 
 nnoremap <Plug>(my-edit) <Nop>
 nmap <Leader>e <Plug>(my-edit)
-nnoremap <silent> <Plug>(my-edit)i :tabedit ~/.vim/init.vim<CR>
-nnoremap <silent> <Plug>(my-edit)l :source ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)ec :edit ++encoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)ee :edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
+nnoremap <silent> <Plug>(my-edit)ie :tabedit ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)is :source ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)t :%s/\s\+$//e<CR>
 
 if has('nvim')
   nnoremap <Plug>(my-terminal) <Nop>
   nmap <Leader>t <Plug>(my-terminal)
-  nnoremap <silent> <Plug>(my-terminal)s :call <SID>sp_terminal()<CR>
-  nnoremap <silent> <Plug>(my-terminal)v :call <SID>vs_terminal()<CR>
-  nnoremap <silent> <Plug>(my-terminal)i :call <SID>initialize()<CR>
-  nnoremap <silent> <Plug>(my-terminal)e :call <SID>execute()<CR>
+  nnoremap <silent> <Plug>(my-terminal)sp :call <SID>t_sp()<CR>
+  nnoremap <silent> <Plug>(my-terminal)vs :call <SID>t_vs()<CR>
+  nnoremap <silent> <Plug>(my-terminal)su :call <SID>t_setup()<CR>
+  nnoremap <silent> <Plug>(my-terminal)e :call <SID>t_execute()<CR>
 
-  function! s:vs_terminal() abort
-    execute 'vsplit | terminal'
-    execute 'wincmd h'
+  function! s:t_vs() abort
+    vsplit
+    terminal
+    wincmd h
   endfunction
 
-  function! s:sp_terminal() abort
-    execute 'split | resize 5 | terminal'
-    execute 'wincmd k'
+  function! s:t_sp() abort
+    split
+    resize 5
+    terminal
+    wincmd k
   endfunction
 
-  function! s:initialize() abort
+  function! s:t_setup() abort
     if fnamemodify(@%, ':e') == 'ipynb'
       call StartJupyter()
     elseif &filetype == 'python'
@@ -124,8 +111,10 @@ if has('nvim')
     endif
   endfunction
 
-  function! s:execute() abort
-    if &filetype == 'python'
+  function! s:t_execute() abort
+    if fnamemodify(@%, ':e') == 'ipynb'
+      call ExecuteJupyter()
+    elseif &filetype == 'python'
       call ExecutePython()
     elseif &filetype == 'sql'
       call ExecuteSQL()
@@ -148,10 +137,7 @@ endif
 "   :argdelete *
 command! -nargs=1 P execute 'let @* = @' . <q-args>
 command! -nargs=1 G execute 'grep -ri ' . <q-args> . ' .'
-command! -nargs=0 T execute '%s/\s\+$//e'
-command! -nargs=1 Silent
-\ execute 'silent !' . <q-args>
-\|execute 'redraw!'
+command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 
 " --------------------------------------
 " system
@@ -169,6 +155,7 @@ set autoread
 " set binary noeol
 set fileencodings=utf-8,cp932,euc-jp
 set hidden
+set noshellslash
 set nrformats=
 
 " --------------------------------------
@@ -237,9 +224,19 @@ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 "
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 "
-function! AddPath(path) abort
+function! AddPath(l_path) abort
   if has('win32') || has ('win64')
-    let l:path = $PATH . ";" . join(a:path, ";")
+    let l:l_path = split($PATH, ";")
+    for l:item in reverse(a:l_path)
+      let l:index = index(l:l_path, l:item)
+      if l:index < 0
+        call insert(l:l_path, l:item)
+      else
+        call remove(l:l_path, l:index)
+        call insert(l:l_path, l:item)
+      endif
+    endfor
+    let $PATH = join(l:l_path, ";")
   endif
 endfunction
 

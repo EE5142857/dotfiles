@@ -24,6 +24,12 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 '''
 
+[[plugins]]
+repo = 'simeji/winresizer'
+hook_add = '''
+let g:winresizer_start_key = "\<C-w>\<C-w>"
+'''
+
 # --------------------------------------
 # edit
 #
@@ -121,7 +127,7 @@ endfunction
 
 augroup MyAutoSyntastic
   autocmd!
-  autocmd BufEnter,BufWritePost * call LLSyntastic()
+  autocmd BufWritePost,BufEnter * call LLSyntastic()
 augroup END
 
 function! LLSyntastic()
