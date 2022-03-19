@@ -7,7 +7,6 @@ augroup MyHighlight
   autocmd!
   autocmd ColorScheme * call s:my_highlight()
 augroup END
-
 function! s:my_highlight() abort
   highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
   highlight SpellBad    cterm=NONE ctermfg=Red ctermbg=NONE
@@ -26,7 +25,6 @@ augroup MySyntax
   autocmd!
   autocmd Syntax * call s:my_syntax()
 augroup END
-
 function! s:my_syntax() abort
   call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
   call matchadd('Error', '　\|\s\+$\|\[ \]')
@@ -53,7 +51,7 @@ augroup END
 augroup RestoreCursor
   autocmd!
   autocmd BufReadPost *
-  \ if (line("'\"") >= 1) && (line("'\"") <= line("$")) && (&ft !~# 'commit')
+  \ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
   \|  execute "normal! g'\""
   \|endif
 augroup END
@@ -70,7 +68,6 @@ augroup DeleteRegisters
   autocmd!
   autocmd VimLeavePre * call s:delete_registers()
 augroup END
-
 function! s:delete_registers() abort
   let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
   for r in regs
@@ -87,7 +84,6 @@ augroup UpdateRegisters
   autocmd!
   autocmd BufEnter * call s:update_registers()
 augroup END
-
 function! s:update_registers() abort
   " using filename-modifiers
   let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
@@ -106,9 +102,8 @@ augroup SourceLocalVimrc
   autocmd!
   autocmd BufNewFile,BufReadPost,BufEnter * call s:source_local_vimrc(fnamemodify(@%, ':p'))
 augroup END
-
 function! s:source_local_vimrc(path) abort
-  if (&buftype == 'terminal') || (&buftype == 'quickfix')
+  if &buftype != ''
     return
   endif
 
@@ -117,13 +112,10 @@ function! s:source_local_vimrc(path) abort
 
   let l:l_vimrc_path = []
   for l:i in reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
-    let l:path_slash = substitute(fnamemodify(l:i, ':p'), '\\', '\/', 'g')
-    call add(l:l_vimrc_path, l:path_slash)
+    call add(l:l_vimrc_path, fnamemodify(l:i, ':p'))
   endfor
 
   for l:i in l:l_vimrc_path
     execute 'source' l:i
   endfor
-
-  let g:l_sourced_local_vimrc_path = uniq(sort(g:l_sourced_local_vimrc_path + l:l_vimrc_path))
 endfunction

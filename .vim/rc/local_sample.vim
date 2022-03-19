@@ -1,7 +1,8 @@
 scriptencoding utf-8
 
-let s:path = substitute(fnamemodify(expand('<sfile>:p'), ':p'), '\\', '\/', 'g')
-if index(g:l_sourced_local_vimrc_path, s:path) < 0
+let s:path_wo_symbol = substitute(fnamemodify(expand('<sfile>:p'), ':p'), '[^a-zA-Z0-9]', '_', 'g')
+if !exists('g:{s:path_wo_symbol}')
+  let g:{s:path_wo_symbol} = 1
   " l:cwd = getcwd()
   " lcd <sfile>:p:h
   " Silent ctags -R .
@@ -18,24 +19,27 @@ let g:jupytext_command = 'C:\work\myenv\Scripts\jupytext.exe'
 function! StartJupyter() abort
   wincmd l
   startinsert
-  call feedkeys("activate.bat\<CR>")
+  " call feedkeys("activate.bat\<CR>")
   call feedkeys("ipython\<CR>")
   call feedkeys("\<C-\>\<C-n>")
-  call feedkeys("\<C-w>h")
+  call feedkeys("G\<C-w>h")
 endfunction
 
 function! StartPython() abort
-  wincmd l
-  startinsert
-  call feedkeys("activate.bat\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
-  call feedkeys("\<C-w>h")
+  " wincmd l
+  " startinsert
+  " call feedkeys("activate.bat\<CR>")
+  " call feedkeys("\<C-\>\<C-n>")
+  " call feedkeys("G\<C-w>h")
 endfunction
 
 function! StartSQL() abort
   wincmd l
   startinsert
+  call feedkeys("pg_ctl start\<CR>")
   call feedkeys("psql -U postgres -d recipe\<CR>")
+  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("G\<C-w>h")
 endfunction
 
 function! ExecuteJupyter() abort

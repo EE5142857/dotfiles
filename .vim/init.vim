@@ -24,9 +24,6 @@ syntax off
 let g:netrw_home = '~/.vim'
 let g:netrw_dirhistmax = 1
 let g:vim_indent_cont = 0
-if !exists('g:l_sourced_local_vimrc_path')
-  let g:l_sourced_local_vimrc_path = []
-endif
 
 " --------------------------------------
 " source
@@ -77,6 +74,7 @@ nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
 nnoremap <silent> <Plug>(my-edit)ie :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)is :source ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t :%s/\s\+$//e<CR>
+" nnoremap <silent> <Plug>(my-edit)y :call LLSyntastic()<CR>
 
 if has('nvim')
   nnoremap <Plug>(my-terminal) <Nop>

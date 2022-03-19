@@ -78,7 +78,8 @@ let g:lightline = {
 \ 'active': {
 \   'left': [
 \     ['mode', 'paste'],
-\     ['filename', 'readonly', 'modified']
+\     ['filename', 'readonly', 'modified'],
+\     ['mypath']
 \   ],
 \   'right': [
 \     ['syntastic', 'mylineinfo'],
@@ -98,7 +99,7 @@ let g:lightline = {
 \     ['tabs']
 \   ],
 \   'right': [
-\     ['mydirname']
+\     ['mycwdname']
 \   ]
 \ },
 \ 'separator': {
@@ -106,8 +107,8 @@ let g:lightline = {
 \   'right': ''
 \ },
 \ 'component_function': {
-\   'mydirpath': 'LLGetDirPath',
-\   'mydirname': 'LLGetDirName'
+\   'mycwdname': 'LLGetCwdName',
+\   'mypath': 'LLGetPath'
 \ },
 \ 'component_expand':{
 \   'syntastic': 'SyntasticStatuslineFlag'
@@ -117,19 +118,18 @@ let g:lightline = {
 \ }
 \}
 
-function! LLGetDirName()
+function! LLGetCwdName()
   return fnamemodify(getcwd(), ':t')
 endfunction
-
-function! LLGetDirPath()
-  return fnamemodify(getcwd(), ':p:h')
+function! LLGetPath()
+  return fnamemodify(@%, ':p:h')
 endfunction
 
 augroup MyAutoSyntastic
   autocmd!
-  autocmd BufWritePost,BufEnter * call LLSyntastic()
+  autocmd BufWritePost * call LLSyntastic()
 augroup END
-
+nnoremap <silent> <Plug>(my-edit)y :call LLSyntastic()<CR>
 function! LLSyntastic()
   SyntasticCheck
   call lightline#update()
