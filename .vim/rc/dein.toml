@@ -37,6 +37,12 @@ let g:winresizer_start_key = "\<C-w>\<C-w>"
 repo = 'tyru/caw.vim'
 
 [[plugins]]
+repo = 'thinca/vim-qfreplace'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+
+[[plugins]]
 repo = 'vim-syntastic/syntastic'
 hook_add = '''
 let g:syntastic_always_populate_loc_list = 1
@@ -78,8 +84,7 @@ let g:lightline = {
 \ 'active': {
 \   'left': [
 \     ['mode', 'paste'],
-\     ['filename', 'readonly', 'modified'],
-\     ['mypath']
+\     ['filename', 'readonly', 'modified']
 \   ],
 \   'right': [
 \     ['syntastic', 'mylineinfo'],

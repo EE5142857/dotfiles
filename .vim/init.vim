@@ -5,8 +5,13 @@
 " ~/.vim/rc/dein.toml
 " ~/.vim/rc/dein_lazy.toml
 " ~/.vim/rc/local_sample.vim
+" ~/.vim/snippets/markdown.snip
 set encoding=utf-8
 scriptencoding utf-8
+
+if &compatible
+  set nocompatible " Be iMproved
+endif
 
 if has('unix')
   language messages C
@@ -160,6 +165,7 @@ set fileencodings=utf-8,cp932,euc-jp
 set hidden
 set noshellslash
 set nrformats=
+set virtualedit=block
 
 " --------------------------------------
 " search

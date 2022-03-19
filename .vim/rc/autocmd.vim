@@ -100,7 +100,7 @@ endfunction
 "
 augroup SourceLocalVimrc
   autocmd!
-  autocmd BufNewFile,BufReadPost,BufEnter * call s:source_local_vimrc(fnamemodify(@%, ':p'))
+  autocmd BufNewFile,BufReadPost,BufEnter * call s:source_local_vimrc(expand('<afile>:p:h'))
 augroup END
 function! s:source_local_vimrc(path) abort
   if &buftype != ''
@@ -108,7 +108,7 @@ function! s:source_local_vimrc(path) abort
   endif
 
   " upward compatibility with 'set autochdir'
-  execute 'lcd' fnamemodify(a:path, ':p:h')
+  execute 'lcd' a:path
 
   let l:l_vimrc_path = []
   for l:i in reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
