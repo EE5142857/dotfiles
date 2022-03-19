@@ -1,27 +1,39 @@
 # --------------------------------------
-# Shougoware
+# Shougo
 #
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
 # --------------------------------------
-# Deno
+# completion
 #
 [[plugins]]
-repo = 'vim-denops/denops.vim'
+# https://github.com/neoclide/coc.nvim/wiki/Language-servers
+repo = 'neoclide/coc.nvim'
+hook_post_update = '''
+!npm install -g yarn
+call coc#util#install()
+CocInstall coc-json
+CocInstall coc-markdownlint
+CocInstall coc-pyright
+'''
 
 # --------------------------------------
 # view
 #
-[[plugins]]
-repo = 'easymotion/vim-easymotion'
-
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
+'''
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 '''
 
 [[plugins]]
@@ -37,7 +49,7 @@ let g:winresizer_start_key = "\<C-w>\<C-w>"
 repo = 'tyru/caw.vim'
 
 [[plugins]]
-repo = 'thinca/vim-qfreplace'
+repo = 'junegunn/vim-easy-align'
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
@@ -57,7 +69,7 @@ let g:syntastic_python_checkers = ['flake8']
 #
 [[plugins]]
 repo = 'tomasiser/vim-code-dark'
-hook_add = '''
+hook_source = '''
 set t_Co=256
 set t_ut=
 colorscheme codedark
@@ -87,8 +99,9 @@ let g:lightline = {
 \     ['filename', 'readonly', 'modified']
 \   ],
 \   'right': [
-\     ['syntastic', 'mylineinfo'],
-\     ['fileformat', 'fileencoding', 'filetype']
+\     ['mylineinfo'],
+\     ['fileformat', 'fileencoding', 'filetype'],
+\     ['coc']
 \   ]
 \ },
 \ 'inactive': {
@@ -116,10 +129,10 @@ let g:lightline = {
 \   'mypath': 'LLGetPath'
 \ },
 \ 'component_expand':{
-\   'syntastic': 'SyntasticStatuslineFlag'
+\   'coc': 'coc#status'
 \ },
 \ 'component_type': {
-\   'syntastic': 'error'
+\   'coc': 'error'
 \ }
 \}
 
@@ -130,15 +143,10 @@ function! LLGetPath()
   return fnamemodify(@%, ':p:h')
 endfunction
 
-augroup MyAutoSyntastic
+augroup LLAutoUpdate
   autocmd!
-  autocmd BufWritePost * call LLSyntastic()
+  autocmd BufWritePost * call lightline#update()
 augroup END
-nnoremap <silent> <Plug>(my-edit)y :call LLSyntastic()<CR>
-function! LLSyntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
 '''
 
 # --------------------------------------

@@ -9,9 +9,16 @@ scoop install git
 scoop install neovim
 scoop install vim
 scoop install busybox
-scoop install ctags
 scoop install postgresql
 scoop install r
+
+scoop install nodejs
+
+# for coc.nvim
+# R
+# install.packages("languageserver")
+# npm install -g yarn
+# npm i -g sql-language-server
 
 # solve "scoop checkup" problems
 scoop install innounp

@@ -1,0 +1,16 @@
+{
+    "languageserver": {
+        "R": {
+            "enable": true,
+            "command": "R",
+            "args": [
+                "--slave",
+                "-e",
+                "languageserver::run()"
+            ],
+            "filetypes": [
+                "r"
+            ]
+        }
+    }
+}

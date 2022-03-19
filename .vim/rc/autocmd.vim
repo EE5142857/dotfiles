@@ -9,8 +9,8 @@ augroup MyHighlight
 augroup END
 function! s:my_highlight() abort
   highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
-  highlight SpellBad    cterm=NONE ctermfg=Red ctermbg=NONE
-  highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight SpellBad    cterm=NONE ctermfg=Magenta ctermbg=NONE
+  highlight SpecialKey  cterm=NONE ctermfg=Gray ctermbg=NONE
   highlight Todo        cterm=NONE ctermfg=Black ctermbg=Yellow
   highlight Error       cterm=NONE ctermfg=Black ctermbg=Red
   if has('nvim')
@@ -100,7 +100,7 @@ endfunction
 "
 augroup SourceLocalVimrc
   autocmd!
-  autocmd BufNewFile,BufReadPost,BufEnter * call s:source_local_vimrc(expand('<afile>:p:h'))
+  autocmd BufNewFile,BufReadPost,BufEnter * call s:source_local_vimrc(expand('<afile>'))
 augroup END
 function! s:source_local_vimrc(path) abort
   if &buftype != ''
@@ -108,7 +108,7 @@ function! s:source_local_vimrc(path) abort
   endif
 
   " upward compatibility with 'set autochdir'
-  execute 'lcd' a:path
+  execute 'lcd' fnamemodify(expand(a:path), ':p:h')
 
   let l:l_vimrc_path = []
   for l:i in reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
