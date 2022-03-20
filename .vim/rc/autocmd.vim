@@ -11,8 +11,8 @@ function! s:my_highlight() abort
   highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
   highlight SpellBad    cterm=NONE ctermfg=Magenta ctermbg=NONE
   highlight SpecialKey  cterm=NONE ctermfg=Gray ctermbg=NONE
-  highlight Todo        cterm=NONE ctermfg=Black ctermbg=Yellow
-  highlight Error       cterm=NONE ctermfg=Black ctermbg=Red
+  highlight Todo        cterm=NONE ctermfg=Black ctermbg=DarkYellow
+  highlight Error       cterm=NONE ctermfg=Black ctermbg=124 " Xterm Name: Red3
   if has('nvim')
     highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
   endif
@@ -59,6 +59,7 @@ augroup END
 augroup DeleteMarks
   autocmd!
   autocmd BufReadPost * delmarks a-z
+  autocmd VimLeavePre * delmarks a-z0-9[]^.<>
 augroup END
 
 " --------------------------------------

@@ -2,8 +2,9 @@
 " ~/.vim/init.vim
 " ~/.vim/rc/autocmd.vim
 " ~/.vim/rc/dein.vim
-" ~/.vim/rc/dein.toml
 " ~/.vim/rc/dein_lazy.toml
+" ~/.vim/rc/dein_lazy_ddc.toml
+" ~/.vim/rc/dein_nolazy.toml
 " ~/.vim/rc/local_sample.vim
 " ~/.vim/snippets/markdown.snip
 set encoding=utf-8

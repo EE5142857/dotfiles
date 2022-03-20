@@ -6,19 +6,14 @@ if (!(Get-Command * | Where-object { $_.Name -match "scoop" })) {
 # main
 scoop install 7zip
 scoop install git
+
 scoop install neovim
 scoop install vim
 scoop install busybox
+
 scoop install postgresql
 scoop install r
-
 scoop install nodejs
-
-# for coc.nvim
-# R
-# install.packages("languageserver")
-# npm install -g yarn
-# npm i -g sql-language-server
 
 # solve "scoop checkup" problems
 scoop install innounp
@@ -28,6 +23,7 @@ scoop install dark
 scoop bucket add extras
 scoop install deno
 scoop install everything
+scoop install plantuml
 scoop install vscode
 scoop install winmerge
 

@@ -21,12 +21,14 @@ if dein#load_state(s:dein_dir)
 
   " .toml file
   let s:rc_dir = expand('~/.vim/rc')
-  let s:toml_vim = s:rc_dir . '/dein.toml'
-  let s:toml_vim_lazy = s:rc_dir . '/dein_lazy.toml'
+  let s:toml_nolazy = s:rc_dir . '/dein_nolazy.toml'
+  let s:toml_lazy = s:rc_dir . '/dein_lazy.toml'
+  let s:toml_lazy_ddc = s:rc_dir . '/dein_lazy_ddc.toml'
 
   " read toml and cache
-  call dein#load_toml(s:toml_vim, {'lazy': 0})
-  call dein#load_toml(s:toml_vim_lazy, {'lazy': 1})
+  call dein#load_toml(s:toml_nolazy, {'lazy': 0})
+  call dein#load_toml(s:toml_lazy, {'lazy': 1})
+  call dein#load_toml(s:toml_lazy_ddc, {'lazy': 1})
 
   " end settings
   call dein#end()
