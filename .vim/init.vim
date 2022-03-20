@@ -53,6 +53,22 @@ nnoremap k gk
 nnoremap gf <C-w>gF
 tnoremap <C-[> <C-\><C-n>
 
+" Delete
+vnoremap d "_d
+nnoremap d "_d
+vnoremap D "_D
+nnoremap D "_D
+vnoremap x "_x
+nnoremap x "_x
+vnoremap s "_s
+nnoremap s "_s
+
+" Cut
+nnoremap t d
+vnoremap t x
+nnoremap tt dd
+nnoremap T D
+
 " quickfix
 nnoremap <silent> <Leader>k :cprevious<CR>
 nnoremap <silent> <Leader>j :cnext<CR>
