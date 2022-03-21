@@ -9,19 +9,23 @@ repo = 'Shougo/dein.vim'
 #
 [[plugins]]
 repo = 'vim-denops/denops.vim'
+if = "has('nvim')"
 
 [[plugins]]
 repo = 'vim-denops/denops-helloworld.vim'
+if = "has('nvim')"
 
 # --------------------------------------
 # LSP
 #
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
+if = "has('nvim')"
 
 [[plugins]]
 # https://zenn.dev/mattn/articles/b83f9d94202914
 repo = 'mattn/vim-lsp-settings'
+if = "has('nvim')"
 
 # --------------------------------------
 # view
@@ -75,7 +79,6 @@ colorscheme codedark
 #
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-depends = ['syntastic']
 hook_source = '''
 set laststatus=2
 set noshowmode
@@ -84,15 +87,14 @@ if !has('gui_running')
 endif
 
 let g:lightline = {
-\ 'colorscheme': 'default',
+\ 'colorscheme': 'codedark',
 \ 'component': {
 \   'mylineinfo': '%3l/%L, %-2c'
 \ },
 \ 'active': {
 \   'left': [
 \     ['mode', 'paste'],
-\     ['filename', 'readonly', 'modified'],
-\     ['mypath']
+\     ['filename', 'readonly', 'modified']
 \   ],
 \   'right': [
 \     ['mylineinfo'],
@@ -138,6 +140,7 @@ endfunction
 #
 [[plugins]]
 repo = 'goerz/jupytext.vim'
+if = "has('nvim')"
 hook_add = '''
 let g:jupytext_enable = 1
 let g:jupytext_fmt = 'py:percent'

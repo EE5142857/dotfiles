@@ -1,7 +1,6 @@
 *.log
-local.vim
-my*.bat
-mylist.txt
 .ipynb_checkpoints/
 .netrwbook
 .netrwhist
+local.vim
+my*

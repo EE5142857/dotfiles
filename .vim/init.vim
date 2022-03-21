@@ -1,12 +1,13 @@
 " [.vim directory layout]
-" ~/.vim/init.vim
-" ~/.vim/rc/autocmd.vim
-" ~/.vim/rc/dein.vim
-" ~/.vim/rc/dein_lazy.toml
-" ~/.vim/rc/dein_lazy_ddc.toml
-" ~/.vim/rc/dein_nolazy.toml
-" ~/.vim/rc/local_sample.vim
-" ~/.vim/snippets/markdown.snip
+"   ~/.vim/init.vim
+"   ~/.vim/autoload/vimrc.vim
+"   ~/.vim/rc/autocmd.vim
+"   ~/.vim/rc/dein_lazy.toml
+"   ~/.vim/rc/dein_lazy_ddc.toml
+"   ~/.vim/rc/dein_nolazy.toml
+"   ~/.vim/rc/dein_nouse.toml
+"   ~/.vim/rc/local_sample.vim
+"   ~/.vim/snippets/markdown.snip
 set encoding=utf-8
 scriptencoding utf-8
 
@@ -14,15 +15,7 @@ if &compatible
   set nocompatible " Be iMproved
 endif
 
-if has('unix')
-  language messages C
-else
-  language messages en
-endif
-
-filetype off
-filetype plugin indent off
-syntax off
+language messages C
 
 " --------------------------------------
 " variable
@@ -32,13 +25,20 @@ let g:netrw_dirhistmax = 1
 let g:vim_indent_cont = 0
 
 " --------------------------------------
-" source
-"
-source ~/.vim/rc/autocmd.vim
-
-if has('nvim')
-  source ~/.vim/rc/dein.vim
-endif
+" command
+" NOTE: vimgrep
+"   :vimgrep /word/g **/*.*
+" NOTE: argdo
+"   :args **/*.*
+"   :argdo %s/old/new/g | update
+"   :argdo %s/old/new/gc | update
+"   :argdelete *
+" NOTE: cdo
+"   :cdo %s/old/new/g | update
+"   :cdo %s/old/new/gc | update
+command! -nargs=1 P execute 'let @* = @' . <q-args>
+command! -nargs=1 G execute 'grep -ri ' . <q-args> . ' .'
+command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 
 " --------------------------------------
 " keymap
@@ -53,7 +53,7 @@ nnoremap k gk
 nnoremap gf <C-w>gF
 tnoremap <C-[> <C-\><C-n>
 
-" Delete
+" delete
 vnoremap d "_d
 nnoremap d "_d
 vnoremap D "_D
@@ -63,7 +63,7 @@ nnoremap x "_x
 vnoremap s "_s
 nnoremap s "_s
 
-" Cut
+" cut
 nnoremap t d
 vnoremap t x
 nnoremap tt dd
@@ -81,12 +81,12 @@ inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 nnoremap <Plug>(my-switch) <Nop>
 nmap <Leader>s <Plug>(my-switch)
-nnoremap <silent> <Plug>(my-switch)b :<C-u>setl scrollbind! scrollbind?<CR>
-nnoremap <silent> <Plug>(my-switch)l :<C-u>setl list! list?<CR>
-nnoremap <silent> <Plug>(my-switch)p :<C-u>setl paste! paste?<CR>
-nnoremap <silent> <Plug>(my-switch)s :<C-u>setl spell! spell?<CR>
-nnoremap <silent> <Plug>(my-switch)t :<C-u>setl expandtab! expandtab?<CR>
-nnoremap <silent> <Plug>(my-switch)w :<C-u>setl wrap! wrap?<CR>
+nnoremap <silent> <Plug>(my-switch)b :<C-u>setlocal scrollbind! scrollbind?<CR>
+nnoremap <silent> <Plug>(my-switch)l :<C-u>setlocal list! list?<CR>
+nnoremap <silent> <Plug>(my-switch)p :<C-u>setlocal paste! paste?<CR>
+nnoremap <silent> <Plug>(my-switch)s :<C-u>setlocal spell! spell?<CR>
+nnoremap <silent> <Plug>(my-switch)t :<C-u>setlocal expandtab! expandtab?<CR>
+nnoremap <silent> <Plug>(my-switch)w :<C-u>setlocal wrap! wrap?<CR>
 
 nnoremap <Plug>(my-edit) <Nop>
 nmap <Leader>e <Plug>(my-edit)
@@ -96,7 +96,6 @@ nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
 nnoremap <silent> <Plug>(my-edit)ie :tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)is :source ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t :%s/\s\+$//e<CR>
-" nnoremap <silent> <Plug>(my-edit)y :call LLSyntastic()<CR>
 
 if has('nvim')
   nnoremap <Plug>(my-terminal) <Nop>
@@ -147,19 +146,6 @@ if has('nvim')
 endif
 
 " --------------------------------------
-" simple command
-" NOTE: vimgrep
-"   :vimgrep /word/g **/*.*
-" NOTE: argdo
-"   :args **/*.*
-"   :argdo %s/old/new/g | update
-"   :argdo %s/old/new/gc | update
-"   :argdelete *
-command! -nargs=1 P execute 'let @* = @' . <q-args>
-command! -nargs=1 G execute 'grep -ri ' . <q-args> . ' .'
-command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
-
-" --------------------------------------
 " system
 "
 set nobackup
@@ -180,9 +166,14 @@ set autoread
 " set binary noeol
 set fileencodings=utf-8,cp932,euc-jp
 set hidden
+" set isfname-=|
 set noshellslash
 set nrformats=
 set virtualedit=block
+
+if exists('&completeslash')
+  set completeslash=slash
+endif
 
 " --------------------------------------
 " search
@@ -199,17 +190,19 @@ set wrapscan
 " view
 "
 set ambiwidth=double
-set cursorline
 set display=lastline
-" set isfname-=|
 set number
+
+" --------------------------------------
+" wildmenu
+" pum
+"
 set pumheight=10
-set showmatch matchtime=1
-set spelllang+=cjk spell
 set wildmenu wildmode=list:longest
 
-" '␣': U+2423 Open Box
-set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
+if has('nvim')
+  set pumblend=30
+endif
 
 " --------------------------------------
 " window
@@ -219,21 +212,26 @@ set splitbelow
 set splitright
 
 " --------------------------------------
-" statusline, tabline
+" status line
+" tab line
+" command line
 "
 set laststatus=2
 set showtabline=2
+set cmdheight=2
 
 " --------------------------------------
-" colorscheme
+" highlight
 "
-if !has('nvim')
-  set t_Co=256
-  colorscheme industry
-endif
+set cursorline
+set showmatch matchtime=1
+set spelllang+=cjk spell
+
+" '␣': U+2423 Open Box
+set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 
 " --------------------------------------
-" indent
+" filetype-global setting
 "
 set autoindent
 set expandtab
@@ -242,32 +240,67 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
-" for init.vim
-setlocal shiftwidth=2 softtabstop=2 tabstop=2
+" --------------------------------------
+" color
+"
+if exists('&termguicolors')
+  set termguicolors
+endif
 
 " --------------------------------------
-" add path
+" source
 "
-" https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
-"
-function! AddPath(l_path) abort
-  " if has('win32') || has ('win64')
-    let l:l_path = split($PATH, ";")
-    for l:item in reverse(a:l_path)
-      let l:index = index(l:l_path, l:item)
-      if l:index < 0
-        call insert(l:l_path, l:item)
-      else
-        call remove(l:l_path, l:index)
-        call insert(l:l_path, l:item)
-      endif
-    endfor
-    let $PATH = join(l:l_path, ";")
-  " endif
-endfunction
+source ~/.vim/rc/autocmd.vim
 
 " --------------------------------------
-" end
+" dein.vim
 "
+" https://github.com/Shougo/dein.vim
+" https://knowledge.sakura.ad.jp/23248/
+" https://github.com/Shougo/shougo-s-github/blob/master/vim/rc/vimrc
+"
+" In Windows, auto_recache is disabled.  It is too slow.
+let g:dein#auto_recache = !(has('win32') || has('win64'))
+
+let g:dein#lazy_rplugins = v:true
+let g:dein#install_progress_type = 'floating'
+
+if &runtimepath !~# '/dein.vim'
+  if has('nvim')
+    let s:dein_dir = expand('~/.cache/nvim/dein')
+  else
+    let s:dein_dir = expand('~/.cache/vim/dein')
+  endif
+  let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
+
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath+=' . s:dein_repo_dir
+endif
+
+if dein#min#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  let s:base_dir = expand('~/.vim/rc') . '/'
+  let s:toml_nolazy   = s:base_dir . 'dein_nolazy.toml'
+  let s:toml_lazy     = s:base_dir . 'dein_lazy.toml'
+  let s:toml_lazy_ddc = s:base_dir . 'dein_lazy_ddc.toml'
+
+  call dein#load_toml(s:toml_nolazy,    {'lazy': 0})
+  call dein#load_toml(s:toml_lazy,      {'lazy': 1})
+  call dein#load_toml(s:toml_lazy_ddc,  {'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
+
+" Required
 filetype plugin indent on
 syntax enable
+
+call dein#call_hook('source')

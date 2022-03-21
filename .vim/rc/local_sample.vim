@@ -9,7 +9,7 @@ if !exists('g:{s:path_wo_symbol}')
   " execute 'lcd' l:cwd
 endif
 
-call AddPath([
+call vimrc#add_path([
 \ 'C:\work\myenv\Scripts'
 \])
 
