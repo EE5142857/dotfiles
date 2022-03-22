@@ -16,6 +16,7 @@ let g:netrw_dirhistmax = 1
 let g:netrw_home = '~/.vim'
 let g:netrw_liststyle = 3
 let g:netrw_sizestyle = 'H'
+let g:netrw_special_syntax = 1
 let g:netrw_timefmt = '%Y-%m-%d %H:%M:%S'
 let g:netrw_winsize = 85
 let g:vim_indent_cont = 0
