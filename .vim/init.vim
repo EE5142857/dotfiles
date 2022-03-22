@@ -1,29 +1,24 @@
-" [.vim directory layout]
-"   ~/.vim/init.vim
-"   ~/.vim/autoload/vimrc.vim
-"   ~/.vim/rc/autocmd.vim
-"   ~/.vim/rc/dein.vim
-"   ~/.vim/rc/dein_lazy.toml
-"   ~/.vim/rc/dein_lazy.toml
-"   ~/.vim/rc/dein_lazy_ddc.toml
-"   ~/.vim/rc/dein_nolazy.toml
-"   ~/.vim/rc/dein_nouse.toml
-"   ~/.vim/rc/local_sample.vim
-"   ~/.vim/snippets/markdown.snip
-set encoding=utf-8
-scriptencoding utf-8
-
 if &compatible
   set nocompatible " Be iMproved
 endif
+
+set encoding=utf-8
+scriptencoding utf-8
 
 language messages C
 
 " --------------------------------------
 " variable
 "
-let g:netrw_home = '~/.vim'
+let g:netrw_altv = 1
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
 let g:netrw_dirhistmax = 1
+let g:netrw_home = '~/.vim'
+let g:netrw_liststyle = 3
+let g:netrw_sizestyle = 'H'
+let g:netrw_timefmt = '%Y-%m-%d %H:%M:%S'
+let g:netrw_winsize = 85
 let g:vim_indent_cont = 0
 
 " --------------------------------------
@@ -262,3 +257,18 @@ else
   filetype plugin indent on
   syntax enable
 endif
+
+" --------------------------------------
+" .vim directory layout
+"
+" ~/.vim/init.vim
+" ~/.vim/autoload/vimrc.vim
+" ~/.vim/rc/autocmd.vim
+" ~/.vim/rc/dein.vim
+" ~/.vim/rc/dein_lazy.toml
+" ~/.vim/rc/dein_lazy.toml
+" ~/.vim/rc/dein_lazy_ddc.toml
+" ~/.vim/rc/dein_nolazy.toml
+" ~/.vim/rc/dein_nouse.toml
+" ~/.vim/rc/local_sample.vim
+" ~/.vim/snippets/markdown.snip
