@@ -10,7 +10,6 @@ language messages C
 " --------------------------------------
 " variable
 "
-let g:netrw_altv = 1
 let g:netrw_banner = 0
 let g:netrw_browse_split = 4
 let g:netrw_dirhistmax = 1
@@ -47,7 +46,7 @@ nnoremap q <Nop>
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
-nnoremap gf <C-w>gF
+nnoremap gf gF
 tnoremap <C-[> <C-\><C-n>
 
 " delete
@@ -84,13 +83,14 @@ nnoremap <silent> <Plug>(my-switch)p :<C-u>setlocal paste! paste?<CR>
 nnoremap <silent> <Plug>(my-switch)s :<C-u>setlocal spell! spell?<CR>
 nnoremap <silent> <Plug>(my-switch)t :<C-u>setlocal expandtab! expandtab?<CR>
 nnoremap <silent> <Plug>(my-switch)w :<C-u>setlocal wrap! wrap?<CR>
+nnoremap <silent> <Plug>(my-switch)f :15Lexplore<CR>
 
 nnoremap <Plug>(my-edit) <Nop>
 nmap <Leader>e <Plug>(my-edit)
 nnoremap <silent> <Plug>(my-edit)ec :edit ++encoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)ee :edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
-nnoremap <silent> <Plug>(my-edit)ie :tabedit ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)ie :edit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)is :source ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t :%s/\s\+$//e<CR>
 

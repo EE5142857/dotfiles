@@ -7,7 +7,6 @@ scriptencoding utf-8
 " https://knowledge.sakura.ad.jp/23248/
 " https://github.com/Shougo/shougo-s-github/blob/master/vim/rc/vimrc
 "
-let g:dein#auto_recache = !(has('win32') || has('win64'))
 let g:dein#lazy_rplugins = v:true
 let g:dein#install_progress_type = 'floating'
 
