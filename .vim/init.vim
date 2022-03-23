@@ -144,6 +144,12 @@ if has('nvim')
 endif
 
 " --------------------------------------
+" abbreviation
+"
+" avoiding :w'
+abbreviate w' w
+
+" --------------------------------------
 " system
 "
 set nobackup
