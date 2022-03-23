@@ -5,15 +5,11 @@
     chcp 65001>nul
     cd /d %~dp0..\..
 
-    @REM Make directories.
     mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
 
-    @REM Copy files.
-    copy "%cd%\.gitconfig" "%USERPROFILE%\.gitconfig"
-    copy "%cd%\.gitignore" "%USERPROFILE%\.gitignore"
+    @REM copy
 
-    @REM Make symbolic links.
     call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vim\init.vim"
     call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vim\init.vim"
     call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
@@ -21,8 +17,15 @@
     call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"^
                                                 "%cd%\.vscode\settings.json"
+    call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
     call :my_mklink "%USERPROFILE%\markdown_style.css"^
                                                 "%cd%\doc\markdown_style.css"
+
+    @REM git config --global user.name foo
+    @REM git config --global user.email foo@bar.com
+    git config --global core.editor vim
+    git config --global core.excludesfile ~/.gitignore
+    git config --global diff.compactionHeuristic true
 
     echo Done.
     pause
