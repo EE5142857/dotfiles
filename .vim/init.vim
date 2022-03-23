@@ -254,6 +254,12 @@ endif
 " --------------------------------------
 " source
 "
+if $HOME != $USERPROFILE && $GIT_EXEC_PATH != ''
+  filetype plugin indent on
+  syntax enable
+  finish
+end
+
 if filereadable(expand('~/.vim/rc/autocmd.vim'))
   source ~/.vim/rc/autocmd.vim
 endif
