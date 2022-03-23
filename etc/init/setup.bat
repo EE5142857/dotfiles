@@ -23,7 +23,7 @@
 
     @REM git config --global user.name foo
     @REM git config --global user.email foo@bar.com
-    git config --global core.editor vim
+    git config --global core.editor nvim
     git config --global core.excludesfile ~/.gitignore
     git config --global diff.compactionHeuristic true
 
