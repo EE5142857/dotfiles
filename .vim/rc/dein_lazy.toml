@@ -53,6 +53,6 @@ augroup END
 
 function! SlimeOverride_EscapeText_python(text) abort
   let l:l_out = split(join(split(a:text, "\n", 1), "\r\n;"), ";", 1)
-  return ["%cpaste -q", "\r\n"] + l:l_out + ["--", "\r\n"]
+  return ["%paste -q", "\r\n"] + l:l_out + ["--", "\r\n"]
 endfunction
 '''

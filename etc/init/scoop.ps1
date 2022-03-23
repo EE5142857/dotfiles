@@ -31,6 +31,10 @@ scoop install winmerge
 scoop bucket add versions
 scoop install python39
 
+# java
+scoop bucket add java
+scoop install openjdk
+
 # jetbrains
 scoop bucket add jetbrains
 

@@ -1,6 +1,14 @@
 scriptencoding utf-8
 
 " --------------------------------------
+" startup
+"
+augroup MyStartup
+  autocmd!
+  autocmd VimEnter * call feedkeys("\<Space>sf")
+augroup END
+
+" --------------------------------------
 " syntax
 "
 augroup MySyntax
@@ -93,11 +101,46 @@ augroup END
 
 function! s:update_registers() abort
   " using filename-modifiers
-  let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-  let @b = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
-  let @c = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
-  let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
-  let @e = fnamemodify(@%, ':t')
+  if &filetype != ''
+    let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+    let @b = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
+    let @c = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
+    let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
+    let @e = fnamemodify(@%, ':t')
+  endif
+endfunction
+
+" --------------------------------------
+" diagram
+"
+augroup MyPlantUML
+  autocmd!
+  autocmd BufWritePost *.puml,*.pu call <SID>plantuml_export()
+augroup END
+function! s:plantuml_export() abort
+  let l:plantuml_path = fnamemodify(expand('$USERPROFILE\scoop\apps\plantuml\current\plantuml.jar'), ':p')
+  let l:src_path = fnamemodify(@%, ':p')
+  call feedkeys("\<C-w>jG")
+  call feedkeys("i")
+  call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -svg\<CR>")
+  call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -png\<CR>")
+  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-w>k")
+endfunction
+
+augroup MyMermaid
+  autocmd!
+  autocmd BufWritePost *.mmd call <SID>mermaid_export()
+augroup END
+function! s:mermaid_export() abort
+  let l:src_name = fnamemodify(@%, ':t')
+  let l:src_name_wo_ex = fnamemodify(l:src_name, ':r')
+  call feedkeys("\<C-w>jG")
+  call feedkeys("i")
+  call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".svg\<CR>")
+  call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".png\<CR>")
+  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-w>k")
 endfunction
 
 " --------------------------------------
