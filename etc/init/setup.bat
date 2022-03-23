@@ -10,19 +10,19 @@
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
 
     @REM Copy files.
-    copy ".\.gitconfig"     "%USERPROFILE%\.gitconfig"
-    copy ".\.gitignore"     "%USERPROFILE%\.gitignore"
+    copy "%cd%\.gitconfig" "%USERPROFILE%\.gitconfig"
+    copy "%cd%\.gitignore" "%USERPROFILE%\.gitignore"
 
     @REM Make symbolic links.
-    call :my_mklink "%USERPROFILE%\.vimrc"      ".\.vim\init.vim"
-    call :my_mklink "%USERPROFILE%\_vimrc"      ".\.vim\init.vim"
-    call :my_mklink "%USERPROFILE%\.vim"        ".\.vim"
-    call :my_mklink "%USERPROFILE%\vimfiles"    ".\.vim"
-    call :my_mklink "%LOCALAPPDATA%\nvim"       ".\.vim"
+    call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
+    call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
+    call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"^
-                                                ".\.vscode\settings.json"
+                                                "%cd%\.vscode\settings.json"
     call :my_mklink "%USERPROFILE%\markdown_style.css"^
-                                                ".\doc\markdown_style.css"
+                                                "%cd%\doc\markdown_style.css"
 
     echo Done.
     pause

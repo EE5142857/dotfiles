@@ -1,5 +1,4 @@
 @echo off
-@REM Run as administrator.
 
 :main
     chcp 65001>nul
