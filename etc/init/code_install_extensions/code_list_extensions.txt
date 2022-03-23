@@ -1,5 +1,3 @@
-jebbs.plantuml
 streetsidesoftware.code-spell-checker
-tomoyukim.vscode-mermaid-editor
 vscodevim.vim
 ybaumes.highlight-trailing-white-spaces
