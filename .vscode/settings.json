@@ -1,15 +1,4 @@
 {
-    "$comment": [
-        "files.autoGuessEncoding": false,
-        "files.encoding": "shiftjis",
-        "files.insertFinalNewline": true,
-        "files.trimFinalNewlines": true,
-        "files.trimTrailingWhitespace": true
-    ],
-    "[markdown]":  {
-        "editor.quickSuggestions": true
-    },
-    "breadcrumbs.enabled": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",
@@ -17,10 +6,8 @@
     "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
     "editor.renderWhitespace": "all",
-    "editor.wordWrap": "on",
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
-    "workbench.editor.enablePreview": false,
     "workbench.startupEditor": "none",
 
     "cSpell.diagnosticLevel": "Hint",
@@ -28,6 +15,7 @@
     "mermaid-editor.generate.type": "png",
     "plantuml.exportOutDir": ".",
     "plantuml.exportSubFolder": false,
+    "vim.leader": "<Space>",
     "vim.useSystemClipboard": true,
-    "vim.vimrc.enable": true
+    "vim.vimrc.enable": true,
 }
