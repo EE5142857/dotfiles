@@ -5,7 +5,7 @@ if !exists('g:{s:path_wo_symbol}')
   let g:{s:path_wo_symbol} = 1
   " l:cwd = getcwd()
   " lcd <sfile>:p:h
-  " Silent ctags -R .
+  " !ctags -R .
   " execute 'lcd' l:cwd
 endif
 

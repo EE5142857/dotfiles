@@ -35,7 +35,7 @@ let g:vim_indent_cont = 0
 "   :cdo %s/old/new/gc | update
 command! -nargs=1 P execute 'let @* = @' . <q-args>
 command! -nargs=1 G execute 'grep -ri ' . <q-args> . ' .'
-command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
+" command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 
 " --------------------------------------
 " keymap
