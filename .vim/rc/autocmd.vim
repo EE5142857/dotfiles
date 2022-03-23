@@ -1,14 +1,6 @@
 scriptencoding utf-8
 
 " --------------------------------------
-" startup
-"
-augroup MyStartup
-  autocmd!
-  autocmd VimEnter * call feedkeys("\<Space>sf")
-augroup END
-
-" --------------------------------------
 " syntax
 "
 augroup MySyntax
