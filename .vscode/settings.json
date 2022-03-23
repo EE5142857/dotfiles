@@ -11,10 +11,6 @@
     "workbench.startupEditor": "none",
 
     "cSpell.diagnosticLevel": "Hint",
-    "mermaid-editor.generate.scale": 2.0,
-    "mermaid-editor.generate.type": "png",
-    "plantuml.exportOutDir": ".",
-    "plantuml.exportSubFolder": false,
     "vim.leader": "<Space>",
     "vim.useSystemClipboard": true,
     "vim.vimrc.enable": true,
