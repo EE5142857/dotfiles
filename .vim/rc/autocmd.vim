@@ -1,6 +1,21 @@
 scriptencoding utf-8
 
 " --------------------------------------
+" save & load view
+"
+augroup MyView
+  autocmd!
+  autocmd BufWritePost *
+  \ if (expand('%') != '') && (&buftype !~ 'nofile')
+  \|  mkview
+  \|endif
+  autocmd BufRead *
+  \ if (expand('%') != '') && (&buftype !~ 'nofile')
+  \|  silent loadview
+  \|endif
+augroup END
+
+" --------------------------------------
 " syntax
 "
 augroup MySyntax

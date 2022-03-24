@@ -7,6 +7,7 @@
 
     mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
+    mkdir "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 
     @REM copy
 
@@ -16,7 +17,9 @@
     call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
     call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"^
-                                                "%cd%\.vscode\settings.json"
+                                                "%cd%\vscode\settings.json"
+    call :my_mklink "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"^
+                                                "%cd%\windows_terminal\settings.json"
     call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
     call :my_mklink "%USERPROFILE%\markdown_style.css"^
                                                 "%cd%\doc\markdown_style.css"

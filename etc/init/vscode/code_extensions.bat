@@ -5,7 +5,7 @@
     cd /d %~dp0
 
     @REM code --list-extensions
-    for /f "tokens=1,* delims=," %%i in (code_list_extensions.txt) do (
+    for /f "tokens=1,* delims=," %%i in (code_extensions.txt) do (
         call :code_install_extension "%%i"
     )
 

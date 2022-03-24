@@ -196,6 +196,7 @@ set wrapscan
 set ambiwidth=double
 set display=lastline
 set number
+set viewoptions-=options
 
 " --------------------------------------
 " wildmenu
