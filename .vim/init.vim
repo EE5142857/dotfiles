@@ -185,8 +185,8 @@ highlight Folded      gui=NONE guifg=DarkGray guibg=NONE
 highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
 highlight SpecialKey  gui=NONE guifg=DarkGray guibg=NONE
 if has('nvim')
-  highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
   highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
 endif
 
 highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
