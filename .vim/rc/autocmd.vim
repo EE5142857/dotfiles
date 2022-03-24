@@ -14,7 +14,7 @@ function! s:filetype_specific() abort
     setlocal formatoptions+=n formatoptions-=ro
   endif
 
-  setlocal foldmethod=indent nofoldenable
+  setlocal foldmethod=indent foldenable
   setlocal autoindent smartindent
 
   if 0
@@ -90,16 +90,18 @@ augroup MySyntax
 augroup END
 
 function! s:my_highlight() abort
-  highlight MyTodo      cterm=NONE ctermfg=Black ctermbg=Yellow
-  highlight MyTodo      gui=NONE guifg=Black guibg=Yellow
   highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
   highlight MyError     gui=NONE guifg=Black guibg=Red
+  highlight MyTodo      cterm=NONE ctermfg=Black ctermbg=Yellow
+  highlight MyTodo      gui=NONE guifg=Black guibg=Yellow
+  highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
+  highlight MySpecial   gui=NONE guifg=Red guibg=NONE
   highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
   highlight CursorLine  gui=underline guifg=NONE guibg=NONE
-  highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight SpecialKey  gui=NONE guifg=DarkGray guibg=NONE
   highlight Folded      cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight Folded      gui=NONE guifg=DarkGray guibg=NONE
+  highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight SpecialKey  gui=NONE guifg=DarkGray guibg=NONE
   if has('nvim')
     highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
     highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
@@ -108,7 +110,8 @@ endfunction
 
 function! s:my_syntax() abort
   call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-  call matchadd('MyError', '　\|\s\+$\|\[ \]')
+  call matchadd('MyError', '　\|\[ \]')
+  call matchadd('MySpecial', '\t\|\s\+$') " [		] 
 endfunction
 " }}}
 
