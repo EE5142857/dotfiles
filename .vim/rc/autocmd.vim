@@ -14,7 +14,7 @@ function! s:filetype_specific() abort
     setlocal formatoptions+=n formatoptions-=ro
   endif
 
-  setlocal foldmethod=indent foldenable
+  setlocal foldmethod=indent nofoldenable
   setlocal autoindent smartindent
 
   if 0
