@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
-" https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 function! vimrc#add_path(l_path) abort
+  " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
   " if has('win32') || has ('win64')
     let l:l_path = split($PATH, ";")
     for l:item in reverse(a:l_path)

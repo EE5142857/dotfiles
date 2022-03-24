@@ -2,34 +2,55 @@ scriptencoding utf-8
 
 " --------------------------------------
 " filetype
-"
-augroup MyFileTypeSpecificSettings
+" {{{
+augroup MyFileTypeSpecific
   autocmd!
-  autocmd FileType *
-  \ setlocal formatoptions+=n formatoptions-=ro
-  \|setlocal foldmethod=indent nofoldenable
-  autocmd FileType css,toml,vim
-  \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd FileType sql
-  \ setlocal shiftwidth=4 softtabstop=4 tabstop=4
-
-  " filetype undefined
-  autocmd BufNewFile,BufReadPost *.mmd,*,puml,*pu
-  \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
-
-  " for sourced *.vim
-  autocmd BufEnter *.vim
-  \ setlocal formatoptions+=n formatoptions-=ro
-  \|setlocal foldmethod=indent nofoldenable
+  autocmd BufNewFile,BufReadPost * call <SID>filetype_specific()
+  autocmd BufEnter *.vim call <SID>vim_specific()
 augroup END
+
+function! s:filetype_specific() abort
+  if has('nvim')
+    setlocal formatoptions+=n formatoptions-=ro
+  endif
+
+  setlocal foldmethod=indent nofoldenable
+  setlocal autoindent smartindent
+
+  if 0
+    setlocal noexpandtab
+  else
+    setlocal expandtab
+  endif
+
+  " shiftwidth
+  if (index(['css', 'toml'], &filetype) >= 0)
+  \ || (index(['mmd', 'puml', 'pu'], fnamemodify(@%, ':t:r')) >= 0)
+    setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  else
+    setlocal shiftwidth=4 softtabstop=4 tabstop=4
+  endif
+endfunction
+
+function! s:vim_specific() abort
+  if has('nvim')
+    setlocal formatoptions+=n formatoptions-=ro
+  endif
+
+  setlocal foldmethod=marker nofoldenable
+  setlocal autoindent expandtab smartindent
+  setlocal shiftwidth=2 softtabstop=2 tabstop=2
+endfunction
+" }}}
 
 " --------------------------------------
 " diagram
-"
+" {{{
 augroup MyPlantUML
   autocmd!
   autocmd BufWritePost *.puml,*.pu call <SID>plantuml_export()
 augroup END
+
 function! s:plantuml_export() abort
   let l:plantuml_path = fnamemodify(expand('$USERPROFILE\scoop\apps\plantuml\current\plantuml.jar'), ':p')
   let l:src_path = fnamemodify(@%, ':p')
@@ -45,6 +66,7 @@ augroup MyMermaid
   autocmd!
   autocmd BufWritePost *.mmd call <SID>mermaid_export()
 augroup END
+
 function! s:mermaid_export() abort
   let l:src_name = fnamemodify(@%, ':t')
   let l:src_name_wo_ex = fnamemodify(l:src_name, ':r')
@@ -55,10 +77,11 @@ function! s:mermaid_export() abort
   call feedkeys("\<C-\>\<C-n>")
   call feedkeys("\<C-w>k")
 endfunction
+" }}}
 
 " --------------------------------------
 " syntax
-"
+" {{{
 augroup MySyntax
   autocmd!
   autocmd Syntax *
@@ -75,6 +98,8 @@ function! s:my_highlight() abort
   highlight CursorLine  gui=underline guifg=NONE guibg=NONE
   highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight SpecialKey  gui=NONE guifg=DarkGray guibg=NONE
+  highlight Folded      cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight Folded      gui=NONE guifg=DarkGray guibg=NONE
   if has('nvim')
     highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
     highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
@@ -85,36 +110,41 @@ function! s:my_syntax() abort
   call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
   call matchadd('MyError', '　\|\s\+$\|\[ \]')
 endfunction
+" }}}
 
 " --------------------------------------
 " save & load view
-"
+" {{{
 augroup MyView
   autocmd!
   autocmd BufWinLeave *.* mkview
   autocmd BufWinEnter *.* silent! loadview
+  " autocmd BufWinLeave * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+  " autocmd BufWinEnter * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 augroup END
+" }}}
 
 " --------------------------------------
 " mark
-"
-augroup RestoreCursor
-  autocmd!
-  autocmd BufReadPost *
-  \ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
-  \|  execute "normal! g'\""
-  \|endif
-augroup END
+" {{{
+" augroup RestoreCursor
+  " autocmd!
+  " autocmd BufReadPost *
+  "\ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
+  "\|  execute "normal! g'\""
+  "\|endif
+" augroup END
 
 augroup DeleteMarks
   autocmd!
   autocmd BufReadPost * delmarks a-z
   autocmd VimLeavePre * delmarks a-z0-9[]^.<>
 augroup END
+" }}}
 
 " --------------------------------------
 " register
-"
+" {{{
 augroup DeleteRegisters
   autocmd!
   autocmd VimLeavePre * call s:delete_registers()
@@ -147,12 +177,13 @@ function! s:update_registers() abort
     let @e = fnamemodify(@%, ':t')
   endif
 endfunction
+" }}}
 
 " --------------------------------------
 " local setting
 "
 " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
-"
+" {{{
 augroup SourceLocalVimrc
   autocmd!
   autocmd BufNewFile,BufReadPost,BufEnter * call s:source_local_vimrc(expand('<afile>'))
@@ -175,3 +206,4 @@ function! s:source_local_vimrc(path) abort
     execute 'source' l:i
   endfor
 endfunction
+" }}}
