@@ -101,8 +101,6 @@ augroup MyView
   autocmd!
   autocmd BufWinLeave *.* mkview
   autocmd BufWinEnter *.* silent! loadview
-  " autocmd BufWinLeave * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-  " autocmd BufWinEnter * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 augroup END
 " }}}
 
