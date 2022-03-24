@@ -1,7 +1,8 @@
-*.log
 .ipynb_checkpoints/
+.vim/view/
+
+*.log
 .netrwbook
 .netrwhist
-.vim/view/
 local.vim
 my*
