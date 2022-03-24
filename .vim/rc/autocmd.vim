@@ -1,19 +1,60 @@
 scriptencoding utf-8
 
 " --------------------------------------
-" save & load view
+" filetype
 "
-augroup MyView
+augroup MyFileTypeSpecificSettings
   autocmd!
-  autocmd BufWritePost *
-  \ if (expand('%') != '') && (&buftype !~ 'nofile')
-  \|  mkview
-  \|endif
-  autocmd BufRead *
-  \ if (expand('%') != '') && (&buftype !~ 'nofile')
-  \|  silent loadview
-  \|endif
+  autocmd FileType *
+  \ setlocal formatoptions+=n formatoptions-=ro
+  \|setlocal foldmethod=indent nofoldenable
+  autocmd FileType css,toml,vim
+  \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType sql
+  \ setlocal shiftwidth=4 softtabstop=4 tabstop=4
+
+  " filetype undefined
+  autocmd BufNewFile,BufReadPost *.mmd,*,puml,*pu
+  \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
+
+  " for sourced *.vim
+  autocmd BufEnter *.vim
+  \ setlocal formatoptions+=n formatoptions-=ro
+  \|setlocal foldmethod=indent nofoldenable
 augroup END
+
+" --------------------------------------
+" diagram
+"
+augroup MyPlantUML
+  autocmd!
+  autocmd BufWritePost *.puml,*.pu call <SID>plantuml_export()
+augroup END
+function! s:plantuml_export() abort
+  let l:plantuml_path = fnamemodify(expand('$USERPROFILE\scoop\apps\plantuml\current\plantuml.jar'), ':p')
+  let l:src_path = fnamemodify(@%, ':p')
+  call feedkeys("\<C-w>jG")
+  call feedkeys("i")
+  call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -svg\<CR>")
+  call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -png\<CR>")
+  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-w>k")
+endfunction
+
+augroup MyMermaid
+  autocmd!
+  autocmd BufWritePost *.mmd call <SID>mermaid_export()
+augroup END
+function! s:mermaid_export() abort
+  let l:src_name = fnamemodify(@%, ':t')
+  let l:src_name_wo_ex = fnamemodify(l:src_name, ':r')
+  call feedkeys("\<C-w>jG")
+  call feedkeys("i")
+  call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".svg\<CR>")
+  call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".png\<CR>")
+  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-w>k")
+endfunction
 
 " --------------------------------------
 " syntax
@@ -46,22 +87,12 @@ function! s:my_syntax() abort
 endfunction
 
 " --------------------------------------
-" filetype
+" save & load view
 "
-augroup MyFileTypeSpecificSettings
+augroup MyView
   autocmd!
-  autocmd FileType *      setlocal formatoptions+=n formatoptions-=ro
-  autocmd FileType css    setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd FileType sql    setlocal shiftwidth=4 softtabstop=4 tabstop=4
-  autocmd FileType toml   setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd FileType vim    setlocal shiftwidth=2 softtabstop=2 tabstop=2
-
-  " filetype undefined
-  autocmd BufNewFile,BufRead *.mmd        setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd BufNewFile,BufRead *.puml,*.pu  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-
-  " for sourced *.vim
-  autocmd BufEnter *.vim  setlocal formatoptions+=n formatoptions-=ro
+  autocmd BufWinLeave *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
 augroup END
 
 " --------------------------------------
@@ -115,39 +146,6 @@ function! s:update_registers() abort
     let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
     let @e = fnamemodify(@%, ':t')
   endif
-endfunction
-
-" --------------------------------------
-" diagram
-"
-augroup MyPlantUML
-  autocmd!
-  autocmd BufWritePost *.puml,*.pu call <SID>plantuml_export()
-augroup END
-function! s:plantuml_export() abort
-  let l:plantuml_path = fnamemodify(expand('$USERPROFILE\scoop\apps\plantuml\current\plantuml.jar'), ':p')
-  let l:src_path = fnamemodify(@%, ':p')
-  call feedkeys("\<C-w>jG")
-  call feedkeys("i")
-  call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -svg\<CR>")
-  call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -png\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
-  call feedkeys("\<C-w>k")
-endfunction
-
-augroup MyMermaid
-  autocmd!
-  autocmd BufWritePost *.mmd call <SID>mermaid_export()
-augroup END
-function! s:mermaid_export() abort
-  let l:src_name = fnamemodify(@%, ':t')
-  let l:src_name_wo_ex = fnamemodify(l:src_name, ':r')
-  call feedkeys("\<C-w>jG")
-  call feedkeys("i")
-  call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".svg\<CR>")
-  call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".png\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
-  call feedkeys("\<C-w>k")
 endfunction
 
 " --------------------------------------
