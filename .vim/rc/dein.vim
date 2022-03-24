@@ -44,4 +44,5 @@ endif
 filetype plugin indent on
 syntax enable
 
+" set colorscheme
 call dein#call_hook('source')
