@@ -108,11 +108,11 @@ augroup END
 " mark
 " {{{
 " augroup RestoreCursor
-  " autocmd!
-  " autocmd BufReadPost *
-  "\ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
-  "\|  execute "normal! g'\""
-  "\|endif
+"   autocmd!
+"   autocmd BufReadPost *
+"  \ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
+"  \|  execute "normal! g'\""
+"  \|endif
 " augroup END
 
 augroup DeleteMarks

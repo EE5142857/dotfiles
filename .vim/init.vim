@@ -55,7 +55,7 @@ set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
-" set shell=pwsh
+" set shell=pwsh " grep error occurred
 set viewdir=~/.vim/view
 set viewoptions-=options
 
