@@ -41,138 +41,59 @@ command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 " }}}
 
 " --------------------------------------
-" abbreviation
+" dein.vim
 " {{{
-" avoiding :w'
-abbreviate w' w
-" }}}
+" set runtimepath
+if &runtimepath !~# '/dein.vim'
+  if has('nvim')
+    let s:dein_dir = expand('~/.cache/nvim/dein')
+  else
+    let s:dein_dir = expand('~/.cache/vim/dein')
+  endif
+  let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
 
-" --------------------------------------
-" system
-" {{{
-set autoread
-set nobackup
-set noswapfile
-set noundofile
-set nowritebackup
-" set shell=pwsh " grep error occurred
-set viewdir=~/.vim/view
-set viewoptions-=options
-
-if has('win32') || has('win64') || has('mac')
-  set clipboard=unnamed
-else
-  set clipboard=unnamedplus
-endif
-" }}}
-
-" --------------------------------------
-" edit
-" {{{
-" set binary noeol
-set fileencodings=utf-8,cp932,euc-jp
-set hidden
-" set isfname-=|
-set noshellslash
-set nrformats=
-set virtualedit=block
-
-if exists('&completeslash')
-  set completeslash=slash
-endif
-" }}}
-
-" --------------------------------------
-" search
-" {{{
-set grepprg=grep\ -n
-set hlsearch
-set ignorecase
-set incsearch
-set shortmess-=S
-set smartcase
-set wrapscan
-" }}}
-
-" --------------------------------------
-" view
-" {{{
-set ambiwidth=double
-set display=lastline
-set number
-set viewoptions-=options
-" }}}
-
-" --------------------------------------
-" wildmenu
-" pum
-" {{{
-set pumheight=10
-set wildmenu wildmode=list:longest
-
-if has('nvim')
-  set pumblend=30
-endif
-" }}}
-
-" --------------------------------------
-" window
-" {{{
-set noequalalways
-set splitbelow
-set splitright
-" }}}
-
-" --------------------------------------
-" status line
-" tab line
-" command line
-" {{{
-set laststatus=2
-set showtabline=2
-set cmdheight=2
-" }}}
-
-" --------------------------------------
-" highlight
-" {{{
-set cursorline
-set showmatch matchtime=1
-set spelllang+=cjk spell
-
-" '␣': U+2423 Open Box
-set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
-" }}}
-
-" --------------------------------------
-" color
-" {{{
-if exists('&termguicolors')
-  set termguicolors
-endif
-" }}}
-
-" --------------------------------------
-" source
-" {{{
-if filereadable(expand('~/.vim/rc/keymap.vim'))
-  source ~/.vim/rc/keymap.vim
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath+=' . s:dein_repo_dir
 endif
 
-if filereadable(expand('~/.vim/rc/autocmd.vim'))
-  source ~/.vim/rc/autocmd.vim
+" dein options
+let g:dein#auto_recache = v:true " NOTE: It is slow especially Windows.
+let g:dein#install_progress_type = 'floating'
+let g:dein#lazy_rplugins = v:true
+let s:rc_dir = substitute(expand('~/.vim/rc'), '\\', '\/', 'g') . '/'
+let g:dein#inline_vimrcs = ['option.vim', 'keymap.vim', 'autocmd.vim']
+call map(g:deintest_inline_vimrcs, 's:rc_dir . v:val')
+
+if dein#min#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',    {'lazy': 0})
+  call dein#load_toml(s:rc_dir . 'dein_lazy.toml',      {'lazy': 1})
+  call dein#load_toml(s:rc_dir . 'dein_lazy_ddc.toml',  {'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
 endif
 
-if filereadable(expand('~/.vim/rc/dein.vim'))
-  " dein.vim need to set colorscheme
-  source ~/.vim/rc/dein.vim
-else
-  filetype plugin indent on
-  syntax enable
+call dein#update()
 
-  colorscheme desert
-  " colorscheme evening
+if dein#check_install()
+  call dein#install()
 endif
+
+" Required
+filetype plugin indent on
+syntax enable
+
+call dein#call_hook('source')
+" }}}
+
+" colorscheme (if needed)
+" {{{
+" colorscheme desert
+" colorscheme evening
 " }}}
 
 " --------------------------------------
@@ -205,11 +126,10 @@ highlight MySpecial   gui=NONE guifg=Red guibg=NONE
 " ~/.vim/rc/autocmd.vim
 " ~/.vim/rc/dein.vim
 " ~/.vim/rc/dein_lazy.toml
-" ~/.vim/rc/dein_lazy.toml
 " ~/.vim/rc/dein_lazy_ddc.toml
 " ~/.vim/rc/dein_nolazy.toml
-" ~/.vim/rc/dein_nouse.toml
 " ~/.vim/rc/keymap.vim
 " ~/.vim/rc/local_sample.vim
+" ~/.vim/rc/option.vim
 " ~/.vim/snippets/markdown.snip
 " }}}
