@@ -23,6 +23,7 @@ scoop install dark
 scoop bucket add extras
 scoop install deno
 scoop install everything
+scoop install fontforge
 scoop install plantuml
 scoop install vscode
 scoop install winmerge

@@ -28,6 +28,25 @@ repo = 'mattn/vim-lsp-settings'
 if = "has('nvim')"
 
 # --------------------------------------
+# filer
+#
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+hook_add = '''
+nnoremap <silent> <Plug>(my-switch)f :Fern . -reveal=% -drawer -toggle -width=25<CR>
+let g:fern#default_hidden = 1
+'''
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+hook_add = '''
+let g:fern#renderer = 'nerdfont'
+'''
+
+# --------------------------------------
 # view
 #
 [[plugins]]
@@ -39,7 +58,12 @@ let g:indent_guides_start_level = 2
 '''
 
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
+repo = 'justinmk/vim-sneak'
+hook_add = '''
+let g:sneak#label = 1
+nmap s <Plug>Sneak_s
+nmap S <Plug>Sneak_S
+'''
 
 [[plugins]]
 repo = 'simeji/winresizer'
@@ -97,7 +121,8 @@ let g:lightline = {
 \     ['filename', 'readonly', 'modified']
 \   ],
 \   'right': [
-\     ['mylineinfo'],
+\     ['mystatus'],
+\     ['lineinfo'],
 \     ['fileformat', 'fileencoding', 'filetype']
 \   ]
 \ },
@@ -109,6 +134,10 @@ let g:lightline = {
 \     []
 \   ]
 \ },
+\ 'tab': {
+\   'active': ['tabnum', 'filename', 'modified'],
+\   'inactive': ['tabnum', 'filename', 'modified']
+\ },
 \ 'tabline': {
 \   'left': [
 \     ['tabs']
@@ -118,20 +147,30 @@ let g:lightline = {
 \   ]
 \ },
 \ 'separator': {
-\   'left': '',
-\   'right': ''
+\   'left': "",
+\   'right': ""
+\ },
+\ 'subseparator': {
+\   'left': "|",
+\   'right': "|"
 \ },
 \ 'component_function': {
+\   'mystatus': 'LLGetStatus',
 \   'mycwdname': 'LLGetCwdName',
 \   'mypath': 'LLGetPath'
 \ }
 \}
 
-function! LLGetCwdName()
-  return fnamemodify(getcwd(), ':t')
+function! LLGetStatus() abort
+  return "\ue62b" . ' '
 endfunction
-function! LLGetPath()
-  return substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
+
+function! LLGetCwdName() abort
+  return "\uf413" . fnamemodify(getcwd(), ':t') . ' '
+endfunction
+
+function! LLGetPath() abort
+  return substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
 endfunction
 '''
 

@@ -14,6 +14,7 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
+let g:loaded_netrwPlugin = 1
 let g:netrw_banner = 0
 let g:netrw_browse_split = 4
 let g:netrw_dirhistmax = 1
@@ -101,6 +102,7 @@ endif
 " .vim directory layout
 " {{{
 " ~/.vim/init.vim
+" ~/.vim/local_sample.vim
 " ~/.vim/autoload/vimrc.vim
 " ~/.vim/rc/autocmd.vim
 " ~/.vim/rc/command.vim
@@ -108,7 +110,6 @@ endif
 " ~/.vim/rc/dein_lazy_ddc.toml
 " ~/.vim/rc/dein_nolazy.toml
 " ~/.vim/rc/keymap.vim
-" ~/.vim/rc/local_sample.vim
 " ~/.vim/rc/option.vim
 " ~/.vim/snippets/markdown.snip
 " }}}

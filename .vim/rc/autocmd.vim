@@ -14,19 +14,17 @@ augroup MyFileTypeSpecific
   \|setlocal expandtab
   \|setlocal shiftwidth=4 softtabstop=4 tabstop=4
 
-  autocmd FileType css,mermaid,plantuml,toml,vim
+  autocmd FileType css,mermaid,plantuml,toml
   \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd FileType vim
-  \ echo 'autocmd FileType vim!!'
 
-  " autocmd BufEnter *.vim
-  "\ if has('nvim')
-  "\|  setlocal formatoptions+=n formatoptions-=ro
-  "\|endif
-  "\|setlocal foldmethod=indent nofoldenable
-  "\|setlocal autoindent smartindent
-  "\|setlocal expandtab
-  "\|setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd BufEnter *.vim
+  \ if has('nvim')
+  \|  setlocal formatoptions+=n formatoptions-=ro
+  \|endif
+  \|setlocal foldmethod=marker nofoldenable
+  \|setlocal autoindent smartindent
+  \|setlocal expandtab
+  \|setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
 " }}}
 
@@ -157,7 +155,7 @@ augroup SourceLocalVimrc
 augroup END
 
 function! s:source_local_vimrc(path) abort
-  if &buftype != ''
+  if !empty(&buftype)
     return
   endif
 
