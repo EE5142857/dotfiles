@@ -30,27 +30,32 @@ let g:vim_indent_cont = 0
 " --------------------------------------
 " source
 " {{{
-if filereadable(expand('~/.vim/option.vim'))
-  source '~/.vim/option.vim'
+if filereadable(expand('~/.vim/rc/option.vim'))
+  source ~/.vim/rc/option.vim
 endif
 
-if filereadable(expand('~/.vim/autocmd.vim'))
-  source '~/.vim/autocmd.vim'
+if filereadable(expand('~/.vim/rc/autocmd.vim'))
+  source ~/.vim/rc/autocmd.vim
 endif
 
-if filereadable(expand('~/.vim/command.vim'))
-  source '~/.vim/command.vim'
+if filereadable(expand('~/.vim/rc/command.vim'))
+  source ~/.vim/rc/command.vim
 endif
 
-if filereadable(expand('~/.vim/keymap.vim'))
-  source '~/.vim/keymap.vim'
+if filereadable(expand('~/.vim/rc/keymap.vim'))
+  source ~/.vim/rc/keymap.vim
 endif
 
-if filereadable(expand('~/.vim/dein.vim')) && has('nvim')
-  source '~/.vim/dein.vim'
+if filereadable(expand('~/.vim/rc/dein.vim')) && has('nvim')
+  source ~/.vim/rc/dein.vim
 else
-  filetype plugin indent on
-  syntax enable
+  if &diff
+    syntax off
+    set nospell
+  else
+    filetype plugin indent on
+    syntax enable
+  endif
 
   " colorscheme (if needed)
   colorscheme desert
@@ -71,6 +76,15 @@ if has('nvim')
   highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
 endif
+
+highlight DiffAdd     cterm=NONE ctermfg=NONE ctermbg=Green
+highlight DiffAdd     gui=NONE guifg=NONE guibg=Green
+highlight DiffChange  cterm=NONE ctermfg=NONE ctermbg=NONE
+highlight DiffChange  gui=NONE guifg=NONE guibg=NONE
+highlight DiffDelete  cterm=NONE ctermfg=LightBlue ctermbg=Red
+highlight DiffDelete  gui=NONE guifg=LightBlue guibg=Red
+highlight DiffText    cterm=NONE ctermfg=Yellow ctermbg=Red
+highlight DiffText    gui=NONE guifg=Yellow guibg=Red
 " }}}
 
 " --------------------------------------

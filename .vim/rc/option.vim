@@ -98,6 +98,7 @@ set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 " --------------------------------------
 " color
 " {{{
+set t_Co=256
 if exists('&termguicolors')
   set termguicolors
 endif
