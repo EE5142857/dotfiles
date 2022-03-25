@@ -113,12 +113,12 @@ endif
 let g:lightline = {
 \ 'colorscheme': 'codedark',
 \ 'component': {
-\   'mylineinfo': '%3l/%L, %-2c'
+\   'mylineinfo': '%3l/%L, %-2c',
 \ },
 \ 'active': {
 \   'left': [
 \     ['mode', 'paste'],
-\     ['filename', 'readonly', 'modified']
+\     ['mycwdname', 'filename', 'readonly', 'modified']
 \   ],
 \   'right': [
 \     ['mystatus'],
@@ -143,7 +143,7 @@ let g:lightline = {
 \     ['tabs']
 \   ],
 \   'right': [
-\     ['mycwdname']
+\     []
 \   ]
 \ },
 \ 'separator': {
@@ -166,7 +166,7 @@ function! LLGetStatus() abort
 endfunction
 
 function! LLGetCwdName() abort
-  return "\uf413" . fnamemodify(getcwd(), ':t') . ' '
+  return "\uf413" . fnamemodify(getcwd(), ':t')
 endfunction
 
 function! LLGetPath() abort
