@@ -36,7 +36,6 @@ hook_add = '''
 nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
 let g:fern#default_hidden = 1
 '''
-# nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle -width=25<CR>
 
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
@@ -54,6 +53,19 @@ repo = 'lambdalisue/fern-git-status.vim'
 repo = 'lambdalisue/fern-bookmark.vim'
 hook_add = '''
 nnoremap <silent> <Plug>(my-filer)b :Fern bookmark:///<CR>
+'''
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+let g:ctrlp_max_files = 0
+let g:ctrlp_regexp = 1
+let g:ctrlp_root_markers = ['local.vim']
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_working_path_mode = 'raw'
 '''
 
 # --------------------------------------
@@ -121,62 +133,62 @@ if !has('gui_running')
 endif
 
 let g:lightline = {
-\ 'colorscheme': 'codedark',
-\ 'component': {
-\   'mylineinfo': '%3l/%L, %-2c',
-\ },
-\ 'active': {
-\   'left': [
-\     ['mode', 'paste'],
-\     ['mycwdname', 'filename', 'readonly', 'modified']
-\   ],
-\   'right': [
-\     ['mystatus'],
-\     ['lineinfo'],
-\     ['fileformat', 'fileencoding', 'filetype']
-\   ]
-\ },
-\ 'inactive': {
-\   'left': [
-\     ['filename']
-\   ],
-\   'right': [
-\     []
-\   ]
-\ },
-\ 'tab': {
-\   'active': ['tabnum', 'filename', 'modified'],
-\   'inactive': ['tabnum', 'filename', 'modified']
-\ },
-\ 'tabline': {
-\   'left': [
-\     ['tabs']
-\   ],
-\   'right': [
-\     []
-\   ]
-\ },
-\ 'separator': {
-\   'left': "",
-\   'right': ""
-\ },
-\ 'subseparator': {
-\   'left': "|",
-\   'right': "|"
-\ },
-\ 'component_function': {
-\   'mystatus': 'LLGetStatus',
-\   'mycwdname': 'LLGetCwdName',
-\   'mypath': 'LLGetPath'
-\ }
-\}
+  \ 'colorscheme': 'codedark',
+  \ 'component': {
+  \   'mylineinfo': '%3l/%L, %-2c',
+  \ },
+  \ 'active': {
+  \   'left': [
+  \     ['mode', 'paste'],
+  \     ['filename', 'readonly', 'modified']
+  \   ],
+  \   'right': [
+  \     ['mystatus'],
+  \     ['lineinfo', 'percent'],
+  \     ['fileformat', 'fileencoding', 'filetype']
+  \   ]
+  \ },
+  \ 'inactive': {
+  \   'left': [
+  \     ['filename']
+  \   ],
+  \   'right': [
+  \     []
+  \   ]
+  \ },
+  \ 'tab': {
+  \   'active': ['tabnum', 'filename', 'modified'],
+  \   'inactive': ['tabnum', 'filename', 'modified']
+  \ },
+  \ 'tabline': {
+  \   'left': [
+  \     ['tabs']
+  \   ],
+  \   'right': [
+  \     ['mycwdname']
+  \   ]
+  \ },
+  \ 'separator': {
+  \   'left': "",
+  \   'right': ""
+  \ },
+  \ 'subseparator': {
+  \   'left': "|",
+  \   'right': "|"
+  \ },
+  \ 'component_function': {
+  \   'mystatus': 'LLGetStatus',
+  \   'mycwdname': 'LLGetCwdName',
+  \   'mypath': 'LLGetPath'
+  \ }
+  \}
 
 function! LLGetStatus() abort
   return "\ue62b" . ' '
 endfunction
 
 function! LLGetCwdName() abort
-  return "\uf413" . fnamemodify(getcwd(), ':t')
+  return "\uf413" . fnamemodify(getcwd(), ':t') . ' '
 endfunction
 
 function! LLGetPath() abort

@@ -6,25 +6,25 @@ scriptencoding utf-8
 augroup MyFileTypeSpecific
   autocmd!
   autocmd FileType *
-  \ if has('nvim')
-  \|  setlocal formatoptions+=n formatoptions-=ro
-  \|endif
-  \|setlocal foldmethod=indent nofoldenable
-  \|setlocal autoindent smartindent
-  \|setlocal expandtab
-  \|setlocal shiftwidth=4 softtabstop=4 tabstop=4
+    \ if has('nvim')
+    \|  setlocal formatoptions+=n formatoptions-=ro
+    \|endif
+    \|setlocal foldmethod=indent nofoldenable
+    \|setlocal autoindent smartindent
+    \|setlocal expandtab
+    \|setlocal shiftwidth=4 softtabstop=4 tabstop=4
 
   autocmd FileType css,mermaid,plantuml,toml
-  \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
+    \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
   autocmd BufEnter *.vim
-  \ if has('nvim')
-  \|  setlocal formatoptions+=n formatoptions-=ro
-  \|endif
-  \|setlocal foldmethod=marker nofoldenable
-  \|setlocal autoindent smartindent
-  \|setlocal expandtab
-  \|setlocal shiftwidth=2 softtabstop=2 tabstop=2
+    \ if has('nvim')
+    \|  setlocal formatoptions+=n formatoptions-=ro
+    \|endif
+    \|setlocal foldmethod=marker nofoldenable
+    \|setlocal autoindent smartindent
+    \|setlocal expandtab
+    \|setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
 " }}}
 
@@ -55,9 +55,9 @@ endfunction
 augroup RestoreCursor
   autocmd!
   autocmd BufReadPost *
-  \ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
-  \|  execute "normal! g'\""
-  \|endif
+    \ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
+    \|  execute "normal! g'\""
+    \|endif
 augroup END
 
 augroup DeleteMarks

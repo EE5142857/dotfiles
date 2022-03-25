@@ -34,8 +34,7 @@ nmap <Leader>e <Plug>(my-edit)
 nnoremap <silent> <Plug>(my-edit)ec :edit ++encoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)ee :edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
-nnoremap <silent> <Plug>(my-edit)ie :edit ~/.vim/init.vim<CR>
-nnoremap <silent> <Plug>(my-edit)is :source ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)i :edit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t :%s/\s\+$//e<CR>
 
 nnoremap <Plug>(my-filer) <Nop>

@@ -28,66 +28,41 @@ let g:vim_indent_cont = 0
 " }}}
 
 " --------------------------------------
-" dein.vim
+" source
 " {{{
-" set runtimepath
-if &runtimepath !~# '/dein.vim'
-  if has('nvim')
-    let s:dein_dir = expand('~/.cache/nvim/dein')
-  else
-    let s:dein_dir = expand('~/.cache/vim/dein')
-  endif
-  let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
-
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-  endif
-  execute 'set runtimepath+=' . s:dein_repo_dir
+if filereadable(expand('~/.vim/option.vim'))
+  source '~/.vim/option.vim'
 endif
 
-let g:dein#auto_recache = !(has('win32') || has('win64'))
-let g:dein#install_check_diff = v:true
-let g:dein#install_progress_type = 'floating'
-let g:dein#lazy_rplugins = v:true
-let g:dein#inline_vimrcs = split(glob("~/.vim/rc/*.vim"), "\n")
-
-if dein#min#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-
-  let s:rc_dir = substitute(expand('~/.vim/rc'), '\\', '\/', 'g') . '/'
-  call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',    {'lazy': 0})
-  call dein#load_toml(s:rc_dir . 'dein_lazy.toml',      {'lazy': 1})
-  call dein#load_toml(s:rc_dir . 'dein_lazy_ddc.toml',  {'lazy': 1})
-
-  call dein#end()
-  call dein#save_state()
+if filereadable(expand('~/.vim/autocmd.vim'))
+  source '~/.vim/autocmd.vim'
 endif
 
-" call dein#update()
-
-if dein#check_install()
-  call dein#install()
+if filereadable(expand('~/.vim/command.vim'))
+  source '~/.vim/command.vim'
 endif
 
-" Required
-filetype plugin indent on
-syntax enable
+if filereadable(expand('~/.vim/keymap.vim'))
+  source '~/.vim/keymap.vim'
+endif
 
-call dein#call_hook('source')
-" }}}
+if filereadable(expand('~/.vim/dein.vim')) && has('nvim')
+  source '~/.vim/dein.vim'
+else
+  filetype plugin indent on
+  syntax enable
 
-" --------------------------------------
-" colorscheme (if needed)
-" {{{
-" colorscheme desert
-" colorscheme evening
+  " colorscheme (if needed)
+  colorscheme desert
+  " colorscheme evening
+endif
 " }}}
 
 " --------------------------------------
 " highlight
 " {{{
-highlight CursorLine  cterm=underline ctermfg=NONE ctermbg=NONE
-highlight CursorLine  gui=underline guifg=NONE guibg=NONE
+highlight CursorLine  cterm=NONE ctermfg=NONE ctermbg=NONE
+highlight CursorLine  gui=NONE guifg=NONE guibg=NONE
 highlight Folded      cterm=NONE ctermfg=DarkGray ctermbg=NONE
 highlight Folded      gui=NONE guifg=DarkGray guibg=NONE
 highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE

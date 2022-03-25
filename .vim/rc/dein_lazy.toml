@@ -46,9 +46,9 @@ nmap <C-c><C-c> <Plug>SlimeSendCell
 augroup UpdateJobid
   autocmd!
   autocmd BufLeave *
-  \ if &buftype == 'terminal'
-  \|  let @z = &channel
-  \|endif
+    \ if &buftype == 'terminal'
+    \|  let @z = &channel
+    \|endif
 augroup END
 
 function! SlimeOverride_EscapeText_python(text) abort
