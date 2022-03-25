@@ -9,8 +9,6 @@ set noswapfile
 set noundofile
 set nowritebackup
 " set shell=pwsh " grep error occurred
-set viewdir=~/.vim/view
-set viewoptions-=options
 
 if has('win32') || has('win64') || has('mac')
   set clipboard=unnamed
@@ -53,8 +51,7 @@ set wrapscan
 set ambiwidth=double
 set display=lastline
 set number
-set titlestring=%
-set viewoptions-=options
+set title titlestring=Vim
 " }}}
 
 " --------------------------------------

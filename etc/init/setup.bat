@@ -19,8 +19,6 @@
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"^
                                                 "%cd%\vscode\settings.json"
     call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
-    call :my_mklink "%USERPROFILE%\markdown_style.css"^
-                                                "%cd%\doc\markdown_style.css"
 
     @REM git config --global user.name foo
     @REM git config --global user.email foo@bar.com

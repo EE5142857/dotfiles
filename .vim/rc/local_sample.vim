@@ -21,8 +21,8 @@ function! StartJupyter() abort
   startinsert
   " call feedkeys("activate.bat\<CR>")
   call feedkeys("ipython\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
-  call feedkeys("G\<C-w>h")
+  call feedkeys("\<C-\>\<C-n>G")
+  call feedkeys("\<C-w>h")
 endfunction
 
 function! StartPython() abort
@@ -38,8 +38,8 @@ function! StartSQL() abort
   startinsert
   call feedkeys("pg_ctl start\<CR>")
   call feedkeys("psql -U postgres -d recipe\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
-  call feedkeys("G\<C-w>h")
+  call feedkeys("\<C-\>\<C-n>G")
+  call feedkeys("\<C-w>h")
 endfunction
 
 function! ExecuteJupyter() abort
@@ -51,7 +51,7 @@ function! ExecutePython() abort
   wincmd l
   startinsert
   call feedkeys(l:filepath . "\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-\>\<C-n>G")
   call feedkeys("\<C-w>h")
 endfunction
 
@@ -60,7 +60,7 @@ function! ExecuteSQL() abort
   wincmd l
   startinsert
   call feedkeys("\\i " . l:filepath . "\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-\>\<C-n>G")
   call feedkeys("\<C-w>h")
 endfunction
 
@@ -69,6 +69,6 @@ function! ExecuteR() abort
   wincmd l
   startinsert
   call feedkeys("rscript --encoding=utf-8 " . l:filepath . "\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-\>\<C-n>G")
   call feedkeys("\<C-w>h")
 endfunction

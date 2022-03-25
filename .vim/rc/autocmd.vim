@@ -5,42 +5,29 @@ scriptencoding utf-8
 " {{{
 augroup MyFileTypeSpecific
   autocmd!
-  autocmd BufNewFile,BufReadPost * call <SID>filetype_specific()
-  autocmd BufEnter *.vim call <SID>vim_specific()
+  autocmd FileType *
+  \ if has('nvim')
+  \|  setlocal formatoptions+=n formatoptions-=ro
+  \|endif
+  \|setlocal foldmethod=indent nofoldenable
+  \|setlocal autoindent smartindent
+  \|setlocal expandtab
+  \|setlocal shiftwidth=4 softtabstop=4 tabstop=4
+
+  autocmd FileType css,mermaid,plantuml,toml,vim
+  \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType vim
+  \ echo 'autocmd FileType vim!!'
+
+  " autocmd BufEnter *.vim
+  "\ if has('nvim')
+  "\|  setlocal formatoptions+=n formatoptions-=ro
+  "\|endif
+  "\|setlocal foldmethod=indent nofoldenable
+  "\|setlocal autoindent smartindent
+  "\|setlocal expandtab
+  "\|setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
-
-function! s:filetype_specific() abort
-  if has('nvim')
-    setlocal formatoptions+=n formatoptions-=ro
-  endif
-
-  setlocal foldmethod=indent nofoldenable
-  setlocal autoindent smartindent
-
-  if 0
-    setlocal noexpandtab
-  else
-    setlocal expandtab
-  endif
-
-  " shiftwidth
-  if (index(['css', 'toml'], &filetype) >= 0)
-  \ || (index(['mmd', 'puml', 'pu'], fnamemodify(@%, ':t:r')) >= 0)
-    setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  else
-    setlocal shiftwidth=4 softtabstop=4 tabstop=4
-  endif
-endfunction
-
-function! s:vim_specific() abort
-  if has('nvim')
-    setlocal formatoptions+=n formatoptions-=ro
-  endif
-
-  setlocal foldmethod=marker nofoldenable
-  setlocal autoindent expandtab smartindent
-  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-endfunction
 " }}}
 
 " --------------------------------------
@@ -52,9 +39,15 @@ augroup MySyntax
 augroup END
 
 function! s:my_syntax() abort
-  call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
+  highlight MyError     gui=NONE guifg=Black guibg=Red
+  highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
+  highlight MySpecial   gui=NONE guifg=Red guibg=NONE
+  highlight MyTodo      cterm=NONE ctermfg=Black ctermbg=Yellow
+  highlight MyTodo      gui=NONE guifg=Black guibg=Yellow
   call matchadd('MyError', '　\|\[ \]')
   call matchadd('MySpecial', '\t\|\s\+$') " [		] 
+  call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
 endfunction
 " }}}
 
@@ -127,8 +120,10 @@ function! s:plantuml_export() abort
   call feedkeys("\<C-w>jG")
   call feedkeys("i")
   call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -svg\<CR>")
+  call feedkeys("\<C-\>\<C-n>G")
+  call feedkeys("i")
   call feedkeys("java -jar " . l:plantuml_path . " " . l:src_path . " -charset UTF-8 -png\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-\>\<C-n>G")
   call feedkeys("\<C-w>k")
 endfunction
 
@@ -143,8 +138,10 @@ function! s:mermaid_export() abort
   call feedkeys("\<C-w>jG")
   call feedkeys("i")
   call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".svg\<CR>")
+  call feedkeys("\<C-\>\<C-n>G")
+  call feedkeys("i")
   call feedkeys("mmdc -i " . l:src_name. " -o " . l:src_name_wo_ex . ".png\<CR>")
-  call feedkeys("\<C-\>\<C-n>")
+  call feedkeys("\<C-\>\<C-n>G")
   call feedkeys("\<C-w>k")
 endfunction
 " }}}

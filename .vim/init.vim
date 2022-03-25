@@ -7,6 +7,10 @@ scriptencoding utf-8
 
 language messages C
 
+filetype off
+filetype plugin indent off
+syntax off
+
 " --------------------------------------
 " variable
 " {{{
@@ -20,24 +24,6 @@ let g:netrw_special_syntax = 1
 let g:netrw_timefmt = '%Y-%m-%d %H:%M:%S'
 let g:netrw_winsize = 85
 let g:vim_indent_cont = 0
-" }}}
-
-" --------------------------------------
-" command
-" {{{
-" NOTE: vimgrep
-  " :vimgrep /word/g **/*.*
-" NOTE: argdo
-  " :args **/*.*
-  " :argdo %s/old/new/g | update
-  " :argdo %s/old/new/gc | update
-  " :argdelete *
-" NOTE: cdo
-  " :cdo %s/old/new/g | update
-  " :cdo %s/old/new/gc | update
-command! -nargs=1 P execute 'let @* = @' . <q-args>
-command! -nargs=1 G execute 'grep -ri ' . <q-args> . ' .'
-command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 " }}}
 
 " --------------------------------------
@@ -58,17 +44,16 @@ if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath+=' . s:dein_repo_dir
 endif
 
-" dein options
-let g:dein#auto_recache = v:true " NOTE: It is slow especially Windows.
+let g:dein#auto_recache = !(has('win32') || has('win64'))
+let g:dein#install_check_diff = v:true
 let g:dein#install_progress_type = 'floating'
 let g:dein#lazy_rplugins = v:true
-let s:rc_dir = substitute(expand('~/.vim/rc'), '\\', '\/', 'g') . '/'
-let g:dein#inline_vimrcs = ['option.vim', 'keymap.vim', 'autocmd.vim']
-call map(g:deintest_inline_vimrcs, 's:rc_dir . v:val')
+let g:dein#inline_vimrcs = split(glob("~/.vim/rc/*.vim"), "\n")
 
 if dein#min#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
+  let s:rc_dir = substitute(expand('~/.vim/rc'), '\\', '\/', 'g') . '/'
   call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',    {'lazy': 0})
   call dein#load_toml(s:rc_dir . 'dein_lazy.toml',      {'lazy': 1})
   call dein#load_toml(s:rc_dir . 'dein_lazy_ddc.toml',  {'lazy': 1})
@@ -77,7 +62,7 @@ if dein#min#load_state(s:dein_dir)
   call dein#save_state()
 endif
 
-call dein#update()
+" call dein#update()
 
 if dein#check_install()
   call dein#install()
@@ -90,6 +75,7 @@ syntax enable
 call dein#call_hook('source')
 " }}}
 
+" --------------------------------------
 " colorscheme (if needed)
 " {{{
 " colorscheme desert
@@ -109,13 +95,6 @@ if has('nvim')
   highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
 endif
-
-highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
-highlight MyError     gui=NONE guifg=Black guibg=Red
-highlight MyTodo      cterm=NONE ctermfg=Black ctermbg=Yellow
-highlight MyTodo      gui=NONE guifg=Black guibg=Yellow
-highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
-highlight MySpecial   gui=NONE guifg=Red guibg=NONE
 " }}}
 
 " --------------------------------------
@@ -124,7 +103,7 @@ highlight MySpecial   gui=NONE guifg=Red guibg=NONE
 " ~/.vim/init.vim
 " ~/.vim/autoload/vimrc.vim
 " ~/.vim/rc/autocmd.vim
-" ~/.vim/rc/dein.vim
+" ~/.vim/rc/command.vim
 " ~/.vim/rc/dein_lazy.toml
 " ~/.vim/rc/dein_lazy_ddc.toml
 " ~/.vim/rc/dein_nolazy.toml
