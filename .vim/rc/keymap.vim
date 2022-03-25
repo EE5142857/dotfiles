@@ -2,29 +2,13 @@ scriptencoding utf-8
 
 let g:mapleader="\<Space>"
 
-" nnoremap Q <Nop>
-" nnoremap q <Nop>
+nnoremap Q <Nop>
+nnoremap q <Nop>
 nnoremap Y y$
-" nnoremap j gj
-" nnoremap k gk
+nnoremap j gj
+nnoremap k gk
 nnoremap gf gF
 tnoremap <C-[> <C-\><C-n>
-
-" delete
-" vnoremap d "_d
-" nnoremap d "_d
-" vnoremap D "_D
-" nnoremap D "_D
-" vnoremap x "_x
-" nnoremap x "_x
-" vnoremap s "_s
-" nnoremap s "_s
-
-" cut
-" nnoremap t d
-" vnoremap t x
-" nnoremap tt dd
-" nnoremap T D
 
 " quickfix
 nnoremap <silent> <Leader>k :cprevious<CR>
@@ -44,7 +28,6 @@ nnoremap <silent> <Plug>(my-switch)p :<C-u>setlocal paste! paste?<CR>
 nnoremap <silent> <Plug>(my-switch)s :<C-u>setlocal spell! spell?<CR>
 nnoremap <silent> <Plug>(my-switch)t :<C-u>setlocal expandtab! expandtab?<CR>
 nnoremap <silent> <Plug>(my-switch)w :<C-u>setlocal wrap! wrap?<CR>
-" nnoremap <silent> <Plug>(my-switch)f :15Lexplore<CR>
 
 nnoremap <Plug>(my-edit) <Nop>
 nmap <Leader>e <Plug>(my-edit)
@@ -54,6 +37,10 @@ nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
 nnoremap <silent> <Plug>(my-edit)ie :edit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)is :source ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t :%s/\s\+$//e<CR>
+
+nnoremap <Plug>(my-filer) <Nop>
+nmap <Leader>f <Plug>(my-filer)
+" nnoremap <silent> <Plug>(my-filer)t :15Lexplore<CR>
 
 if has('nvim')
   nnoremap <Plug>(my-terminal) <Nop>

@@ -33,9 +33,10 @@ if = "has('nvim')"
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 hook_add = '''
-nnoremap <silent> <Plug>(my-switch)f :Fern . -reveal=% -drawer -toggle -width=25<CR>
+nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
 let g:fern#default_hidden = 1
 '''
+# nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle -width=25<CR>
 
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
@@ -44,6 +45,15 @@ repo = 'lambdalisue/nerdfont.vim'
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 hook_add = '''
 let g:fern#renderer = 'nerdfont'
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-bookmark.vim'
+hook_add = '''
+nnoremap <silent> <Plug>(my-filer)b :Fern bookmark:///<CR>
 '''
 
 # --------------------------------------
