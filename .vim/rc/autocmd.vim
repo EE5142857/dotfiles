@@ -94,7 +94,7 @@ augroup END
 
 function! s:update_registers() abort
   " using filename-modifiers
-  if &filetype != ''
+  if empty(&buftype)
     let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
     let @b = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
     let @c = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')

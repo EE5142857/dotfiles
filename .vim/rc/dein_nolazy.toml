@@ -31,31 +31,6 @@ if = "has('nvim')"
 # filer
 #
 [[plugins]]
-repo = 'lambdalisue/fern.vim'
-hook_add = '''
-nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
-let g:fern#default_hidden = 1
-'''
-
-[[plugins]]
-repo = 'lambdalisue/nerdfont.vim'
-
-[[plugins]]
-repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-hook_add = '''
-let g:fern#renderer = 'nerdfont'
-'''
-
-[[plugins]]
-repo = 'lambdalisue/fern-git-status.vim'
-
-[[plugins]]
-repo = 'lambdalisue/fern-bookmark.vim'
-hook_add = '''
-nnoremap <silent> <Plug>(my-filer)b :Fern bookmark:///<CR>
-'''
-
-[[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
 let g:ctrlp_clear_cache_on_exit = 0
@@ -68,23 +43,45 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'raw'
 '''
 
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+hook_add = '''
+nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
+let g:fern#default_hidden = 1
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+hook_add = '''
+let g:fern#renderer = 'nerdfont'
+'''
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
 # --------------------------------------
 # view
 #
-[[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_add = '''
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
-'''
-
 [[plugins]]
 repo = 'justinmk/vim-sneak'
 hook_add = '''
 let g:sneak#label = 1
 nmap s <Plug>Sneak_s
 nmap S <Plug>Sneak_S
+'''
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
 '''
 
 [[plugins]]
@@ -97,9 +94,6 @@ let g:winresizer_start_key = "\<C-w>\<C-w>"
 # edit
 #
 [[plugins]]
-repo = 'tyru/caw.vim'
-
-[[plugins]]
 repo = 'junegunn/vim-easy-align'
 hook_add = '''
 xmap ga <Plug>(EasyAlign)
@@ -108,6 +102,68 @@ nmap ga <Plug>(EasyAlign)
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+
+# --------------------------------------
+# terminal
+#
+[[plugins]]
+repo = 'kassio/neoterm'
+if = "has('nvim')"
+hook_source = '''
+let g:neoterm_autoscroll = 1
+let g:neoterm_default_mod = 'botright'
+let g:neoterm_size = 10
+let g:neoterm_eof = "\r\n"
+
+nnoremap <silent> <Plug>(my-terminal)oh   :call NTHolizontalSplit()<CR>
+nnoremap <silent> <Plug>(my-terminal)ov   :call NTVerticalSplit()<CR>
+
+function! NTHolizontalSplit() abort
+  let l:tmpmod = g:neoterm_default_mod
+  let g:neoterm_default_mod = 'botright'
+  Tnew
+  let g:neoterm_default_mod = l:tmpmod
+endfunction
+
+function! NTVerticalSplit() abort
+  let l:tmpmod = g:neoterm_default_mod
+  let l:tmpsize = g:neoterm_size
+  let g:neoterm_default_mod = 'vertical'
+  let g:neoterm_size = ''
+  Tnew
+  let g:neoterm_default_mod = l:tmpmod
+  let g:neoterm_size = l:tmpsize
+endfunction
+
+nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
+nnoremap <silent> <Plug>(my-terminal)srp  :execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
+nnoremap <silent> <Plug>(my-terminal)srr  <Nop>
+nnoremap <silent> <Plug>(my-terminal)ssq  :<C-u>execute v:count.'T' 'pg_ctl' 'start' '&&' 'psql' '-U' 'postgres' '-d' 'recipe'<CR>
+
+nnoremap <silent> <Plug>(my-terminal)epy  :<C-u>execute v:count.'T' 'python' @a<CR>
+nnoremap <silent> <Plug>(my-terminal)erp  :call NTSendCell()<CR>
+nnoremap <silent> <Plug>(my-terminal)err  :<C-u>execute v:count.'T' 'rscript' '--encoding=utf-8' @a<CR>
+nnoremap <silent> <Plug>(my-terminal)esq  :<C-u>execute v:count.'T' '\i' @a<CR>
+
+function! NTSendCell() abort
+  let l:cell_delimiter = '# %%'
+  let l:line_ini = search(l:cell_delimiter, 'bcnW')
+  let l:line_end = search(l:cell_delimiter, 'nW')
+
+  let l:line_ini = l:line_ini ? l:line_ini + 1 : 1
+  let l:line_end = l:line_end ? l:line_end - 1 : line("$")
+
+  if line_ini <= line_end
+    " execute line_ini .','. line_end 'call TREPLSendSelection()'
+    call neoterm#repl#line(line_ini, line_end)
+  else
+    echo 'sending cell failed'
+  endif
+endfunction
+'''
 
 # --------------------------------------
 # colorscheme
