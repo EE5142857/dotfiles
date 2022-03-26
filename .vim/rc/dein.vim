@@ -14,7 +14,6 @@ if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath+=' . s:dein_repo_dir
 endif
 
-let g:dein#auto_recache = !(has('win32') || has('win64'))
 let g:dein#install_check_diff = v:true
 let g:dein#install_progress_type = 'floating'
 let g:dein#lazy_rplugins = v:true

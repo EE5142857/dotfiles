@@ -81,6 +81,7 @@ endif
 " ~/.vim/autoload/vimrc.vim
 " ~/.vim/rc/autocmd.vim
 " ~/.vim/rc/command.vim
+" ~/.vim/rc/dein.vim
 " ~/.vim/rc/dein_lazy.toml
 " ~/.vim/rc/dein_lazy_ddc.toml
 " ~/.vim/rc/dein_nolazy.toml
