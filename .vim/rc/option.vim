@@ -89,7 +89,12 @@ set cmdheight=2
 " {{{
 set cursorline
 set showmatch matchtime=1
-set spelllang+=cjk spell
+
+if &diff
+  set nospell
+else
+  set spelllang+=cjk spell
+endif
 
 " '␣': U+2423 Open Box
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«

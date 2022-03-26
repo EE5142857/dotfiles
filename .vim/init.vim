@@ -46,16 +46,11 @@ if filereadable(expand('~/.vim/rc/keymap.vim'))
   source ~/.vim/rc/keymap.vim
 endif
 
-if filereadable(expand('~/.vim/rc/dein.vim')) && has('nvim')
+if filereadable(expand('~/.vim/rc/dein.vim'))
   source ~/.vim/rc/dein.vim
 else
-  if &diff
-    syntax off
-    set nospell
-  else
-    filetype plugin indent on
-    syntax enable
-  endif
+  filetype plugin indent on
+  syntax enable
 
   " colorscheme (if needed)
   colorscheme desert
@@ -76,15 +71,6 @@ if has('nvim')
   highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
 endif
-
-highlight DiffAdd     cterm=NONE ctermfg=NONE ctermbg=Green
-highlight DiffAdd     gui=NONE guifg=NONE guibg=Green
-highlight DiffChange  cterm=NONE ctermfg=NONE ctermbg=NONE
-highlight DiffChange  gui=NONE guifg=NONE guibg=NONE
-highlight DiffDelete  cterm=NONE ctermfg=LightBlue ctermbg=Red
-highlight DiffDelete  gui=NONE guifg=LightBlue guibg=Red
-highlight DiffText    cterm=NONE ctermfg=Yellow ctermbg=Red
-highlight DiffText    gui=NONE guifg=Yellow guibg=Red
 " }}}
 
 " --------------------------------------

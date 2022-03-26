@@ -23,15 +23,15 @@
     @REM git config --global user.name foo
     @REM git config --global user.email foo@bar.com
     git config --global core.editor vim
-    @REM git config --global core.editor nvim
     git config --global core.excludesfile ~/.gitignore
     git config --global diff.compactionHeuristic true
     git config --global diff.tool vimdiff
-    @REM git config --global difftool.vimdiff.path nvim
     git config --global difftool.prompt false
+    git config --global difftool.vimdiff.path vim
+    git config --global merge.conflictstyle diff3
     git config --global merge.tool vimdiff
-    @REM git config --global mergetool.vimdiff.path nvim
     git config --global mergetool.prompt false
+    git config --global mergetool.vimdiff.path vim
 
     echo Done.
     pause
