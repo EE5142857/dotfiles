@@ -118,14 +118,17 @@ let g:neoterm_default_mod = 'botright'
 let g:neoterm_size = 10
 let g:neoterm_eof = "\r\n"
 
-nnoremap <silent> <Plug>(my-terminal)oh   :call NTHolizontalSplit()<CR>
+nnoremap <silent> <Plug>(my-terminal)oh   :<C-u>call NTHolizontalSplit(v:count)<CR>
 nnoremap <silent> <Plug>(my-terminal)ov   :call NTVerticalSplit()<CR>
 
-function! NTHolizontalSplit() abort
+function! NTHolizontalSplit(size) abort
   let l:tmpmod = g:neoterm_default_mod
+  let l:tmpsize = g:neoterm_size
   let g:neoterm_default_mod = 'botright'
+  let g:neoterm_size = a:size
   Tnew
   let g:neoterm_default_mod = l:tmpmod
+  let g:neoterm_size = l:tmpsize
 endfunction
 
 function! NTVerticalSplit() abort
@@ -138,15 +141,18 @@ function! NTVerticalSplit() abort
   let g:neoterm_size = l:tmpsize
 endfunction
 
-nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
-nnoremap <silent> <Plug>(my-terminal)srp  :execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
-nnoremap <silent> <Plug>(my-terminal)srr  <Nop>
-nnoremap <silent> <Plug>(my-terminal)ssq  :<C-u>execute v:count.'T' 'pg_ctl' 'start' '&&' 'psql' '-U' 'postgres' '-d' 'recipe'<CR>
+nnoremap <silent> <Plug>(my-terminal)emm  :execute 'T' "mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".svg && mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".png"<CR>
+nnoremap <silent> <Plug>(my-terminal)epu  :execute 'T' "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -svg && java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -png"<CR>
 
-nnoremap <silent> <Plug>(my-terminal)epy  :<C-u>execute v:count.'T' 'python' @a<CR>
-nnoremap <silent> <Plug>(my-terminal)erp  :call NTSendCell()<CR>
-nnoremap <silent> <Plug>(my-terminal)err  :<C-u>execute v:count.'T' 'rscript' '--encoding=utf-8' @a<CR>
-nnoremap <silent> <Plug>(my-terminal)esq  :<C-u>execute v:count.'T' '\i' @a<CR>
+nnoremap <silent> <Plug>(my-terminal)sjp  :execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
+nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
+nnoremap <silent> <Plug>(my-terminal)srr  <Nop>
+nnoremap <silent> <Plug>(my-terminal)ssq  :<C-u>execute v:count.'T' "pg_ctl start && psql -U postgres -d recipe"<CR>
+
+nnoremap <silent> <Plug>(my-terminal)rjp  :call NTSendCell()<CR>
+nnoremap <silent> <Plug>(my-terminal)rpy  :<C-u>execute v:count.'T' "python" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rrr  :<C-u>execute v:count.'T' "rscript --encoding=utf-8" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rsq  :<C-u>execute v:count.'T' "\i" @a<CR>
 
 function! NTSendCell() abort
   let l:cell_delimiter = '# %%'

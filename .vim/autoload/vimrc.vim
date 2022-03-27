@@ -80,6 +80,24 @@ endfunction
 " --------------------------------------
 " local.vim
 " {{{
+function! vimrc#source_local_vimrc(path) abort
+  if !empty(&buftype)
+    return
+  endif
+
+  " upward compatibility with 'set autochdir'
+  execute 'lcd' fnamemodify(expand(a:path), ':p:h')
+
+  let l:l_vimrc_path = []
+  for l:i in reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
+    call add(l:l_vimrc_path, fnamemodify(l:i, ':p'))
+  endfor
+
+  for l:i in l:l_vimrc_path
+    execute 'source' l:i
+  endfor
+endfunction
+
 function! vimrc#add_path(l_path) abort
   " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
   " if has('win32') || has ('win64')
