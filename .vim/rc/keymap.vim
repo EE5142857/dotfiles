@@ -11,10 +11,10 @@ nnoremap gf gF
 tnoremap <C-[> <C-\><C-n>
 
 " quickfix
-nnoremap <silent> <Leader>k :cprevious<CR>
-nnoremap <silent> <Leader>j :cnext<CR>
-nnoremap <silent> <Leader>gg :<C-u>cfirst<CR>
-nnoremap <silent> <Leader>G :<C-u>clast<CR>
+nnoremap <silent> <Leader>k   :cprevious<CR>
+nnoremap <silent> <Leader>j   :cnext<CR>
+nnoremap <silent> <Leader>gg  :<C-u>cfirst<CR>
+nnoremap <silent> <Leader>G   :<C-u>clast<CR>
 
 " insert
 inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
@@ -31,60 +31,16 @@ nnoremap <silent> <Plug>(my-switch)w  :<C-u>setlocal wrap! wrap?<CR>
 
 nnoremap <Plug>(my-edit) <Nop>
 nmap <Leader>e <Plug>(my-edit)
-nnoremap <silent> <Plug>(my-edit)ec :edit ++encoding=cp932<CR>
-nnoremap <silent> <Plug>(my-edit)ee :edit ++encoding=euc-jp<CR>
-nnoremap <silent> <Plug>(my-edit)eu :edit ++encoding=utf-8<CR>
-nnoremap <silent> <Plug>(my-edit)i  :edit ~/.vim/init.vim<CR>
-nnoremap <silent> <Plug>(my-edit)t  :%s/\s\+$//e<CR>
+nnoremap <silent> <Plug>(my-edit)ec   :edit ++encoding=cp932<CR>
+nnoremap <silent> <Plug>(my-edit)ee   :edit ++encoding=euc-jp<CR>
+nnoremap <silent> <Plug>(my-edit)eu   :edit ++encoding=utf-8<CR>
+nnoremap <silent> <Plug>(my-edit)i    :edit ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)t    :%s/\s\+$//e<CR>
 
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
 " nnoremap <silent> <Plug>(my-filer)t   :15Lexplore<CR>
 nnoremap <silent> <Plug>(my-filer)b   :edit ~/Desktop/bookmark.md<CR>
 
-if has('nvim')
-  nnoremap <Plug>(my-terminal) <Nop>
-  nmap <Leader>t <Plug>(my-terminal)
-  " nnoremap <silent> <Plug>(my-terminal)sp :call <SID>t_sp()<CR>
-  " nnoremap <silent> <Plug>(my-terminal)vs :call <SID>t_vs()<CR>
-  " nnoremap <silent> <Plug>(my-terminal)su :call <SID>t_setup()<CR>
-  " nnoremap <silent> <Plug>(my-terminal)e :call <SID>t_execute()<CR>
-
-  function! s:t_sp() abort
-    5split
-    terminal
-    call feedkeys("G\<C-w>k")
-  endfunction
-
-  function! s:t_vs() abort
-    vsplit
-    terminal
-    call feedkeys("G\<C-w>h")
-  endfunction
-
-  function! s:t_setup() abort
-    if fnamemodify(@%, ':e') == 'ipynb'
-      call StartJupyter()
-    elseif &filetype == 'python'
-      call StartPython()
-    elseif &filetype == 'sql'
-      call StartSQL()
-    else
-      echo 'unavailavle'
-    endif
-  endfunction
-
-  function! s:t_execute() abort
-    if fnamemodify(@%, ':e') == 'ipynb'
-      call ExecuteJupyter()
-    elseif &filetype == 'python'
-      call ExecutePython()
-    elseif &filetype == 'sql'
-      call ExecuteSQL()
-    elseif &filetype == 'r'
-      call ExecuteR()
-    else
-      echo 'unavailavle'
-    endif
-  endfunction
-endif
+nnoremap <Plug>(my-terminal) <Nop>
+nmap <Leader>t <Plug>(my-terminal)

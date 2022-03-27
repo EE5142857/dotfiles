@@ -1,107 +1,25 @@
 scriptencoding utf-8
-
+" TODO: export to vimrc function
 " --------------------------------------
 " filetype
 " {{{
-augroup MyFileTypeSpecific
+augroup MyAutocmd
   autocmd!
-  autocmd FileType *
-    \ if has('nvim')
-    \|  setlocal formatoptions+=n formatoptions-=ro
-    \|endif
-    \|setlocal foldmethod=indent nofoldenable
-    \|setlocal autoindent smartindent
-    \|setlocal expandtab
-    \|setlocal shiftwidth=4 softtabstop=4 tabstop=4
+  " filetype
+  autocmd FileType * call vimrc#ft_common()
+  autocmd FileType css,mermaid,plantuml,toml call vimrc#ft_sw2()
+  autocmd BufEnter *.vim call vimrc#ft_vim()
+  autocmd Syntax * call vimrc#syntax()
 
-  autocmd FileType css,mermaid,plantuml,toml
-    \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
-
-  autocmd BufEnter *.vim
-    \ if has('nvim')
-    \|  setlocal formatoptions+=n formatoptions-=ro
-    \|endif
-    \|setlocal foldmethod=marker nofoldenable
-    \|setlocal autoindent smartindent
-    \|setlocal expandtab
-    \|setlocal shiftwidth=2 softtabstop=2 tabstop=2
-augroup END
-" }}}
-
-" --------------------------------------
-" syntax
-" {{{
-augroup MySyntax
-  autocmd!
-  autocmd Syntax * call s:my_syntax()
-augroup END
-
-function! s:my_syntax() abort
-  highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
-  highlight MyError     gui=NONE guifg=Black guibg=Red
-  highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
-  highlight MySpecial   gui=NONE guifg=Red guibg=NONE
-  highlight MyTodo      cterm=NONE ctermfg=Black ctermbg=Yellow
-  highlight MyTodo      gui=NONE guifg=Black guibg=Yellow
-  call matchadd('MyError', '　\|\[ \]')
-  call matchadd('MySpecial', '\t\|\s\+$') " [		] 
-  call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-endfunction
-" }}}
-
-" --------------------------------------
-" mark
-" {{{
-augroup RestoreCursor
-  autocmd!
-  autocmd BufReadPost *
-    \ if (line("'\"") >= 1) && (line("'\"") <= line("$"))
-    \|  execute "normal! g'\""
-    \|endif
-augroup END
-
-augroup DeleteMarks
-  autocmd!
+  " mark
+  autocmd BufReadPost * call vimrc#restore_cursor()
   autocmd BufReadPost * delmarks a-z
   autocmd VimLeavePre * delmarks a-z0-9[]^.<>
+
+  " register
+  autocmd VimLeavePre * call vimrc#delete_register()
+  autocmd BufEnter * call vimrc#update_register()
 augroup END
-" }}}
-
-" --------------------------------------
-" register
-" {{{
-augroup DeleteRegisters
-  autocmd!
-  autocmd VimLeavePre * call s:delete_registers()
-augroup END
-
-function! s:delete_registers() abort
-  let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
-  for r in regs
-    call setreg(r, [])
-  endfor
-  if has('nvim')
-    wshada!
-  else
-    wviminfo!
-  endif
-endfunction
-
-augroup UpdateRegisters
-  autocmd!
-  autocmd BufEnter * call s:update_registers()
-augroup END
-
-function! s:update_registers() abort
-  " using filename-modifiers
-  if empty(&buftype)
-    let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-    let @b = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
-    let @c = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
-    let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
-    let @e = fnamemodify(@%, ':t')
-  endif
-endfunction
 " }}}
 
 " --------------------------------------
