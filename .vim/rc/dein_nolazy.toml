@@ -33,12 +33,14 @@ repo = 'lambdalisue/fern-hijack.vim'
 
 [[plugins]]
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+if = 0
 hook_add = '''
 let g:fern#renderer = 'nerdfont'
 '''
 
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
+if = 0
 
 # --------------------------------------
 # view
@@ -167,6 +169,7 @@ colorscheme codedark
 #
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+on_source = ['vim-code-dark']
 hook_source = '''
 set laststatus=2
 set noshowmode
@@ -185,8 +188,8 @@ let g:lightline = {
   \     ['filename', 'readonly', 'modified', 'mydirpath'],
   \   ],
   \   'right': [
-  \     ['mystatus'],
-  \     ['lineinfo', 'percent'],
+  \     ['percent', 'mystatus'],
+  \     ['lineinfo'],
   \     ['fileformat', 'fileencoding', 'filetype'],
   \   ],
   \ },
@@ -227,11 +230,16 @@ let g:lightline = {
   \}
 
 function! LLGetStatus() abort
-  return "\ue62b" . ' '
+  " target: vim, nvim or nvim-qt
+  if has('nvim') && exists('g:GuiLoaded')
+    return 'V' . ' '
+  else
+    return "\ue62b" . ' '
+  endif
 endfunction
 
 function! LLGetCwdName() abort
-  return "\uf413" . fnamemodify(getcwd(), ':t') . ' '
+  return fnamemodify(getcwd(), ':t') . ' '
 endfunction
 
 function! LLGetPath() abort

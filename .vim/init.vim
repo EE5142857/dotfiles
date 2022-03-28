@@ -15,15 +15,8 @@ syntax off
 " variable
 " {{{
 let g:loaded_netrwPlugin = 1
-let g:netrw_banner = 0
-let g:netrw_browse_split = 4
 let g:netrw_dirhistmax = 1
 let g:netrw_home = '~/.vim'
-let g:netrw_liststyle = 3
-let g:netrw_sizestyle = 'H'
-let g:netrw_special_syntax = 1
-let g:netrw_timefmt = '%Y-%m-%d %H:%M:%S'
-let g:netrw_winsize = 85
 let g:vim_indent_cont = 0
 " }}}
 
@@ -155,7 +148,11 @@ else
     if has('nvim')
       let s:dein_dir = expand('~/.cache/nvim/dein')
     else
-      let s:dein_dir = expand('~/.cache/vim/dein')
+      if has('unix')
+        let s:dein_dir = expand('~/.cache/unix_vim/dein')
+      else
+        let s:dein_dir = expand('~/.cache/vim/dein')
+      endif
     endif
     let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
 
@@ -259,13 +256,9 @@ nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
 nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
-" nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
-
-nnoremap <Plug>(my-ddu) <Nop>
-nmap <Leader>u <Plug>(my-ddu)
 " }}}
 
 " --------------------------------------
@@ -279,6 +272,7 @@ endif
 " --------------------------------------
 " .vim directory layout
 " {{{
+" ~/.vim/ginit.vim
 " ~/.vim/init.vim
 " ~/.vim/autoload/vimrc.vim
 " ~/.vim/ftdetect/my_filetype.vim

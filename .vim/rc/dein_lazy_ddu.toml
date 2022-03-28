@@ -8,6 +8,8 @@ if = "has('nvim')"
 depends = ['denops.vim']
 on_source = ['denops.vim']
 hook_add = '''
+nnoremap <Plug>(my-ddu) <Nop>
+nmap <Leader>u <Plug>(my-ddu)
 nnoremap <silent> <Plug>(my-ddu)r
   \ <Cmd>call ddu#start({
   \   'name': 'file_rec',
