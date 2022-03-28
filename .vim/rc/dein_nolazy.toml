@@ -16,33 +16,8 @@ repo = 'vim-denops/denops-helloworld.vim'
 if = "has('nvim')"
 
 # --------------------------------------
-# LSP
-#
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-if = "has('nvim')"
-
-[[plugins]]
-# https://zenn.dev/mattn/articles/b83f9d94202914
-repo = 'mattn/vim-lsp-settings'
-if = "has('nvim')"
-
-# --------------------------------------
 # filer
 #
-[[plugins]]
-repo = 'ctrlpvim/ctrlp.vim'
-hook_add = '''
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
-let g:ctrlp_max_files = 0
-let g:ctrlp_regexp = 1
-let g:ctrlp_root_markers = ['local.vim']
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_working_path_mode = 'raw'
-'''
-
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 hook_add = '''
@@ -94,6 +69,9 @@ let g:winresizer_start_key = "\<C-w>\<C-w>"
 # edit
 #
 [[plugins]]
+repo = 'tyru/caw.vim'
+
+[[plugins]]
 repo = 'junegunn/vim-easy-align'
 hook_add = '''
 xmap ga <Plug>(EasyAlign)
@@ -102,9 +80,6 @@ nmap ga <Plug>(EasyAlign)
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
-
-[[plugins]]
-repo = 'tyru/caw.vim'
 
 # --------------------------------------
 # terminal
@@ -118,20 +93,25 @@ let g:neoterm_default_mod = 'botright'
 let g:neoterm_size = 10
 let g:neoterm_eof = "\r\n"
 
-nnoremap <silent> <Plug>(my-terminal)oh   :<C-u>call NTHolizontalSplit(v:count)<CR>
-nnoremap <silent> <Plug>(my-terminal)ov   :call NTVerticalSplit()<CR>
+nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call <SID>split(v:count)<CR>
+nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call <SID>vsplit()<CR>
 
-function! NTHolizontalSplit(size) abort
+function! s:split(size) abort
   let l:tmpmod = g:neoterm_default_mod
   let l:tmpsize = g:neoterm_size
+  if a:size > 0
+   let l:asize = a:size
+  else
+    let l:asize = l:tmpsize
+  endif
   let g:neoterm_default_mod = 'botright'
-  let g:neoterm_size = a:size
+  let g:neoterm_size = l:asize
   Tnew
   let g:neoterm_default_mod = l:tmpmod
   let g:neoterm_size = l:tmpsize
 endfunction
 
-function! NTVerticalSplit() abort
+function! s:vsplit() abort
   let l:tmpmod = g:neoterm_default_mod
   let l:tmpsize = g:neoterm_size
   let g:neoterm_default_mod = 'vertical'
@@ -141,20 +121,20 @@ function! NTVerticalSplit() abort
   let g:neoterm_size = l:tmpsize
 endfunction
 
-nnoremap <silent> <Plug>(my-terminal)emm  :execute 'T' "mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".svg && mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".png"<CR>
-nnoremap <silent> <Plug>(my-terminal)epu  :execute 'T' "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -svg && java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -png"<CR>
+nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>execute 'T' "mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".svg && mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".png"<CR>
+nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>execute 'T' "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -svg && java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -png"<CR>
 
-nnoremap <silent> <Plug>(my-terminal)sjp  :execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
+nnoremap <silent> <Plug>(my-terminal)sjp  <Cmd>execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
 nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
 nnoremap <silent> <Plug>(my-terminal)srr  <Nop>
-nnoremap <silent> <Plug>(my-terminal)ssq  :<C-u>execute v:count.'T' "pg_ctl start && psql -U postgres -d recipe"<CR>
+nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>execute v:count.'T' "pg_ctl start && psql -U postgres -d recipe"<CR>
 
-nnoremap <silent> <Plug>(my-terminal)rjp  :call NTSendCell()<CR>
-nnoremap <silent> <Plug>(my-terminal)rpy  :<C-u>execute v:count.'T' "python" @a<CR>
-nnoremap <silent> <Plug>(my-terminal)rrr  :<C-u>execute v:count.'T' "rscript --encoding=utf-8" @a<CR>
-nnoremap <silent> <Plug>(my-terminal)rsq  :<C-u>execute v:count.'T' "\i" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rjp  <Cmd>call <SID>send_cell()<CR>
+nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>execute v:count.'T' "python" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rrr  <Cmd>execute v:count.'T' "rscript --encoding=utf-8" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>execute v:count.'T' "\i" @a<CR>
 
-function! NTSendCell() abort
+function! s:send_cell() abort
   let l:cell_delimiter = '# %%'
   let l:line_ini = search(l:cell_delimiter, 'bcnW')
   let l:line_end = search(l:cell_delimiter, 'nW')
@@ -202,47 +182,48 @@ let g:lightline = {
   \ 'active': {
   \   'left': [
   \     ['mode', 'paste'],
-  \     ['filename', 'readonly', 'modified']
+  \     ['filename', 'readonly', 'modified', 'mydirpath'],
   \   ],
   \   'right': [
   \     ['mystatus'],
   \     ['lineinfo', 'percent'],
-  \     ['fileformat', 'fileencoding', 'filetype']
-  \   ]
+  \     ['fileformat', 'fileencoding', 'filetype'],
+  \   ],
   \ },
   \ 'inactive': {
   \   'left': [
-  \     ['filename']
+  \     ['filename'],
   \   ],
   \   'right': [
-  \     []
-  \   ]
+  \     [],
+  \   ],
   \ },
   \ 'tab': {
   \   'active': ['tabnum', 'filename', 'modified'],
-  \   'inactive': ['tabnum', 'filename', 'modified']
+  \   'inactive': ['tabnum', 'filename', 'modified'],
   \ },
   \ 'tabline': {
   \   'left': [
-  \     ['tabs']
+  \     ['tabs'],
   \   ],
   \   'right': [
-  \     ['mycwdname']
-  \   ]
+  \     ['mycwdname'],
+  \   ],
   \ },
   \ 'separator': {
   \   'left': "",
-  \   'right': ""
+  \   'right': "",
   \ },
   \ 'subseparator': {
   \   'left': "|",
-  \   'right': "|"
+  \   'right': "|",
   \ },
   \ 'component_function': {
   \   'mystatus': 'LLGetStatus',
   \   'mycwdname': 'LLGetCwdName',
-  \   'mypath': 'LLGetPath'
-  \ }
+  \   'mypath': 'LLGetPath',
+  \   'mydirpath': 'LLGetDirPath',
+  \ },
   \}
 
 function! LLGetStatus() abort
@@ -255,6 +236,10 @@ endfunction
 
 function! LLGetPath() abort
   return substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+endfunction
+
+function! LLGetDirPath() abort
+  return substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
 endfunction
 '''
 

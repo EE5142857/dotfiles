@@ -16,19 +16,22 @@ endfunction
 function! vimrc#ft_sw2() abort
   setlocal shiftwidth=2 softtabstop=2 tabstop=2
 endfunction
-
-function! vimrc#ft_vim() abort
-  if has('nvim')
-    setlocal formatoptions+=n formatoptions-=ro
-  endif
-  setlocal foldmethod=marker nofoldenable
-  setlocal autoindent smartindent
-  setlocal expandtab
-  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-endfunction
 " }}}
 
+" --------------------------------------
+" syntax
+" {{{
 function! vimrc#syntax() abort
+  highlight CursorLine  cterm=NONE ctermfg=NONE ctermbg=NONE
+  highlight CursorLine  gui=NONE guifg=NONE guibg=NONE
+  highlight Folded      cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight Folded      gui=NONE guifg=DarkGray guibg=NONE
+  highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight SpecialKey  gui=NONE guifg=DarkGray guibg=NONE
+  if has('nvim')
+    highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
+    highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
+  endif
   highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
   highlight MyError     gui=NONE guifg=Black guibg=Red
   highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
@@ -39,6 +42,7 @@ function! vimrc#syntax() abort
   call matchadd('MySpecial', '\t\|\s\+$') " [		] 
   call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
 endfunction
+" }}}
 
 " --------------------------------------
 " mark
@@ -78,7 +82,7 @@ endfunction
 " }}}
 
 " --------------------------------------
-" local.vim
+" local setting
 " {{{
 function! vimrc#source_local_vimrc(path) abort
   if !empty(&buftype)
@@ -115,3 +119,5 @@ function! vimrc#add_path(l_path) abort
   " endif
 endfunction
 " }}}
+
+" vim: foldmethod=marker

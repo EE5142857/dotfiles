@@ -1,0 +1,97 @@
+# --------------------------------------
+# ddu.vim
+#
+[[plugins]]
+# https://zenn.dev/shougo/articles/ddu-vim-beta
+repo = 'Shougo/ddu.vim'
+if = "has('nvim')"
+depends = ['denops.vim']
+on_source = ['denops.vim']
+hook_add = '''
+nnoremap <silent> <Plug>(my-ddu)r
+  \ <Cmd>call ddu#start({
+  \   'name': 'file_rec',
+  \   'sources': [{'name': 'file_rec', 'params': {}}],
+  \ })<CR>
+nnoremap <silent> <Plug>(my-ddu)f
+  \ <Cmd>call ddu#start({
+  \   'name': 'file',
+  \   'sources': [{'name': 'file', 'params': {}}],
+  \ })<CR>
+'''
+hook_source = '''
+call ddu#custom#patch_global({
+  \ 'ui': 'ff',
+  \ 'sources': [
+  \   {'name': 'file_rec'},
+  \ ],
+  \ 'sourceOptions': {
+  \   '_': {
+  \     'ignoreCase': v:true,
+  \     'matchers': ['matcher_substring'],
+  \   },
+  \   'file_rec': {
+  \     'matchers': ['matcher_substring', 'matcher_hidden'],
+  \   },
+  \ },
+  \ 'filterParams': {
+  \   'matcher_substring': {
+  \     'highlightMatched': 'Search',
+  \   },
+  \ },
+  \ 'kindOptions': {
+  \   'file': {
+  \     'defaultAction': 'open',
+  \   },
+  \ },
+  \})
+
+autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
+function! s:ddu_filter_my_settings() abort
+  inoremap <buffer><silent> <CR>
+    \ <Esc><Cmd>close<CR>
+  nnoremap <buffer><silent> <CR>
+    \ <Cmd>close<CR>
+  nnoremap <buffer><silent> q
+    \ <Cmd>close<CR>
+endfunction
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+on_source = ['ddu.vim']
+hook_source = '''
+autocmd FileType ddu-ff call s:ddu_ui_ff_my_settings()
+function! s:ddu_ui_ff_my_settings() abort
+  nnoremap <buffer><silent> <CR>
+    \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> i
+    \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+  nnoremap <buffer><silent> q
+    \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  nnoremap <buffer> c
+    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
+  nnoremap <buffer> n
+    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'narrow'})<CR>
+endfunction
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+on_source = ['ddu.vim']
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+on_source = ['ddu.vim']
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+on_source = ['ddu.vim']
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_hidden'
+on_source = ['ddu.vim']
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+on_source = ['ddu.vim']

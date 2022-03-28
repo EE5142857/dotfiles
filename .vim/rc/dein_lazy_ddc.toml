@@ -1,3 +1,6 @@
+# --------------------------------------
+# ddc.vim
+#
 [[plugins]]
 # https://note.com/dd_techblog/n/n97f2b6ca09d8
 repo = 'Shougo/ddc.vim'
@@ -21,28 +24,36 @@ call ddc#custom#patch_global('sourceOptions', {
   \ 'vim-lsp': {
   \   'mark': 'LSP',
   \   'matchers': ['matcher_head'],
-  \   'forceCompletionPattern': '\.|:|->|"\w+/*'
-  \ }
+  \   'forceCompletionPattern': '\.|:|->|"\w+/*',
+  \ },
   \})
 call ddc#enable()
 '''
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
-if = "has('nvim')"
 on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-converter_remove_overlap'
-if = "has('nvim')"
 on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
-if = "has('nvim')"
 on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
-if = "has('nvim')"
 on_source = ['ddc.vim']
+
+# --------------------------------------
+# LSP
+#
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+on_source = ['ddc.vim']
+
+[[plugins]]
+# https://zenn.dev/mattn/articles/b83f9d94202914
+repo = 'mattn/vim-lsp-settings'
+on_source = ['vim-lsp']

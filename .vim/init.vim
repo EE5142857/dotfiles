@@ -1,6 +1,3 @@
-" --------------------------------------
-" essential
-" {{{
 if &compatible
   set nocompatible " Be iMproved
 endif
@@ -13,7 +10,6 @@ language messages C
 filetype off
 filetype plugin indent off
 syntax off
-" }}}
 
 " --------------------------------------
 " variable
@@ -123,13 +119,10 @@ augroup MyAutocmd
   autocmd!
   " filetype (order-sensitive)
   autocmd FileType * call vimrc#ft_common()
-  autocmd FileType css,mermaid,plantuml,toml call vimrc#ft_sw2()
-
-  " *.vim
-  autocmd BufEnter *.vim call vimrc#ft_vim()
+  autocmd FileType css,mermaid,plantuml,toml,vim call vimrc#ft_sw2()
 
   " syntax
-  autocmd Syntax * call vimrc#syntax()
+  autocmd Colorscheme,Syntax * call vimrc#syntax()
 
   " mark
   autocmd BufReadPost * call vimrc#restore_cursor()
@@ -149,29 +142,56 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if filereadable(expand('~/.vim/rc/dein.vim'))
-  source ~/.vim/rc/dein.vim
-else
+if 0
   filetype plugin indent on
   syntax enable
 
   colorscheme desert
   " colorscheme evening
-endif
-" }}}
+else
+  if &runtimepath !~# '/dein.vim'
+    if has('nvim')
+      let s:dein_dir = expand('~/.cache/nvim/dein')
+    else
+      let s:dein_dir = expand('~/.cache/vim/dein')
+    endif
+    let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
 
-" --------------------------------------
-" highlight
-" {{{
-highlight CursorLine  cterm=NONE ctermfg=NONE ctermbg=NONE
-highlight CursorLine  gui=NONE guifg=NONE guibg=NONE
-highlight Folded      cterm=NONE ctermfg=DarkGray ctermbg=NONE
-highlight Folded      gui=NONE guifg=DarkGray guibg=NONE
-highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-highlight SpecialKey  gui=NONE guifg=DarkGray guibg=NONE
-if has('nvim')
-  highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
+    if !isdirectory(s:dein_repo_dir)
+      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+    endif
+    execute 'set runtimepath+=' . s:dein_repo_dir
+  endif
+
+  let g:dein#install_check_diff = v:true
+  let g:dein#install_progress_type = 'floating'
+  let g:dein#lazy_rplugins = v:true
+  " let g:dein#inline_vimrcs = split(glob("~/.vim/rc/*.vim"), "\n")
+
+  if dein#min#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+
+    let s:rc_dir = substitute(expand('~/.vim/rc'), '\\', '\/', 'g') . '/'
+    call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',      {'lazy': 0})
+    call dein#load_toml(s:rc_dir . 'dein_lazy.toml',        {'lazy': 1})
+    call dein#load_toml(s:rc_dir . 'dein_lazy_ddc.toml',    {'lazy': 1})
+    call dein#load_toml(s:rc_dir . 'dein_lazy_ddu.toml',    {'lazy': 1})
+
+    call dein#end()
+    call dein#save_state()
+  endif
+
+  " call dein#update()
+
+  if dein#check_install()
+    call dein#install()
+  endif
+
+  " Required
+  filetype plugin indent on
+  syntax enable
+
+  call dein#call_hook('source')
 endif
 " }}}
 
@@ -196,6 +216,8 @@ command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 " --------------------------------------
 " keymap
 " {{{
+nnoremap Q <Nop>
+nnoremap q <Nop>
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
@@ -206,10 +228,10 @@ tnoremap <CR> <CR><C-\><C-n>
 let g:mapleader="\<Space>"
 
 " quickfix
-nnoremap <silent> <Leader>k   :cprevious<CR>
-nnoremap <silent> <Leader>j   :cnext<CR>
-nnoremap <silent> <Leader>gg  :<C-u>cfirst<CR>
-nnoremap <silent> <Leader>G   :<C-u>clast<CR>
+nnoremap <silent> <Leader>k   <Cmd>cprevious<CR>
+nnoremap <silent> <Leader>j   <Cmd>cnext<CR>
+nnoremap <silent> <Leader>gg  <Cmd><C-u>cfirst<CR>
+nnoremap <silent> <Leader>G   <Cmd><C-u>clast<CR>
 
 " insert
 inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
@@ -217,28 +239,31 @@ inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 nnoremap <Plug>(my-switch) <Nop>
 nmap <Leader>s <Plug>(my-switch)
-nnoremap <silent> <Plug>(my-switch)b  :<C-u>setlocal scrollbind! scrollbind?<CR>
-nnoremap <silent> <Plug>(my-switch)l  :<C-u>setlocal list! list?<CR>
-nnoremap <silent> <Plug>(my-switch)p  :<C-u>setlocal paste! paste?<CR>
-nnoremap <silent> <Plug>(my-switch)s  :<C-u>setlocal spell! spell?<CR>
-nnoremap <silent> <Plug>(my-switch)t  :<C-u>setlocal expandtab! expandtab?<CR>
-nnoremap <silent> <Plug>(my-switch)w  :<C-u>setlocal wrap! wrap?<CR>
+nnoremap <silent> <Plug>(my-switch)b  <Cmd><C-u>setlocal scrollbind! scrollbind?<CR>
+nnoremap <silent> <Plug>(my-switch)l  <Cmd><C-u>setlocal list! list?<CR>
+nnoremap <silent> <Plug>(my-switch)p  <Cmd><C-u>setlocal paste! paste?<CR>
+nnoremap <silent> <Plug>(my-switch)s  <Cmd><C-u>setlocal spell! spell?<CR>
+nnoremap <silent> <Plug>(my-switch)t  <Cmd><C-u>setlocal expandtab! expandtab?<CR>
+nnoremap <silent> <Plug>(my-switch)w  <Cmd><C-u>setlocal wrap! wrap?<CR>
 
 nnoremap <Plug>(my-edit) <Nop>
 nmap <Leader>e <Plug>(my-edit)
-nnoremap <silent> <Plug>(my-edit)ec   :edit ++encoding=cp932<CR>
-nnoremap <silent> <Plug>(my-edit)ee   :edit ++encoding=euc-jp<CR>
-nnoremap <silent> <Plug>(my-edit)eu   :edit ++encoding=utf-8<CR>
-nnoremap <silent> <Plug>(my-edit)i    :edit ~/.vim/init.vim<CR>
-nnoremap <silent> <Plug>(my-edit)t    :%s/\s\+$//e<CR>
+nnoremap <silent> <Plug>(my-edit)ec   <Cmd>edit ++encoding=cp932<CR>
+nnoremap <silent> <Plug>(my-edit)ee   <Cmd>edit ++encoding=euc-jp<CR>
+nnoremap <silent> <Plug>(my-edit)eu   <Cmd>edit ++encoding=utf-8<CR>
+nnoremap <silent> <Plug>(my-edit)i    <Cmd>edit ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
-nnoremap <silent> <Plug>(my-filer)b   :edit ~/Desktop/bookmark.md<CR>
-" nnoremap <silent> <Plug>(my-filer)t   :15Lexplore<CR>
+nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
+" nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
+
+nnoremap <Plug>(my-ddu) <Nop>
+nmap <Leader>u <Plug>(my-ddu)
 " }}}
 
 
@@ -254,12 +279,14 @@ endif
 " .vim directory layout
 " {{{
 " ~/.vim/init.vim
-" ~/.vim/local_sample.vim
 " ~/.vim/autoload/vimrc.vim
 " ~/.vim/ftdetect/my_filetype.vim
-" ~/.vim/rc/dein.vim
 " ~/.vim/rc/dein_lazy.toml
 " ~/.vim/rc/dein_lazy_ddc.toml
+" ~/.vim/rc/dein_lazy_ddu.toml
 " ~/.vim/rc/dein_nolazy.toml
+" ~/.vim/rc/local_sample.vim
 " ~/.vim/snippets/markdown.snip
 " }}}
+
+" vim: foldmethod=marker
