@@ -118,8 +118,10 @@ cnoreabbrev w' w
 augroup MyAutocmd
   autocmd!
   " filetype (order-sensitive)
-  autocmd FileType * call vimrc#ft_common()
-  autocmd FileType css,mermaid,plantuml,toml,vim call vimrc#ft_sw2()
+  autocmd FileType *
+    \ call vimrc#ft_common()
+  autocmd FileType css,mermaid,plantuml,toml,vim
+    \ call vimrc#ft_sw2()
 
   " syntax
   autocmd Colorscheme,Syntax * call vimrc#syntax()
@@ -130,7 +132,7 @@ augroup MyAutocmd
   autocmd VimLeavePre * delmarks a-z0-9[]^.<>
 
   " register
-  autocmd BufEnter *    call vimrc#update_register()
+  autocmd BufEnter * call vimrc#update_register()
   autocmd VimLeavePre * call vimrc#delete_register()
 
   " local.vim
@@ -265,7 +267,6 @@ nmap <Leader>t <Plug>(my-terminal)
 nnoremap <Plug>(my-ddu) <Nop>
 nmap <Leader>u <Plug>(my-ddu)
 " }}}
-
 
 " --------------------------------------
 " local setting
