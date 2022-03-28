@@ -221,7 +221,8 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
-tnoremap <C-[> <C-\><C-n>
+nnoremap <Esc><Esc> <Cmd>noh<CR>
+tnoremap <Esc> <C-\><C-n>
 tnoremap <CR> <CR><C-\><C-n>
 
 let g:mapleader="\<Space>"
@@ -229,8 +230,8 @@ let g:mapleader="\<Space>"
 " quickfix
 nnoremap <silent> <Leader>k   <Cmd>cprevious<CR>
 nnoremap <silent> <Leader>j   <Cmd>cnext<CR>
-nnoremap <silent> <Leader>gg  <Cmd><C-u>cfirst<CR>
-nnoremap <silent> <Leader>G   <Cmd><C-u>clast<CR>
+nnoremap <silent> <Leader>gg  <Cmd>cfirst<CR>
+nnoremap <silent> <Leader>G   <Cmd>clast<CR>
 
 " insert
 inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
@@ -238,12 +239,12 @@ inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 nnoremap <Plug>(my-switch) <Nop>
 nmap <Leader>s <Plug>(my-switch)
-nnoremap <silent> <Plug>(my-switch)b  <Cmd><C-u>setlocal scrollbind! scrollbind?<CR>
-nnoremap <silent> <Plug>(my-switch)l  <Cmd><C-u>setlocal list! list?<CR>
-nnoremap <silent> <Plug>(my-switch)p  <Cmd><C-u>setlocal paste! paste?<CR>
-nnoremap <silent> <Plug>(my-switch)s  <Cmd><C-u>setlocal spell! spell?<CR>
-nnoremap <silent> <Plug>(my-switch)t  <Cmd><C-u>setlocal expandtab! expandtab?<CR>
-nnoremap <silent> <Plug>(my-switch)w  <Cmd><C-u>setlocal wrap! wrap?<CR>
+nnoremap <silent> <Plug>(my-switch)b  <Cmd>setlocal scrollbind! scrollbind?<CR>
+nnoremap <silent> <Plug>(my-switch)l  <Cmd>setlocal list! list?<CR>
+nnoremap <silent> <Plug>(my-switch)p  <Cmd>setlocal paste! paste?<CR>
+nnoremap <silent> <Plug>(my-switch)s  <Cmd>setlocal spell! spell?<CR>
+nnoremap <silent> <Plug>(my-switch)t  <Cmd>setlocal expandtab! expandtab?<CR>
+nnoremap <silent> <Plug>(my-switch)w  <Cmd>setlocal wrap! wrap?<CR>
 
 nnoremap <Plug>(my-edit) <Nop>
 nmap <Leader>e <Plug>(my-edit)
@@ -256,6 +257,7 @@ nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
 nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
+nnoremap <silent> <Plug>(my-filer)n   <Cmd>edit ~/Desktop/n.md<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
@@ -264,8 +266,8 @@ nmap <Leader>t <Plug>(my-terminal)
 " --------------------------------------
 " local setting
 " {{{
-if filereadable(expand('~/.vim/local_sample.vim'))
-  source ~/.vim/local_sample.vim
+if filereadable(expand('~/.vim/rc/local_sample.vim'))
+  source ~/.vim/rc/local_sample.vim
 endif
 " }}}
 

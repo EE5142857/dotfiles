@@ -9,24 +9,24 @@ on_event = ['InsertEnter']
 depends = ['denops.vim']
 hook_source = '''
 call ddc#custom#patch_global('sources', [
-  \ 'around',
-  \ 'vim-lsp'
+  \   'around',
+  \   'vim-lsp',
   \ ])
 call ddc#custom#patch_global('sourceOptions', {
-  \ '_': {
-  \   'matchers': ['matcher_head'],
-  \   'sorters': ['sorter_rank'],
-  \   'converters': ['converter_remove_overlap'],
-  \ },
-  \ 'around': {
-  \   'mark': 'Around'
-  \ },
-  \ 'vim-lsp': {
-  \   'mark': 'LSP',
-  \   'matchers': ['matcher_head'],
-  \   'forceCompletionPattern': '\.|:|->|"\w+/*',
-  \ },
-  \})
+  \   '_': {
+  \     'matchers': ['matcher_head'],
+  \     'sorters': ['sorter_rank'],
+  \     'converters': ['converter_remove_overlap'],
+  \   },
+  \   'around': {
+  \     'mark': 'Around',
+  \   },
+  \   'vim-lsp': {
+  \     'mark': 'LSP',
+  \     'matchers': ['matcher_head'],
+  \     'forceCompletionPattern': '\.|:|->|"\w+/*',
+  \   },
+  \ })
 call ddc#enable()
 '''
 
