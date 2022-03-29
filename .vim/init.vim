@@ -14,9 +14,12 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
-let g:loaded_netrwPlugin = 1
-let g:netrw_dirhistmax = 1
-let g:netrw_home = '~/.vim'
+if has('nvim')
+  let g:loaded_netrwPlugin = 1
+else
+  let g:netrw_dirhistmax = 1
+  let g:netrw_home = '~/.vim'
+endif
 let g:vim_indent_cont = 0
 " }}}
 
@@ -50,7 +53,7 @@ endif
 " }}}
 
 " search {{{
-set grepprg=grep\ -n
+set grepprg=grep
 set hlsearch
 set ignorecase
 set incsearch
@@ -66,18 +69,24 @@ set number
 " }}}
 
 " window {{{
-set title titlestring=Vim
-set pumheight=10
+set title titlestring=%F
 set wildmenu wildmode=list:longest
+set pumheight=10
 if has('nvim')
   set pumblend=30
 endif
-set laststatus=2
-set showtabline=2
-set cmdheight=2
 set noequalalways
 set splitbelow
 set splitright
+" }}}
+
+" commandline tabline statusline {{{
+set cmdheight=2
+set showtabline=2
+set tabline=%!vimrc#tabline()
+set laststatus=2
+set noshowmode
+set statusline=%!vimrc#statusline()
 " }}}
 
 " highlight {{{
@@ -112,15 +121,21 @@ augroup MyAutocmd
   autocmd!
   " filetype (order-sensitive)
   autocmd BufNewFile,BufRead *
-    " NOTE: FileType *,'no ft'
+    \ if empty(&filetype)
+    \|  call vimrc#ft_common()
+    \|endif
+  autocmd FileType *
     \ call vimrc#ft_common()
   autocmd FileType css,mermaid,plantuml,toml,vim
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType snippet
     \ setlocal noexpandtab
 
+  " highlight
+  autocmd Colorscheme * call vimrc#highlight()
+
   " syntax
-  autocmd Colorscheme,Syntax * call vimrc#syntax()
+  autocmd Syntax * call vimrc#syntax()
 
   " mark
   autocmd BufReadPost * call vimrc#restore_cursor()
@@ -140,66 +155,24 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if 0
+if has('nvim')
+  if filereadable(expand('~/.vim/rc/dein.vim'))
+    source ~/.vim/rc/dein.vim
+  endif
+else
   filetype plugin indent on
   syntax enable
 
   colorscheme desert
   " colorscheme evening
-else
-  if &runtimepath !~# '/dein.vim'
-    if has('nvim')
-      let s:dein_dir = expand('~/.cache/nvim/dein')
-    else
-      if has('unix')
-        let s:dein_dir = expand('~/.cache/unix_vim/dein')
-      else
-        let s:dein_dir = expand('~/.cache/vim/dein')
-      endif
-    endif
-    let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
-
-    if !isdirectory(s:dein_repo_dir)
-      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-    endif
-    execute 'set runtimepath+=' . s:dein_repo_dir
-  endif
-
-  let g:dein#install_check_diff = v:true
-  let g:dein#install_progress_type = 'floating'
-  let g:dein#lazy_rplugins = v:true
-  " let g:dein#inline_vimrcs = split(glob("~/.vim/rc/*.vim"), "\n")
-
-  if dein#min#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-
-    let s:rc_dir = substitute(expand('~/.vim/rc'), '\\', '\/', 'g') . '/'
-    call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',      {'lazy': 0})
-    call dein#load_toml(s:rc_dir . 'dein_lazy.toml',        {'lazy': 1})
-    call dein#load_toml(s:rc_dir . 'dein_lazy_ddc.toml',    {'lazy': 1})
-    call dein#load_toml(s:rc_dir . 'dein_lazy_ddu.toml',    {'lazy': 1})
-
-    call dein#end()
-    call dein#save_state()
-  endif
-
-  " call dein#update()
-
-  if dein#check_install()
-    call dein#install()
-  endif
-
-  " Required
-  filetype plugin indent on
-  syntax enable
-
-  call dein#call_hook('source')
 endif
 " }}}
 
 " --------------------------------------
 " command
 " {{{
+" NOTE: grep
+" " :grep -nri word .
 " NOTE: vimgrep
   " :vimgrep /word/g **/*.*
 " NOTE: argdo
@@ -211,7 +184,6 @@ endif
   " :cdo %s/old/new/g | update
   " :cdo %s/old/new/gc | update
 command! -nargs=1 P execute 'let @* = @' . <q-args>
-command! -nargs=1 G execute 'grep -ri ' . <q-args> . ' .'
 command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 " }}}
 
@@ -284,6 +256,7 @@ endif
 " ~/.vim/init.vim
 " ~/.vim/autoload/vimrc.vim
 " ~/.vim/ftdetect/my_filetype.vim
+" ~/.vim/rc/dein.vim
 " ~/.vim/rc/dein_lazy.toml
 " ~/.vim/rc/dein_lazy_ddc.toml
 " ~/.vim/rc/dein_lazy_ddu.toml

@@ -15,19 +15,55 @@ endfunction
 " }}}
 
 " --------------------------------------
+" highlight
+" {{{
+function! vimrc#highlight() abort
+  highlight CursorLine    cterm=NONE ctermfg=NONE ctermbg=NONE
+  highlight CursorLine    gui=NONE guifg=NONE guibg=NONE
+  highlight Folded        cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight Folded        gui=NONE guifg=DarkGray guibg=NONE
+  highlight SpecialKey    cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight SpecialKey    gui=NONE guifg=DarkGray guibg=NONE
+  if has('nvim')
+    highlight Whitespace    cterm=NONE ctermfg=DarkGray ctermbg=NONE
+    highlight Whitespace    gui=NONE guifg=DarkGray guibg=NONE
+  endif
+  highlight StatusLine    gui=NONE guifg=DarkGray guibg=Black
+  highlight StatusLine    cterm=NONE guifg=DarkGray guibg=Black
+  highlight StatusLineNC  gui=NONE guifg=DarkGray guibg=Black
+  highlight StatusLineNC  cterm=NONE guifg=DarkGray guibg=Black
+  highlight TabLine       gui=NONE guifg=DarkGray guibg=Black
+  highlight TabLine       cterm=NONE guifg=DarkGray guibg=Black
+  highlight TabLineFill   gui=NONE guifg=DarkGray guibg=Black
+  highlight TabLineFill   cterm=NONE guifg=DarkGray guibg=Black
+  highlight TabLineSel    gui=NONE guifg=Black guibg=DarkGray
+  highlight TabLineSel    cterm=NONE guifg=Black guibg=DarkGray
+
+  " insert
+  highlight User1         gui=NONE guifg=White guibg=Blue
+  highlight User1         cterm=NONE ctermfg=White ctermbg=Blue
+  " normal
+  highlight User2         gui=NONE guifg=White guibg=DarkGreen
+  highlight User2         cterm=NONE ctermfg=White ctermbg=DarkGreen
+  " replace
+  highlight User3         gui=NONE guifg=White guibg=DarkRed
+  highlight User3         cterm=NONE ctermfg=White ctermbg=DarkRed
+  " visual
+  highlight User4         gui=NONE guifg=White guibg=DarkMagenta
+  highlight User4         cterm=NONE ctermfg=White ctermbg=DarkMagenta
+  " statusline accent
+  highlight User5         gui=NONE guifg=Black guibg=DarkGray
+  highlight User5         cterm=NONE ctermfg=Black ctermbg=DarkGray
+  " tabline accent
+  highlight User9         gui=NONE guifg=Gray guibg=Black
+  highlight User9         cterm=NONE ctermfg=Gray ctermbg=Black
+endfunction
+" }}}
+
+" --------------------------------------
 " syntax
 " {{{
 function! vimrc#syntax() abort
-  highlight CursorLine  cterm=NONE ctermfg=NONE ctermbg=NONE
-  highlight CursorLine  gui=NONE guifg=NONE guibg=NONE
-  highlight Folded      cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight Folded      gui=NONE guifg=DarkGray guibg=NONE
-  highlight SpecialKey  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight SpecialKey  gui=NONE guifg=DarkGray guibg=NONE
-  if has('nvim')
-    highlight Whitespace  cterm=NONE ctermfg=DarkGray ctermbg=NONE
-    highlight Whitespace  gui=NONE guifg=DarkGray guibg=NONE
-  endif
   highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
   highlight MyError     gui=NONE guifg=Black guibg=Red
   highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
@@ -74,6 +110,77 @@ function! vimrc#update_register() abort
     let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
     let @e = fnamemodify(@%, ':t')
   endif
+endfunction
+" }}}
+
+" --------------------------------------
+" tabline
+" https://qiita.com/wadako111/items/755e753677dd72d8036d
+" {{{
+function! vimrc#tabline()
+  let s = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let no = i  " display 0-origin tabpagenr.
+    let mod = getbufvar(bufnr, '&modified') ? ' + ' : ' '
+    let title = fnamemodify(bufname(bufnr), ':t')
+    if empty(title)
+      let title = '[No Name]'
+    endif
+    let s .= '%'.i.'T'
+    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let s .= ((i > 1 ) && (i < tabpagenr())) ? '|' : ''
+    let s .= ' ' . no . ' ' . title
+    let s .= mod
+    let s .= (i > tabpagenr()) ? '|' : ''
+    let s .= '%#TabLineFill#'
+  endfor
+  let s .= '%#TabLineFill#%T%=%#TabLine#'
+  if has('nvim')
+    let s .= '%9*' . "%{(gina#component#repo#name() == '' ? '' : gina#component#repo#name() . ' / ' . gina#component#repo#branch())}" . '   %*'
+  else
+    let s .= '%9*CWD: ' . fnamemodify(getcwd(), ':t') . '   %*'
+  endif
+  return s
+endfunction
+" }}}
+
+" --------------------------------------
+" statusline
+" https://wisteriasec.wordpress.com/2018/08/20/vim-statusline%E3%81%AE%E6%95%B4%E3%81%88%E6%96%B9/
+" https://qiita.com/Cj-bc/items/dbe62075474c0e29a777
+" {{{
+function! vimrc#statusline()
+  if mode() =~ 'i'
+    let l:c = 1
+    let l:mode_name = 'INSERT'
+  elseif mode() =~ 'n'
+    let l:c = 2
+    let l:mode_name = 'NORMAL'
+  elseif mode() =~ 'R'
+    let l:c = 3
+    let l:mode_name = 'REPLACE'
+  else
+    let l:c = 4
+    let l:mode_name = 'VISUAL'
+  endif
+
+  let l:sep = '|'
+  let l:ret ='%' . l:c . '* ' . l:mode_name . ' %*'
+  let l:ret .= ' CWD: ' . fnamemodify(getcwd(), ':t') . ' '
+  let l:ret .= l:sep
+  let l:ret .= ' %t '
+  let l:ret .= "%{(&readonly == 1 ? '| RO | -' : '')}"
+  let l:ret .= "%{(&modified == 1 ? '| + ' : '')}"
+  let l:ret .= '%='
+  let l:ret .= " %{&fileformat} "
+  let l:ret .= l:sep . " %{(&fileencoding != '' ? &fileencoding : &encoding)} "
+  let l:ret .= l:sep . " %{(&filetype != '' ? &filetype : 'no ft')} "
+  let l:ret .= ' %5* ' . '%l:%c' . ' %*'
+  let l:ret .= ' %p' . "%{'\%'} "
+  let l:ret .= '   '
+  return ret
 endfunction
 " }}}
 
