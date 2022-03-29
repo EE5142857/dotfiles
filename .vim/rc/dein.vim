@@ -46,6 +46,7 @@ syntax enable
 
 colorscheme desert
 " colorscheme evening
+
 call dein#call_hook('source')
 
 " vim: foldmethod=marker nofoldenable

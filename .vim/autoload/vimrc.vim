@@ -28,32 +28,35 @@ function! vimrc#highlight() abort
     highlight Whitespace    cterm=NONE ctermfg=DarkGray ctermbg=NONE
     highlight Whitespace    gui=NONE guifg=DarkGray guibg=NONE
   endif
+  highlight StatusLine    cterm=NONE ctermfg=Gray ctermbg=Black
   highlight StatusLine    gui=NONE guifg=Gray guibg=Black
-  highlight StatusLine    cterm=NONE guifg=Gray guibg=Black
+  highlight StatusLineNC  cterm=NONE ctermfg=Gray ctermbg=Black
   highlight StatusLineNC  gui=NONE guifg=Gray guibg=Black
-  highlight StatusLineNC  cterm=NONE guifg=Gray guibg=Black
+  highlight TabLine       cterm=NONE ctermfg=DarkGray ctermbg=Black
   highlight TabLine       gui=NONE guifg=DarkGray guibg=Black
-  highlight TabLine       cterm=NONE guifg=DarkGray guibg=Black
+  highlight TabLineFill   cterm=NONE ctermfg=Gray ctermbg=Black
   highlight TabLineFill   gui=NONE guifg=Gray guibg=Black
-  highlight TabLineFill   cterm=NONE guifg=Gray guibg=Black
+  highlight TabLineSel    cterm=NONE ctermfg=Black ctermbg=DarkGray
   highlight TabLineSel    gui=NONE guifg=Black guibg=DarkGray
-  highlight TabLineSel    cterm=NONE guifg=Black guibg=DarkGray
 
   " insert
-  highlight User1         gui=NONE guifg=White guibg=Blue
   highlight User1         cterm=NONE ctermfg=White ctermbg=Blue
+  highlight User1         gui=NONE guifg=White guibg=Blue
   " normal
-  highlight User2         gui=NONE guifg=White guibg=DarkGreen
   highlight User2         cterm=NONE ctermfg=White ctermbg=DarkGreen
+  highlight User2         gui=NONE guifg=White guibg=DarkGreen
   " replace
-  highlight User3         gui=NONE guifg=White guibg=DarkRed
   highlight User3         cterm=NONE ctermfg=White ctermbg=DarkRed
+  highlight User3         gui=NONE guifg=White guibg=DarkRed
   " visual
-  highlight User4         gui=NONE guifg=White guibg=DarkMagenta
   highlight User4         cterm=NONE ctermfg=White ctermbg=DarkMagenta
+  highlight User4         gui=NONE guifg=White guibg=DarkMagenta
   " statusline accent
-  highlight User5         gui=NONE guifg=Black guibg=DarkGray
   highlight User5         cterm=NONE ctermfg=Black ctermbg=DarkGray
+  highlight User5         gui=NONE guifg=Black guibg=DarkGray
+  " tabline accent
+  highlight User9         cterm=NONE ctermfg=Black ctermbg=DarkGray
+  highlight User9         gui=NONE guifg=Black guibg=DarkGray
 endfunction
 " }}}
 
@@ -134,12 +137,13 @@ function! vimrc#tabline()
     let s .= '%#TabLineFill#'
   endfor
   let s .= '%#TabLineFill#%T%=%#TabLineFill#'
+  let s .= ' ' . 'cwd: ' . fnamemodify(getcwd(), ':t') . ' '
   if has('nvim')
-    let s .= "%{(gina#component#repo#name() == '' ? '' : gina#component#repo#name() . ' / ' . gina#component#repo#branch())}"
-  else
-    let s .= 'CWD: ' . fnamemodify(getcwd(), ':t')
+    if gina#component#repo#name() != ''
+      let s .= '%9* ' . "%{(gina#component#repo#name() . ' / ' . gina#component#repo#branch())}" . ' %*'
+    endif
   endif
-  let s .= '   '
+  let s .= '  '
   return s
 endfunction
 " }}}
@@ -164,15 +168,16 @@ function! vimrc#statusline()
     let l:mode_name = 'VISUAL'
   endif
 
-  let l:ret = '%' . l:c . '* ' . l:mode_name . ' %*'
   let l:path = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+
+  let l:ret = '%' . l:c . '* ' . l:mode_name . ' %*'
   let l:ret .= ' ' . l:path . ' '
-  let l:ret .= "%{(&readonly == 1 ? '| RO ' : '')}"
-  let l:ret .= "%{(&modified == 1 ? '| + ' : (&readonly == 1) ? '| - ' : '')}"
+  let l:ret .= "%{((&readonly == 1) ? '| RO ' : '')}"
+  let l:ret .= "%{((&modified == 1) ? '| + ' : ((&readonly == 1) ? '| - ' : ''))}"
   let l:ret .= "%="
   let l:ret .= "%{&fileformat}" . ' '
-  let l:ret .= '| ' . "%{(&fileencoding != '' ? &fileencoding : &encoding)}" . ' '
-  let l:ret .= '| ' . "%{(&filetype != '' ? &filetype : 'no ft')}" . ' '
+  let l:ret .= '| ' . "%{((&fileencoding != '') ? &fileencoding : &encoding)}" . ' '
+  let l:ret .= '| ' . "%{((&filetype != '') ? &filetype : 'no ft')}" . ' '
   let l:ret .= '%5* ' . '%3p' . "%{'\%'}" . ' %*'
   let l:ret .= ' ' . '%3l:%-2c'
   let l:ret .= '   '

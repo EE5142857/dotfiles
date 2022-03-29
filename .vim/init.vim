@@ -263,6 +263,7 @@ endif
 " ~/.vim/rc/dein_lazy_ddc.toml
 " ~/.vim/rc/dein_lazy_ddu.toml
 " ~/.vim/rc/dein_nolazy.toml
+" ~/.vim/rc/dein_nouse.toml
 " ~/.vim/rc/local_sample.vim
 " ~/.vim/snippets/markdown.snip
 " }}}

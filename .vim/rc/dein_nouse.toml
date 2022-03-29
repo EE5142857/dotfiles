@@ -1,0 +1,99 @@
+# --------------------------------------
+# colorscheme
+#
+[[plugins]]
+repo = 'tomasiser/vim-code-dark'
+hook_source = '''
+set t_Co=256
+set t_ut=
+colorscheme codedark
+'''
+
+# --------------------------------------
+# statusline
+#
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_source = '''
+set laststatus=2
+set noshowmode
+if !has('gui_running')
+  set t_Co=256
+endif
+
+let g:lightline = {
+  \   'colorscheme': 'codedark',
+  \   'component': {
+  \     'mylineinfo': '%3l/%L, %-2c',
+  \     'myblank': ' ',
+  \   },
+  \   'active': {
+  \     'left': [
+  \       ['mode', 'paste'],
+  \       ['mycwdname', 'filename', 'readonly', 'modified'],
+  \     ],
+  \     'right': [
+  \       ['percent', 'myblank'],
+  \       ['lineinfo'],
+  \       ['fileformat', 'fileencoding', 'filetype'],
+  \     ],
+  \   },
+  \   'inactive': {
+  \     'left': [
+  \       ['filename'],
+  \     ],
+  \     'right': [
+  \       [],
+  \     ],
+  \   },
+  \   'tab': {
+  \     'active': ['tabnum', 'filename', 'modified'],
+  \     'inactive': ['tabnum', 'filename', 'modified'],
+  \   },
+  \   'tabline': {
+  \     'left': [
+  \       ['tabs'],
+  \     ],
+  \     'right': [
+  \       ['gitrepo', 'gitbranch', 'myblank'],
+  \     ],
+  \   },
+  \   'separator': {
+  \     'left': "",
+  \     'right': "",
+  \   },
+  \   'subseparator': {
+  \     'left': "|",
+  \     'right': "|",
+  \   },
+  \   'component_function': {
+  \     'gitbranch': 'gina#component#repo#branch',
+  \     'gitrepo': 'gina#component#repo#name',
+  \     'mystatus': 'LLGetStatus',
+  \     'mycwdname': 'LLGetCwdName',
+  \     'mypath': 'LLGetPath',
+  \     'mydirpath': 'LLGetDirPath',
+  \   },
+  \ }
+
+function! LLGetStatus() abort
+  if 1
+    " has('nvim') && exists('g:GuiLoaded')
+    return 'V'
+  else
+    return "\ue62b"
+  endif
+endfunction
+
+function! LLGetCwdName() abort
+  return 'CWD: ' . fnamemodify(getcwd(), ':t')
+endfunction
+
+function! LLGetPath() abort
+  return substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+endfunction
+
+function! LLGetDirPath() abort
+  return substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
+endfunction
+'''
