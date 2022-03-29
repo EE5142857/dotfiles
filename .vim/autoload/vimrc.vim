@@ -32,8 +32,8 @@ function! vimrc#highlight() abort
   endif
   highlight StatusLine    cterm=NONE ctermfg=Gray ctermbg=Black
   highlight StatusLine    gui=NONE guifg=Gray guibg=Black
-  highlight StatusLineNC  cterm=NONE ctermfg=Gray ctermbg=Black
-  highlight StatusLineNC  gui=NONE guifg=Gray guibg=Black
+  highlight StatusLineNC  cterm=NONE ctermfg=Gray ctermbg=DarkGray
+  highlight StatusLineNC  gui=NONE guifg=Gray guibg=DarkGray
   highlight TabLine       cterm=NONE ctermfg=DarkGray ctermbg=Black
   highlight TabLine       gui=NONE guifg=DarkGray guibg=Black
   highlight TabLineFill   cterm=NONE ctermfg=Gray ctermbg=Black
@@ -155,6 +155,7 @@ endfunction
 " https://wisteriasec.wordpress.com/2018/08/20/vim-statusline%E3%81%AE%E6%95%B4%E3%81%88%E6%96%B9/
 " https://qiita.com/Cj-bc/items/dbe62075474c0e29a777
 " {{{
+" TODO: inactive window statusline
 function! vimrc#statusline()
   if mode() =~ 'i'
     let l:c = 1
