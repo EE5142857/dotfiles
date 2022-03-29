@@ -12,10 +12,6 @@ function! vimrc#ft_common() abort
   setlocal expandtab
   setlocal shiftwidth=4 softtabstop=4 tabstop=4
 endfunction
-
-function! vimrc#ft_sw2() abort
-  setlocal shiftwidth=2 softtabstop=2 tabstop=2
-endfunction
 " }}}
 
 " --------------------------------------
@@ -120,4 +116,4 @@ function! vimrc#add_path(l_path) abort
 endfunction
 " }}}
 
-" vim: foldmethod=marker
+" vim: foldmethod=marker nofoldenable

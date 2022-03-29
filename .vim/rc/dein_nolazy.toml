@@ -16,33 +16,6 @@ repo = 'vim-denops/denops-helloworld.vim'
 if = "has('nvim')"
 
 # --------------------------------------
-# filer
-#
-[[plugins]]
-repo = 'lambdalisue/fern.vim'
-hook_add = '''
-nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
-let g:fern#default_hidden = 1
-'''
-
-[[plugins]]
-repo = 'lambdalisue/fern-git-status.vim'
-
-[[plugins]]
-repo = 'lambdalisue/fern-hijack.vim'
-
-[[plugins]]
-repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-if = 0
-hook_add = '''
-let g:fern#renderer = 'nerdfont'
-'''
-
-[[plugins]]
-repo = 'lambdalisue/nerdfont.vim'
-if = 0
-
-# --------------------------------------
 # view
 #
 [[plugins]]
@@ -76,6 +49,39 @@ nmap ga <Plug>(EasyAlign)
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
+
+# --------------------------------------
+# filer
+#
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+hook_add = '''
+nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
+let g:fern#default_hidden = 1
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+if = 0
+hook_add = '''
+let g:fern#renderer = 'nerdfont'
+'''
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+if = 0
+
+# --------------------------------------
+# Git
+#
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
 
 # --------------------------------------
 # terminal
@@ -174,14 +180,15 @@ let g:lightline = {
   \   'colorscheme': 'codedark',
   \   'component': {
   \     'mylineinfo': '%3l/%L, %-2c',
+  \     'myblank': ' ',
   \   },
   \   'active': {
   \     'left': [
   \       ['mode', 'paste'],
-  \       ['filename', 'readonly', 'modified', 'mydirpath'],
+  \       ['mycwdname', 'filename', 'readonly', 'modified'],
   \     ],
   \     'right': [
-  \       ['percent', 'mystatus'],
+  \       ['percent', 'myblank'],
   \       ['lineinfo'],
   \       ['fileformat', 'fileencoding', 'filetype'],
   \     ],
@@ -203,7 +210,7 @@ let g:lightline = {
   \       ['tabs'],
   \     ],
   \     'right': [
-  \       ['mycwdname'],
+  \       ['gitrepo', 'gitbranch', 'myblank'],
   \     ],
   \   },
   \   'separator': {
@@ -215,6 +222,8 @@ let g:lightline = {
   \     'right': "|",
   \   },
   \   'component_function': {
+  \     'gitbranch': 'gina#component#repo#branch',
+  \     'gitrepo': 'gina#component#repo#name',
   \     'mystatus': 'LLGetStatus',
   \     'mycwdname': 'LLGetCwdName',
   \     'mypath': 'LLGetPath',
@@ -225,14 +234,14 @@ let g:lightline = {
 function! LLGetStatus() abort
   if 1
     " has('nvim') && exists('g:GuiLoaded')
-    return 'V' . ' '
+    return 'V'
   else
-    return "\ue62b" . ' '
+    return "\ue62b"
   endif
 endfunction
 
 function! LLGetCwdName() abort
-  return fnamemodify(getcwd(), ':t') . ' '
+  return 'CWD: ' . fnamemodify(getcwd(), ':t')
 endfunction
 
 function! LLGetPath() abort

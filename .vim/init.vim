@@ -111,10 +111,13 @@ cnoreabbrev w' w
 augroup MyAutocmd
   autocmd!
   " filetype (order-sensitive)
-  autocmd FileType *
+  autocmd BufNewFile,BufRead *
+    " NOTE: FileType *,'no ft'
     \ call vimrc#ft_common()
   autocmd FileType css,mermaid,plantuml,toml,vim
-    \ call vimrc#ft_sw2()
+    \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType snippet
+    \ setlocal noexpandtab
 
   " syntax
   autocmd Colorscheme,Syntax * call vimrc#syntax()
@@ -261,6 +264,9 @@ nnoremap <silent> <Plug>(my-filer)n   <Cmd>edit ~/Desktop/n.md<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
+
+nnoremap <Plug>(my-ddu) <Nop>
+nmap <Leader>u <Plug>(my-ddu)
 " }}}
 
 " --------------------------------------
@@ -286,4 +292,4 @@ endif
 " ~/.vim/snippets/markdown.snip
 " }}}
 
-" vim: foldmethod=marker
+" vim: foldmethod=marker nofoldenable

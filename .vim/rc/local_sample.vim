@@ -19,4 +19,4 @@ call vimrc#add_path([
 \ 'C:\work\myenv\Scripts'
 \])
 
-" vim: foldmethod=marker
+" vim: foldmethod=marker nofoldenable
