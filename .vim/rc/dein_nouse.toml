@@ -1,4 +1,16 @@
 # --------------------------------------
+# filer
+#
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+hook_add = '''
+let g:fern#renderer = 'nerdfont'
+'''
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+# --------------------------------------
 # colorscheme
 #
 [[plugins]]
@@ -24,17 +36,16 @@ endif
 let g:lightline = {
   \   'colorscheme': 'codedark',
   \   'component': {
-  \     'mylineinfo': '%3l/%L, %-2c',
   \     'myblank': ' ',
   \   },
   \   'active': {
   \     'left': [
   \       ['mode', 'paste'],
-  \       ['mycwdname', 'filename', 'readonly', 'modified'],
+  \       ['filename', 'readonly', 'modified'],
   \     ],
   \     'right': [
-  \       ['percent', 'myblank'],
-  \       ['lineinfo'],
+  \       ['lineinfo', 'myblank'],
+  \       ['percent'],
   \       ['fileformat', 'fileencoding', 'filetype'],
   \     ],
   \   },
@@ -55,35 +66,22 @@ let g:lightline = {
   \       ['tabs'],
   \     ],
   \     'right': [
-  \       ['gitrepo', 'gitbranch', 'myblank'],
+  \       [],
   \     ],
   \   },
   \   'separator': {
-  \     'left': "",
-  \     'right': "",
+  \     'left': '',
+  \     'right': '',
   \   },
   \   'subseparator': {
-  \     'left': "|",
-  \     'right': "|",
+  \     'left': '|',
+  \     'right': '|',
   \   },
   \   'component_function': {
-  \     'gitbranch': 'gina#component#repo#branch',
-  \     'gitrepo': 'gina#component#repo#name',
-  \     'mystatus': 'LLGetStatus',
   \     'mycwdname': 'LLGetCwdName',
   \     'mypath': 'LLGetPath',
-  \     'mydirpath': 'LLGetDirPath',
   \   },
   \ }
-
-function! LLGetStatus() abort
-  if 1
-    " has('nvim') && exists('g:GuiLoaded')
-    return 'V'
-  else
-    return "\ue62b"
-  endif
-endfunction
 
 function! LLGetCwdName() abort
   return 'CWD: ' . fnamemodify(getcwd(), ':t')
@@ -91,9 +89,5 @@ endfunction
 
 function! LLGetPath() abort
   return substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-endfunction
-
-function! LLGetDirPath() abort
-  return substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
 endfunction
 '''

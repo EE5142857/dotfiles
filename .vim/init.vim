@@ -28,16 +28,11 @@ let g:vim_indent_cont = 0
 " {{{
 " system {{{
 set autoread
+set clipboard=unnamed
 set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
-" if has('win32') || has('win64') || has('mac')
-if 1
-  set clipboard=unnamed
-else
-  set clipboard=unnamedplus
-endif
 " }}}
 
 " edit {{{
@@ -70,7 +65,6 @@ set number
 " }}}
 
 " window {{{
-" set title titlestring=%F
 set wildmenu wildmode=list:longest
 set pumheight=10
 if has('nvim')
@@ -93,7 +87,7 @@ set statusline=%!vimrc#statusline()
 
 " highlight {{{
 set cursorline
-set showmatch matchtime=1
+set showmatch matchtime=1 matchpairs+=\<:\>
 " '␣': U+2423 Open Box
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 if &diff
@@ -104,6 +98,7 @@ endif
 " }}}
 
 " color {{{
+set background=dark
 set t_Co=256
 if exists('&termguicolors')
   set termguicolors

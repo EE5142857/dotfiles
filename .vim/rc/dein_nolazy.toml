@@ -5,17 +5,6 @@
 repo = 'Shougo/dein.vim'
 
 # --------------------------------------
-# Deno
-#
-[[plugins]]
-repo = 'vim-denops/denops.vim'
-if = "has('nvim')"
-
-[[plugins]]
-repo = 'vim-denops/denops-helloworld.vim'
-if = "has('nvim')"
-
-# --------------------------------------
 # view
 #
 [[plugins]]
@@ -65,23 +54,6 @@ repo = 'lambdalisue/fern-git-status.vim'
 
 [[plugins]]
 repo = 'lambdalisue/fern-hijack.vim'
-
-[[plugins]]
-repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-if = 0
-hook_add = '''
-let g:fern#renderer = 'nerdfont'
-'''
-
-[[plugins]]
-repo = 'lambdalisue/nerdfont.vim'
-if = 0
-
-# --------------------------------------
-# Git
-#
-[[plugins]]
-repo = 'lambdalisue/gina.vim'
 
 # --------------------------------------
 # terminal
@@ -152,6 +124,26 @@ function! s:send_cell() abort
   endif
 endfunction
 '''
+
+# --------------------------------------
+# Git
+#
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+
+[[plugins]]
+repo = 'lambdalisue/gin.vim'
+
+# --------------------------------------
+# Deno
+#
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+if = "has('nvim')"
+
+[[plugins]]
+repo = 'vim-denops/denops-helloworld.vim'
+if = "has('nvim')"
 
 # --------------------------------------
 # Python
