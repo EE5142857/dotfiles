@@ -28,14 +28,14 @@ function! vimrc#highlight() abort
     highlight Whitespace    cterm=NONE ctermfg=DarkGray ctermbg=NONE
     highlight Whitespace    gui=NONE guifg=DarkGray guibg=NONE
   endif
-  highlight StatusLine    gui=NONE guifg=DarkGray guibg=Black
-  highlight StatusLine    cterm=NONE guifg=DarkGray guibg=Black
-  highlight StatusLineNC  gui=NONE guifg=DarkGray guibg=Black
-  highlight StatusLineNC  cterm=NONE guifg=DarkGray guibg=Black
+  highlight StatusLine    gui=NONE guifg=Gray guibg=Black
+  highlight StatusLine    cterm=NONE guifg=Gray guibg=Black
+  highlight StatusLineNC  gui=NONE guifg=Gray guibg=Black
+  highlight StatusLineNC  cterm=NONE guifg=Gray guibg=Black
   highlight TabLine       gui=NONE guifg=DarkGray guibg=Black
   highlight TabLine       cterm=NONE guifg=DarkGray guibg=Black
-  highlight TabLineFill   gui=NONE guifg=DarkGray guibg=Black
-  highlight TabLineFill   cterm=NONE guifg=DarkGray guibg=Black
+  highlight TabLineFill   gui=NONE guifg=Gray guibg=Black
+  highlight TabLineFill   cterm=NONE guifg=Gray guibg=Black
   highlight TabLineSel    gui=NONE guifg=Black guibg=DarkGray
   highlight TabLineSel    cterm=NONE guifg=Black guibg=DarkGray
 
@@ -54,9 +54,6 @@ function! vimrc#highlight() abort
   " statusline accent
   highlight User5         gui=NONE guifg=Black guibg=DarkGray
   highlight User5         cterm=NONE ctermfg=Black ctermbg=DarkGray
-  " tabline accent
-  highlight User9         gui=NONE guifg=Gray guibg=Black
-  highlight User9         cterm=NONE ctermfg=Gray ctermbg=Black
 endfunction
 " }}}
 
@@ -136,12 +133,13 @@ function! vimrc#tabline()
     let s .= (i > tabpagenr()) ? '|' : ''
     let s .= '%#TabLineFill#'
   endfor
-  let s .= '%#TabLineFill#%T%=%#TabLine#'
+  let s .= '%#TabLineFill#%T%=%#TabLineFill#'
   if has('nvim')
-    let s .= '%9*' . "%{(gina#component#repo#name() == '' ? '' : gina#component#repo#name() . ' / ' . gina#component#repo#branch())}" . '   %*'
+    let s .= "%{(gina#component#repo#name() == '' ? '' : gina#component#repo#name() . ' / ' . gina#component#repo#branch())}"
   else
-    let s .= '%9*CWD: ' . fnamemodify(getcwd(), ':t') . '   %*'
+    let s .= 'CWD: ' . fnamemodify(getcwd(), ':t')
   endif
+  let s .= '   '
   return s
 endfunction
 " }}}
@@ -166,19 +164,17 @@ function! vimrc#statusline()
     let l:mode_name = 'VISUAL'
   endif
 
-  let l:sep = '|'
-  let l:ret ='%' . l:c . '* ' . l:mode_name . ' %*'
-  let l:ret .= ' CWD: ' . fnamemodify(getcwd(), ':t') . ' '
-  let l:ret .= l:sep
-  let l:ret .= ' %t '
-  let l:ret .= "%{(&readonly == 1 ? '| RO | -' : '')}"
-  let l:ret .= "%{(&modified == 1 ? '| + ' : '')}"
-  let l:ret .= '%='
-  let l:ret .= " %{&fileformat} "
-  let l:ret .= l:sep . " %{(&fileencoding != '' ? &fileencoding : &encoding)} "
-  let l:ret .= l:sep . " %{(&filetype != '' ? &filetype : 'no ft')} "
-  let l:ret .= ' %5* ' . '%l:%c' . ' %*'
-  let l:ret .= ' %p' . "%{'\%'} "
+  let l:ret = '%' . l:c . '* ' . l:mode_name . ' %*'
+  let l:path = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+  let l:ret .= ' ' . l:path . ' '
+  let l:ret .= "%{(&readonly == 1 ? '| RO ' : '')}"
+  let l:ret .= "%{(&modified == 1 ? '| + ' : (&readonly == 1) ? '| - ' : '')}"
+  let l:ret .= "%="
+  let l:ret .= "%{&fileformat}" . ' '
+  let l:ret .= '| ' . "%{(&fileencoding != '' ? &fileencoding : &encoding)}" . ' '
+  let l:ret .= '| ' . "%{(&filetype != '' ? &filetype : 'no ft')}" . ' '
+  let l:ret .= '%5* ' . '%3p' . "%{'\%'}" . ' %*'
+  let l:ret .= ' ' . '%3l:%-2c'
   let l:ret .= '   '
   return ret
 endfunction

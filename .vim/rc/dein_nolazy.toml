@@ -156,13 +156,13 @@ endfunction
 # --------------------------------------
 # colorscheme
 #
-[[plugins]]
-repo = 'tomasiser/vim-code-dark'
-hook_source = '''
-set t_Co=256
-set t_ut=
-colorscheme codedark
-'''
+# [[plugins]]
+# repo = 'tomasiser/vim-code-dark'
+# hook_source = '''
+# set t_Co=256
+# set t_ut=
+# colorscheme codedark
+# '''
 
 # --------------------------------------
 # statusline
@@ -175,7 +175,7 @@ colorscheme codedark
 # if !has('gui_running')
 #   set t_Co=256
 # endif
-# 
+#
 # let g:lightline = {
 #   \   'colorscheme': 'codedark',
 #   \   'component': {
@@ -230,7 +230,7 @@ colorscheme codedark
 #   \     'mydirpath': 'LLGetDirPath',
 #   \   },
 #   \ }
-# 
+#
 # function! LLGetStatus() abort
 #   if 1
 #     " has('nvim') && exists('g:GuiLoaded')
@@ -239,15 +239,15 @@ colorscheme codedark
 #     return "\ue62b"
 #   endif
 # endfunction
-# 
+#
 # function! LLGetCwdName() abort
 #   return 'CWD: ' . fnamemodify(getcwd(), ':t')
 # endfunction
-# 
+#
 # function! LLGetPath() abort
 #   return substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
 # endfunction
-# 
+#
 # function! LLGetDirPath() abort
 #   return substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
 # endfunction

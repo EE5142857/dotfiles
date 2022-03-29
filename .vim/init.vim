@@ -69,7 +69,8 @@ set number
 " }}}
 
 " window {{{
-set title titlestring=%F
+" set title titlestring=%F
+set title titlestring=Vim
 set wildmenu wildmode=list:longest
 set pumheight=10
 if has('nvim')
@@ -84,6 +85,7 @@ set splitright
 set cmdheight=2
 set showtabline=2
 set tabline=%!vimrc#tabline()
+set fillchars=stl:\ ,stlnc:\_
 set laststatus=2
 set noshowmode
 set statusline=%!vimrc#statusline()
