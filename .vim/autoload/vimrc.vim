@@ -18,8 +18,8 @@ endfunction
 " highlight
 " {{{
 function! vimrc#highlight() abort
-  highlight CursorLine    cterm=NONE ctermfg=NONE ctermbg=NONE
-  highlight CursorLine    gui=NONE guifg=NONE guibg=NONE
+  highlight CursorLine    cterm=underline ctermfg=NONE ctermbg=NONE
+  highlight CursorLine    gui=underline guifg=NONE guibg=NONE
   highlight Folded        cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight Folded        gui=NONE guifg=DarkGray guibg=NONE
   highlight EndOfBuffer   cterm=NONE ctermfg=DarkGray ctermbg=NONE
@@ -30,10 +30,10 @@ function! vimrc#highlight() abort
     highlight Whitespace    cterm=NONE ctermfg=DarkGray ctermbg=NONE
     highlight Whitespace    gui=NONE guifg=DarkGray guibg=NONE
   endif
-  highlight StatusLine    cterm=NONE ctermfg=Gray ctermbg=Black
-  highlight StatusLine    gui=NONE guifg=Gray guibg=Black
-  highlight StatusLineNC  cterm=NONE ctermfg=Gray ctermbg=DarkGray
-  highlight StatusLineNC  gui=NONE guifg=Gray guibg=DarkGray
+  highlight StatusLine    cterm=NONE ctermfg=DarkGray ctermbg=Black
+  highlight StatusLine    gui=NONE guifg=DarkGray guibg=Black
+  highlight StatusLineNC  cterm=NONE ctermfg=Gray ctermbg=Black
+  highlight StatusLineNC  gui=NONE guifg=Gray guibg=Black
   highlight TabLine       cterm=NONE ctermfg=DarkGray ctermbg=Black
   highlight TabLine       gui=NONE guifg=DarkGray guibg=Black
   highlight TabLineFill   cterm=NONE ctermfg=Gray ctermbg=Black

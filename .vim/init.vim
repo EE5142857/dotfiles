@@ -70,7 +70,6 @@ set number
 
 " window {{{
 " set title titlestring=%F
-set title titlestring=Vim
 set wildmenu wildmode=list:longest
 set pumheight=10
 if has('nvim')
