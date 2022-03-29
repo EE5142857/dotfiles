@@ -22,6 +22,8 @@ function! vimrc#highlight() abort
   highlight CursorLine    gui=NONE guifg=NONE guibg=NONE
   highlight Folded        cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight Folded        gui=NONE guifg=DarkGray guibg=NONE
+  highlight EndOfBuffer   cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  highlight EndOfBuffer   gui=NONE guifg=DarkGray guibg=NONE
   highlight SpecialKey    cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight SpecialKey    gui=NONE guifg=DarkGray guibg=NONE
   if has('nvim')
