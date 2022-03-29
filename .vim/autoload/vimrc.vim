@@ -26,6 +26,8 @@ function! vimrc#highlight() abort
   highlight EndOfBuffer   gui=NONE guifg=DarkGray guibg=NONE
   highlight SpecialKey    cterm=NONE ctermfg=DarkGray ctermbg=NONE
   highlight SpecialKey    gui=NONE guifg=DarkGray guibg=NONE
+  highlight SpellBad      cterm=NONE ctermfg=Red ctermbg=NONE
+  highlight SpellBad      gui=NONE guifg=Red guibg=NONE
   if has('nvim')
     highlight Whitespace    cterm=NONE ctermfg=DarkGray ctermbg=NONE
     highlight Whitespace    gui=NONE guifg=DarkGray guibg=NONE

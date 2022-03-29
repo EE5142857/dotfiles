@@ -32,7 +32,8 @@ set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
-if has('win32') || has('win64') || has('mac')
+" if has('win32') || has('win64') || has('mac')
+if 1
   set clipboard=unnamed
 else
   set clipboard=unnamedplus
