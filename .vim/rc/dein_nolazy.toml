@@ -80,10 +80,6 @@ nmap ga <Plug>(EasyAlign)
 [[plugins]]
 repo = 'machakann/vim-sandwich'
 
-[[plugins]]
-repo = 'edluffy/hologram.nvim'
-if = "has('nvim')"
-
 # --------------------------------------
 # filer
 #
