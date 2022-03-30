@@ -14,12 +14,9 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
-if has('nvim')
-  let g:loaded_netrwPlugin = 1
-else
-  let g:netrw_dirhistmax = 1
-  let g:netrw_home = '~/.vim'
-endif
+let g:loaded_netrwPlugin = 1
+let g:netrw_dirhistmax = 1
+let g:netrw_home = '~/.vim'
 let g:vim_indent_cont = 0
 " }}}
 
