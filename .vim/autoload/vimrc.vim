@@ -31,11 +31,15 @@ function! vimrc#highlight() abort
   " endif
 
   " statusline
-  highlight StatusLine        cterm=NONE ctermfg=Gray ctermbg=Black
-  highlight StatusLine        gui=NONE guifg=Gray guibg=Black
-  highlight StatusLineNC      cterm=NONE ctermfg=DarkGray ctermbg=Black
-  highlight StatusLineNC      gui=NONE guifg=DarkGray guibg=Black
+  highlight StatusLine        cterm=NONE ctermfg=DarkGray ctermbg=Black
+  highlight StatusLine        gui=NONE guifg=DarkGray guibg=Black
+  highlight StatusLineNC      cterm=NONE ctermfg=Gray ctermbg=Black
+  highlight StatusLineNC      gui=NONE guifg=Gray guibg=Black
   if !has('nvim')
+    highlight StatusLine        cterm=NONE ctermfg=Gray ctermbg=Black
+    highlight StatusLine        gui=NONE guifg=Gray guibg=Black
+    highlight StatusLineNC      cterm=NONE ctermfg=DarkGray ctermbg=Black
+    highlight StatusLineNC      gui=NONE guifg=DarkGray guibg=Black
     highlight StatusLineTerm    cterm=NONE ctermfg=Gray ctermbg=Black
     highlight StatusLineTerm    gui=NONE guifg=Gray guibg=Black
     highlight StatusLineTermNC  cterm=NONE ctermfg=DarkGray ctermbg=Black
