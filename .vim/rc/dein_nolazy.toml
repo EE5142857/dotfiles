@@ -10,19 +10,22 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'sainnhe/gruvbox-material'
 hook_source = '''
+" Important!!
+if has('termguicolors')
+  set termguicolors
+endif
+
 " For dark version.
 set background=dark
-
-" For light version.
-" set background=light
 
 " Set contrast.
 " This configuration option should be placed before `colorscheme gruvbox-material`.
 " Available values: 'hard', 'medium'(default), 'soft'
-" let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_background = 'medium'
 
 " For better performance
 let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_disable_italic_comment = 1
 colorscheme gruvbox-material
 '''
 
@@ -170,6 +173,7 @@ repo = 'lambdalisue/gina.vim'
 
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
+on_source = ['denops.vim']
 
 # --------------------------------------
 # Deno
@@ -180,7 +184,7 @@ if = "has('nvim')"
 
 [[plugins]]
 repo = 'vim-denops/denops-helloworld.vim'
-if = "has('nvim')"
+on_source = ['denops.vim']
 
 # --------------------------------------
 # Python
