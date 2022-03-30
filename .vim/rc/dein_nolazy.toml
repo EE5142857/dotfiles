@@ -5,6 +5,44 @@
 repo = 'Shougo/dein.vim'
 
 # --------------------------------------
+# colorscheme
+#
+[[plugins]]
+repo = 'sainnhe/gruvbox-material'
+hook_source = '''
+" For dark version.
+set background=dark
+
+" For light version.
+" set background=light
+
+" Set contrast.
+" This configuration option should be placed before `colorscheme gruvbox-material`.
+" Available values: 'hard', 'medium'(default), 'soft'
+" let g:gruvbox_material_background = 'soft'
+
+" For better performance
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
+'''
+
+[[plugins]]
+repo = 'tomasiser/vim-code-dark'
+if = 0
+hook_source = '''
+set t_Co=256
+set t_ut=
+colorscheme codedark
+'''
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+if = 0
+hook_source = '''
+colorscheme tender
+'''
+
+# --------------------------------------
 # view
 #
 [[plugins]]
@@ -60,7 +98,6 @@ repo = 'lambdalisue/fern-hijack.vim'
 #
 [[plugins]]
 repo = 'kassio/neoterm'
-if = "has('nvim')"
 hook_source = '''
 let g:neoterm_autoscroll = 1
 let g:neoterm_default_mod = 'botright'

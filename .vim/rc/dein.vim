@@ -1,13 +1,16 @@
 if &runtimepath !~# '/dein.vim'
+  let s:dein_dir = expand('~/.cache/dein/')
+
   if has('nvim')
-    let s:dein_dir = expand('~/.cache/nvim/dein')
+    let s:dein_dir .= 'nvim'
   else
-    if has('unix')
-      let s:dein_dir = expand('~/.cache/unix_vim/dein')
-    else
-      let s:dein_dir = expand('~/.cache/vim/dein')
-    endif
+    let s:dein_dir .= 'vim'
   endif
+
+  if has('unix')
+    let s:dein_dir .= '_unix'
+  endif
+
   let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
 
   if !isdirectory(s:dein_repo_dir)
@@ -16,15 +19,18 @@ if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath+=' . s:dein_repo_dir
 endif
 
-let g:dein#install_check_diff = v:true
-let g:dein#install_progress_type = 'floating'
-let g:dein#lazy_rplugins = v:true
+" let g:dein#auto_recache = v:true
 " let g:dein#inline_vimrcs = split(glob("~/.vim/rc/*.vim"), "\n")
+let g:dein#install_check_diff = v:true
+let g:dein#install_message_type = 'echo'
+let g:dein#install_progress_type = 'echo'
+let g:dein#lazy_rplugins = v:true
+let g:dein#types#git#clone_depth = 1
 
 if dein#min#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  let s:rc_dir = substitute(expand('~/.vim/rc'), '\\', '\/', 'g') . '/'
+  let s:rc_dir = expand('~/.vim/rc') . '/'
   call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',      {'lazy': 0})
   call dein#load_toml(s:rc_dir . 'dein_lazy.toml',        {'lazy': 1})
   call dein#load_toml(s:rc_dir . 'dein_lazy_ddc.toml',    {'lazy': 1})
@@ -43,9 +49,6 @@ endif
 " Required
 filetype plugin indent on
 syntax enable
-
-colorscheme desert
-" colorscheme evening
 
 call dein#call_hook('source')
 

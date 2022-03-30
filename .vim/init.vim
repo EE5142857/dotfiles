@@ -65,6 +65,9 @@ set number
 " }}}
 
 " window {{{
+if !has('nvim')
+  set title titlestring=Vim
+endif
 set wildmenu wildmode=list:longest
 set pumheight=10
 if has('nvim')
@@ -98,11 +101,11 @@ endif
 " }}}
 
 " color {{{
-set background=dark
-set t_Co=256
-if exists('&termguicolors')
+if has('termguicolors')
   set termguicolors
 endif
+call vimrc#highlight()
+call vimrc#syntax()
 " }}}
 
 " abbreviation {{{
@@ -143,6 +146,9 @@ augroup MyAutocmd
   autocmd BufEnter * call vimrc#update_register()
   autocmd VimLeavePre * call vimrc#delete_register()
 
+  " autoread
+  autocmd WinEnter * checktime
+
   " local.vim
   " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
   autocmd BufNewFile,BufReadPost,BufEnter * call vimrc#source_local_vimrc(expand('<afile>'))
@@ -152,7 +158,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if has('nvim')
+if 1
   if filereadable(expand('~/.vim/rc/dein.vim'))
     source ~/.vim/rc/dein.vim
   endif
@@ -160,7 +166,8 @@ else
   filetype plugin indent on
   syntax enable
 
-  colorscheme desert
+  colorscheme default
+  " colorscheme desert
   " colorscheme evening
 endif
 " }}}
@@ -193,7 +200,6 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
-nnoremap <Esc><Esc> <Cmd>noh<CR>
 tnoremap <Esc> <C-\><C-n>
 tnoremap <CR> <CR><C-\><C-n>
 

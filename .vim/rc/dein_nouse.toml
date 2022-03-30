@@ -11,17 +11,6 @@ let g:fern#renderer = 'nerdfont'
 repo = 'lambdalisue/nerdfont.vim'
 
 # --------------------------------------
-# colorscheme
-#
-[[plugins]]
-repo = 'tomasiser/vim-code-dark'
-hook_source = '''
-set t_Co=256
-set t_ut=
-colorscheme codedark
-'''
-
-# --------------------------------------
 # statusline
 #
 [[plugins]]

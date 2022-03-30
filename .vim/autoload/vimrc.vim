@@ -16,46 +16,43 @@ endfunction
 
 " --------------------------------------
 " highlight
+" https://www.colordic.org/
 " {{{
 function! vimrc#highlight() abort
-  highlight CursorLine        cterm=underline ctermfg=NONE ctermbg=NONE
-  highlight CursorLine        gui=underline guifg=NONE guibg=NONE
-  highlight Folded            cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight Folded            gui=NONE guifg=DarkGray guibg=NONE
-  highlight EndOfBuffer       cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight EndOfBuffer       gui=NONE guifg=DarkGray guibg=NONE
-  highlight SpecialKey        cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  highlight SpecialKey        gui=NONE guifg=DarkGray guibg=NONE
   highlight SpellBad          cterm=NONE ctermfg=Red ctermbg=NONE
   highlight SpellBad          gui=NONE guifg=Red guibg=NONE
-  if has('nvim')
-    highlight Whitespace        cterm=NONE ctermfg=DarkGray ctermbg=NONE
-    highlight Whitespace        gui=NONE guifg=DarkGray guibg=NONE
-  endif
+  " highlight CursorLine        cterm=underline ctermfg=NONE ctermbg=NONE
+  " highlight CursorLine        gui=underline guifg=NONE guibg=NONE
+  " highlight SpecialKey        cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  " highlight SpecialKey        gui=NONE guifg=DarkGray guibg=NONE
+  " if has('nvim')
+  "   highlight Whitespace        cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  "   highlight Whitespace        gui=NONE guifg=DarkGray guibg=NONE
+  " endif
 
   " statusline
   highlight StatusLine        cterm=NONE ctermfg=Gray ctermbg=Black
   highlight StatusLine        gui=NONE guifg=Gray guibg=Black
-  highlight StatusLineNC      cterm=NONE ctermfg=Gray ctermbg=Black
-  highlight StatusLineNC      gui=NONE guifg=Gray guibg=Black
+  highlight StatusLineNC      cterm=NONE ctermfg=DarkGray ctermbg=Black
+  highlight StatusLineNC      gui=NONE guifg=DarkGray guibg=Black
   if !has('nvim')
     highlight StatusLineTerm    cterm=NONE ctermfg=Gray ctermbg=Black
     highlight StatusLineTerm    gui=NONE guifg=Gray guibg=Black
-    highlight StatusLineTermNC  cterm=NONE ctermfg=Gray ctermbg=Black
-    highlight StatusLineTermNC  gui=NONE guifg=Gray guibg=Black
+    highlight StatusLineTermNC  cterm=NONE ctermfg=DarkGray ctermbg=Black
+    highlight StatusLineTermNC  gui=NONE guifg=DarkGray guibg=Black
   endif
 
   " tabline
   highlight TabLine           cterm=NONE ctermfg=DarkGray ctermbg=Black
   highlight TabLine           gui=NONE guifg=DarkGray guibg=Black
-  highlight TabLineFill       cterm=NONE ctermfg=Gray ctermbg=Black
-  highlight TabLineFill       gui=NONE guifg=Gray guibg=Black
-  highlight TabLineSel        cterm=NONE ctermfg=Black ctermbg=DarkGray
-  highlight TabLineSel        gui=NONE guifg=Black guibg=DarkGray
+  highlight TabLineFill       cterm=NONE ctermfg=White ctermbg=Black
+  highlight TabLineFill       gui=NONE guifg=White guibg=Black
+  highlight TabLineSel        cterm=NONE ctermfg=Black ctermbg=Gray
+  highlight TabLineSel        gui=NONE guifg=Black guibg=#808080 " gray
 
   " accent
-  highlight User1             cterm=NONE ctermfg=White ctermbg=Black
-  highlight User1             gui=NONE guifg=White guibg=Black
+  highlight User1             cterm=NONE ctermfg=Black ctermbg=Gray
+  highlight User1             gui=NONE guifg=Black guibg=#808080 " gray
 endfunction
 " }}}
 
@@ -136,10 +133,8 @@ function! vimrc#tabline() abort
     let s .= '%#TabLineFill#'
   endfor
   let s .= '%#TabLineFill#%T%=%#TabLineFill#'
-  if has('nvim')
-    if gina#component#repo#name() != ''
-      let s .= ' ' . "%{(gina#component#repo#name() . '/' . gina#component#repo#branch())}" . ' '
-    endif
+  if gina#component#repo#name() != ''
+    let s .= ' ' . "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}" . ' '
   endif
   let s .= '  '
   return s
@@ -173,17 +168,18 @@ function! vimrc#statusline() abort
   let l:filename = fnamemodify(@%, ':t')
 
   let l:ret = '%1* ' . l:mode_dict[l:mode] . "%{&paste ? ' | PASTE' : ''}" . ' %*'
-  let l:ret .= '| ' . '%f' . ' '
+  let l:ret .= ' ' . '%f' . ' '
   let l:ret .= '%<'
-  let l:ret .= '| ' . fnamemodify(getcwd(), ':t') . ' '
-  let l:ret .= "%{((&readonly == 1) ? '| RO ' : '')}"
-  let l:ret .= "%{((&modified == 1) ? '| + ' : ((&readonly == 1) ? '| - ' : ''))}"
+  let l:ret .= '| ' . fnamemodify(getcwd(), ':t') . '/ '
+  let l:ret .= "%{&readonly ? '| RO ' : ''}"
+  let l:ret .= "%{&modified ? '| + ' : (&readonly ? '| - ' : '')}"
   let l:ret .= "%="
-  let l:ret .= "%{&fileformat}" . ' '
-  let l:ret .= '| ' . "%{((&fileencoding != '') ? &fileencoding : &encoding)}" . ' '
-  let l:ret .= '| ' . "%{((&filetype != '') ? &filetype : 'no_ft')}" . ' '
+  let l:ret .= ' ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
+  let l:ret .= '| ' . "%{(&fileformat == 'dos') ? 'CRLF' : 'LF'}" . ' '
+  let l:ret .= '| ' . "%{(&fileencoding != '') ? &fileencoding : &encoding}" . ' '
+  let l:ret .= '| ' . "%{(&filetype != '') ? &filetype : 'no_ft'}" . ' '
   let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
-  let l:ret .= '| ' . '%3l:%-2c' . ' '
+  let l:ret .= '| ' . '%3l/%L:%-2c' . ' '
   let l:ret .= '  '
   return ret
 endfunction
