@@ -7,7 +7,6 @@
 
     mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
-    mkdir "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 
     @REM copy
 

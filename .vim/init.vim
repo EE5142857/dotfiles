@@ -78,11 +78,9 @@ set splitright
 " commandline tabline statusline {{{
 set cmdheight=2
 set showtabline=2
-set tabline=%!vimrc#tabline()
 set fillchars=stl:\ ,stlnc:\_
 set laststatus=2
 set noshowmode
-set statusline=%!vimrc#statusline()
 " }}}
 
 " highlight {{{
@@ -101,8 +99,6 @@ endif
 if has('termguicolors')
   set termguicolors
 endif
-call vimrc#highlight()
-call vimrc#syntax()
 " }}}
 
 " abbreviation {{{
@@ -129,7 +125,10 @@ augroup MyAutocmd
     \ setlocal noexpandtab
 
   " highlight
-  autocmd Colorscheme * call vimrc#highlight()
+  autocmd Colorscheme *
+    \ call vimrc#highlight()
+    \|set statusline=%!vimrc#statusline()
+    \|set tabline=%!vimrc#tabline()
 
   " syntax
   autocmd Syntax * call vimrc#syntax()

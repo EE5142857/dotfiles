@@ -49,14 +49,14 @@ function! vimrc#highlight() abort
   " tabline
   highlight TabLine           cterm=NONE ctermfg=DarkGray ctermbg=Black
   highlight TabLine           gui=NONE guifg=DarkGray guibg=Black
-  highlight TabLineFill       cterm=NONE ctermfg=White ctermbg=Black
-  highlight TabLineFill       gui=NONE guifg=White guibg=Black
+  highlight TabLineFill       cterm=NONE ctermfg=DarkGray ctermbg=Black
+  highlight TabLineFill       gui=NONE guifg=DarkGray guibg=Black
   highlight TabLineSel        cterm=NONE ctermfg=Black ctermbg=Gray
-  highlight TabLineSel        gui=NONE guifg=Black guibg=#808080 " gray
+  highlight TabLineSel        gui=NONE guifg=Black guibg=Gray
 
   " accent
   highlight User1             cterm=NONE ctermfg=Black ctermbg=Gray
-  highlight User1             gui=NONE guifg=Black guibg=#808080 " gray
+  highlight User1             gui=NONE guifg=Black guibg=Gray
 endfunction
 " }}}
 
@@ -73,6 +73,9 @@ function! vimrc#syntax() abort
   call matchadd('MyError', '　\|\[ \]')
   call matchadd('MySpecial', '\t\|\s\+$') " [		] 
   call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  " call matchadd('Error', '　\|\[ \]')
+  " call matchadd('Error', '\t\|\s\+$') " [		] 
+  " call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
 endfunction
 " }}}
 
@@ -118,7 +121,7 @@ endfunction
 " https://qiita.com/wadako111/items/755e753677dd72d8036d
 " {{{
 function! vimrc#tabline() abort
-  let s = ''
+  let l:ret = ''
   for i in range(1, tabpagenr('$'))
     let bufnrs = tabpagebuflist(i)
     let bufnr = bufnrs[tabpagewinnr(i) - 1]
@@ -128,27 +131,28 @@ function! vimrc#tabline() abort
     if empty(title)
       let title = '[No Name]'
     endif
-    let s .= '%'.i.'T'
-    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= ((i > 1 ) && (i < tabpagenr())) ? '|' : ''
-    let s .= ' ' . no . ' ' . title
-    let s .= mod
-    let s .= (i > tabpagenr()) ? '|' : ''
-    let s .= '%#TabLineFill#'
+    let l:ret .= '%'.i.'T'
+    let l:ret .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let l:ret .= ((i > 1 ) && (i < tabpagenr())) ? '|' : ''
+    let l:ret .= ' ' . no . ' ' . title
+    let l:ret .= mod
+    let l:ret .= (i > tabpagenr()) ? '|' : ''
+    let l:ret .= '%#TabLineFill#'
   endfor
-  let s .= '%#TabLineFill#%T%=%#TabLineFill#'
-  if gina#component#repo#name() != ''
-    let s .= ' ' . "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}" . ' '
+  let l:ret .= '%#TabLineFill#%T%=%#TabLineFill#'
+  let l:ret .= ' ' . fnamemodify(getcwd(), ':t') . '/ '
+  if has('nvim')
+    if gina#component#repo#name() != ''
+      let l:ret .= '| ' . "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}" . ' '
+    endif
   endif
-  let s .= '  '
-  return s
+  let l:ret .= '  '
+  return l:ret
 endfunction
 " }}}
 
 " --------------------------------------
 " statusline
-" https://wisteriasec.wordpress.com/2018/08/20/vim-statusline%E3%81%AE%E6%95%B4%E3%81%88%E6%96%B9/
-" https://qiita.com/Cj-bc/items/dbe62075474c0e29a777
 " {{{
 " TODO: inactive window statusline
 function! vimrc#statusline() abort
@@ -172,18 +176,19 @@ function! vimrc#statusline() abort
   let l:filename = fnamemodify(@%, ':t')
 
   let l:ret = '%1* ' . l:mode_dict[l:mode] . "%{&paste ? ' | PASTE' : ''}" . ' %*'
+  " let l:ret .= ' ' . '%t' . ' '
   let l:ret .= ' ' . '%f' . ' '
   let l:ret .= '%<'
-  let l:ret .= '| ' . fnamemodify(getcwd(), ':t') . '/ '
   let l:ret .= "%{&readonly ? '| RO ' : ''}"
   let l:ret .= "%{&modified ? '| + ' : (&readonly ? '| - ' : '')}"
   let l:ret .= "%="
-  let l:ret .= ' ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
-  let l:ret .= '| ' . "%{(&fileformat == 'dos') ? 'CRLF' : 'LF'}" . ' '
+  " let l:ret .= ' ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
+  " let l:ret .= ' ' . "%{(&fileformat == 'dos') ? 'CRLF' : 'LF'}" . ' '
+  let l:ret .= ' ' . '%l/%L:%-2c' . ' '
+  let l:ret .= '| ' . "%{&fileformat}" . ' '
   let l:ret .= '| ' . "%{(&fileencoding != '') ? &fileencoding : &encoding}" . ' '
   let l:ret .= '| ' . "%{(&filetype != '') ? &filetype : 'no_ft'}" . ' '
-  let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
-  let l:ret .= '| ' . '%3l/%L:%-2c' . ' '
+  " let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
   let l:ret .= '  '
   return ret
 endfunction
