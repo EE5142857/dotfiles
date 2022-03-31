@@ -14,9 +14,12 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
-let g:loaded_netrwPlugin = 1
-let g:netrw_dirhistmax = 1
-let g:netrw_home = '~/.vim'
+if has('nvim')
+  let g:loaded_netrwPlugin = 1
+else
+  let g:netrw_dirhistmax = 1
+  let g:netrw_home = '~/.vim'
+endif
 let g:vim_indent_cont = 0
 " }}}
 
@@ -124,8 +127,7 @@ augroup MyAutocmd
   autocmd FileType snippet
     \ setlocal noexpandtab
 
-  " highlight & syntax
-  autocmd ColorScheme * call vimrc#highlight()
+  " syntax
   autocmd Syntax * call vimrc#syntax()
 
   " mark
@@ -161,6 +163,10 @@ else
 
   colorscheme desert
   " colorscheme evening
+
+  call vimrc#highlight()
+  set statusline=%!vimrc#statusline()
+  set tabline=%!vimrc#tabline()
 endif
 " }}}
 
