@@ -15,6 +15,9 @@ scoop install postgresql
 scoop install r
 scoop install nodejs
 
+# nvim-treesitter
+scoop install gcc
+
 # solve "scoop checkup" problems
 scoop install innounp
 scoop install dark

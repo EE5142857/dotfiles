@@ -145,6 +145,8 @@ augroup MyAutocmd
   " autoread
   autocmd WinEnter * checktime
 
+  " TextYankPost
+
   " local.vim
   " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
   autocmd BufNewFile,BufReadPost,BufEnter * call vimrc#source_local_vimrc(expand('<afile>'))

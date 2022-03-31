@@ -20,6 +20,7 @@ on_source = ['neosnippet.vim']
 #
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
+if = 0
 on_ft = ['markdown']
 hook_source = '''
 let g:tex_conceal = ""

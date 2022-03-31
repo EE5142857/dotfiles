@@ -8,6 +8,20 @@ repo = 'Shougo/dein.vim'
 # colorscheme
 #
 [[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_add = '''
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "vue", "ruby" },  -- list of language that will be disabled
+  },
+}
+EOF
+'''
+
+[[plugins]]
 repo = 'sainnhe/gruvbox-material'
 hook_source = '''
 " Important!!
@@ -185,6 +199,20 @@ if = "has('nvim')"
 [[plugins]]
 repo = 'vim-denops/denops-helloworld.vim'
 on_source = ['denops.vim']
+
+# --------------------------------------
+# LSP
+#
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+# https://zenn.dev/mattn/articles/b83f9d94202914
+repo = 'mattn/vim-lsp-settings'
+hook_add = '''
+let g:lsp_settings_global_settings_dir = expand('~/.cache/vim-lsp-settings')
+let g:lsp_settings_servers_dir = expand('~/.cache/vim-lsp-settings/servers')
+'''
 
 # --------------------------------------
 # Python

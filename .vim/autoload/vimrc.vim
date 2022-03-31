@@ -57,6 +57,8 @@ function! vimrc#highlight() abort
   " accent
   highlight User1             cterm=NONE ctermfg=Black ctermbg=Gray
   highlight User1             gui=NONE guifg=Black guibg=Gray
+  highlight User2             cterm=NONE ctermfg=White ctermbg=Black
+  highlight User2             gui=NONE guifg=#F5F5F5 guibg=Black " whitesmoke
 endfunction
 " }}}
 
@@ -68,14 +70,13 @@ function! vimrc#syntax() abort
   highlight MyError     gui=NONE guifg=Black guibg=Red
   highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
   highlight MySpecial   gui=NONE guifg=Red guibg=NONE
-  highlight MyTodo      cterm=NONE ctermfg=Black ctermbg=Yellow
-  highlight MyTodo      gui=NONE guifg=Black guibg=Yellow
+  highlight MyEmphasis  cterm=NONE ctermfg=Black ctermbg=DarkYellow
+  highlight MyEmphasis  gui=NONE guifg=Black guibg=DarkYellow
   call matchadd('MyError', '　\|\[ \]')
   call matchadd('MySpecial', '\t\|\s\+$') " [		] 
-  call matchadd('MyTodo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
-  " call matchadd('Error', '　\|\[ \]')
-  " call matchadd('Error', '\t\|\s\+$') " [		] 
-  " call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:')
+  call matchadd('MyEmphasis', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:\|# %%')
+  " call matchadd('Error', '　\|\[ \]\|\t\|\s\+$') " [		] 
+  " call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:\|# %%')
 endfunction
 " }}}
 
@@ -140,10 +141,11 @@ function! vimrc#tabline() abort
     let l:ret .= '%#TabLineFill#'
   endfor
   let l:ret .= '%#TabLineFill#%T%=%#TabLineFill#'
-  let l:ret .= ' ' . fnamemodify(getcwd(), ':t') . '/ '
   if has('nvim')
     if gina#component#repo#name() != ''
-      let l:ret .= '| ' . "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}" . ' '
+      let l:ret .= '%2* ' . "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}" . ' %*'
+    else
+      let l:ret .= ' ' . fnamemodify(getcwd(), ':t') . ' '
     endif
   endif
   let l:ret .= '  '
@@ -176,8 +178,8 @@ function! vimrc#statusline() abort
   let l:filename = fnamemodify(@%, ':t')
 
   let l:ret = '%1* ' . l:mode_dict[l:mode] . "%{&paste ? ' | PASTE' : ''}" . ' %*'
-  " let l:ret .= ' ' . '%t' . ' '
-  let l:ret .= ' ' . '%f' . ' '
+  let l:ret .= ' ' . '%t' . ' '
+  " let l:ret .= ' ' . '%f' . ' '
   let l:ret .= '%<'
   let l:ret .= "%{&readonly ? '| RO ' : ''}"
   let l:ret .= "%{&modified ? '| + ' : (&readonly ? '| - ' : '')}"
