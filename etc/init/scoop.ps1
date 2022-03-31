@@ -26,7 +26,7 @@ scoop install dark
 scoop bucket add extras
 scoop install deno
 scoop install everything
-scoop install fontforge
+# scoop install fontforge
 scoop install plantuml
 scoop install vscode
 scoop install winmerge
@@ -40,7 +40,7 @@ scoop bucket add java
 scoop install openjdk
 
 # jetbrains
-scoop bucket add jetbrains
+# scoop bucket add jetbrains
 
 # maintenance
 scoop update

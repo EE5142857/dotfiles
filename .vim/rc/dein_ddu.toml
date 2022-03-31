@@ -4,8 +4,6 @@
 [[plugins]]
 # https://zenn.dev/shougo/articles/ddu-vim-beta
 repo = 'Shougo/ddu.vim'
-if = "has('nvim')"
-depends = ['denops.vim']
 on_source = ['denops.vim']
 hook_add = '''
 nnoremap <silent> <Plug>(my-ddu)r

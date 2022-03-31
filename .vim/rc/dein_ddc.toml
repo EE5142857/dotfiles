@@ -4,12 +4,12 @@
 [[plugins]]
 # https://note.com/dd_techblog/n/n97f2b6ca09d8
 repo = 'Shougo/ddc.vim'
-if = "has('nvim')"
 on_event = ['InsertEnter']
 depends = ['denops.vim']
 hook_source = '''
 call ddc#custom#patch_global('sources', [
   \   'around',
+  \   'vsnip',
   \   'vim-lsp',
   \ ])
 call ddc#custom#patch_global('sourceOptions', {
@@ -19,14 +19,17 @@ call ddc#custom#patch_global('sourceOptions', {
   \     'converters': ['converter_remove_overlap'],
   \   },
   \   'around': {
-  \     'mark': 'Around',
+  \     'mark': 'around',
+  \   },
+  \   'vsnip': {
+  \     'mark': 'snip',
   \   },
   \   'vim-lsp': {
   \     'mark': 'LSP',
-  \     'matchers': ['matcher_head'],
   \     'forceCompletionPattern': '\.|:|->|"\w+/*',
   \   },
   \ })
+
 call ddc#enable()
 '''
 
@@ -44,4 +47,21 @@ on_source = ['ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+on_source = ['ddc.vim']
+hook_source = '''
+let g:vsnip_snippet_dir = expand('~/.vim/vsnip')
+imap <expr> <C-k> vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-k>'
+smap <expr> <C-k> vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-k>'
+imap <expr> <C-n> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<C-n>'
+smap <expr> <C-n> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<C-n>'
+imap <expr> <C-p> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-p>'
+smap <expr> <C-p> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-p>'
+'''
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
 on_source = ['ddc.vim']

@@ -1,4 +1,7 @@
 {
+    "[markdown]":  {
+        "editor.quickSuggestions": true
+    },
     "editor.acceptSuggestionOnEnter": "off",
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Ricty Diminished Discord', monospace",

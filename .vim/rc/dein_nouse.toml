@@ -11,6 +11,26 @@ let g:fern#renderer = 'nerdfont'
 repo = 'lambdalisue/nerdfont.vim'
 
 # --------------------------------------
+# colorscheme
+#
+[[plugins]]
+repo = 'tomasiser/vim-code-dark'
+if = 0
+hook_source = '''
+set t_Co=256
+set t_ut=
+colorscheme codedark
+'''
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+if = 0
+hook_source = '''
+colorscheme tender
+'''
+
+
+# --------------------------------------
 # statusline
 #
 [[plugins]]
@@ -79,4 +99,20 @@ endfunction
 function! LLGetPath() abort
   return substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
 endfunction
+'''
+
+# --------------------------------------
+# Markdown
+#
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+if = 0
+on_ft = ['markdown']
+hook_source = '''
+let g:tex_conceal = ""
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_no_default_key_mappings = 1
 '''

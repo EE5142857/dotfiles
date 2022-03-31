@@ -1,32 +1,231 @@
 # --------------------------------------
-# Shougo
+# view
 #
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_ft = ['markdown']
+repo = 'nathanaelkane/vim-indent-guides'
+on_event = ['VimEnter']
 hook_source = '''
-let g:neosnippet#snippets_directory = '~/.vim/snippets'
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
 '''
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-on_source = ['neosnippet.vim']
+repo = 'simeji/winresizer'
+on_event = ['VimEnter']
+hook_source = '''
+let g:winresizer_start_key = "\<C-w>\<C-w>"
+let g:winresizer_horiz_resize = 1
+let g:winresizer_vert_resize = 5
+'''
 
 # --------------------------------------
-# Markdown
+# edit
 #
 [[plugins]]
-repo = 'plasticboy/vim-markdown'
-if = 0
-on_ft = ['markdown']
+repo = 'tyru/caw.vim'
+on_event = ['VimEnter']
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+on_event = ['VimEnter']
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+on_event = ['VimEnter']
 hook_source = '''
-let g:tex_conceal = ""
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_math = 1
-let g:vim_markdown_no_default_key_mappings = 1
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+'''
+
+# --------------------------------------
+# filer
+#
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+on_event = ['VimEnter']
+hook_source = '''
+nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
+let g:fern#default_hidden = 1
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+on_source = ['fern.vim']
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+on_source = ['fern.vim']
+
+# --------------------------------------
+# terminal
+#
+[[plugins]]
+repo = 'kassio/neoterm'
+on_event = ['VimEnter']
+hook_source = '''
+let g:neoterm_autoscroll = 1
+let g:neoterm_default_mod = 'botright'
+let g:neoterm_eof = "\r\n"
+let g:neoterm_size = 10
+
+nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call <SID>split(v:count)<CR>
+nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call <SID>vsplit()<CR>
+
+function! s:split(size) abort
+  let l:tmpmod = g:neoterm_default_mod
+  let l:tmpsize = g:neoterm_size
+  if a:size > 0
+   let l:asize = a:size
+  else
+    let l:asize = l:tmpsize
+  endif
+  let g:neoterm_default_mod = 'botright'
+  let g:neoterm_size = l:asize
+  Tnew
+  let g:neoterm_default_mod = l:tmpmod
+  let g:neoterm_size = l:tmpsize
+endfunction
+
+function! s:vsplit() abort
+  let l:tmpmod = g:neoterm_default_mod
+  let l:tmpsize = g:neoterm_size
+  let g:neoterm_default_mod = 'vertical'
+  let g:neoterm_size = ''
+  Tnew
+  let g:neoterm_default_mod = l:tmpmod
+  let g:neoterm_size = l:tmpsize
+endfunction
+
+nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>execute 'T' "mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".svg && mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".png"<CR>
+nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>execute 'T' "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -svg && java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -png"<CR>
+
+nnoremap <silent> <Plug>(my-terminal)sjp  <Cmd>execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
+nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
+nnoremap <silent> <Plug>(my-terminal)srr  <Nop>
+nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>execute v:count.'T' "pg_ctl start && psql -U postgres -d recipe"<CR>
+
+nnoremap <silent> <Plug>(my-terminal)rjp  <Cmd>call <SID>send_cell()<CR>
+nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>execute v:count.'T' "python" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rrr  <Cmd>execute v:count.'T' "rscript --encoding=utf-8" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>execute v:count.'T' "\i" @a<CR>
+
+function! s:send_cell() abort
+  let l:cell_delimiter = '# %%'
+  let l:line_ini = search(l:cell_delimiter, 'bcnW')
+  let l:line_end = search(l:cell_delimiter, 'nW')
+
+  let l:line_ini = l:line_ini ? l:line_ini + 1 : 1
+  let l:line_end = l:line_end ? l:line_end - 1 : line("$")
+
+  if line_ini <= line_end
+    " execute line_ini .','. line_end 'call TREPLSendSelection()'
+    call neoterm#repl#line(line_ini, line_end)
+  else
+    echo 'sending cell failed'
+  endif
+endfunction
+'''
+
+# --------------------------------------
+# colorscheme
+#
+[[plugins]]
+repo = 'sainnhe/gruvbox-material'
+on_event = ['VimEnter']
+hook_post_source = '''
+" Important!!
+if has('termguicolors')
+  set termguicolors
+endif
+
+" For dark version.
+set background=dark
+
+" Set contrast.
+" This configuration option should be placed before `colorscheme gruvbox-material`.
+" Available values: 'hard', 'medium'(default), 'soft'
+let g:gruvbox_material_background = 'medium'
+
+" For better performance
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_disable_italic_comment = 1
+colorscheme gruvbox-material
+'''
+
+# --------------------------------------
+# highlight
+#
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+on_event = ['VimEnter']
+hook_post_update = 'TSUpdate'
+hook_source = '''
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    disable = {},
+  },
+  indent = {
+    enable = true,
+    disable = {},
+  },
+  ensure_installed = {
+    "bash",
+    "css",
+    "json",
+    "markdown",
+    "python",
+    "r",
+    "toml",
+    "vim",
+  },
+  additional_vim_regex_highlighting = false,
+}
+EOF
+'''
+
+# --------------------------------------
+# LSP
+#
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+on_event = ['VimEnter']
+
+[[plugins]]
+# https://zenn.dev/mattn/articles/b83f9d94202914
+repo = 'mattn/vim-lsp-settings'
+on_source = ['vim-lsp']
+hook_source = '''
+let g:lsp_settings_global_settings_dir = expand('~/.cache/vim-lsp-settings')
+let g:lsp_settings_servers_dir = expand('~/.cache/vim-lsp-settings/servers')
+'''
+
+# --------------------------------------
+# Git
+#
+[[plugins]]
+repo = 'lambdalisue/gin.vim'
+on_source = ['denops.vim']
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+on_event = ['VimEnter']
+hook_post_source = '''
+set statusline=%!vimrc#statusline()
+set tabline=%!vimrc#tabline()
+'''
+
+# --------------------------------------
+# Python
+#
+[[plugins]]
+repo = 'goerz/jupytext.vim'
+if = "has('nvim')"
+on_event = ['VimEnter']
+hook_source = '''
+let g:jupytext_enable = 1
+let g:jupytext_fmt = 'py:percent'
+let g:jupytext_filetype_map = {'py': 'python'}
 '''

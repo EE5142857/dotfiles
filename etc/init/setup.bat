@@ -17,6 +17,8 @@
     call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"^
                                                 "%cd%\vscode\settings.json"
+    call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\snippets"^
+                                                "%cd%\.vim\vsnip"
     call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
 
     @REM git config --global user.name foo

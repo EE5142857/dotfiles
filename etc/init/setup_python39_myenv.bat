@@ -10,7 +10,7 @@
     pip install pip-review
     pip install jupyterlab pynvim jupytext ipykernel
     pip install numpy matplotlib pandas scikit-learn
-    pip install flake8
+    pip install python-lsp-server
 
     echo Done.
     pause

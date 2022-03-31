@@ -19,17 +19,6 @@ endfunction
 " https://www.colordic.org/
 " {{{
 function! vimrc#highlight() abort
-  highlight SpellBad          cterm=NONE ctermfg=Red ctermbg=NONE
-  highlight SpellBad          gui=NONE guifg=Red guibg=NONE
-  " highlight CursorLine        cterm=underline ctermfg=NONE ctermbg=NONE
-  " highlight CursorLine        gui=underline guifg=NONE guibg=NONE
-  " highlight SpecialKey        cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  " highlight SpecialKey        gui=NONE guifg=DarkGray guibg=NONE
-  " if has('nvim')
-  "   highlight Whitespace        cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  "   highlight Whitespace        gui=NONE guifg=DarkGray guibg=NONE
-  " endif
-
   " statusline
   highlight StatusLine        cterm=NONE ctermfg=DarkGray ctermbg=Black
   highlight StatusLine        gui=NONE guifg=DarkGray guibg=Black
@@ -66,6 +55,17 @@ endfunction
 " syntax
 " {{{
 function! vimrc#syntax() abort
+  highlight SpellBad          cterm=underline ctermfg=NONE ctermbg=NONE
+  highlight SpellBad          gui=underline guifg=NONE guibg=NONE
+  " highlight CursorLine        cterm=underline ctermfg=NONE ctermbg=NONE
+  " highlight CursorLine        gui=underline guifg=NONE guibg=NONE
+  " highlight SpecialKey        cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  " highlight SpecialKey        gui=NONE guifg=DarkGray guibg=NONE
+  " if has('nvim')
+  "   highlight Whitespace        cterm=NONE ctermfg=DarkGray ctermbg=NONE
+  "   highlight Whitespace        gui=NONE guifg=DarkGray guibg=NONE
+  " endif
+
   highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
   highlight MyError     gui=NONE guifg=Black guibg=Red
   highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE

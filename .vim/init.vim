@@ -124,13 +124,8 @@ augroup MyAutocmd
   autocmd FileType snippet
     \ setlocal noexpandtab
 
-  " highlight
-  autocmd Colorscheme *
-    \ call vimrc#highlight()
-    \|set statusline=%!vimrc#statusline()
-    \|set tabline=%!vimrc#tabline()
-
-  " syntax
+  " highlight & syntax
+  autocmd ColorScheme * call vimrc#highlight()
   autocmd Syntax * call vimrc#syntax()
 
   " mark
@@ -156,7 +151,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if 1
+if has('nvim')
   if filereadable(expand('~/.vim/rc/dein.vim'))
     source ~/.vim/rc/dein.vim
   endif
@@ -164,8 +159,7 @@ else
   filetype plugin indent on
   syntax enable
 
-  colorscheme default
-  " colorscheme desert
+  colorscheme desert
   " colorscheme evening
 endif
 " }}}
@@ -258,9 +252,9 @@ endif
 " ~/.vim/autoload/vimrc.vim
 " ~/.vim/ftdetect/my_filetype.vim
 " ~/.vim/rc/dein.vim
+" ~/.vim/rc/dein_ddc.toml
+" ~/.vim/rc/dein_ddu.toml
 " ~/.vim/rc/dein_lazy.toml
-" ~/.vim/rc/dein_lazy_ddc.toml
-" ~/.vim/rc/dein_lazy_ddu.toml
 " ~/.vim/rc/dein_nolazy.toml
 " ~/.vim/rc/dein_nouse.toml
 " ~/.vim/rc/local_sample.vim
