@@ -5,7 +5,6 @@
     chcp 65001>nul
     cd /d %~dp0..\..
 
-    mkdir "C:\work"
     mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
 
@@ -21,7 +20,6 @@
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\snippets"^
                                                 "%cd%\.vim\vsnip"
     call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
-    call :my_mklink "%USERPROFILE%\work"        "C:\work"
 
     @REM git config --global user.name foo
     @REM git config --global user.email foo@bar.com

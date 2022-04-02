@@ -280,8 +280,8 @@ nmap <Leader>u <Plug>(my-ddu)
 " --------------------------------------
 " local setting
 " {{{
-if filereadable(expand('~/.vim/rc/local_sample.vim'))
-  source ~/.vim/rc/local_sample.vim
+if filereadable(expand('~/.vim/local_sample.vim'))
+  source ~/.vim/local_sample.vim
 endif
 " }}}
 
@@ -290,6 +290,7 @@ endif
 " {{{
 " ~/.vim/ginit.vim
 " ~/.vim/init.vim
+" ~/.vim/local_sample.vim
 " ~/.vim/autoload
 " ~/.vim/ftdetect
 " ~/.vim/rc

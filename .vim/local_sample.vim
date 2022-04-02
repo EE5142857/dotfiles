@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-" source ~/.vim/rc/local_sample.vim
+" source ~/.vim/local_sample.vim
 
 let s:path_wo_symbol = substitute(fnamemodify(expand('<sfile>:p'), ':p'), '[^a-zA-Z0-9]', '_', 'g')
 if !exists('g:{s:path_wo_symbol}')
