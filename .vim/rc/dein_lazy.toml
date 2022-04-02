@@ -213,10 +213,6 @@ on_source = ['denops.vim']
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
 on_event = ['VimEnter']
-hook_post_source = '''
-set statusline=%!vimrc#statusline()
-set tabline=%!vimrc#tabline()
-'''
 
 # --------------------------------------
 # Python

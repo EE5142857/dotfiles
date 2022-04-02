@@ -137,33 +137,36 @@ endfunction
 " {{{
 function! vimrc#tabline() abort
   let l:ret = ''
-  for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)
-    let bufnr = bufnrs[tabpagewinnr(i) - 1]
-    let no = i
-    let mod = getbufvar(bufnr, '&modified') ? ' + ' : ' '
-    let title = fnamemodify(bufname(bufnr), ':t')
-    if empty(title)
-      let title = '[No Name]'
+  for l:i in range(1, tabpagenr('$'))
+    let l:bufnrs = tabpagebuflist(l:i)
+    let l:bufnr = l:bufnrs[tabpagewinnr(l:i) - 1]
+    let l:no = l:i
+    let l:mod = getbufvar(l:bufnr, '&modified') ? ' + ' : ' '
+    let l:title = fnamemodify(bufname(l:bufnr), ':t')
+    if empty(l:title)
+      let l:title = '[No Name]'
     endif
-    let l:ret .= '%'.i.'T'
-    let l:ret .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let l:ret .= ((i > 1 ) && (i < tabpagenr())) ? '|' : ''
-    let l:ret .= ' ' . no . ' ' . title
-    let l:ret .= mod
-    let l:ret .= (i > tabpagenr()) ? '|' : ''
+    let l:ret .= '%' . l:i . 'T'
+    let l:ret .= '%#' . (l:i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let l:ret .= ((l:i > 1 ) && (l:i < tabpagenr())) ? '|' : ''
+    let l:ret .= ' ' . l:no . ' ' . l:title
+    let l:ret .= l:mod
+    let l:ret .= (l:i > tabpagenr()) ? '|' : ''
     let l:ret .= '%#TabLineFill#'
   endfor
+
   let l:ret .= '%#TabLineFill#%T%=%#TabLineFill#'
   let l:ret .= ' '
-  if has('nvim')
-    if gina#component#repo#name() != ''
-      let l:ret .= "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}"
-    endif
-  else
-    let l:ret .= fnamemodify(getcwd(), ':t')
-  endif
+  let l:ret .= fnamemodify(getcwd(), ':t')
   let l:ret .= ' '
+
+  " https://github.com/vim-jp/issues/issues/1176
+  for l:i in finddir('.git', escape(expand('%:p:h'), ' ') . ';', -1)
+    let l:my_git_repo_name = fnamemodify(l:i, ':p:h:h:t')
+    let l:my_git_branch_name = system('git rev-parse --abbrev-ref HEAD')[0:-2]
+    let l:ret .= '| ' . l:my_git_repo_name . '/' . l:my_git_branch_name . ' '
+  endfor
+
   let l:ret .= '  '
   return l:ret
 endfunction
@@ -195,15 +198,15 @@ function! vimrc#statusline() abort
 
   let l:ret = ' ' . l:mode_dict[l:mode] . "%{&paste ? ' | PASTE' : ''}" . ' '
   let l:ret .= '| ' . '%t' . ' '
-  " let l:ret .= '| ' . '%f' . ' '
   let l:ret .= '%<'
   let l:ret .= "%{&readonly ? '| RO ' : ''}"
   let l:ret .= "%{&modified ? '| + ' : (&readonly ? '| - ' : '')}"
+  let l:ret .= '| ' . '%F' . ' '
   let l:ret .= "%="
-  " let l:ret .= ' ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
-  " let l:ret .= ' ' . "%{(&fileformat == 'dos') ? 'CRLF' : 'LF'}" . ' '
   let l:ret .= ' ' . '%l/%L:%-2c' . ' '
-  let l:ret .= '| ' . "%{&fileformat}" . ' '
+  " let l:ret .= '| ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
+  let l:ret .= '| ' . "%{(&fileformat == 'dos') ? 'CRLF' : 'LF'}" . ' '
+  " let l:ret .= '| ' . "%{&fileformat}" . ' '
   let l:ret .= '| ' . "%{(&fileencoding != '') ? &fileencoding : &encoding}" . ' '
   let l:ret .= '| ' . "%{(&filetype != '') ? &filetype : 'no_ft'}" . ' '
   " let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
@@ -224,7 +227,7 @@ function! vimrc#source_local_vimrc(path) abort
   execute 'lcd' fnamemodify(expand(a:path), ':p:h')
 
   let l:l_vimrc_path = []
-  for l:i in reverse(findfile('local.vim', escape(a:path, ' ') . ';', -1))
+  for l:i in reverse(findfile('local.vim', escape(expand(a:path), ' ') . ';', -1))
     call add(l:l_vimrc_path, fnamemodify(l:i, ':p'))
   endfor
 

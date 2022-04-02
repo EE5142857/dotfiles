@@ -24,6 +24,9 @@ else
   let g:netrw_liststyle = 0
 endif
 let g:vim_indent_cont = 0
+
+let g:my_git_repo_name = ''
+let g:my_git_branch_name = ''
 " }}}
 
 " --------------------------------------
@@ -83,7 +86,9 @@ set splitright
 
 " commandline tabline statusline {{{
 set cmdheight=2
+set tabline=%!vimrc#tabline()
 set showtabline=2
+set statusline=%!vimrc#statusline()
 set fillchars=stl:\ ,stlnc:\_
 set laststatus=2
 set noshowmode
@@ -133,7 +138,9 @@ augroup MyAutocmd
     \ highlight link markdownError Normal
 
   " highlight
-  autocmd ColorScheme * call vimrc#highlight()
+  autocmd ColorScheme *
+    \ call vimrc#highlight()
+    \|call vimrc#syntax()
 
   " syntax
   autocmd Syntax * call vimrc#syntax()
@@ -171,9 +178,6 @@ else
 
   colorscheme desert
   " colorscheme evening
-
-  set statusline=%!vimrc#statusline()
-  set tabline=%!vimrc#tabline()
 endif
 " }}}
 
