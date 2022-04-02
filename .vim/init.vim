@@ -14,7 +14,7 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
-if 0
+if !has('unix')
   let g:loaded_netrwPlugin = 1
 else
   let g:netrw_banner = 0
@@ -256,7 +256,9 @@ nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
 nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
 nnoremap <silent> <Plug>(my-filer)n   <Cmd>edit ~/Desktop/n.md<CR>
-nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
+if has('unix')
+  nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
+endif
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)

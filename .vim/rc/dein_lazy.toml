@@ -20,6 +20,25 @@ let g:winresizer_vert_resize = 5
 '''
 
 # --------------------------------------
+# filer
+#
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+on_event = ['VimEnter']
+hook_source = '''
+nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
+let g:fern#default_hidden = 1
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+on_source = ['fern.vim']
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+on_source = ['fern.vim']
+
+# --------------------------------------
 # edit
 #
 [[plugins]]
