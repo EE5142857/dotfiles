@@ -14,7 +14,6 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     chcp 65001>nul
     cd /d %~dp0
 
-    @REM Remove files/directories.
     call :my_rmdir_del "%USERPROFILE%\.vim"
     call :my_rmdir_del "%USERPROFILE%\vimfiles"
     call :my_rmdir_del "%USERPROFILE%\.vimrc"

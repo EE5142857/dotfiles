@@ -7,10 +7,6 @@ if &runtimepath !~# '/dein.vim'
     let s:dein_dir .= 'vim'
   endif
 
-  if has('unix')
-    let s:dein_dir .= '_unix'
-  endif
-
   let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
 
   if !isdirectory(s:dein_repo_dir)
@@ -34,8 +30,8 @@ if dein#min#load_state(s:dein_dir)
   call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',  {'lazy': 0})
   call dein#load_toml(s:rc_dir . 'dein_lazy.toml',    {'lazy': 1})
   if has('nvim')
-    call dein#load_toml(s:rc_dir . 'dein_ddc.toml',    {'lazy': 1})
-    call dein#load_toml(s:rc_dir . 'dein_ddu.toml',    {'lazy': 1})
+    call dein#load_toml(s:rc_dir . 'dein_ddc.toml',     {'lazy': 1})
+    call dein#load_toml(s:rc_dir . 'dein_ddu.toml',     {'lazy': 1})
   endif
 
   call dein#end()

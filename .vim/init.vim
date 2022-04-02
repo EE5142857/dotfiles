@@ -14,11 +14,14 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
-if has('nvim')
+if !has('unix')
   let g:loaded_netrwPlugin = 1
 else
+  let g:netrw_banner = 0
   let g:netrw_dirhistmax = 1
+  let g:netrw_hide = 0
   let g:netrw_home = '~/.vim'
+  let g:netrw_liststyle = 0
 endif
 let g:vim_indent_cont = 0
 " }}}
@@ -126,6 +129,11 @@ augroup MyAutocmd
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType snippet
     \ setlocal noexpandtab
+  autocmd FileType markdown
+    \ highlight link markdownError Normal
+
+  " highlight
+  autocmd ColorScheme * call vimrc#highlight()
 
   " syntax
   autocmd Syntax * call vimrc#syntax()
@@ -153,7 +161,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if has('nvim')
+if !has('unix')
   if filereadable(expand('~/.vim/rc/dein.vim'))
     source ~/.vim/rc/dein.vim
   endif
@@ -164,7 +172,6 @@ else
   colorscheme desert
   " colorscheme evening
 
-  call vimrc#highlight()
   set statusline=%!vimrc#statusline()
   set tabline=%!vimrc#tabline()
 endif
@@ -185,6 +192,9 @@ endif
 " NOTE: cdo
   " :cdo %s/old/new/g | update
   " :cdo %s/old/new/gc | update
+"NOTE: comment & uncomment
+  " f,e:norm i"
+  " f,e:norm x
 command! -nargs=1 P execute 'let @* = @' . <q-args>
 command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 " }}}
@@ -198,8 +208,20 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
-tnoremap <Esc> <C-\><C-n>
-tnoremap <CR> <CR><C-\><C-n>
+
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <CR> <CR><C-\><C-n>
+else
+  set termwinkey=<C-g>
+  tnoremap <Esc> <C-g>N
+  tnoremap <C-[> <C-g>N
+endif
+
+nnoremap <S-Down> <C-w>1-
+nnoremap <S-Up> <C-w>1+
+nnoremap <S-Right> <C-w>10>
+nnoremap <S-Left> <C-w>10<
 
 let g:mapleader="\<Space>"
 
@@ -234,9 +256,22 @@ nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
 nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
 nnoremap <silent> <Plug>(my-filer)n   <Cmd>edit ~/Desktop/n.md<CR>
+if has('unix')
+  nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
+endif
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
+if has('unix')
+  nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call vimrc#split(v:count)<CR>
+  nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call vimrc#vsplit()<CR>
+  nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>call vimrc#send_cmd("mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".svg && mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".png")<CR>
+  nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>call vimrc#send_cmd("java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -svg && java -jar " . g:my_plantuml_path . fnamemodify(@%, ':p') . " -charset UTF-8 -png"<CR>
+  nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>call vimrc#send_cmd("pg_ctl start && psql -U postgres -d recipe")<CR>
+  nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>call vimrc#send_cmd("python " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)rr   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
+endif
 
 nnoremap <Plug>(my-ddu) <Nop>
 nmap <Leader>u <Plug>(my-ddu)
@@ -255,16 +290,10 @@ endif
 " {{{
 " ~/.vim/ginit.vim
 " ~/.vim/init.vim
-" ~/.vim/autoload/vimrc.vim
-" ~/.vim/ftdetect/my_filetype.vim
-" ~/.vim/rc/dein.vim
-" ~/.vim/rc/dein_ddc.toml
-" ~/.vim/rc/dein_ddu.toml
-" ~/.vim/rc/dein_lazy.toml
-" ~/.vim/rc/dein_nolazy.toml
-" ~/.vim/rc/dein_nouse.toml
-" ~/.vim/rc/local_sample.vim
-" ~/.vim/snippets/markdown.snip
+" ~/.vim/autoload
+" ~/.vim/ftdetect
+" ~/.vim/rc
+" ~/.vim/vsnip
 " }}}
 
 " vim: foldmethod=marker nofoldenable

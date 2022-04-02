@@ -1,6 +1,33 @@
 scriptencoding utf-8
 
 " --------------------------------------
+" terminal
+"   NOTE: for Vim
+" {{{
+function! vimrc#split(size) abort
+  if a:size > 0
+    execute a:size 'split'
+  else
+    split
+  endif
+  terminal ++curwin
+  wincmd p
+endfunction
+
+function! vimrc#vsplit() abort
+  vsplit
+  terminal ++curwin
+  wincmd p
+endfunction
+
+function! vimrc#send_cmd(cmd) abort
+  wincmd p
+  call feedkeys(a:cmd . "\<CR>")
+  call feedkeys("\<C-g>p")
+endfunction
+" }}}
+
+" --------------------------------------
 " filetype
 " {{{
 function! vimrc#ft_common() abort
@@ -20,11 +47,12 @@ endfunction
 " {{{
 function! vimrc#highlight() abort
   " statusline
-  highlight StatusLine        cterm=NONE ctermfg=DarkGray ctermbg=Black
-  highlight StatusLine        gui=NONE guifg=DarkGray guibg=Black
-  highlight StatusLineNC      cterm=NONE ctermfg=Gray ctermbg=Black
-  highlight StatusLineNC      gui=NONE guifg=Gray guibg=Black
-  if !has('nvim')
+  if has('nvim')
+    highlight StatusLine        cterm=NONE ctermfg=DarkGray ctermbg=Black
+    highlight StatusLine        gui=NONE guifg=DarkGray guibg=Black
+    highlight StatusLineNC      cterm=NONE ctermfg=Gray ctermbg=Black
+    highlight StatusLineNC      gui=NONE guifg=Gray guibg=Black
+  else
     highlight StatusLine        cterm=NONE ctermfg=Gray ctermbg=Black
     highlight StatusLine        gui=NONE guifg=Gray guibg=Black
     highlight StatusLineNC      cterm=NONE ctermfg=DarkGray ctermbg=Black
@@ -42,12 +70,6 @@ function! vimrc#highlight() abort
   highlight TabLineFill       gui=NONE guifg=DarkGray guibg=Black
   highlight TabLineSel        cterm=NONE ctermfg=Black ctermbg=Gray
   highlight TabLineSel        gui=NONE guifg=Black guibg=Gray
-
-  " accent
-  " highlight User1             cterm=NONE ctermfg=Black ctermbg=Gray
-  " highlight User1             gui=NONE guifg=Black guibg=Gray
-  " highlight User2             cterm=NONE ctermfg=White ctermbg=Black
-  " highlight User2             gui=NONE guifg=#F5F5F5 guibg=Black " whitesmoke
 endfunction
 " }}}
 
@@ -55,17 +77,11 @@ endfunction
 " syntax
 " {{{
 function! vimrc#syntax() abort
-  highlight SpellBad          cterm=underline ctermfg=NONE ctermbg=NONE
-  highlight SpellBad          gui=underline guifg=NONE guibg=NONE
-  " highlight CursorLine        cterm=underline ctermfg=NONE ctermbg=NONE
-  " highlight CursorLine        gui=underline guifg=NONE guibg=NONE
-  " highlight SpecialKey        cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  " highlight SpecialKey        gui=NONE guifg=DarkGray guibg=NONE
-  " if has('nvim')
-  "   highlight Whitespace        cterm=NONE ctermfg=DarkGray ctermbg=NONE
-  "   highlight Whitespace        gui=NONE guifg=DarkGray guibg=NONE
-  " endif
-
+  highlight SpellBad    cterm=underline ctermfg=NONE ctermbg=NONE
+  highlight SpellBad    gui=underline guifg=NONE guibg=NONE
+  if has('unix') && !has('nvim')
+    highlight SpellBad    term=underline guisp=NONE
+  endif
   highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
   highlight MyError     gui=NONE guifg=Black guibg=Red
   highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
@@ -75,8 +91,6 @@ function! vimrc#syntax() abort
   call matchadd('MyError', '　\|\[ \]')
   call matchadd('MySpecial', '\t\|\s\+$') " [		] 
   call matchadd('MyEmphasis', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:\|# %%')
-  " call matchadd('Error', '　\|\[ \]\|\t\|\s\+$') " [		] 
-  " call matchadd('Todo', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:\|# %%')
 endfunction
 " }}}
 
@@ -142,8 +156,10 @@ function! vimrc#tabline() abort
   endfor
   let l:ret .= '%#TabLineFill#%T%=%#TabLineFill#'
   let l:ret .= ' '
-  if has('nvim') && (gina#component#repo#name() != '')
-    let l:ret .= "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}"
+  if has('nvim')
+    if gina#component#repo#name() != ''
+      let l:ret .= "%{gina#component#repo#name() . '/' . gina#component#repo#branch()}"
+    endif
   else
     let l:ret .= fnamemodify(getcwd(), ':t')
   endif

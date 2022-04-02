@@ -102,12 +102,12 @@ nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>execute 'T' "java -jar" g:my_plan
 
 nnoremap <silent> <Plug>(my-terminal)sjp  <Cmd>execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
 nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
-nnoremap <silent> <Plug>(my-terminal)srr  <Nop>
+nnoremap <silent> <Plug>(my-terminal)sr   <Nop>
 nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>execute v:count.'T' "pg_ctl start && psql -U postgres -d recipe"<CR>
 
 nnoremap <silent> <Plug>(my-terminal)rjp  <Cmd>call <SID>send_cell()<CR>
 nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>execute v:count.'T' "python" @a<CR>
-nnoremap <silent> <Plug>(my-terminal)rrr  <Cmd>execute v:count.'T' "rscript --encoding=utf-8" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rr   <Cmd>execute v:count.'T' "rscript --encoding=utf-8" @a<CR>
 nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>execute v:count.'T' "\i" @a<CR>
 
 function! s:send_cell() abort
@@ -158,6 +158,7 @@ colorscheme gruvbox-material
 #
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
+if = "has('nvim')"
 on_event = ['VimEnter']
 hook_post_update = 'TSUpdate'
 hook_source = '''

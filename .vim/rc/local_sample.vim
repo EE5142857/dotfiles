@@ -11,7 +11,7 @@ if !exists('g:{s:path_wo_symbol}')
   " execute 'lcd' l:cwd
 endif
 
-let g:my_plantuml_path = expand('$USERPROFILE\scoop\apps\plantuml\current\plantuml.jar')
+let g:my_plantuml_path = expand('$USERPROFILE\plantuml.jar')
 let g:python3_host_prog = 'C:\work\myenv\Scripts\python.exe'
 let g:jupytext_command = 'C:\work\myenv\Scripts\jupytext.exe'
 
