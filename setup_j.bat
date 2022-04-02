@@ -15,46 +15,33 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     chcp 65001>nul
     cd /d %~dp0
 
-    call :my_rmdir_del "%USERPROFILE%\.vim"
-    call :my_rmdir_del "%USERPROFILE%\.vimrc"
-    call :my_rmdir_del "%USERPROFILE%\_vimrc"
-    call :my_rmdir_del "%USERPROFILE%\.viminfo"
-    call :my_rmdir_del "%USERPROFILE%\_viminfo"
-    call :my_rmdir_del "%APPDATA%\Code\User"
-    call :my_rmdir_del "%USERPROFILE%\.gitignore"
-    call :my_rmdir_del "%cd%\bin"
-    call :my_rmdir_del "%cd%\doc"
-    call :my_rmdir_del "%cd%\etc"
-    call :my_rmdir_del "%cd%\README.md"
-    call :my_rmdir_del "%cd%\setup_j.md"
+    mkdir "%APPDATA%\Code\User"
 
-    REM mkdir "%APPDATA%\Code\User"
-    REM 
-    REM @REM copy
-    REM 
-    REM call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vim\init.vim"
-    REM call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vim\init.vim"
-    REM call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
-    REM call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
-    REM call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
-    REM call :my_mklink "%APPDATA%\Code\User\settings.json"^
-    REM                                             "%cd%\vscode\settings.json"
-    REM call :my_mklink "%APPDATA%\Code\User\snippets"^
-    REM                                             "%cd%\.vim\vsnip"
-    REM call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
-    REM 
-    REM @REM git config --global user.name foo
-    REM @REM git config --global user.email foo@bar.com
-    REM git config --global core.editor vim
-    REM git config --global core.excludesfile ~/.gitignore
-    REM git config --global diff.compactionHeuristic true
-    REM git config --global diff.tool vimdiff
-    REM git config --global difftool.prompt false
-    REM git config --global difftool.vimdiff.path vim
-    REM git config --global merge.conflictstyle diff3
-    REM git config --global merge.tool vimdiff
-    REM git config --global mergetool.prompt false
-    REM git config --global mergetool.vimdiff.path vim
+    @REM copy
+
+    call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
+    call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
+    call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"^
+                                                "%cd%\vscode\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\snippets"^
+                                                "%cd%\.vim\vsnip"
+    call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
+
+    @REM git config --global user.name foo
+    @REM git config --global user.email foo@bar.com
+    git config --global core.editor vim
+    git config --global core.excludesfile ~/.gitignore
+    git config --global diff.compactionHeuristic true
+    git config --global diff.tool vimdiff
+    git config --global difftool.prompt false
+    git config --global difftool.vimdiff.path vim
+    git config --global merge.conflictstyle diff3
+    git config --global merge.tool vimdiff
+    git config --global mergetool.prompt false
+    git config --global mergetool.vimdiff.path vim
 
     echo Done.
     pause
