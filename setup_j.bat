@@ -13,7 +13,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
 
 :main
     chcp 65001>nul
-    cd /d %~dp0..\..
+    cd /d %~dp0
 
     call :my_rmdir_del "%USERPROFILE%\.vim"
     call :my_rmdir_del "%USERPROFILE%\.vimrc"
@@ -26,6 +26,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%cd%\doc"
     call :my_rmdir_del "%cd%\etc"
     call :my_rmdir_del "%cd%\README.md"
+    call :my_rmdir_del "%cd%\setup_j.md"
 
     REM mkdir "%APPDATA%\Code\User"
     REM 
