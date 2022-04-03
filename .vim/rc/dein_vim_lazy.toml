@@ -1,0 +1,18 @@
+# --------------------------------------
+# edit
+#
+[[plugins]]
+repo = 'tyru/caw.vim'
+on_event = ['VimEnter']
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+on_event = ['VimEnter']
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+on_event = ['VimEnter']
+hook_source = '''
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+'''

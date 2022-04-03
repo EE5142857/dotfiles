@@ -20,44 +20,6 @@ let g:winresizer_vert_resize = 5
 '''
 
 # --------------------------------------
-# filer
-#
-[[plugins]]
-repo = 'lambdalisue/fern.vim'
-on_event = ['VimEnter']
-hook_source = '''
-nnoremap <silent> <Plug>(my-filer)t :Fern . -reveal=% -drawer -toggle<CR>
-let g:fern#default_hidden = 1
-'''
-
-[[plugins]]
-repo = 'lambdalisue/fern-git-status.vim'
-on_source = ['fern.vim']
-
-[[plugins]]
-repo = 'lambdalisue/fern-hijack.vim'
-on_source = ['fern.vim']
-
-# --------------------------------------
-# edit
-#
-[[plugins]]
-repo = 'tyru/caw.vim'
-on_event = ['VimEnter']
-
-[[plugins]]
-repo = 'machakann/vim-sandwich'
-on_event = ['VimEnter']
-
-[[plugins]]
-repo = 'junegunn/vim-easy-align'
-on_event = ['VimEnter']
-hook_source = '''
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-'''
-
-# --------------------------------------
 # terminal
 #
 [[plugins]]
@@ -158,7 +120,6 @@ colorscheme gruvbox-material
 #
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-if = "has('nvim')"
 on_event = ['VimEnter']
 hook_post_update = 'TSUpdate'
 hook_source = '''
@@ -188,38 +149,10 @@ EOF
 '''
 
 # --------------------------------------
-# LSP
-#
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-on_event = ['VimEnter']
-
-[[plugins]]
-# https://zenn.dev/mattn/articles/b83f9d94202914
-repo = 'mattn/vim-lsp-settings'
-on_source = ['vim-lsp']
-hook_source = '''
-let g:lsp_settings_global_settings_dir = expand('~/.cache/vim-lsp-settings')
-let g:lsp_settings_servers_dir = expand('~/.cache/vim-lsp-settings/servers')
-'''
-
-# --------------------------------------
-# Git
-#
-[[plugins]]
-repo = 'lambdalisue/gin.vim'
-on_source = ['denops.vim']
-
-[[plugins]]
-repo = 'lambdalisue/gina.vim'
-on_event = ['VimEnter']
-
-# --------------------------------------
 # Python
 #
 [[plugins]]
 repo = 'goerz/jupytext.vim'
-if = "has('nvim')"
 on_event = ['VimEnter']
 hook_source = '''
 let g:jupytext_enable = 1

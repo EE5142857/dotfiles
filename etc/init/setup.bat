@@ -7,6 +7,7 @@
 
     mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
+    mkdir "%APPDATA%\Code\User"
 
     @REM copy
 
@@ -17,7 +18,11 @@
     call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\settings.json"^
                                                 "%cd%\vscode\settings.json"
+    call :my_mklink "%APPDATA%\Code\User\settings.json"^
+                                                "%cd%\vscode\settings.json"
     call :my_mklink "%USERPROFILE%\scoop\persist\vscode\data\user-data\User\snippets"^
+                                                "%cd%\.vim\vsnip"
+    call :my_mklink "%APPDATA%\Code\User\snippets"^
                                                 "%cd%\.vim\vsnip"
     call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
 

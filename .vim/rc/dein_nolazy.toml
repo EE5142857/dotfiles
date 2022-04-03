@@ -1,12 +1,6 @@
-# --------------------------------------
-# Shougo
-#
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# --------------------------------------
-# Deno
-#
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 if = "has('nvim')"

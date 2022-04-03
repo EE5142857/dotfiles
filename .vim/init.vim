@@ -14,7 +14,7 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
-if !has('unix')
+if 0
   let g:loaded_netrwPlugin = 1
 else
   let g:netrw_banner = 0
@@ -24,9 +24,6 @@ else
   let g:netrw_liststyle = 0
 endif
 let g:vim_indent_cont = 0
-
-let g:my_git_repo_name = ''
-let g:my_git_branch_name = ''
 " }}}
 
 " --------------------------------------
@@ -96,6 +93,7 @@ set noshowmode
 
 " highlight {{{
 set cursorline
+set cursorcolumn
 set showmatch matchtime=1 matchpairs+=\<:\>
 " '␣': U+2423 Open Box
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
@@ -132,8 +130,6 @@ augroup MyAutocmd
     \ call vimrc#ft_common()
   autocmd FileType css,mermaid,plantuml,toml,vim
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
-  autocmd FileType snippet
-    \ setlocal noexpandtab
   autocmd FileType markdown
     \ highlight link markdownError Normal
 
@@ -157,7 +153,7 @@ augroup MyAutocmd
   " autoread
   autocmd WinEnter * checktime
 
-  " TextYankPost
+  " TODO: TextYankPost
 
   " local.vim
   " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
@@ -168,16 +164,53 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if !has('unix')
-  if filereadable(expand('~/.vim/rc/dein.vim'))
-    source ~/.vim/rc/dein.vim
+if 1
+  let s:dein_dir = expand('~/.cache/dein/')
+  let s:dein_dir .= has('unix') ? 'unix_' : ''
+  let s:dein_dir .= has('nvim') ? 'nvim' : 'vim'
+  if &runtimepath !~# '/dein.vim'
+    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+    if !isdirectory(s:dein_repo_dir)
+      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+    endif
+    execute 'set runtimepath+=' . s:dein_repo_dir
   endif
-else
-  filetype plugin indent on
-  syntax enable
 
-  colorscheme desert
-  " colorscheme evening
+  " let g:dein#auto_recache = v:true
+  " let g:dein#inline_vimrcs = split(glob("~/.vim/rc/*.vim"), "\n")
+  let g:dein#install_check_diff = v:true
+  let g:dein#install_message_type = 'echo'
+  let g:dein#install_progress_type = 'echo'
+  let g:dein#lazy_rplugins = v:true
+  let g:dein#types#git#clone_depth = 1
+
+  if dein#min#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+    let s:rc_dir = expand('~/.vim/rc') . '/'
+    call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',      {'lazy': 0})
+    call dein#load_toml(s:rc_dir . 'dein_vim_lazy.toml',    {'lazy': 1})
+    if has('nvim')
+      call dein#load_toml(s:rc_dir . 'dein_nvim_lazy.toml',   {'lazy': 1})
+      call dein#load_toml(s:rc_dir . 'dein_nvim_ddc.toml',    {'lazy': 1})
+      call dein#load_toml(s:rc_dir . 'dein_nvim_ddu.toml',    {'lazy': 1})
+    endif
+    call dein#end()
+    call dein#save_state()
+  endif
+
+  if dein#check_install()
+    call dein#install()
+  endif
+endif
+
+filetype plugin indent on
+syntax enable
+
+colorscheme desert
+" colorscheme evening
+
+if exists("*dein#call_hook")
+  call dein#call_hook('source')
 endif
 " }}}
 
@@ -212,6 +245,8 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
+nnoremap <C-[> <Esc>
+nnoremap <silent> <Esc><Esc> <Cmd>nohlsearch<CR>
 
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
@@ -253,16 +288,14 @@ nmap <Leader>e <Plug>(my-edit)
 nnoremap <silent> <Plug>(my-edit)ec   <Cmd>edit ++encoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)ee   <Cmd>edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)eu   <Cmd>edit ++encoding=utf-8<CR>
-nnoremap <silent> <Plug>(my-edit)i    <Cmd>edit ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)i    <Cmd>tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
-nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
-nnoremap <silent> <Plug>(my-filer)n   <Cmd>edit ~/Desktop/n.md<CR>
-if has('unix')
-  nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
-endif
+nnoremap <silent> <Plug>(my-filer)b   <Cmd>tabedit ~/Desktop/bookmark.md<CR>
+nnoremap <silent> <Plug>(my-filer)n   <Cmd>tabedit ~/Desktop/n.md<CR>
+nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)

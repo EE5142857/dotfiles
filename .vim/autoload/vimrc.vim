@@ -1,6 +1,57 @@
 scriptencoding utf-8
 
 " --------------------------------------
+" filetype
+" {{{
+function! vimrc#ft_common() abort
+  if has('nvim')
+    setlocal formatoptions+=n formatoptions-=ro
+  endif
+  setlocal foldmethod=indent nofoldenable
+  setlocal autoindent smartindent
+  setlocal expandtab
+  setlocal shiftwidth=4 softtabstop=4 tabstop=4
+endfunction
+" }}}
+
+" --------------------------------------
+" mark
+" {{{
+function! vimrc#restore_cursor() abort
+  if (line("'\"") >= 1) && (line("'\"") <= line("$"))
+    execute "normal! g'\""
+  endif
+endfunction
+" }}}
+
+" --------------------------------------
+" register
+" {{{
+function! vimrc#delete_register() abort
+  let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+  for r in regs
+    call setreg(r, [])
+  endfor
+  if has('nvim')
+    wshada!
+  else
+    wviminfo!
+  endif
+endfunction
+
+function! vimrc#update_register() abort
+  " using filename-modifiers
+  if empty(&buftype)
+    let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
+    let @b = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
+    let @c = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
+    let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
+    let @e = fnamemodify(@%, ':t')
+  endif
+endfunction
+" }}}
+
+" --------------------------------------
 " terminal
 "   NOTE: for Vim
 " {{{
@@ -24,20 +75,6 @@ function! vimrc#send_cmd(cmd) abort
   wincmd p
   call feedkeys(a:cmd . "\<CR>")
   call feedkeys("\<C-g>p")
-endfunction
-" }}}
-
-" --------------------------------------
-" filetype
-" {{{
-function! vimrc#ft_common() abort
-  if has('nvim')
-    setlocal formatoptions+=n formatoptions-=ro
-  endif
-  setlocal foldmethod=indent nofoldenable
-  setlocal autoindent smartindent
-  setlocal expandtab
-  setlocal shiftwidth=4 softtabstop=4 tabstop=4
 endfunction
 " }}}
 
@@ -91,43 +128,6 @@ function! vimrc#syntax() abort
   call matchadd('MyError', '　\|\[ \]')
   call matchadd('MySpecial', '\t\|\s\+$') " [		] 
   call matchadd('MyEmphasis', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:\|# %%')
-endfunction
-" }}}
-
-" --------------------------------------
-" mark
-" {{{
-function! vimrc#restore_cursor() abort
-  if (line("'\"") >= 1) && (line("'\"") <= line("$"))
-    execute "normal! g'\""
-  endif
-endfunction
-" }}}
-
-" --------------------------------------
-" register
-" {{{
-function! vimrc#delete_register() abort
-  let regs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
-  for r in regs
-    call setreg(r, [])
-  endfor
-  if has('nvim')
-    wshada!
-  else
-    wviminfo!
-  endif
-endfunction
-
-function! vimrc#update_register() abort
-  " using filename-modifiers
-  if empty(&buftype)
-    let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-    let @b = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
-    let @c = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
-    let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
-    let @e = fnamemodify(@%, ':t')
-  endif
 endfunction
 " }}}
 
