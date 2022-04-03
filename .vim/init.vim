@@ -245,15 +245,13 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
-nnoremap <C-[> <Esc>
-nnoremap <silent> <Esc><Esc> <Cmd>nohlsearch<CR>
+nnoremap <C-[><C-[> <Cmd>nohlsearch<CR>
 
 if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-[> <C-\><C-n>
   tnoremap <CR> <CR><C-\><C-n>
 else
   set termwinkey=<C-g>
-  tnoremap <Esc> <C-g>N
   tnoremap <C-[> <C-g>N
 endif
 
