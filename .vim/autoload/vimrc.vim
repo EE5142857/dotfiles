@@ -161,11 +161,11 @@ function! vimrc#tabline() abort
   let l:ret .= ' '
 
   " https://github.com/vim-jp/issues/issues/1176
-  for l:i in finddir('.git', escape(expand('%:p:h'), ' ') . ';', -1)
-    let l:my_git_repo_name = fnamemodify(l:i, ':p:h:h:t')
-    let l:my_git_branch_name = system('git rev-parse --abbrev-ref HEAD')[0:-2]
+  if substitute(system('git rev-parse --is-inside-work-tree'), '\n', '', 'g') == 'true'
+    let l:my_git_repo_name = fnamemodify(substitute(system('git rev-parse --show-toplevel'), '\n', '', 'g'), ':t')
+    let l:my_git_branch_name = substitute(system('git branch --show-current'), '\n', '', 'g')
     let l:ret .= '| ' . l:my_git_repo_name . '/' . l:my_git_branch_name . ' '
-  endfor
+  endif
 
   let l:ret .= '  '
   return l:ret
