@@ -4,7 +4,7 @@
     chcp 65001>nul
     cd /d %~dp0..\..
 
-    mkdir "USERPROFILE%\.vim\autoload"
+    mkdir "%USERPROFILE%\.vim\autoload"
     mkdir "%USERPROFILE%\.vim\ftdetect"
     mkdir "%APPDATA%\Code\User\snippets"
 
