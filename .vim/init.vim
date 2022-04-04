@@ -266,7 +266,7 @@ nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
-if has('unix')
+if !has('nvim')
   nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call vimrc#split(v:count)<CR>
   nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call vimrc#vsplit()<CR>
   nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>call vimrc#send_cmd("mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".svg && mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".png")<CR>
