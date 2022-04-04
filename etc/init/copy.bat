@@ -4,6 +4,10 @@
     chcp 65001>nul
     cd /d %~dp0..\..
 
+    mkdir "USERPROFILE%\.vim\autoload"
+    mkdir "%USERPROFILE%\.vim\ftdetect"
+    mkdir "%APPDATA%\Code\User\snippets"
+
     copy "%cd%\.vim\init.vim"           "%USERPROFILE%\.vimrc"
     copy "%cd%\.vim\local_sample.vim"   "%USERPROFILE%\.vim\local_sample.vim"
     copy "%cd%\.vim\autoload"           "%USERPROFILE%\.vim\autoload"
