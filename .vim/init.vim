@@ -41,6 +41,8 @@ set nowritebackup
 " edit {{{
 " set binary noeol
 set fileencodings=utf-8,cp932,euc-jp
+set fileformat=dos
+set fileformats=dos,unix,mac
 set hidden
 " set isfname-=|
 set noshellslash
@@ -95,8 +97,7 @@ set noshowmode
 set cursorline
 set cursorcolumn
 set showmatch matchtime=1 matchpairs+=\<:\>
-" '␣': U+2423 Open Box
-set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
+set list listchars=space:\\u2423,tab:>-,trail:~,nbsp:%,extends:\\u00BB,precedes:\\u00AB
 if &diff
   set nospell
 else
@@ -251,6 +252,9 @@ nmap <Leader>e <Plug>(my-edit)
 nnoremap <silent> <Plug>(my-edit)ec   <Cmd>edit ++encoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)ee   <Cmd>edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)eu   <Cmd>edit ++encoding=utf-8<CR>
+nnoremap <silent> <Plug>(my-edit)fd   <Cmd>edit ++fileformat=dos<CR>
+nnoremap <silent> <Plug>(my-edit)fm   <Cmd>edit ++fileformat=mac<CR>
+nnoremap <silent> <Plug>(my-edit)fu   <Cmd>edit ++fileformat=unix<CR>
 nnoremap <silent> <Plug>(my-edit)i    <Cmd>tabedit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 
