@@ -151,7 +151,7 @@ function! vimrc#tabline() abort
     let l:ret .= ((l:i > 1 ) && (l:i < tabpagenr())) ? '|' : ''
     let l:ret .= ' ' . l:no . ' ' . l:title
     let l:ret .= l:mod
-    let l:ret .= (l:i > tabpagenr()) ? '|' : ''
+    let l:ret .= ((l:i > tabpagenr()) && (l:i < tabpagenr('$'))) ? '|' : ''
     let l:ret .= '%#TabLineFill#'
   endfor
 
