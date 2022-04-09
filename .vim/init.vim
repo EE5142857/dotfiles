@@ -18,6 +18,7 @@ if 0
   let g:loaded_netrwPlugin = 1
 else
   let g:netrw_banner = 0
+  let g:netrw_browse_split = 4
   let g:netrw_dirhistmax = 1
   let g:netrw_hide = 0
   let g:netrw_home = '~/.vim'
@@ -129,7 +130,7 @@ augroup MyAutocmd
     \|endif
   autocmd FileType *
     \ call vimrc#ft_common()
-  autocmd FileType css,mermaid,plantuml,toml,vim
+  autocmd FileType css,mermaid,plantuml,sh,toml,vim
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType markdown
     \ highlight link markdownError Normal
