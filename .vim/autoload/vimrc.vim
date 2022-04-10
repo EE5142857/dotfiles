@@ -198,7 +198,7 @@ function! vimrc#statusline() abort
     \ 't': 'TERMINAL',
     \ }
 
-  let l:ret = ' ' . '[' . l:mode_dict[mode()] . "%{&paste ? ' | PASTE' : ''}" . ']' . ' '
+  let l:ret = ' ' . '[' . l:mode_dict[mode()] . "%{&paste ? '|PASTE' : ''}" . ']' . ' '
   let l:ret .= '| ' . '%t' . ' '
   let l:ret .= '%<'
   let l:ret .= '| ' . '%F' . ' '
