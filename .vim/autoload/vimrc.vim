@@ -161,10 +161,16 @@ function! vimrc#tabline() abort
   let l:ret .= fnamemodify(getcwd(), ':t') . '/'
   let l:ret .= ' '
 
-  " https://github.com/vim-jp/issues/issues/1176
-  if substitute(system('git rev-parse --is-inside-work-tree'), '\n', '', 'g') == 'true'
-    let l:my_git_repo_name = fnamemodify(substitute(system('git rev-parse --show-toplevel'), '\n', '', 'g'), ':t')
-    let l:my_git_branch_name = substitute(system('git branch --show-current'), '\n', '', 'g')
+  if has('dos')
+    let l:lf = "\r\n"
+  elseif has('unix')
+    let l:lf = "\n"
+  else
+    let l:lf = "\r"
+  endif
+  if substitute(system('git rev-parse --is-inside-work-tree'), l:lf, '', 'g') == 'true'
+    let l:my_git_repo_name = fnamemodify(substitute(system('git rev-parse --show-toplevel'), l:lf, '', 'g'), ':t')
+    let l:my_git_branch_name = substitute(system('git branch --show-current'), l:lf, '', 'g')
     let l:ret .= '| ' . l:my_git_repo_name . '/' . l:my_git_branch_name . ' '
   endif
 
@@ -192,12 +198,12 @@ function! vimrc#statusline() abort
     \ 't': 'TERMINAL',
     \ }
 
-  let l:ret = ' ' . l:mode_dict[mode()] . "%{&paste ? ' | PASTE' : ''}" . ' '
+  let l:ret = ' ' . '[' . l:mode_dict[mode()] . "%{&paste ? ' | PASTE' : ''}" . ']' . ' '
   let l:ret .= '| ' . '%t' . ' '
   let l:ret .= '%<'
+  let l:ret .= '| ' . '%F' . ' '
   let l:ret .= "%{&readonly ? '| RO ' : ''}"
   let l:ret .= "%{&modified ? '| + ' : (&readonly ? '| - ' : '')}"
-  let l:ret .= '| ' . '%F' . ' '
   let l:ret .= "%="
   let l:ret .= ' ' . '%l/%L:%-2c' . ' '
   " let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
@@ -222,14 +228,26 @@ function! vimrc#source_local_vimrc(path) abort
   " upward compatibility with 'set autochdir'
   execute 'lcd' fnamemodify(expand(a:path), ':p:h')
 
+  " https://github.com/vim-jp/issues/issues/1176
   let l:l_vimrc_path = []
   for l:i in reverse(findfile('local.vim', escape(expand(a:path), ' ') . ';', -1))
     call add(l:l_vimrc_path, fnamemodify(l:i, ':p'))
   endfor
 
+  source ~/.vim/local_sample.vim
   for l:i in l:l_vimrc_path
     execute 'source' l:i
   endfor
+endfunction
+
+function! vimrc#is_first_load() abort
+  let l:dirpath_wo_symbol = substitute(fnamemodify(expand('<sfile>:p:h'), ':p'), '[^a-zA-Z0-9]', '_', 'g')
+  if !exists('g:{l:dirpath_wo_symbol}')
+    let g:{l:dirpath_wo_symbol} = 1
+    return v:true
+  else
+    return v:false
+  endif
 endfunction
 
 function! vimrc#add_path(l_path) abort

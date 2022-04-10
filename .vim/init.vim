@@ -284,14 +284,6 @@ nmap <Leader>u <Plug>(my-ddu)
 " }}}
 
 " --------------------------------------
-" local setting
-" {{{
-if filereadable(expand('~/.vim/local_sample.vim'))
-  source ~/.vim/local_sample.vim
-endif
-" }}}
-
-" --------------------------------------
 " .vim directory layout
 " {{{
 " ~/.vim/ginit.vim
