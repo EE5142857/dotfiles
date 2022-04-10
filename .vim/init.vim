@@ -18,7 +18,7 @@ if 0
   let g:loaded_netrwPlugin = 1
 else
   let g:netrw_banner = 0
-  let g:netrw_browse_split = 4
+  let g:netrw_browse_split = 0
   let g:netrw_dirhistmax = 1
   let g:netrw_hide = 0
   let g:netrw_home = '~/.vim'
@@ -71,10 +71,10 @@ set number
 " }}}
 
 " window {{{
+set wildmenu wildmode=list:longest
 if !has('nvim')
   set title titlestring=Vim
 endif
-set wildmenu wildmode=list:longest
 set pumheight=10
 if has('nvim')
   set pumblend=30
@@ -98,7 +98,8 @@ set noshowmode
 set cursorline
 set cursorcolumn
 set showmatch matchtime=1 matchpairs+=\<:\>
-set list listchars=space:\\u2423,tab:>-,trail:~,nbsp:%,extends:\\u00BB,precedes:\\u00AB
+" space:\\u2423,extends:\\u00BB,precedes:\\u00AB
+set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 if &diff
   set nospell
 else

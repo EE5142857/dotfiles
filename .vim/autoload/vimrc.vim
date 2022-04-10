@@ -42,11 +42,12 @@ endfunction
 function! vimrc#update_register() abort
   " using filename-modifiers
   if empty(&buftype)
-    let @a = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-    let @b = substitute(fnamemodify(@%, ':p:h'), '\\', '\/', 'g')
-    let @c = substitute(fnamemodify(@%, ':p'), '\/', '\\', 'g')
-    let @d = substitute(fnamemodify(@%, ':p:h'), '\/', '\\', 'g')
+    let @a = substitute(fnamemodify(@%, ':p'),    '\\', '\/', 'g')
+    let @b = substitute(fnamemodify(@%, ':p:h'),  '\\', '\/', 'g')
+    let @c = substitute(fnamemodify(@%, ':p'),    '\/', '\\', 'g')
+    let @d = substitute(fnamemodify(@%, ':p:h'),  '\/', '\\', 'g')
     let @e = fnamemodify(@%, ':t')
+    let @f = fnamemodify(@%, ':p:h:t')
   endif
 endfunction
 " }}}
@@ -157,7 +158,7 @@ function! vimrc#tabline() abort
 
   let l:ret .= '%#TabLineFill#%T%=%#TabLineFill#'
   let l:ret .= ' '
-  let l:ret .= fnamemodify(getcwd(), ':t')
+  let l:ret .= fnamemodify(getcwd(), ':t') . '/'
   let l:ret .= ' '
 
   " https://github.com/vim-jp/issues/issues/1176
@@ -191,12 +192,7 @@ function! vimrc#statusline() abort
     \ 't': 'TERMINAL',
     \ }
 
-  let l:mode = mode()
-  let l:path = substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')
-  let l:dirname = fnamemodify(@%, ':p:h:t')
-  let l:filename = fnamemodify(@%, ':t')
-
-  let l:ret = ' ' . l:mode_dict[l:mode] . "%{&paste ? ' | PASTE' : ''}" . ' '
+  let l:ret = ' ' . l:mode_dict[mode()] . "%{&paste ? ' | PASTE' : ''}" . ' '
   let l:ret .= '| ' . '%t' . ' '
   let l:ret .= '%<'
   let l:ret .= "%{&readonly ? '| RO ' : ''}"
@@ -204,12 +200,12 @@ function! vimrc#statusline() abort
   let l:ret .= '| ' . '%F' . ' '
   let l:ret .= "%="
   let l:ret .= ' ' . '%l/%L:%-2c' . ' '
+  " let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
   " let l:ret .= '| ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
-  " let l:ret .= '| ' . "%{(&fileformat == 'dos') ? 'CRLF' : (&fileformat == 'unix') ? 'LF' : (&fileformat == 'mac') ? 'CR' : ''}" . ' '
+  " let l:ret .= '| ' . "%{(&fileformat == 'dos') ? 'CRLF' : ((&fileformat == 'unix') ? 'LF' : ((&fileformat == 'mac') ? 'CR' : ''))}" . ' '
   let l:ret .= '| ' . "%{&fileformat}" . ' '
   let l:ret .= '| ' . "%{(&fileencoding != '') ? &fileencoding : &encoding}" . ' '
-  let l:ret .= '| ' . "%{(&filetype != '') ? &filetype : 'no_ft'}" . ' '
-  " let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
+  let l:ret .= '| ' . "%{(&filetype == '') ? 'no_ft' : &filetype}" . ' '
   let l:ret .= '  '
   return ret
 endfunction
