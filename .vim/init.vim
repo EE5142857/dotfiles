@@ -256,13 +256,13 @@ nnoremap <silent> <Plug>(my-edit)eu   <Cmd>edit ++encoding=utf-8<CR>
 nnoremap <silent> <Plug>(my-edit)fd   <Cmd>edit ++fileformat=dos<CR>
 nnoremap <silent> <Plug>(my-edit)fm   <Cmd>edit ++fileformat=mac<CR>
 nnoremap <silent> <Plug>(my-edit)fu   <Cmd>edit ++fileformat=unix<CR>
-nnoremap <silent> <Plug>(my-edit)i    <Cmd>tabedit ~/.vim/init.vim<CR>
+nnoremap <silent> <Plug>(my-edit)i    <Cmd>edit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
-nnoremap <silent> <Plug>(my-filer)b   <Cmd>tabedit ~/Desktop/bookmark.md<CR>
-nnoremap <silent> <Plug>(my-filer)n   <Cmd>tabedit ~/Desktop/n.md<CR>
+nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
+nnoremap <silent> <Plug>(my-filer)n   <Cmd>edit ~/Desktop/n.md<CR>
 nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>

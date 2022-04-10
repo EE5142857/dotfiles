@@ -5,7 +5,9 @@ if (!(Get-Command * | Where-object { $_.Name -match "scoop" })) {
 
 # main
 scoop install 7zip
-scoop install git
+if (!(Get-Command * | Where-object { $_.Name -match "git" })) {
+    scoop install git
+}
 
 scoop install neovim
 scoop install vim
