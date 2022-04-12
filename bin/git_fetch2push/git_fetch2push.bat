@@ -19,7 +19,6 @@ set ff=%time00:~9,2%
 set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
 
 :main
-    chcp 65001>nul
     cd /d %~dp0
     set cur_dir=%cd%
 

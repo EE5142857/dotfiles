@@ -1,10 +1,10 @@
 @echo off
 
 :main
-    chcp 65001>nul
-    cd /d %~dp0..\..\..
+    cd /d %~dp0..\..\..\..
 
     python39 -m venv myenv
+    copy "%cd%\etc\init\pip.ini" "myenv\pip.ini"
     call myenv\Scripts\activate.bat
     pip install -U pip
     pip install pip-review

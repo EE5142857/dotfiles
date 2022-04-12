@@ -11,7 +11,7 @@
 @REM    PreviewUserPw=0
 
 :main
-    chcp 65001>nul
+    REM chcp 65001>nul
     cd /d %~dp0
 
     for /f "tokens=1,* delims==" %%a in (mylist.txt) do (

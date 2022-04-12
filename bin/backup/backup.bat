@@ -7,7 +7,7 @@
 @REM    ...,...
 
 :main
-    chcp 65001>nul
+    @REM chcp 65001>nul
     cd /d %~dp0
 
     for /f "tokens=1,* delims=," %%i in (mylist.txt) do (
