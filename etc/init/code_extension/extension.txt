@@ -1,4 +1,5 @@
 mechatroner.rainbow-csv
+oderwat.indent-rainbow
 streetsidesoftware.code-spell-checker
 vscodevim.vim
 ybaumes.highlight-trailing-white-spaces
