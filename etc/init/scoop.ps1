@@ -11,7 +11,8 @@ if (!(Get-Command * | Where-object { $_.Name -match "git" })) {
 
 scoop install neovim
 scoop install vim
-scoop install busybox
+# scoop install busybox
+scoop install ripgrep
 
 scoop install postgresql
 scoop install r

@@ -55,7 +55,7 @@ endif
 " }}}
 
 " search {{{
-set grepprg=grep
+set grepprg=rg
 set hlsearch
 set ignorecase
 set incsearch
