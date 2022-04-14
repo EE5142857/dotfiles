@@ -167,7 +167,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if filereadable(expand('~/.vim/rc/dein.vim')) && !has('unix')
+if filereadable(expand('~/.vim/rc/dein.vim'))
   source ~/.vim/rc/dein.vim
 endif
 
