@@ -88,7 +88,7 @@ set splitright
 " }}}
 
 " commandline tabline statusline {{{
-set cmdheight=3
+set cmdheight=2
 set tabline=%!vimrc#tabline()
 set showtabline=2
 set statusline=%!vimrc#statusline()
@@ -140,12 +140,10 @@ augroup MyAutocmd
     \ highlight link markdownError Normal
 
   " highlight
-  autocmd ColorScheme *
-    \ call vimrc#highlight()
-    \|call vimrc#syntax()
+  " autocmd ColorScheme * call vimrc#highlight()
 
   " syntax
-  autocmd Syntax * call vimrc#syntax()
+  autocmd Syntax,BufEnter * call vimrc#syntax()
 
   " mark
   autocmd BufReadPost * call vimrc#restore_cursor()
@@ -269,7 +267,6 @@ nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
 nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/bookmark.md<CR>
-nnoremap <silent> <Plug>(my-filer)n   <Cmd>edit ~/Desktop/n.md<CR>
 nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
