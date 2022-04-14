@@ -1,11 +1,11 @@
 @echo off
 
 :main
-    cd /d %~dp0..\..\..\..
+    cd /d %~dp0..\..\..
 
-    python39 -m venv myenv
-    copy "%cd%\etc\init\pip.ini" "myenv\pip.ini"
-    call myenv\Scripts\activate.bat
+    python39 -m venv ..\myenv
+    copy "%cd%\etc\init\pip.ini" "%cd%\..\myenv\pip.ini"
+    call ..\myenv\Scripts\activate.bat
     pip install -U pip
     pip install pip-review
     pip install jupyterlab pynvim jupytext ipykernel
