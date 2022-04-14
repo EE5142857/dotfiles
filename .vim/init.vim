@@ -167,7 +167,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if filereadable(expand('~/.vim/rc/dein.vim'))
+if filereadable(expand('~/.vim/rc/dein.vim')) && !has('unix')
   source ~/.vim/rc/dein.vim
 endif
 
@@ -254,9 +254,12 @@ nmap <Leader>e <Plug>(my-edit)
 nnoremap <silent> <Plug>(my-edit)ec   <Cmd>edit ++encoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)ee   <Cmd>edit ++encoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)eu   <Cmd>edit ++encoding=utf-8<CR>
-nnoremap <silent> <Plug>(my-edit)fd   <Cmd>edit ++fileformat=dos<CR>
-nnoremap <silent> <Plug>(my-edit)fm   <Cmd>edit ++fileformat=mac<CR>
-nnoremap <silent> <Plug>(my-edit)fu   <Cmd>edit ++fileformat=unix<CR>
+nnoremap <silent> <Plug>(my-edit)fec  <Cmd>setlocal fileencoding=cp932<CR>
+nnoremap <silent> <Plug>(my-edit)fee  <Cmd>setlocal fileencoding=euc-jp<CR>
+nnoremap <silent> <Plug>(my-edit)feu  <Cmd>setlocal fileencoding=utf-8<CR>
+nnoremap <silent> <Plug>(my-edit)ffd  <Cmd>edit ++fileformat=dos<CR>
+nnoremap <silent> <Plug>(my-edit)ffm  <Cmd>edit ++fileformat=mac<CR>
+nnoremap <silent> <Plug>(my-edit)ffu  <Cmd>edit ++fileformat=unix<CR>
 nnoremap <silent> <Plug>(my-edit)i    <Cmd>edit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 
