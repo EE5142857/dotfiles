@@ -88,7 +88,7 @@ set splitright
 " }}}
 
 " commandline tabline statusline {{{
-set cmdheight=2
+set cmdheight=3
 set tabline=%!vimrc#tabline()
 set showtabline=2
 set statusline=%!vimrc#statusline()
