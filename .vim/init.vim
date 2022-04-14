@@ -55,7 +55,10 @@ endif
 " }}}
 
 " search {{{
-set grepprg=rg
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --hidden'
+  set grepformat=%f:%l:%c:%m
+endif
 set hlsearch
 set ignorecase
 set incsearch
