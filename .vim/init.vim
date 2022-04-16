@@ -218,7 +218,6 @@ nnoremap <C-[><C-[> <Cmd>nohlsearch<CR>
 
 if has('nvim')
   tnoremap <C-[> <C-\><C-n>
-  tnoremap <CR> <CR><C-\><C-n>
 else
   set termwinkey=<C-g>
   tnoremap <C-[> <C-g>N
@@ -271,14 +270,16 @@ nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
-if !has('nvim')
+if 0
+  " substitution for neoterm
   nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call vimrc#split(v:count)<CR>
   nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call vimrc#vsplit()<CR>
   nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>call vimrc#send_cmd("mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".svg && mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".png")<CR>
   nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>call vimrc#send_cmd("java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -svg && java -jar " . g:my_plantuml_path . fnamemodify(@%, ':p') . " -charset UTF-8 -png"<CR>
+  nnoremap <silent> <Plug>(my-terminal)srs  <Cmd>call vimrc#send_cmd("r")<CR>
   nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>call vimrc#send_cmd("pg_ctl start && psql -U postgres -d recipe")<CR>
   nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>call vimrc#send_cmd("python " . @a)<CR>
-  nnoremap <silent> <Plug>(my-terminal)rr   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)rrs  <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
   nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
 endif
 
