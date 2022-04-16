@@ -24,7 +24,6 @@ scoop install everything
 scoop install plantuml
 scoop install vscode
 scoop install winmerge
-scoop install googlechrome
 
 # versions
 scoop bucket add versions
