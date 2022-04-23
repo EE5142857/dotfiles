@@ -99,7 +99,6 @@ set noshowmode
 
 " highlight {{{
 set cursorline
-set cursorcolumn
 set showmatch matchtime=1 matchpairs+=\<:\>
 " space:\\u2423,extends:\\u00BB,precedes:\\u00AB
 set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
