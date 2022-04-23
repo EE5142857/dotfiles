@@ -2,6 +2,7 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+# let $DENO_TLS_CA_STORE = system
 repo = 'vim-denops/denops.vim'
 if = "has('nvim')"
 

@@ -9,6 +9,8 @@ scoop install git
 
 scoop install neovim
 scoop install ripgrep
+scoop install r
+scoop install nodejs
 
 # nvim-treesitter
 scoop install gcc
@@ -24,6 +26,7 @@ scoop install everything
 scoop install plantuml
 scoop install vscode
 scoop install winmerge
+scoop install googlechrome
 
 # versions
 scoop bucket add versions

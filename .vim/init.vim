@@ -214,13 +214,16 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
-nnoremap <C-[><C-[> <Cmd>nohlsearch<CR>
+nnoremap <Esc><Esc> <Cmd>nohlsearch<CR>
+
+vnoremap j gj
+vnoremap k gk
 
 if has('nvim')
-  tnoremap <C-[> <C-\><C-n>
+  tnoremap <Esc> <C-\><C-n>
 else
   set termwinkey=<C-g>
-  tnoremap <C-[> <C-g>N
+  tnoremap <Esc> <C-g>N
 endif
 
 nnoremap <S-Down> <C-w>1-
@@ -237,7 +240,7 @@ nnoremap <silent> <Leader>gg  <Cmd>cfirst<CR>
 nnoremap <silent> <Leader>G   <Cmd>clast<CR>
 
 " insert
-inoremap ,date <C-r>=strftime('%Y-%m-%d %a')<CR>
+inoremap ,date <C-r>=strftime('%Y-%m-%d')<CR>
 
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 nnoremap <Plug>(my-switch) <Nop>
