@@ -5,7 +5,7 @@
     cd /d %~dp0
 
     @REM code --list-extensions
-    for /f "tokens=1,* delims=," %%i in (extension.txt) do (
+    for /f %%i in (requirements.txt) do (
         call :code_install_extension "%%i"
     )
 
@@ -16,5 +16,5 @@ exit /b
 @REM :code_install_extension %id%
 :code_install_extension
     call code --install-extension %~1
-    timeout /t 5
+    timeout /t 3
 exit /b
