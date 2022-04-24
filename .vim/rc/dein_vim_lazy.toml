@@ -91,7 +91,7 @@ nnoremap <silent> <Plug>(my-terminal)rjp  <Cmd>call <SID>send_cell()<CR>
 nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>execute v:count.'T' "python" @a<CR>
 nnoremap <silent> <Plug>(my-terminal)rrr  <Cmd>TREPLSendFile<CR>
 nnoremap <silent> <Plug>(my-terminal)rrs  <Cmd>execute v:count.'T' "rscript --encoding=utf-8" @a<CR>
-nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>execute v:count.'T' "\i" @a<CR>
+nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>execute v:count.'T' "\\i" @a<CR>
 
 function! s:send_cell() abort
   let l:cell_delimiter = '# %%'
