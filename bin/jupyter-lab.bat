@@ -1,7 +1,5 @@
 @echo off
 
 :main
-    cd /d C:\work
-    call myenv\Scripts\activate.bat
-    jupyter-lab
+    call C:\work\myenv\Scripts\jupyter-lab.exe
 exit /b
