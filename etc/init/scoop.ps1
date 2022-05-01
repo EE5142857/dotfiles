@@ -16,7 +16,6 @@ scoop install pandoc
 scoop install postgresql
 scoop install r
 scoop install ripgrep
-scoop install vim
 
 # extras
 scoop bucket add extras
