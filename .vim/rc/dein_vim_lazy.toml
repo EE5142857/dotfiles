@@ -78,8 +78,14 @@ function! s:vsplit() abort
   let g:neoterm_size = l:tmpsize
 endfunction
 
-nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>execute 'T' "mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".svg && mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".png"<CR>
-nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>execute 'T' "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -svg && java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -png"<CR>
+nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>execute 'T'
+  \ $USERPROFILE . "\\node_modules\\.bin\\mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".svg"
+  \ "&&"
+  \ $USERPROFILE . "\\node_modules\\.bin\\mmdc -i" fnamemodify(@%, ':t') "-o" fnamemodify(@%, ':t:r') . ".png"<CR>
+nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>execute 'T'
+  \ "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -svg"
+  \ "&&"
+  \ "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -png"<CR>
 
 nnoremap <silent> <Plug>(my-terminal)sjp  <Cmd>execute 'TREPLSetTerm' split(@%, '-')[-1]<CR>
 nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
