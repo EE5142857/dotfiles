@@ -33,10 +33,6 @@ on_event = ['VimEnter']
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
 on_event = ['VimEnter']
-hook_source = '''
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-'''
 
 # --------------------------------------
 # terminal
@@ -91,7 +87,7 @@ nnoremap <silent> <Plug>(my-terminal)sjp  <Cmd>execute 'TREPLSetTerm' split(@%, 
 nnoremap <silent> <Plug>(my-terminal)spy  <Nop>
 nnoremap <silent> <Plug>(my-terminal)srr  <Cmd>execute v:count.'T' "r"<CR>
 nnoremap <silent> <Plug>(my-terminal)srs  <Nop>
-nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>execute v:count.'T' "pg_ctl start && psql -U postgres -d recipe"<CR>
+nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>execute v:count.'T' "pg_ctl restart && psql -U postgres -d recipe"<CR>
 
 nnoremap <silent> <Plug>(my-terminal)rjp  <Cmd>call <SID>send_cell()<CR>
 nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>execute v:count.'T' "python" @a<CR>
@@ -119,24 +115,6 @@ endfunction
 # --------------------------------------
 # colorscheme
 #
-[[plugins]]
-repo = 'tomasiser/vim-code-dark'
-if = 0
-on_event = ['VimEnter']
-hook_source = '''
-set t_Co=256
-set t_ut=
-colorscheme codedark
-'''
-
-[[plugins]]
-repo = 'jacoborus/tender.vim'
-if = 0
-on_event = ['VimEnter']
-hook_source = '''
-colorscheme tender
-'''
-
 [[plugins]]
 repo = 'sainnhe/gruvbox-material'
 on_event = ['VimEnter']
