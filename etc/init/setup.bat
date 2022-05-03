@@ -5,7 +5,6 @@
     cd /d %~dp0..\..
 
     mkdir "%LOCALAPPDATA%\nvim-data"
-    mkdir "%USERPROFILE%\scoop\apps"
     mkdir "%USERPROFILE%\scoop\persist\vscode\data\user-data\User"
     mkdir "%APPDATA%\Code\User"
 
