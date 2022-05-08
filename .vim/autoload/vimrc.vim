@@ -8,7 +8,8 @@ function! vimrc#ft_common() abort
     setlocal formatoptions+=n formatoptions-=ro
   endif
   setlocal foldmethod=indent nofoldenable
-  setlocal autoindent smartindent
+  setlocal autoindent
+  " setlocal smartindent
   setlocal expandtab
   setlocal shiftwidth=4 softtabstop=4 tabstop=4
 endfunction

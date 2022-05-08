@@ -22,11 +22,9 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%USERPROFILE%\_viminfo"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim"
     call :my_rmdir_del "%LOCALAPPDATA%\nvim-data"
-    call :my_rmdir_del "%USERPROFILE%\scoop\persist\vscode"
     call :my_rmdir_del "%APPDATA%\Code\User"
     call :my_rmdir_del "%USERPROFILE%\vscode"
     call :my_rmdir_del "%USERPROFILE%\.gitignore"
-    call :my_rmdir_del "%USERPROFILE%\apps"
 
     echo Done.
     pause

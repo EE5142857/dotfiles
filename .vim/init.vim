@@ -167,7 +167,8 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if filereadable(expand('~/.vim/rc/dein.vim')) && has('nvim')
+" if filereadable(expand('~/.vim/rc/dein.vim')) && !has('unix')
+if filereadable(expand('~/.vim/rc/dein.vim'))
   source ~/.vim/rc/dein.vim
 endif
 
@@ -275,7 +276,21 @@ nmap <Leader>t <Plug>(my-terminal)
 if 0
   nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call vimrc#split(v:count)<CR>
   nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call vimrc#vsplit()<CR>
-  nnoremap <silent> <Plug>(my-terminal)cmd  <Cmd>call vimrc#send_cmd()<CR>
+  nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>call vimrc#send_cmd(
+    \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".svg"
+    \   . " && " .
+    \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".png"
+    \ )<CR>
+  nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>call vimrc#send_cmd(
+    \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -svg"
+    \   . " && " .
+    \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -png"
+    \ )<CR>
+  nnoremap <silent> <Plug>(my-terminal)srr  <Cmd>call vimrc#send_cmd("r")<CR>
+  nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>call vimrc#send_cmd("pg_ctl start && psql -U postgres -d recipe")<CR>
+  nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>call vimrc#send_cmd("python " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)rrs  <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
 endif
 
 nnoremap <Plug>(my-ddu) <Nop>

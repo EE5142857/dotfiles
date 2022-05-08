@@ -25,9 +25,10 @@ let g:dein#types#git#clone_depth = 1
 if dein#min#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
   let s:rc_dir = expand('~/.vim/rc') . '/'
-  call dein#load_toml(s:rc_dir . 'dein_nolazy.toml',      {'lazy': 0})
+  call dein#load_toml(s:rc_dir . 'dein_vim_nolazy.toml',  {'lazy': 0})
   call dein#load_toml(s:rc_dir . 'dein_vim_lazy.toml',    {'lazy': 1})
   if has('nvim')
+    call dein#load_toml(s:rc_dir . 'dein_nvim_nolazy.toml', {'lazy': 0})
     call dein#load_toml(s:rc_dir . 'dein_nvim_lazy.toml',   {'lazy': 1})
     call dein#load_toml(s:rc_dir . 'dein_nvim_ddc.toml',    {'lazy': 1})
     call dein#load_toml(s:rc_dir . 'dein_nvim_ddu.toml',    {'lazy': 1})
