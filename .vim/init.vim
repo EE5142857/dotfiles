@@ -76,7 +76,7 @@ set number
 " window {{{
 set wildmenu wildmode=list:longest
 if !has('nvim')
-  set title titlestring=Vim
+  set title titlestring=VIM
 endif
 set pumheight=10
 if has('nvim')
@@ -167,8 +167,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-" if filereadable(expand('~/.vim/rc/dein.vim')) && !has('unix')
-if filereadable(expand('~/.vim/rc/dein.vim'))
+if filereadable(expand('~/.vim/rc/dein.vim')) && !has('unix')
   source ~/.vim/rc/dein.vim
 endif
 
