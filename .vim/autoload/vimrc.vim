@@ -78,6 +78,21 @@ function! vimrc#send_cmd(cmd) abort
   call feedkeys(a:cmd . "\<CR>")
   call feedkeys("\<C-g>p")
 endfunction
+
+function! vimrc#send_cell() abort
+  let l:cell_delimiter = '# %%'
+  let l:line_ini = search(l:cell_delimiter, 'bcnW')
+  let l:line_end = search(l:cell_delimiter, 'nW')
+
+  let l:line_ini = l:line_ini ? l:line_ini + 1 : 1
+  let l:line_end = l:line_end ? l:line_end - 1 : line("$")
+
+  execute line_ini . ',' . line_end . 'y'
+
+  wincmd p
+  call feedkeys("%paste" . "\<CR>")
+  call feedkeys("\<C-g>p")
+endfunction
 " }}}
 
 " --------------------------------------

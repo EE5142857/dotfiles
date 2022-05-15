@@ -41,16 +41,25 @@ set nowritebackup
 
 " edit {{{
 " set binary noeol
-set fileencodings=utf-8,cp932,euc-jp
-set fileformat=dos
-set fileformats=dos,unix,mac
 set hidden
 " set isfname-=|
-set noshellslash
 set nrformats=
+set nrformats+=unsigned
 set virtualedit=block
 if exists('&completeslash')
   set completeslash=slash
+endif
+
+set fileencodings=utf-8,cp932,euc-jp
+if has('win32') || has('win64')
+  set fileformat=dos
+  set fileformats=dos,unix,mac
+elseif has('unix')
+  set fileformat=unix
+  set fileformats=unix,dos,mac
+else
+  set fileformat=mac
+  set fileformats=mac,unix,dos
 endif
 " }}}
 
@@ -76,7 +85,7 @@ set number
 " window {{{
 set wildmenu wildmode=list:longest
 if !has('nvim')
-  set title titlestring=VIM
+  set title titlestring=Vim
 endif
 set pumheight=10
 if has('nvim')
@@ -92,7 +101,7 @@ set cmdheight=2
 set tabline=%!vimrc#tabline()
 set showtabline=2
 set statusline=%!vimrc#statusline()
-set fillchars=stl:\ ,stlnc:\_
+set fillchars=stl:\ ,stlnc:\_,vert:\|,fold:\-,diff:\-,eob:\~
 set laststatus=2
 set noshowmode
 " }}}
@@ -101,7 +110,11 @@ set noshowmode
 set cursorline
 set showmatch matchtime=1 matchpairs+=\<:\>
 " space:\\u2423,extends:\\u00BB,precedes:\\u00AB
-set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
+if !has('unix')
+  set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
+else
+  set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+end
 if &diff
   set nospell
 else
@@ -213,7 +226,7 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
-nnoremap <Esc><Esc> <Cmd>nohlsearch<CR>
+nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 vnoremap j gj
 vnoremap k gk
@@ -272,24 +285,23 @@ nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
-if 0
+if 1
   nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call vimrc#split(v:count)<CR>
   nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call vimrc#vsplit()<CR>
-  nnoremap <silent> <Plug>(my-terminal)emm  <Cmd>call vimrc#send_cmd(
+  nnoremap <silent> <Plug>(my-terminal)mm   <Cmd>call vimrc#send_cmd(
     \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".svg"
     \   . " && " .
     \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".png"
     \ )<CR>
-  nnoremap <silent> <Plug>(my-terminal)epu  <Cmd>call vimrc#send_cmd(
+  nnoremap <silent> <Plug>(my-terminal)pu   <Cmd>call vimrc#send_cmd(
     \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -svg"
     \   . " && " .
     \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -png"
     \ )<CR>
-  nnoremap <silent> <Plug>(my-terminal)srr  <Cmd>call vimrc#send_cmd("r")<CR>
-  nnoremap <silent> <Plug>(my-terminal)ssq  <Cmd>call vimrc#send_cmd("pg_ctl start && psql -U postgres -d recipe")<CR>
-  nnoremap <silent> <Plug>(my-terminal)rpy  <Cmd>call vimrc#send_cmd("python " . @a)<CR>
-  nnoremap <silent> <Plug>(my-terminal)rrs  <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
-  nnoremap <silent> <Plug>(my-terminal)rsq  <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)ps   <Cmd>call vimrc#send_cmd("python " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)pr   <Cmd>call vimrc#send_cell()<CR>
+  nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
+  nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
 endif
 
 nnoremap <Plug>(my-ddu) <Nop>
