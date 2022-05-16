@@ -1,16 +1,4 @@
 # --------------------------------------
-# colorscheme
-#
-[[plugins]]
-repo = 'sainnhe/gruvbox-material'
-on_event = ['VimEnter']
-hook_post_source = '''
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_disable_italic_comment = 1
-colorscheme gruvbox-material
-'''
-
-# --------------------------------------
 # view
 #
 [[plugins]]
