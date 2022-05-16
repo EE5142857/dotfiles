@@ -150,6 +150,7 @@ augroup MyAutocmd
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType markdown
     \ highlight link markdownError Normal
+    \|highlight link markdownItalic Normal
 
   " highlight
   autocmd ColorScheme * call vimrc#highlight()
