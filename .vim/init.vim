@@ -152,7 +152,7 @@ augroup MyAutocmd
     \ highlight link markdownError Normal
 
   " highlight
-  " autocmd ColorScheme * call vimrc#highlight()
+  autocmd ColorScheme * call vimrc#highlight()
 
   " syntax
   autocmd Syntax,BufEnter * call vimrc#syntax()
