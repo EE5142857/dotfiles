@@ -90,8 +90,9 @@ function! vimrc#send_cell() abort
   execute line_ini . ',' . line_end . 'y'
 
   wincmd p
-  call feedkeys("%paste" . "\<CR>")
-  call feedkeys("\<C-g>p")
+  call feedkeys("%paste", 'x')
+  sleep 100m
+  call feedkeys("\<CR>\<C-g>p", 'x')
 endfunction
 " }}}
 
