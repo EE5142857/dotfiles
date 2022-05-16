@@ -181,13 +181,6 @@ function! vimrc#tabline() abort
   let l:ret .= fnamemodify(getcwd(), ':t') . '/'
   let l:ret .= ' '
 
-  if has('win32') || has('win64')
-    let l:lf = "\r\n"
-  elseif has('unix')
-    let l:lf = "\n"
-  else
-    let l:lf = "\r"
-  endif
   if system('git rev-parse --is-inside-work-tree') =~ 'true'
     let l:my_git_repo_name = fnamemodify(substitute(system('git rev-parse --show-toplevel'), "\n", '', 'g'), ':t')
     let l:my_git_branch_name = substitute(system('git branch --show-current'), "\n", '', 'g')
