@@ -189,8 +189,8 @@ function! vimrc#tabline() abort
     let l:lf = "\r"
   endif
   if system('git rev-parse --is-inside-work-tree') =~ 'true'
-    let l:my_git_repo_name = fnamemodify(substitute(system('git rev-parse --show-toplevel'), l:lf, '', 'g'), ':t')
-    let l:my_git_branch_name = substitute(system('git branch --show-current'), l:lf, '', 'g')
+    let l:my_git_repo_name = fnamemodify(substitute(system('git rev-parse --show-toplevel'), "\n", '', 'g'), ':t')
+    let l:my_git_branch_name = substitute(system('git branch --show-current'), "\n", '', 'g')
     let l:ret .= '| ' . l:my_git_repo_name . '/' . l:my_git_branch_name . ' '
   endif
 
