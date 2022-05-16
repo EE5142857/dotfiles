@@ -9,8 +9,8 @@
 
     @REM copy
 
-    call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vim\init.vim"
-    call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vim\init.vim"
+    call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vimrc"
+    call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vimrc"
     call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
     call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
