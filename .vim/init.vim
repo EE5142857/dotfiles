@@ -315,7 +315,6 @@ nmap <Leader>u <Plug>(my-ddu)
 " ~/.vim/init.vim
 " ~/.vim/local_sample.vim
 " ~/.vim/autoload
-" ~/.vim/ftdetect
 " ~/.vim/rc
 " ~/.vim/vsnip
 " }}}
