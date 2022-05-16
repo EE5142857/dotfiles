@@ -181,7 +181,7 @@ function! vimrc#tabline() abort
   let l:ret .= fnamemodify(getcwd(), ':t') . '/'
   let l:ret .= ' '
 
-  if has('dos')
+  if has('win32') || has('win64')
     let l:lf = "\r\n"
   elseif has('unix')
     let l:lf = "\n"
