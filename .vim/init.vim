@@ -311,7 +311,6 @@ nmap <Leader>u <Plug>(my-ddu)
 " --------------------------------------
 " .vim directory layout
 " {{{
-" ~/.vim/ginit.vim
 " ~/.vim/init.vim
 " ~/.vim/local_sample.vim
 " ~/.vim/autoload
