@@ -4,16 +4,12 @@
 :main
     cd /d %~dp0..\..
 
-    mkdir "%LOCALAPPDATA%\nvim-data"
     mkdir "%APPDATA%\Code\User"
-
-    @REM copy
 
     call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vimrc"
     call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vimrc"
     call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
-    call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
     call :my_mklink "%APPDATA%\Code\User\settings.json"^
                                                 "%cd%\vscode\settings.json"
     call :my_mklink "%APPDATA%\Code\User\snippets"^
@@ -22,6 +18,7 @@
 
     @REM git config --global user.name foo
     @REM git config --global user.email foo@bar.com
+    git config --global core.autocrlf input
     git config --global core.editor vim
     git config --global core.excludesfile ~/.gitignore
     git config --global diff.compactionHeuristic true
