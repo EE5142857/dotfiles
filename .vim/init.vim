@@ -30,9 +30,10 @@ let g:vim_indent_cont = 0
 set autoread
 set clipboard=unnamed
 set nobackup
-set noerrorbells visualbell t_vb=
+set noerrorbells
 set noswapfile
 set noundofile
+set novisualbell
 set nowritebackup
 " }}}
 
@@ -95,10 +96,10 @@ set noshowmode
 " highlight {{{
 set cursorline
 set showmatch matchtime=1 matchpairs+=\<:\>
-" space:\\u2423,extends:\\u00BB,precedes:\\u00AB
 if has('unix')
   set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
 else
+  " space:\\u2423,extends:\\u00BB,precedes:\\u00AB
   set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 end
 if &diff
@@ -260,10 +261,10 @@ nnoremap <silent> <Plug>(my-terminal)pu   <Cmd>call vimrc#send_cmd(
   \   . " && " .
   \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -png"
   \ )<CR>
-nnoremap <silent> <Plug>(my-terminal)ps   <Cmd>call vimrc#send_cmd("python " . @a)<CR>
 nnoremap <silent> <Plug>(my-terminal)pr   <Cmd>call vimrc#send_cell()<CR>
-nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
-nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
+nnoremap <silent> <Plug>(my-terminal)ps   <Cmd>call vimrc#send_cmd("python " . substitute(fnamemodify(@%, ':p'),    '\\', '\/', 'g'))<CR>
+nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . substitute(fnamemodify(@%, ':p'),    '\\', '\/', 'g'))<CR>
+nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>call vimrc#send_cmd("\i " . substitute(fnamemodify(@%, ':p'),    '\\', '\/', 'g'))<CR>
 
 nnoremap <Plug>(my-ddu) <Nop>
 nmap <Leader>u <Plug>(my-ddu)

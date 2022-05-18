@@ -137,17 +137,17 @@ function! vimrc#tabline() abort
     let l:bufnrs = tabpagebuflist(l:i)
     let l:bufnr = l:bufnrs[tabpagewinnr(l:i) - 1]
     let l:no = l:i
-    let l:mod = getbufvar(l:bufnr, '&modified') ? ' + ' : ' '
     let l:title = fnamemodify(bufname(l:bufnr), ':t')
     if empty(l:title)
       let l:title = '[No Name]'
     endif
+    let l:mod = getbufvar(l:bufnr, '&modified') ? '[+]' : ''
+
     let l:ret .= '%' . l:i . 'T'
     let l:ret .= '%#' . (l:i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let l:ret .= ((l:i > 1 ) && (l:i < tabpagenr())) ? '|' : ''
-    let l:ret .= ' ' . l:no . ' ' . l:title
-    let l:ret .= l:mod
-    let l:ret .= ((l:i > tabpagenr()) && (l:i < tabpagenr('$'))) ? '|' : ''
+    let l:ret .= ((l:i > 1 ) && (l:i > tabpagenr())) ? '|' : ''
+    let l:ret .= ' ' .l:no . ' ' . l:title . l:mod . ' '
+    let l:ret .= ((l:i < tabpagenr()) && (l:i < tabpagenr('$'))) ? '|' : ''
     let l:ret .= '%#TabLineFill#'
   endfor
 
@@ -162,7 +162,6 @@ function! vimrc#tabline() abort
     let l:ret .= '| ' . l:my_git_repo_name . '/' . l:my_git_branch_name . ' '
   endif
 
-  let l:ret .= '  '
   return l:ret
 endfunction
 " }}}
@@ -185,20 +184,20 @@ function! vimrc#statusline() abort
     \ 't': 'TERMINAL',
     \ }
 
-  let l:ret = ' ' . '[' . l:mode_dict[mode()] . "%{&paste ? '|PASTE' : ''}" . ']' . ' |'
-  let l:ret .= ' ' . '%t' . ' |'
+  let l:ret = ' ' . '[' . l:mode_dict[mode()] . "%{&paste ? '|PASTE' : ''}" . ']'
+  " let l:ret .= ' ' . '%t'
+  let l:ret .= ' ' . '%F'
+  let l:ret .= "%{&readonly ? '[RO]' : ''}"
+  let l:ret .= "%{&modified ? '[+]' : ''}"
   let l:ret .= '%<'
-  let l:ret .= ' ' . '%F' . ' |'
-  let l:ret .= "%{&readonly ? ' RO |' : ''}"
-  let l:ret .= "%{&modified ? ' + |' : (&readonly ? ' - |' : '')}"
+  " let l:ret .= ' | ' . '%F'
   let l:ret .= "%="
-  let l:ret .= '| ' . '%l/%L:%-2c' . ' '
-  let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
+  let l:ret .= '%l/%L:%-2c' . ' '
+  let l:ret .= '| ' . '%2p' . "%{'\%'}" . ' '
   let l:ret .= '| ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
   let l:ret .= '| ' . "%{&fileformat}" . ' '
   let l:ret .= '| ' . "%{(&fileencoding != '') ? &fileencoding : &encoding}" . ' '
   let l:ret .= '| ' . "%{(&filetype == '') ? 'no_ft' : &filetype}" . ' '
-  let l:ret .= '  '
   return ret
 endfunction
 " }}}
