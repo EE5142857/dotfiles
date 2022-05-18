@@ -5,7 +5,7 @@ if (!(Get-Command * | Where-object {$_.Name -match "scoop"})) {
 
 # main
 scoop install 7zip
-scoop install grep
+scoop install ripgrep
 
 # extras
 scoop bucket add extras

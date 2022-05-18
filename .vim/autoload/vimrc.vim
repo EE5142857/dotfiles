@@ -4,9 +4,6 @@ scriptencoding utf-8
 " filetype
 " {{{
 function! vimrc#ft_common() abort
-  if has('nvim')
-    setlocal formatoptions+=n formatoptions-=ro
-  endif
   setlocal foldmethod=indent nofoldenable
   setlocal autoindent
   " setlocal smartindent
@@ -33,11 +30,7 @@ function! vimrc#delete_register() abort
   for r in regs
     call setreg(r, [])
   endfor
-  if has('nvim')
-    wshada!
-  else
-    wviminfo!
-  endif
+  wviminfo!
 endfunction
 
 function! vimrc#update_register() abort
@@ -48,7 +41,7 @@ function! vimrc#update_register() abort
     let @c = substitute(fnamemodify(@%, ':p'),    '\/', '\\', 'g')
     let @d = substitute(fnamemodify(@%, ':p:h'),  '\/', '\\', 'g')
     let @e = fnamemodify(@%, ':t')
-    let @f = fnamemodify(@%, ':p:h:t')
+    let @f = fnamemodify(@%, ':t:r')
   endif
 endfunction
 " }}}
@@ -102,29 +95,22 @@ endfunction
 " {{{
 function! vimrc#highlight() abort
   " statusline
-  if has('nvim')
-    highlight StatusLine        cterm=NONE ctermfg=DarkGray ctermbg=Black
-    highlight StatusLine        gui=NONE guifg=DarkGray guibg=Black
-    highlight StatusLineNC      cterm=NONE ctermfg=Gray ctermbg=Black
-    highlight StatusLineNC      gui=NONE guifg=Gray guibg=Black
-  else
-    highlight StatusLine        cterm=NONE ctermfg=Gray ctermbg=Black
-    highlight StatusLine        gui=NONE guifg=Gray guibg=Black
-    highlight StatusLineNC      cterm=NONE ctermfg=DarkGray ctermbg=Black
-    highlight StatusLineNC      gui=NONE guifg=DarkGray guibg=Black
-    highlight StatusLineTerm    cterm=NONE ctermfg=Gray ctermbg=Black
-    highlight StatusLineTerm    gui=NONE guifg=Gray guibg=Black
-    highlight StatusLineTermNC  cterm=NONE ctermfg=DarkGray ctermbg=Black
-    highlight StatusLineTermNC  gui=NONE guifg=DarkGray guibg=Black
-  endif
+  highlight StatusLine        term=NONE cterm=NONE ctermfg=Gray ctermbg=Black gui=NONE guifg=Gray guibg=Black
+  highlight StatusLineNC      term=NONE cterm=NONE ctermfg=DarkGray ctermbg=Black gui=NONE guifg=DarkGray guibg=Black
+  highlight StatusLineTerm    term=NONE cterm=NONE ctermfg=Gray ctermbg=Black gui=NONE guifg=Gray guibg=Black
+  highlight StatusLineTermNC  term=NONE cterm=NONE ctermfg=DarkGray ctermbg=Black gui=NONE guifg=DarkGray guibg=Black
 
   " tabline
-  highlight TabLine           cterm=NONE ctermfg=DarkGray ctermbg=Black
-  highlight TabLine           gui=NONE guifg=DarkGray guibg=Black
-  highlight TabLineFill       cterm=NONE ctermfg=DarkGray ctermbg=Black
-  highlight TabLineFill       gui=NONE guifg=DarkGray guibg=Black
-  highlight TabLineSel        cterm=NONE ctermfg=Black ctermbg=Gray
-  highlight TabLineSel        gui=NONE guifg=Black guibg=Gray
+  highlight TabLine           term=NONE cterm=NONE ctermfg=DarkGray ctermbg=Black gui=NONE guifg=DarkGray guibg=Black
+  highlight TabLineFill       term=NONE cterm=NONE ctermfg=DarkGray ctermbg=Black gui=NONE guifg=DarkGray guibg=Black
+  highlight TabLineSel        term=NONE cterm=NONE ctermfg=Black ctermbg=Gray gui=NONE guifg=Black guibg=Gray
+
+  " error
+  highlight Error             term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
+  highlight ErrorMsg          term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
+
+  " spellbad
+  highlight SpellBad          term=NONE cterm=underline ctermfg=NONE ctermbg=NONE gui=underline guifg=NONE guibg=NONE guisp=NONE
 endfunction
 " }}}
 
@@ -132,17 +118,9 @@ endfunction
 " syntax
 " {{{
 function! vimrc#syntax() abort
-  highlight SpellBad    cterm=underline ctermfg=NONE ctermbg=NONE
-  highlight SpellBad    gui=underline guifg=NONE guibg=NONE
-  if has('unix') && !has('nvim')
-    highlight SpellBad    term=underline guisp=NONE
-  endif
-  highlight MyError     cterm=NONE ctermfg=Black ctermbg=Red
-  highlight MyError     gui=NONE guifg=Black guibg=Red
-  highlight MySpecial   cterm=NONE ctermfg=Red ctermbg=NONE
-  highlight MySpecial   gui=NONE guifg=Red guibg=NONE
-  highlight MyEmphasis  cterm=NONE ctermfg=Black ctermbg=DarkYellow
-  highlight MyEmphasis  gui=NONE guifg=Black guibg=DarkYellow
+  highlight MyError     term=NONE cterm=NONE ctermfg=Black ctermbg=Red gui=NONE guifg=Black guibg=Red
+  highlight MySpecial   term=NONE cterm=NONE ctermfg=Red ctermbg=NONE gui=NONE guifg=Red guibg=NONE
+  highlight MyEmphasis  term=NONE cterm=NONE ctermfg=Black ctermbg=DarkYellow gui=NONE guifg=Black guibg=DarkYellow
   call matchadd('MyError', '　\|\[ \]')
   call matchadd('MySpecial', '\t\|\s\+$') " [		] 
   call matchadd('MyEmphasis', 'TODO:\|FIXME:\|DEBUG:\|NOTE:\|WARNING:\|# %%')
@@ -192,7 +170,6 @@ endfunction
 " --------------------------------------
 " statusline
 " {{{
-" TODO: inactive window statusline
 function! vimrc#statusline() abort
   let l:mode_dict = {
     \ 'n': 'NORMAL',

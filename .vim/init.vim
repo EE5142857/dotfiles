@@ -37,7 +37,7 @@ set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
-set visualbell t_vb=
+set noerrorbells visualbell t_vb=
 " }}}
 
 " edit {{{
@@ -66,7 +66,7 @@ endif
 
 " search {{{
 if executable('rg')
-  let &grepprg = 'rg --vimgrep --hidden'
+  let &grepprg = 'rg --vimgrep --no-heading'
   set grepformat=%f:%l:%c:%m
 endif
 set hlsearch
@@ -171,8 +171,6 @@ augroup MyAutocmd
   " autoread
   autocmd WinEnter * checktime
 
-  " TODO: TextYankPost
-
   " local.vim
   " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
   autocmd BufNewFile,BufReadPost,BufEnter * call vimrc#source_local_vimrc(expand('<afile>'))
@@ -188,9 +186,7 @@ endif
 
 filetype plugin indent on
 syntax enable
-
 colorscheme desert
-" colorscheme evening
 
 if exists("*dein#call_hook")
   call dein#call_hook('source')
@@ -200,21 +196,6 @@ endif
 " --------------------------------------
 " command
 " {{{
-" NOTE: grep
-" " :grep -nri word .
-" NOTE: vimgrep
-  " :vimgrep /word/g **/*.*
-" NOTE: argdo
-  " :args **/*.*
-  " :argdo %s/old/new/g | update
-  " :argdo %s/old/new/gc | update
-  " :argdelete *
-" NOTE: cdo
-  " :cdo %s/old/new/g | update
-  " :cdo %s/old/new/gc | update
-"NOTE: comment & uncomment
-  " f,e:norm i"
-  " f,e:norm x
 command! -nargs=1 P execute 'let @* = @' . <q-args>
 command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 " }}}
@@ -287,24 +268,22 @@ nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
 nmap <Leader>t <Plug>(my-terminal)
-if 1
-  nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call vimrc#split(v:count)<CR>
-  nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call vimrc#vsplit()<CR>
-  nnoremap <silent> <Plug>(my-terminal)mm   <Cmd>call vimrc#send_cmd(
-    \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".svg"
-    \   . " && " .
-    \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".png"
-    \ )<CR>
-  nnoremap <silent> <Plug>(my-terminal)pu   <Cmd>call vimrc#send_cmd(
-    \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -svg"
-    \   . " && " .
-    \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -png"
-    \ )<CR>
-  nnoremap <silent> <Plug>(my-terminal)ps   <Cmd>call vimrc#send_cmd("python " . @a)<CR>
-  nnoremap <silent> <Plug>(my-terminal)pr   <Cmd>call vimrc#send_cell()<CR>
-  nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
-  nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
-endif
+nnoremap <silent> <Plug>(my-terminal)oh   <Cmd>call vimrc#split(v:count)<CR>
+nnoremap <silent> <Plug>(my-terminal)ov   <Cmd>call vimrc#vsplit()<CR>
+nnoremap <silent> <Plug>(my-terminal)mm   <Cmd>call vimrc#send_cmd(
+  \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".svg"
+  \   . " && " .
+  \   $USERPROFILE . "\\node_modules\\.bin\\mmdc -i " . fnamemodify(@%, ':t') . " -o " . fnamemodify(@%, ':t:r') . ".png"
+  \ )<CR>
+nnoremap <silent> <Plug>(my-terminal)pu   <Cmd>call vimrc#send_cmd(
+  \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -svg"
+  \   . " && " .
+  \   "java -jar " . g:my_plantuml_path . " " . fnamemodify(@%, ':p') . " -charset UTF-8 -png"
+  \ )<CR>
+nnoremap <silent> <Plug>(my-terminal)ps   <Cmd>call vimrc#send_cmd("python " . @a)<CR>
+nnoremap <silent> <Plug>(my-terminal)pr   <Cmd>call vimrc#send_cell()<CR>
+nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . @a)<CR>
+nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>call vimrc#send_cmd("\i " . @a)<CR>
 
 nnoremap <Plug>(my-ddu) <Nop>
 nmap <Leader>u <Plug>(my-ddu)
