@@ -193,9 +193,8 @@ function! vimrc#statusline() abort
   let l:ret .= "%{&modified ? ' + |' : (&readonly ? ' - |' : '')}"
   let l:ret .= "%="
   let l:ret .= '| ' . '%l/%L:%-2c' . ' '
-  " let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
-  " let l:ret .= '| ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
-  " let l:ret .= '| ' . "%{(&fileformat == 'dos') ? 'CRLF' : ((&fileformat == 'unix') ? 'LF' : ((&fileformat == 'mac') ? 'CR' : ''))}" . ' '
+  let l:ret .= '| ' . '%3p' . "%{'\%'}" . ' '
+  let l:ret .= '| ' . "%{(&expandtab ? 'Spaces:' : 'TabSize:') . &tabstop}" . ' '
   let l:ret .= '| ' . "%{&fileformat}" . ' '
   let l:ret .= '| ' . "%{(&fileencoding != '') ? &fileencoding : &encoding}" . ' '
   let l:ret .= '| ' . "%{(&filetype == '') ? 'no_ft' : &filetype}" . ' '

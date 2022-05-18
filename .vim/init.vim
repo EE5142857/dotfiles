@@ -14,16 +14,12 @@ syntax off
 " --------------------------------------
 " variable
 " {{{
-if 0
-  let g:loaded_netrwPlugin = 1
-else
-  let g:netrw_banner = 0
-  let g:netrw_browse_split = 0
-  let g:netrw_dirhistmax = 1
-  let g:netrw_hide = 0
-  let g:netrw_home = '~/.vim'
-  let g:netrw_liststyle = 0
-endif
+let g:netrw_banner = 0
+let g:netrw_browse_split = 0
+let g:netrw_dirhistmax = 1
+let g:netrw_hide = 0
+let g:netrw_home = '~/.vim'
+let g:netrw_liststyle = 0
 let g:vim_indent_cont = 0
 " }}}
 
@@ -34,10 +30,10 @@ let g:vim_indent_cont = 0
 set autoread
 set clipboard=unnamed
 set nobackup
+set noerrorbells visualbell t_vb=
 set noswapfile
 set noundofile
 set nowritebackup
-set noerrorbells visualbell t_vb=
 " }}}
 
 " edit {{{
@@ -47,20 +43,14 @@ set hidden
 set nrformats=
 set nrformats+=unsigned
 set virtualedit=block
-if exists('&completeslash')
-  set completeslash=slash
-endif
 
 set fileencodings=utf-8,cp932,euc-jp
-if has('win32') || has('win64')
-  set fileformat=dos
-  set fileformats=dos,unix,mac
-elseif has('unix')
+if has('unix')
   set fileformat=unix
   set fileformats=unix,dos,mac
 else
-  set fileformat=mac
-  set fileformats=mac,unix,dos
+  set fileformat=dos
+  set fileformats=dos,unix,mac
 endif
 " }}}
 
@@ -84,17 +74,12 @@ set number
 " }}}
 
 " window {{{
-set wildmenu wildmode=list:longest
-if !has('nvim')
-  set title titlestring=Vim
-endif
-set pumheight=10
-if has('nvim')
-  set pumblend=30
-endif
 set noequalalways
+set pumheight=10
 set splitbelow
 set splitright
+set title titlestring=Vim
+set wildmenu wildmode=list:longest
 " }}}
 
 " commandline tabline statusline {{{
@@ -111,10 +96,10 @@ set noshowmode
 set cursorline
 set showmatch matchtime=1 matchpairs+=\<:\>
 " space:\\u2423,extends:\\u00BB,precedes:\\u00AB
-if !has('unix')
-  set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
-else
+if has('unix')
   set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
+else
+  set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 end
 if &diff
   set nospell
@@ -180,7 +165,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if filereadable(expand('~/.vim/rc/dein.vim')) && !has('unix')
+if filereadable(expand('~/.vim/rc/dein.vim'))
   source ~/.vim/rc/dein.vim
 endif
 
@@ -196,8 +181,8 @@ endif
 " --------------------------------------
 " command
 " {{{
-command! -nargs=1 P execute 'let @* = @' . <q-args>
-command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
+" command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
+command! -nargs=1 C execute 'let @* = @' . <q-args>
 " }}}
 
 " --------------------------------------
@@ -209,22 +194,21 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gf gF
-nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 vnoremap j gj
 vnoremap k gk
 
-if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
-else
-  set termwinkey=<C-g>
-  tnoremap <Esc> <C-g>N
-endif
+set termwinkey=<C-g>
+tnoremap <Esc> <C-g>N
 
 nnoremap <S-Down> <C-w>1-
 nnoremap <S-Up> <C-w>1+
 nnoremap <S-Right> <C-w>10>
 nnoremap <S-Left> <C-w>10<
+
+nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+
+inoremap ,date <C-r>=strftime('%Y-%m-%d')<CR>
 
 let g:mapleader="\<Space>"
 
@@ -233,9 +217,6 @@ nnoremap <silent> <Leader>k   <Cmd>cprevious<CR>
 nnoremap <silent> <Leader>j   <Cmd>cnext<CR>
 nnoremap <silent> <Leader>gg  <Cmd>cfirst<CR>
 nnoremap <silent> <Leader>G   <Cmd>clast<CR>
-
-" insert
-inoremap ,date <C-r>=strftime('%Y-%m-%d')<CR>
 
 " https://lambdalisue.hatenablog.com/entry/2015/12/25/000046
 nnoremap <Plug>(my-switch) <Nop>
@@ -256,7 +237,6 @@ nnoremap <silent> <Plug>(my-edit)fec  <Cmd>setlocal fileencoding=cp932<CR>
 nnoremap <silent> <Plug>(my-edit)fee  <Cmd>setlocal fileencoding=euc-jp<CR>
 nnoremap <silent> <Plug>(my-edit)feu  <Cmd>setlocal fileencoding=utf-8<CR>
 nnoremap <silent> <Plug>(my-edit)ffd  <Cmd>edit ++fileformat=dos<CR>
-nnoremap <silent> <Plug>(my-edit)ffm  <Cmd>edit ++fileformat=mac<CR>
 nnoremap <silent> <Plug>(my-edit)ffu  <Cmd>edit ++fileformat=unix<CR>
 nnoremap <silent> <Plug>(my-edit)i    <Cmd>edit ~/.vim/init.vim<CR>
 nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
