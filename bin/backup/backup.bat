@@ -17,5 +17,5 @@ exit /b
 
 @REM :my_robocopy %source_path% %destination_path%
 :my_robocopy
-    robocopy "%~1" "%~2" /e /r:0 /w:0 /xj
+    robocopy "%~1" "%~2" /e /r:0 /w:0 /xj /xd ".git" ".svn"
 exit /b

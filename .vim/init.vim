@@ -37,6 +37,7 @@ set nobackup
 set noswapfile
 set noundofile
 set nowritebackup
+set visualbell t_vb=
 " }}}
 
 " edit {{{

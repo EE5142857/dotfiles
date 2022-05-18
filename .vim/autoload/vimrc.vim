@@ -164,9 +164,6 @@ function! vimrc#tabline() abort
     if empty(l:title)
       let l:title = '[No Name]'
     endif
-    if strlen(l:title) > 20
-      let l:title = l:title[0:19]
-    endif
     let l:ret .= '%' . l:i . 'T'
     let l:ret .= '%#' . (l:i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
     let l:ret .= ((l:i > 1 ) && (l:i < tabpagenr())) ? '|' : ''
@@ -214,6 +211,7 @@ function! vimrc#statusline() abort
   let l:ret = ' ' . '[' . l:mode_dict[mode()] . "%{&paste ? '|PASTE' : ''}" . ']' . ' |'
   let l:ret .= ' ' . '%t' . ' |'
   let l:ret .= '%<'
+  let l:ret .= ' ' . '%F' . ' |'
   let l:ret .= "%{&readonly ? ' RO |' : ''}"
   let l:ret .= "%{&modified ? ' + |' : (&readonly ? ' - |' : '')}"
   let l:ret .= "%="
