@@ -79,7 +79,7 @@ set noequalalways
 set pumheight=10
 set splitbelow
 set splitright
-set title titlestring=Vim
+" set title titlestring=Vim
 set wildmenu wildmode=list:longest
 " }}}
 
