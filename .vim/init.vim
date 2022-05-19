@@ -96,12 +96,8 @@ set noshowmode
 " highlight {{{
 set cursorline
 set showmatch matchtime=1 matchpairs+=\<:\>
-if has('unix')
-  set list listchars=tab:>-,trail:~,nbsp:%,extends:>,precedes:<
-else
-  " space:\\u2423,extends:\\u00BB,precedes:\\u00AB
-  set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
-end
+" space:\\u2423,extends:\\u00BB,precedes:\\u00AB
+set list listchars=space:␣,tab:>-,trail:~,nbsp:%,extends:»,precedes:«
 if &diff
   set nospell
 else
@@ -166,7 +162,7 @@ augroup END
 " --------------------------------------
 " dein.vim
 " {{{
-if filereadable(expand('~/.vim/rc/dein.vim')) && !has('unix')
+if filereadable(expand('~/.vim/rc/dein.vim'))
   source ~/.vim/rc/dein.vim
 endif
 
