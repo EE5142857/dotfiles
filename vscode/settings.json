@@ -4,7 +4,6 @@
     },
     "breadcrumbs.enabled": false,
     "editor.acceptSuggestionOnEnter": "off",
-    "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'MyricaM M', monospace",
     "editor.fontSize": 18,
     "editor.minimap.enabled": false,
