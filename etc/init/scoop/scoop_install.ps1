@@ -1,5 +1,5 @@
-Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 if (!(Get-Command * | Where-object {$_.Name -match "scoop"})) {
+    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
     iwr -useb get.scoop.sh | iex
 }
 
