@@ -5,12 +5,12 @@ if (!(Get-Command * | Where-object {$_.Name -match "scoop"})) {
 
 # main
 scoop install 7zip
-scoop install deno
+" scoop install deno
 scoop install ripgrep
 
 # extras
 scoop bucket add extras
-scoop install plantuml
+" scoop install plantuml
 
 # maintenance
 scoop update
