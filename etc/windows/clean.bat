@@ -25,6 +25,7 @@ set filename=%yyyy%-%mm%-%dd%T%hh%-%mn%-%ss%-%ff%
     call :my_rmdir_del "%APPDATA%\Code\User"
     call :my_rmdir_del "%USERPROFILE%\.vscode"
     call :my_rmdir_del "%USERPROFILE%\.gitignore"
+    call :my_rmdir_del "%USERPROFILE%\.wslconfig"
 
     echo Done.
     pause
