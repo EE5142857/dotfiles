@@ -1,4 +1,4 @@
-@echo off
+@REM @echo off
 @REM Run as administrator.
 
 :main
@@ -6,31 +6,15 @@
 
     mkdir "%APPDATA%\Code\User"
 
-    call :my_mklink "%USERPROFILE%\.vimrc"      "%cd%\.vimrc"
-    call :my_mklink "%USERPROFILE%\_vimrc"      "%cd%\.vimrc"
-    call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
-    call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
-    call :my_mklink "%LOCALAPPDATA%\nvim"       "%cd%\.vim"
-    call :my_mklink "%APPDATA%\Code\User\settings.json"^
-                                                "%cd%\.vscode\settings.json"
-    call :my_mklink "%APPDATA%\Code\User\snippets"^
-                                                "%cd%\.vim\vsnip"
-    call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
-    call :my_mklink "%USERPROFILE%\.wslconfig"  "%cd%\.wslconfig"
+    mklink      "%USERPROFILE%\.vimrc"              "%cd%\.vimrc"
+    mklink      "%USERPROFILE%\_vimrc"              "%cd%\.vimrc"
+    mklink /d   "%USERPROFILE%\.vim"                "%cd%\.vim"
+    mklink /d   "%USERPROFILE%\vimfiles"            "%cd%\.vim"
+    mklink /d   "%LOCALAPPDATA%\nvim"               "%cd%\.vim"
+    mklink      "%APPDATA%\Code\User\settings.json" "%cd%\.vscode\settings.json"
+    mklink /d   "%APPDATA%\Code\User\snippets"      "%cd%\.vim\vsnip"
+    mklink      "%USERPROFILE%\.gitignore"          "%cd%\.gitignore"
+    mklink      "%USERPROFILE%\.wslconfig"          "%cd%\.wslconfig"
 
-    echo Done.
     pause
-exit /b
-
-@REM :my_mklink %destination_path% %source_path%
-:my_mklink
-    @REM Check if %source_path% is a file or a directory.
-    dir "%~2" | findstr /c:"<DIR>">nul
-    if %ERRORLEVEL% equ 0 (
-        @REM It is a directory.
-        mklink /d "%~1" "%~2"
-    ) else (
-        @REM It is a file.
-        mklink "%~1" "%~2"
-    )
 exit /b

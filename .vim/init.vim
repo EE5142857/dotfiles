@@ -240,7 +240,7 @@ nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
-nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/Desktop/p/bookmark.md<CR>
+nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/work/prj/p/bookmark.md<CR>
 nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
