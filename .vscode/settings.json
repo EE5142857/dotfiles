@@ -12,11 +12,11 @@
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
     "http.proxyStrictSSL": false,
+    "security.workspace.trust.untrustedFiles": "open",
     "window.restoreWindows": "none",
     "workbench.startupEditor": "none",
 
     "vim.leader": "<Space>",
     "vim.useSystemClipboard": true,
-    "vim.vimrc.enable": true,
-    "security.workspace.trust.untrustedFiles": "open"
+    "vim.vimrc.enable": true
 }
