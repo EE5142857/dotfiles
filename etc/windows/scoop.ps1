@@ -19,5 +19,4 @@ scoop update *
 scoop cache rm *
 scoop cleanup *
 scoop checkup
-
 pause

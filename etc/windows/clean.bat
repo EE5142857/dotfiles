@@ -14,8 +14,7 @@
     rmdir /q /s "%LOCALAPPDATA%\nvim-data"
     rmdir /q /s "%APPDATA%\Code\User"
     rmdir /q /s "%USERPROFILE%\.vscode"
-    del /q      "%USERPROFILE%\.wslconfig"
     del /q      "%USERPROFILE%\.gitignore"
-
+    del /q      "%USERPROFILE%\.wslconfig"
     pause
 exit /b
