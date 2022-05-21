@@ -28,13 +28,18 @@ let g:vim_indent_cont = 0
 " {{{
 " system {{{
 set autoread
-set clipboard=unnamed
 set nobackup
 set noerrorbells
 set noswapfile
 set noundofile
 set novisualbell
 set nowritebackup
+
+if has('unix')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
 " }}}
 
 " edit {{{
@@ -88,7 +93,7 @@ set cmdheight=2
 set tabline=%!vimrc#tabline()
 set showtabline=2
 set statusline=%!vimrc#statusline()
-set fillchars=stl:\ ,stlnc:\_,vert:\|,fold:\-,diff:\-,eob:\~
+set fillchars+=stl:\ ,stlnc:\_
 set laststatus=2
 set noshowmode
 " }}}
@@ -157,22 +162,6 @@ augroup MyAutocmd
   " https://vim-jp.org/vim-users-jp/2009/12/27/Hack-112.html
   autocmd BufNewFile,BufReadPost,BufEnter * call vimrc#source_local_vimrc(expand('<afile>'))
 augroup END
-" }}}
-
-" --------------------------------------
-" dein.vim
-" {{{
-if filereadable(expand('~/.vim/rc/dein.vim'))
-  source ~/.vim/rc/dein.vim
-endif
-
-filetype plugin indent on
-syntax enable
-colorscheme desert
-
-if exists("*dein#call_hook")
-  call dein#call_hook('source')
-endif
 " }}}
 
 " --------------------------------------
@@ -262,15 +251,29 @@ nnoremap <silent> <Plug>(my-terminal)ps   <Cmd>call vimrc#send_cmd("python " . s
 nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . substitute(fnamemodify(@%, ':p'),    '\\', '\/', 'g'))<CR>
 nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>call vimrc#send_cmd("\i " . substitute(fnamemodify(@%, ':p'),    '\\', '\/', 'g'))<CR>
 
-nnoremap <Plug>(my-ddu) <Nop>
-nmap <Leader>u <Plug>(my-ddu)
+" nnoremap <Plug>(my-ddu) <Nop>
+" nmap <Leader>u <Plug>(my-ddu)
+
+" --------------------------------------
+" dein.vim
+" {{{
+if filereadable(expand('~/.vim/rc/dein.vim')) && has('unix')
+  source ~/.vim/rc/dein.vim
+endif
+
+filetype plugin indent on
+syntax enable
+colorscheme desert
+
+if exists("*dein#call_hook")
+  call dein#call_hook('source')
+endif
 " }}}
 
 " --------------------------------------
 " .vim directory layout
 " {{{
 " ~/.vim/init.vim
-" ~/.vim/local_sample.vim
 " ~/.vim/autoload
 " ~/.vim/rc
 " ~/.vim/vsnip

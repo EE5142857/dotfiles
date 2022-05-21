@@ -30,7 +30,11 @@ function! vimrc#delete_register() abort
   for r in regs
     call setreg(r, [])
   endfor
-  wviminfo!
+  if has('nvim')
+    wshada!
+  else
+    wviminfo!
+  endif
 endfunction
 
 function! vimrc#update_register() abort
@@ -219,8 +223,8 @@ function! vimrc#source_local_vimrc(path) abort
     call add(l:l_vimrc_path, fnamemodify(l:i, ':p'))
   endfor
 
-  if filereadable(expand('~/.vim/local_sample.vim'))
-    source ~/.vim/local_sample.vim
+  if filereadable(expand('~/.vim/rc/local_sample.vim'))
+    source ~/.vim/rc/local_sample.vim
   endif
   for l:i in l:l_vimrc_path
     execute 'source' l:i
