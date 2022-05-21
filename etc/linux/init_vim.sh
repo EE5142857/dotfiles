@@ -5,5 +5,5 @@ sudo apt update
 sudo apt build-dep vim
 sudo apt install build-essential
 sudo apt install python3-dev
-cd /usr/local/src/
-git clone --depth 1 https://github.com/vim/vim.git
+cd /usr/local/src
+sudo git clone --depth 1 https://github.com/vim/vim.git

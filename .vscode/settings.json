@@ -17,5 +17,6 @@
 
     "vim.leader": "<Space>",
     "vim.useSystemClipboard": true,
-    "vim.vimrc.enable": true
+    "vim.vimrc.enable": true,
+    "security.workspace.trust.untrustedFiles": "open"
 }
