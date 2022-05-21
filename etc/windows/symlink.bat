@@ -11,25 +11,10 @@
     call :my_mklink "%USERPROFILE%\.vim"        "%cd%\.vim"
     call :my_mklink "%USERPROFILE%\vimfiles"    "%cd%\.vim"
     call :my_mklink "%APPDATA%\Code\User\settings.json"^
-                                                "%cd%\vscode\settings.json"
+                                                "%cd%\.vscode\settings.json"
     call :my_mklink "%APPDATA%\Code\User\snippets"^
                                                 "%cd%\.vim\vsnip"
     call :my_mklink "%USERPROFILE%\.gitignore"  "%cd%\.gitignore"
-
-    @REM git config --global user.name foo
-    @REM git config --global user.email foo@bar.com
-    git config --global core.autocrlf input
-    git config --global core.editor vim
-    git config --global core.excludesfile ~/.gitignore
-    git config --global diff.compactionHeuristic true
-    git config --global diff.tool vimdiff
-    git config --global difftool.prompt false
-    git config --global difftool.vimdiff.path vim
-    git config --global http.sslVerify false
-    git config --global merge.conflictstyle diff3
-    git config --global merge.tool vimdiff
-    git config --global mergetool.prompt false
-    git config --global mergetool.vimdiff.path vim
 
     echo Done.
     pause

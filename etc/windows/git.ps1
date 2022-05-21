@@ -1,0 +1,15 @@
+# git config --global user.name foo
+# git config --global user.email foo@bar.com
+git config --global core.autocrlf input
+git config --global core.editor vim
+git config --global core.excludesfile ~/.gitignore
+git config --global diff.compactionHeuristic true
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+git config --global difftool.vimdiff.path vim
+git config --global http.sslVerify false
+git config --global merge.conflictstyle diff3
+git config --global merge.tool vimdiff
+git config --global mergetool.prompt false
+git config --global mergetool.vimdiff.path vim
+pause
