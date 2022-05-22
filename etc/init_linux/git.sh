@@ -1,4 +1,6 @@
 #!/bin/bash
+cd `dirname $0`
+# Git
 # git config --global user.name foo
 # git config --global user.email foo@bar.com
 git config --global core.autocrlf input

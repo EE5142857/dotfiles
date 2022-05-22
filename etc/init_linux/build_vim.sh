@@ -1,7 +1,8 @@
 #!/bin/bash
+cd `dirname $0`
 cd /usr/local/src/vim
 sudo git pull
-cd src
+cd ./src
 sudo make uninstall
 sudo make distclean
 sudo ./configure                    \

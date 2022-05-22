@@ -7,7 +7,7 @@
     del /q      "%USERPROFILE%\_vimrc"
     del /q      "%USERPROFILE%\.viminfo"
     del /q      "%USERPROFILE%\_viminfo"
-    rmdir /q /s "%USERPROFILE%\.cache\dein"
+    rmdir /q /s "%USERPROFILE%\.cache"
     rmdir /q /s "%USERPROFILE%\.vim"
     rmdir /q /s "%USERPROFILE%\vimfiles"
     rmdir /q /s "%LOCALAPPDATA%\nvim"
