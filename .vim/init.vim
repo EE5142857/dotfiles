@@ -278,5 +278,5 @@ endif
 " ~/.vim/rc
 " ~/.vim/vsnip
 " }}}
-
+" test
 " vim: foldmethod=marker nofoldenable
