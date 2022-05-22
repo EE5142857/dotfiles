@@ -2,12 +2,11 @@
 @REM Run as administrator.
 
 :main
-    cd /d %~dp0..\..
-
+    cd /d %~dp0
     call clean.bat
-
     mkdir "%APPDATA%\Code\User"
 
+    cd /d %~dp0..\..
     @REM mklink      "%USERPROFILE%\.vimrc"              "%cd%\.vimrc"
     @REM mklink      "%USERPROFILE%\_vimrc"              "%cd%\.vimrc"
     @REM mklink /d   "%USERPROFILE%\.vim"                "%cd%\.vim"

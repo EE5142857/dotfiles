@@ -2,7 +2,6 @@
 
 :main
     cd /d %~dp0
-
     del /q      "%USERPROFILE%\.vimrc"
     del /q      "%USERPROFILE%\_vimrc"
     del /q      "%USERPROFILE%\.viminfo"
