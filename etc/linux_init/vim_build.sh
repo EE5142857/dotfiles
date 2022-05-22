@@ -13,6 +13,6 @@ sudo ./configure                    \
 --prefix=/usr/local                 \
 --with-features=huge                \
 --with-x
-make
+sudo make
 sudo make install
 hash -r
