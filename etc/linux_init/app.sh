@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 cd `dirname $0`
+sudo vim /etc/apt/sources.list -c "%s/# deb-src/deb-src" -c "wq"
 sudo apt -y update
 sudo apt -y upgrade
 
