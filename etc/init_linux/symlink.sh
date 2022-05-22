@@ -1,9 +1,13 @@
 #!/bin/bash
 cd `dirname $0`
-if [-n "$(which wslpath)"]; then
+if [ -n "$(which wslpath)" ]; then
   ln -sd  /mnt/c/work               ~/work
 fi
 ln -sd  ~/dotfiles/.vim           ~/.vim
 ln -s   ~/dotfiles/.vimrc         ~/.vimrc
-ln -sd  ~/dotfiles/.vim           ~/.config/nvim
+CONFDIR=~/.config
+if [ ! -e ${CONFDIR} ]; then
+  mkdir ${CONFDIR}
+fi
+ln -sd  ~/dotfiles/.vim           ${CONFDIR}/nvim
 ln -s   ~/dotfiles/.gitignore     ~/.gitignore

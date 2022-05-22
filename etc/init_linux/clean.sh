@@ -1,6 +1,6 @@
 #!/bin/bash
 cd `dirname $0`
-if [-n "$(which wslpath)"]; then
+if [ -n "$(which wslpath)" ]; then
   unlink ~/work
 fi
 unlink ~/.vim
