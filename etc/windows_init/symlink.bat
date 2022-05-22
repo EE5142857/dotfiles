@@ -4,6 +4,8 @@
 :main
     cd /d %~dp0..\..
 
+    call clean.bat
+
     mkdir "%APPDATA%\Code\User"
 
     @REM mklink      "%USERPROFILE%\.vimrc"              "%cd%\.vimrc"
