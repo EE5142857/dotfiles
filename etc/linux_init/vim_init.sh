@@ -3,7 +3,7 @@ set -euo pipefail
 cd `dirname $0`
 sudo apt -y install ripgrep
 sudo apt -y install zip
-if [ -z "$(which deno)" ]
+if [ -z "$(which deno)" ]; then
   curl -fsSL https://deno.land/install.sh | bash
   echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ~/.profile
   echo "PATH=\"\${DENO_INSTALL}/bin:\${PATH}\"" >> ~/.profile
