@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 cd `dirname $0`
 # sudo vi /etc/apt/sources.list
 # :%s/# deb-src/deb-src
