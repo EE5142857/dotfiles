@@ -10,4 +10,5 @@ bash git.sh
 bash app.sh
 bash vim_init.sh
 bash vim_build.sh
+bash clean.sh
 bash symlink.sh
