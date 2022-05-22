@@ -12,3 +12,4 @@ if [ ! -e ${CONFDIR} ]; then
 fi
 ln -sd ~/dotfiles/.vim ${CONFDIR}/nvim
 ln -s ~/dotfiles/.gitignore ~/.gitignore
+sudo ln -s ~/dotfiles/wsl.conf /etc/wsl.conf

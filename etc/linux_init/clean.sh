@@ -8,3 +8,4 @@ rm -rf ~/.vimrc
 rm -rf ~/.viminfo
 rm -rf ~/.config/nvim
 rm -rf ~/.gitignore
+sudo rm -rf /etc/wsl.conf
