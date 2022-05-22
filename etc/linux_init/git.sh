@@ -1,9 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 cd `dirname $0`
-# Git
-# git config --global user.name foo
-# git config --global user.email foo@bar.com
+git config --global user.name foo
+git config --global user.email foo@bar.com
 git config --global core.autocrlf input
 git config --global core.editor vim
 git config --global core.excludesfile ~/.gitignore
