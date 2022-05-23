@@ -52,7 +52,6 @@ endfunction
 
 " --------------------------------------
 " terminal
-"   NOTE: for Vim
 " {{{
 function! vimrc#split(size) abort
   if a:size > 0
@@ -60,20 +59,35 @@ function! vimrc#split(size) abort
   else
     split
   endif
-  terminal ++curwin
+  if has('nvim')
+    terminal
+  else
+    terminal ++curwin
+  endif
   wincmd p
 endfunction
 
 function! vimrc#vsplit() abort
   vsplit
-  terminal ++curwin
+  if has('nvim')
+    terminal
+  else
+    terminal ++curwin
+  endif
   wincmd p
 endfunction
 
 function! vimrc#send_cmd(cmd) abort
   wincmd p
+  if has('nvim')
+    call feedkeys("i")
+  endif
   call feedkeys(a:cmd . "\<CR>")
-  call feedkeys("\<C-g>p")
+  if has('nvim')
+    call feedkeys("\<Esc>\<C-w>p")
+  else
+    call feedkeys("\<C-g>p")
+  endif
 endfunction
 
 function! vimrc#send_cell() abort
@@ -87,9 +101,16 @@ function! vimrc#send_cell() abort
   execute line_ini . ',' . line_end . 'y'
 
   wincmd p
+  if has('nvim')
+    call feedkeys("i", 'x')
+  endif
   call feedkeys("%paste", 'x')
   sleep 100m
-  call feedkeys("\<CR>\<C-g>p", 'x')
+  if has('nvim')
+    call feedkeys("\<CR>\<Esc>\<C-w>p", 'x')
+  else
+    call feedkeys("\<CR>\<C-g>p", 'x')
+  endif
 endfunction
 " }}}
 
@@ -108,13 +129,6 @@ function! vimrc#highlight() abort
   highlight TabLine           term=NONE cterm=NONE ctermfg=DarkGray ctermbg=Black gui=NONE guifg=DarkGray guibg=Black
   highlight TabLineFill       term=NONE cterm=NONE ctermfg=DarkGray ctermbg=Black gui=NONE guifg=DarkGray guibg=Black
   highlight TabLineSel        term=NONE cterm=NONE ctermfg=Black ctermbg=Gray gui=NONE guifg=Black guibg=Gray
-
-  " error
-  highlight Error             term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
-  highlight ErrorMsg          term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
-
-  " spellbad
-  highlight SpellBad          term=NONE cterm=underline ctermfg=NONE ctermbg=NONE gui=underline guifg=NONE guibg=NONE guisp=NONE
 endfunction
 " }}}
 
@@ -122,6 +136,9 @@ endfunction
 " syntax
 " {{{
 function! vimrc#syntax() abort
+  highlight Error             term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
+  highlight ErrorMsg          term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
+  highlight SpellBad          term=NONE cterm=underline ctermfg=NONE ctermbg=NONE gui=underline guifg=NONE guibg=NONE guisp=NONE
   highlight MyError     term=NONE cterm=NONE ctermfg=Black ctermbg=Red gui=NONE guifg=Black guibg=Red
   highlight MySpecial   term=NONE cterm=NONE ctermfg=Red ctermbg=NONE gui=NONE guifg=Red guibg=NONE
   highlight MyEmphasis  term=NONE cterm=NONE ctermfg=Black ctermbg=DarkYellow gui=NONE guifg=Black guibg=DarkYellow
