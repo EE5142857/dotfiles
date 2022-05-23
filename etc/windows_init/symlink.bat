@@ -3,7 +3,6 @@
 
 :main
     cd /d %~dp0
-    call clean.bat
     mkdir "%APPDATA%\Code\User"
 
     cd /d %~dp0..\..
