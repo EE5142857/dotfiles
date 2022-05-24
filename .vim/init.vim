@@ -263,7 +263,7 @@ if 0
     \ )<CR>
   nnoremap <silent> <Plug>(my-terminal)pr   <Cmd>call vimrc#send_cell()<CR>
   nnoremap <silent> <Plug>(my-terminal)ps   <Cmd>call vimrc#send_cmd("python " . substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g'))<CR>
-  nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("rscript --encoding=utf-8 " . substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g'))<CR>
+  nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>call vimrc#send_cmd("Rscript --encoding=utf-8 " . substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g'))<CR>
   nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>call vimrc#send_cmd("\i " . substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g'))<CR>
 endif
 
