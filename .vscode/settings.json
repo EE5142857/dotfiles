@@ -16,7 +16,5 @@
     "window.restoreWindows": "none",
     "workbench.startupEditor": "none",
 
-    "vim.leader": "<Space>",
     "vim.useSystemClipboard": true,
-    "vim.vimrc.enable": true
 }
