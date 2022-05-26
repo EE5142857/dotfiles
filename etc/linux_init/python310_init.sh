@@ -12,5 +12,5 @@ sudo tar xJf Python-3.10.4.tar.xz
 cd Python-3.10.4
 sudo ./configure
 sudo make
-sudo make install
+sudo make altinstall
 hash -r
