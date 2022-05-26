@@ -15,8 +15,8 @@ sudo apt -y install plantuml
 # mermaid
 sudo apt -y install nodejs
 sudo apt -y install npm
-mkdir ~/npm_user
-cd ~/npm_user
+mkdir ${HOME}/npm_user
+cd ${HOME}/npm_user
 npm init -y
 npm install mermaid.cli
 # ./npm_user/node_modules/.bin/mmdc -h

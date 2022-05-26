@@ -286,6 +286,8 @@ if exists("*dein#call_hook")
 endif
 " }}}
 
+call timer_start(1000, {-> execute('silent! checktime')}, {'repeat': -1})
+
 " --------------------------------------
 " .vim directory layout
 " {{{

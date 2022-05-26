@@ -1,13 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 cd `dirname $0`
-rm -rf ~/work
-rm -rf ~/.cache
-rm -rf ~/.vim
-rm -rf ~/.vimrc
-rm -rf ~/.viminfo
-rm -rf ~/.config/nvim
-rm -rf ~/.gitignore
+unlink ${HOME}/work
+unlink ${HOME}/.vim
+unlink ${HOME}/.vimrc
+unlink ${HOME}/.config/nvim
+unlink ${HOME}/.gitignore
+rm -rf ${HOME}/.cache
+rm -rf ${HOME}/.viminfo
 if [ -n "$(which wslpath)" ]; then
-  sudo rm -rf /etc/wsl.conf
+  sudo unlink /etc/wsl.conf
 fi
