@@ -3,7 +3,6 @@
 #
 [[plugins]]
 repo = 'sainnhe/gruvbox-material'
-# if = 0
 on_event = ['VimEnter']
 hook_post_source = '''
 let g:gruvbox_material_better_performance = 1
@@ -17,7 +16,6 @@ colorscheme gruvbox-material
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 if = "has('nvim')"
-# if = 0
 on_event = ['VimEnter']
 hook_post_update = 'TSUpdate'
 hook_source = '''
@@ -144,7 +142,7 @@ nnoremap <silent> <Plug>(my-terminal)pu   <Cmd>execute 'T'
   \ "java -jar" g:my_plantuml_path fnamemodify(@%, ':p') "-charset UTF-8 -png"<CR>
 nnoremap <silent> <Plug>(my-terminal)pr   <Cmd>call <SID>send_cell()<CR>
 nnoremap <silent> <Plug>(my-terminal)py   <Cmd>execute v:count.'T' "python" substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')<CR>
-nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>execute v:count.'T' "rscript --encoding=utf-8" substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')<CR>
+nnoremap <silent> <Plug>(my-terminal)rs   <Cmd>execute v:count.'T' "Rscript --encoding=utf-8" substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')<CR>
 nnoremap <silent> <Plug>(my-terminal)sq   <Cmd>execute v:count.'T' "\\i" substitute(fnamemodify(@%, ':p'), '\\', '\/', 'g')<CR>
 
 function! s:send_cell() abort
