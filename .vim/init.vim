@@ -178,7 +178,14 @@ augroup END
 " command
 " {{{
 " command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
-command! -nargs=1 C execute 'let @* = @' . <q-args>
+command! -nargs=1 P
+\ if has('unix')
+\|  execute "call system('clip.exe', @" . <q-args> ')'
+\|elseif has('win32') || has('win64')
+\|  execute 'let @* = @' . <q-args>
+\|else
+\|  echo 'failed'
+\|endif
 " }}}
 
 " --------------------------------------
