@@ -13,7 +13,7 @@ bash vim_build.sh
 # bash nvim_init.sh
 # bash nvim_build.sh
 bash python310_init.sh
-bash python3_venv_myenv.sh
+bash python310_venv_myenv.sh
 bash clean.sh
 bash symlink.sh
 echo "Restart to finish installing"
