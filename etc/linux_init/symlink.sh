@@ -7,7 +7,7 @@ if [ -n "$(which wslpath)" ]; then
 fi
 ln -sd ${HOME}/work/dotfiles/.vim ${HOME}/.vim
 ln -s ${HOME}/work/dotfiles/.vimrc ${HOME}/.vimrc
-CONFDIR=${HOME}/.config
+CONFDIR="${HOME}/.config"
 mkdir -p ${CONFDIR}
 ln -sd ${HOME}/work/dotfiles/.vim ${CONFDIR}/nvim
 ln -s ${HOME}/work/dotfiles/.gitignore ${HOME}/.gitignore
