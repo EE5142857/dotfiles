@@ -15,6 +15,7 @@ set ENV_PATH="C:\work\win_venv\myenv"
     pip install -U pip
     pip install wheel
     pip install -r requirements.txt
+    deactivate
 
     echo Done.
     pause
