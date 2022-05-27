@@ -1,6 +1,6 @@
 @echo off
 
-set PYTHON_VERSION=3.9
+set PYTHON_VERSION=3.10
 set ENV_PATH="C:\work\win_venv\myenv"
 
 :main
@@ -11,10 +11,10 @@ set ENV_PATH="C:\work\win_venv\myenv"
     )
 
     call %ENV_PATH%\Scripts\activate.bat
-    pip config --site set global.trusted-host "pypi.org pypi.python.org files.pythonhosted.org"
-    pip install -U pip
-    pip install wheel
-    pip install -r requirements.txt
+    pip3 config --site set global.trusted-host "pypi.org pypi.python.org files.pythonhosted.org"
+    pip3 install -U pip
+    pip3 install wheel
+    pip3 install -r requirements.txt
 
     echo Done.
     pause
