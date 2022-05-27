@@ -11,12 +11,11 @@ set ENV_PATH="C:\work\win_venv\myenv"
         py -%PY_VER% -m venv %ENV_PATH%
     )
 
-    cd %ENV_PATH%
-    call .\Scripts\activate.bat
-    pip config --site set global.trusted-host "pypi.org pypi.python.org files.pythonhosted.org"
-    @REM pip install -U pip
-    pip install wheel
-    pip install -r requirements.txt
+    call %ENV_PATH%\Scripts\activate.bat
+    python -m pip config --site set global.trusted-host "pypi.org pypi.python.org files.pythonhosted.org"
+    python -m pip install -U pip
+    python -m pip install wheel
+    python -m pip install -r ..\linux_init\requirements.txt
     deactivate
 
     echo Done.
