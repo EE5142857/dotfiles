@@ -12,7 +12,7 @@ set ENV_PATH="C:\work\win_venv\myenv"
 
     call %ENV_PATH%\Scripts\activate.bat
     pip config --site set global.trusted-host "pypi.org pypi.python.org files.pythonhosted.org"
-    pip install -U pip
+    pip install -U pip --user
     pip install wheel
     pip install -r requirements.txt
     deactivate
