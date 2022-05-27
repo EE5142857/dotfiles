@@ -9,4 +9,7 @@ export PATH="${DENO_INSTALL}/bin:${PATH}"
 export PATH="/usr/local/neovim/bin:${PATH}"
 
 # .bash_aliases
-alias jupyter-lab='jupyter-lab --NotebookApp.use_redirect_file=False'
+alias myenv='. ~/work/venv/myenv/bin/activate'
+alias jupyter-lab='jupyter-lab \
+--ServerApp.use_redirect_file=False \
+--FileCheckpoints.checkpoint_dir=~/my_ipynb_checkpoints'
