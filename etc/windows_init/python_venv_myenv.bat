@@ -16,7 +16,7 @@ set ENV_PATH="C:\work\win_venv\myenv"
     python -m pip install -U pip
     python -m pip install wheel
     python -m pip install -r ..\linux_init\requirements.txt
-    deactivate
+    @REM deactivate
 
     echo Done.
     pause
