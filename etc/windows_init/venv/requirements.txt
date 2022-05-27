@@ -1,9 +1,0 @@
-ipykernel
-jupyterlab
-jupytext
-matplotlib
-numpy
-pandas
-pip-review
-pynvim
-scikit-learn
