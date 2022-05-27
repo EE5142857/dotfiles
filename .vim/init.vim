@@ -298,7 +298,8 @@ if exists("*dein#call_hook")
 endif
 " }}}
 
-call timer_start(1000, {-> execute('silent! checktime')}, {'repeat': -1})
+let auto_reload = timer_start(1000, {-> execute('silent! checktime')}, {'repeat': -1})
+" call timer_stop(auto_reload)
 
 " --------------------------------------
 " .vim directory layout
