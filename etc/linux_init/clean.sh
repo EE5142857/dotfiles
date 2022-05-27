@@ -9,6 +9,7 @@ rm -rf ${HOME}/.gitignore
 rm -rf ${HOME}/.my_bashrc
 rm -rf ${HOME}/.cache
 rm -rf ${HOME}/.viminfo
+rm -rf ${HOME}/jupytext.yml
 if [ -n "$(which wslpath)" ]; then
   sudo rm -rf /etc/wsl.conf
 fi
