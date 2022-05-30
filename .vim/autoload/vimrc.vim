@@ -271,7 +271,7 @@ function! vimrc#add_path(l_path) abort
         call insert(l:l_path, l:item)
       endif
     endfor
-    let $PATH = join(l:l_path, ";")
+    let $PATH = join(l:l_path, ":")
   " endif
 endfunction
 " }}}
