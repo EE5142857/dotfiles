@@ -6,8 +6,8 @@ bash git.sh
 bash app.sh
 bash vim_init.sh
 bash vim_build.sh
-bash nvim_init.sh
-bash nvim_build.sh
+# bash nvim_init.sh
+# bash nvim_build.sh
 bash python310_init.sh
 bash python310_venv_myenv.sh
 bash clean.sh

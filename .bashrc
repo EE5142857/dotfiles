@@ -6,7 +6,7 @@
 # .profile
 export DENO_INSTALL="${HOME}/.deno"
 export PATH="${DENO_INSTALL}/bin:${PATH}"
-export PATH="/usr/local/neovim/bin:${PATH}"
+# export PATH="/usr/local/bin/nvim:${PATH}"
 
 # .bash_aliases
 alias myenv='. ~/work/venv/myenv/bin/activate'
