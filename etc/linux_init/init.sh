@@ -11,9 +11,9 @@ bash vim_build.sh
 # bash nvim_build.sh
 bash python310_init.sh
 bash python_venv_myenv.sh
-bash anaconda_init.sh
 bash postgresql_init.sh
 bash r_init.sh
+bash anaconda_init.sh
 bash code_init.sh
 bash clean.sh
 bash symlink.sh
