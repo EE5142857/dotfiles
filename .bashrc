@@ -12,5 +12,5 @@ export PATH="${DENO_INSTALL}/bin:${PATH}"
 alias pyvm='. ~/work/venv/myenv/bin/activate'
 alias jl='jupyter-lab \
 --ServerApp.use_redirect_file=False \
---ServerApp.open_browser=True \
+--ServerApp.open_browser=False \
 --FileCheckpoints.checkpoint_dir=~/my_ipynb_checkpoints'
