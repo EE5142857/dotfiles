@@ -1,25 +1,4 @@
 # --------------------------------------
-# colorscheme
-#
-[[plugins]]
-repo = 'tomasiser/vim-code-dark'
-if = 0
-on_event = ['VimEnter']
-hook_source = '''
-set t_Co=256
-set t_ut=
-colorscheme codedark
-'''
-
-[[plugins]]
-repo = 'jacoborus/tender.vim'
-if = 0
-on_event = ['VimEnter']
-hook_source = '''
-colorscheme tender
-'''
-
-# --------------------------------------
 # highlight
 #
 [[plugins]]
