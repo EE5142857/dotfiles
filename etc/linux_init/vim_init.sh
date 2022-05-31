@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 # sudo apt -y install zip
 if [ -z "$(which deno)" ]; then
@@ -10,5 +10,5 @@ fi
 # sudo apt -y update
 sudo apt -y build-dep vim
 sudo apt -y install build-essential python3-dev
-cd /usr/local/src
+cd /usr/local/src || exit
 sudo git clone --depth 1 https://github.com/vim/vim.git

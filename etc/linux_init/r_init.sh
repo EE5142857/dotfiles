@@ -1,10 +1,10 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 sudo apt -y update -qq
 # install two helper packages we need
-sudo apt install -y --no-install-recommends software-properties-common dirmngr
+sudo apt -y install --no-install-recommends software-properties-common dirmngr
 # add the signing key (by Michael Rutter) for these repos
 # To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 # Fingerprint: E298A3A825C0D65DFD57CBB651716619E084DAB9

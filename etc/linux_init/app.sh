@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 sudo vim /etc/apt/sources.list -c "%s/# deb-src/deb-src" -c "wq"
 sudo apt -y update
@@ -20,7 +20,7 @@ sudo apt -y install plantuml
 sudo apt -y install nodejs
 sudo apt -y install npm
 mkdir "${HOME}"/npm_user
-cd "${HOME}"/npm_user
+cd "${HOME}"/npm_user || exit
 npm init -y
 npm install mermaid.cli
 # ./npm_user/node_modules/.bin/mmdc -h

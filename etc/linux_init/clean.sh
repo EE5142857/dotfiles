@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 rm -rf "${HOME}"/.cache
 rm -rf "${HOME}"/.config/nvim

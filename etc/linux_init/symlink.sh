@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 if [ -n "$(which wslpath)" ]; then
   sudo ln -s /mnt/c/work/dotfiles/wsl.conf /etc/wsl.conf

@@ -15,7 +15,7 @@ set ENV_PATH="C:\work\win_venv\myenv"
     python -m pip config --site set global.trusted-host "pypi.org pypi.python.org files.pythonhosted.org"
     python -m pip install -U pip
     python -m pip install wheel
-    python -m pip install -r ..\linux_init\requirements.txt
+    python -m pip install -r ..\linux_init\python_venv_myenv.txt
     @REM deactivate
 
     echo Done.

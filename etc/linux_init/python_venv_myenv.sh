@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
 PY_VER=3.10
 ENV_PATH="${HOME}/work/venv/myenv"

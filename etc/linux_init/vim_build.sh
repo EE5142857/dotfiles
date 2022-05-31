@@ -1,10 +1,10 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 
-cd /usr/local/src/vim
+cd /usr/local/src/vim || exit
 sudo git pull
-cd ./src
+cd ./src || exit
 sudo make uninstall
 sudo make distclean
 sudo ./configure                    \

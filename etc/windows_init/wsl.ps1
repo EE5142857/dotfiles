@@ -1,4 +1,2 @@
-wsl --install -d Ubuntu
-# wsl --unregister Ubuntu
+# wsl --install
 # wsl.exe --shutdown
-pause

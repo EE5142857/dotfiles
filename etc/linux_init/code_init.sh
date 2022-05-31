@@ -1,9 +1,12 @@
 #!/bin/bash
-set -euo pipefail
-cd "$(dirname "$0")"
+# set -euo pipefail
+cd "$(dirname "$0")" || exit
 
-while read line
+lines="$(cat code_extension.txt | wc -l)"
+for i in $(seq 1 "${lines}")
 do
-  code --install-extension "${line}"
-  sleep 1
-done < code_extension.txt
+  extension="$(sed -n "${i}"p code_extension.txt)"
+  echo "Installing ${i}"/"${lines}"
+  code --install-extension "${extension}"
+  echo ""
+done
