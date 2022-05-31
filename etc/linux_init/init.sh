@@ -17,4 +17,7 @@ bash anaconda_init.sh
 bash code_init.sh
 bash clean.sh
 bash symlink.sh
+echo "if [ -f ~/.my_bashrc ]; then" >> ~/.bashrc
+echo "  . ~/.my_bashrc" >> ~/.bashrc
+echo "fi" >> ~/.bashrc
 echo "Restart to finish installing"
