@@ -16,5 +16,6 @@ git config --global merge.conflictstyle diff3
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
 git config --global mergetool.vimdiff.path vim
-git config --global user.email foo@bar.com
-git config --global user.name foo
+git config --global push.default current
+# git config --global user.email foo@bar.com
+# git config --global user.name foo
