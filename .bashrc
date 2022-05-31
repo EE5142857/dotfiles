@@ -1,3 +1,4 @@
+#!/bin/bash
 # .bashrc
 # if [ -f ~/.my_bashrc ]; then
 #   . ~/.my_bashrc
@@ -10,7 +11,6 @@ export PATH="${DENO_INSTALL}/bin:${PATH}"
 
 # .bash_aliases
 alias pyvm='. ~/work/venv/myenv/bin/activate'
-alias jl='jupyter-lab \
---no-browser \
+alias jl='jupyter-lab --no-browser \
 --ServerApp.use_redirect_file=False \
 --FileCheckpoints.checkpoint_dir=~/my_ipynb_checkpoints'

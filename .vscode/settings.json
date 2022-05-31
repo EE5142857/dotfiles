@@ -2,6 +2,9 @@
     "[markdown]":  {
         "editor.quickSuggestions": true
     },
+    "[shellscript]": {
+        "editor.tabSize": 2,
+    },
     "breadcrumbs.enabled": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.fontFamily": "'MyricaM M', monospace",
