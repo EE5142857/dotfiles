@@ -4,10 +4,14 @@
 #   . ~/.my_bashrc
 # fi
 
-# .profile
+# PATH
 export DENO_INSTALL="${HOME}/.deno"
 export PATH="${DENO_INSTALL}/bin:${PATH}"
 # export PATH="/usr/local/bin/nvim:${PATH}"
+
+# editor
+export EDITOR=vim
+set -o vi
 
 # .bash_aliases
 alias pyvm='. ~/work/venv/myenv/bin/activate'
