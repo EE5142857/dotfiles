@@ -144,7 +144,7 @@ augroup MyAutocmd
     \|endif
   autocmd FileType *
     \ call vimrc#ft_common()
-  autocmd FileType css,mermaid,plantuml,sh,toml,vim
+  autocmd FileType css,mermaid,plantuml,sh,toml,vim,yaml
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType markdown
     \ highlight link markdownError Normal
@@ -170,7 +170,7 @@ augroup MyAutocmd
 
   " yank
   if has('unix')
-    autocmd TextYankPost * :call system('clip.exe', @")
+    autocmd TextYankPost * call system('clip.exe', @")
   endif
 
   " local.vim
