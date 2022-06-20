@@ -5,7 +5,7 @@
     cd /d %~dp0
 
     @REM code --list-extensions
-    for /f %%i in (../linux_init/code_extension.txt) do (
+    for /f %%i in (code_extension.txt) do (
         call :code_install_extension "%%i"
     )
 
