@@ -9,7 +9,6 @@ if [ -n "$(which wslpath)" ]; then
   ln -s /mnt/c/work/dotfiles/.gitignore "${HOME}"/.gitignore
   ln -s /mnt/c/work/dotfiles/.vim "${HOME}"/.vim
   ln -s /mnt/c/work/dotfiles/.vimrc "${HOME}"/.vimrc
-  ln -s /mnt/c/work/dotfiles/jupytext.yml "${HOME}"/jupytext.yml
   # CONFDIR="${HOME}"/.config
   # mkdir -p "${CONFDIR}"
   # ln -s /mnt/c/work/dotfiles/.vim "${CONFDIR}"/nvim

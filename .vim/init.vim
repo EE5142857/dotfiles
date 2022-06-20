@@ -18,7 +18,7 @@ if 0
   let g:loaded_netrwPlugin = 1
 else
   let g:netrw_banner = 0
-  let g:netrw_browse_split = 0
+  " let g:netrw_browse_split = 0
   let g:netrw_dirhistmax = 1
   let g:netrw_hide = 0
   let g:netrw_home = '~/.vim'
@@ -144,7 +144,7 @@ augroup MyAutocmd
     \|endif
   autocmd FileType *
     \ call vimrc#ft_common()
-  autocmd FileType css,mermaid,plantuml,sh,toml,vim
+  autocmd FileType css,mermaid,plantuml,sh,toml,vim,yaml
     \ setlocal shiftwidth=2 softtabstop=2 tabstop=2
   autocmd FileType markdown
     \ highlight link markdownError Normal
@@ -170,7 +170,7 @@ augroup MyAutocmd
 
   " yank
   if has('unix')
-    autocmd TextYankPost * :call system('clip.exe', @")
+    autocmd TextYankPost * call system('clip.exe', @")
   endif
 
   " local.vim
@@ -255,7 +255,7 @@ nnoremap <silent> <Plug>(my-edit)t    <Cmd>%s/\s\+$//e<CR>
 
 nnoremap <Plug>(my-filer) <Nop>
 nmap <Leader>f <Plug>(my-filer)
-nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/work/prj/p/bookmark.md<CR>
+nnoremap <silent> <Plug>(my-filer)b   <Cmd>edit ~/work/git/note/md/bookmark.md<CR>
 nnoremap <silent> <Plug>(my-filer)t   <Cmd>15Lexplore<CR>
 
 nnoremap <Plug>(my-terminal) <Nop>
