@@ -3,7 +3,7 @@
 #
 [[plugins]]
 repo = 'sainnhe/gruvbox-material'
-if = 0
+if = 1
 on_event = ['VimEnter']
 hook_post_source = '''
 let g:gruvbox_material_better_performance = 1
