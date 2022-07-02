@@ -19,6 +19,7 @@
     "extensions.ignoreRecommendations": true,
     "files.autoGuessEncoding": true,
     "http.proxyStrictSSL": false,
+    "python.defaultInterpreterPath": "C:\\work\\win_venv\\myenv\\Scripts\\python.exe",
     "security.workspace.trust.untrustedFiles": "open",
     "window.restoreWindows": "none",
     "workbench.startupEditor": "none",

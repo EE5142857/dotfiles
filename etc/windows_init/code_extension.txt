@@ -1,7 +1,13 @@
 foxundermoon.shell-format
 mads-hartmann.bash-ide-vscode
 mechatroner.rainbow-csv
+ms-python.python
+ms-python.vscode-pylance
+ms-toolsai.jupyter
+ms-toolsai.jupyter-keymap
+ms-toolsai.jupyter-renderers
 oderwat.indent-rainbow
+shd101wyy.markdown-preview-enhanced
 streetsidesoftware.code-spell-checker
 timonwong.shellcheck
 vscodevim.vim
