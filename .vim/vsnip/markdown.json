@@ -23,12 +23,6 @@
             "\\end{aligned}"
         ]
     },
-    "block": {
-        "prefix": "block",
-        "body": [
-            "\$\$$0\$\$"
-        ]
-    },
     "bold": {
         "prefix": "bold",
         "body": [
@@ -39,12 +33,6 @@
         "prefix": "frac",
         "body": [
             "\\dfrac{$0}{}"
-        ]
-    },
-    "inline": {
-        "prefix": "inline",
-        "body": [
-            "\$$0\$"
         ]
     },
     "bmatrix": {
