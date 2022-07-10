@@ -26,7 +26,7 @@
     "block": {
         "prefix": "block",
         "body": [
-            "$$$0$$"
+            "\$\$$0\$\$"
         ]
     },
     "bold": {
@@ -44,7 +44,7 @@
     "inline": {
         "prefix": "inline",
         "body": [
-            "$$0$"
+            "\$$0\$"
         ]
     },
     "bmatrix": {
